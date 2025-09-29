@@ -1,0 +1,220 @@
+{
+  "main": {
+    "id": "7d98850d0c30fa74",
+    "type": "split",
+    "children": [
+      {
+        "id": "6dddc0c6e98292c5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f5758e4d98f86877",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "year1/comp0002/20-09-25-L/Intro.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Intro"
+            }
+          },
+          {
+            "id": "e3d2727982d44a25",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "year1/comp0002/20-09-25-L/Intro.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Intro"
+            }
+          }
+        ],
+        "currentTab": 1
+      },
+      {
+        "id": "640e77e653d1960c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9cf90cb9b4aa088a",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "7c6bda3fd346aef1",
+    "type": "split",
+    "children": [
+      {
+        "id": "f1a38d14698ed525",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e0fd9fdf62cb6fa7",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "daa8d9b5fbd1ec70",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "24623d7b380e6f2b",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "cae3684ef07e0f70",
+    "type": "split",
+    "children": [
+      {
+        "id": "80e7571de07f85c4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f4583fbf399707ff",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "year1/comp0002/20-09-25-L/Intro.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Intro"
+            }
+          },
+          {
+            "id": "3a276c8f48d16d6d",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "year1/comp0002/20-09-25-L/Intro.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Intro"
+            }
+          },
+          {
+            "id": "f4c23347e704fd64",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "3cd436ae1dec2bcc",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "year1/comp0002/20-09-25-L/Intro.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Intro"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "e0fd9fdf62cb6fa7",
+  "lastOpenFiles": [
+    "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents/Resources/Relocations/aarch64/helloworld.yml",
+    "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents/Resources/Relocations/aarch64",
+    "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents/Resources/DWARF/helloworld",
+    "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents/Resources/Relocations",
+    "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents/Resources/DWARF",
+    "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents/Resources",
+    "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents/Info.plist",
+    "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents",
+    "year1/comp0002/20-09-25-L/helloworld.dSYM",
+    "year1/comp0002/20-09-25-L/helloworld",
+    "year1/comp0002/20-09-25-L/helloworld.c",
+    "year1/comp0002/20-09-25-L/The Compiler.md",
+    "year1/comp0002/20-09-25-L/Intro.md",
+    "Welcome.md"
+  ]
+}
