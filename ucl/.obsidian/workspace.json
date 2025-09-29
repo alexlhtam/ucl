@@ -200,8 +200,10 @@
       "bases:Create new base": false
     }
   },
-  "active": "e3d2727982d44a25",
+  "active": "e0fd9fdf62cb6fa7",
   "lastOpenFiles": [
+    "year1/comp0002/20-09-25-L/a.out",
+    "year1/comp0002/20-09-25-L/helloworld",
     "year1/comp0002/20-09-25-L/Intro.md",
     "year1/comp0002/20-09-25-L/The-Compiler.md",
     "year1/comp0002/20-09-25-L/GCC-options.md",
@@ -215,7 +217,6 @@
     "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents/Info.plist",
     "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents",
     "year1/comp0002/20-09-25-L/helloworld.dSYM",
-    "year1/comp0002/20-09-25-L/helloworld",
     "Welcome.md"
   ]
 }
