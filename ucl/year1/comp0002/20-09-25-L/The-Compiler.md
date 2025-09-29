@@ -2,7 +2,7 @@
 - knows and checks all the **syntax rules** but only some of the *semantics*
 - the compiler is itself a program
 	- most C compilers are written in C (or C++)
-- comp0002 uses GCC
+- comp0002 uses GCC (see [[GCC-options]])
 	- gcc.gnu.org
 	- the gnu compiler collection
 	- open source software
