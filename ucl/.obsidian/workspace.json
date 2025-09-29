@@ -125,7 +125,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "year1/comp0002/20-09-25-L/Intro.md",
+                "file": "year1/comp0002/20-09-25-L/GCC-options.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -135,7 +135,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Intro"
+              "title": "Backlinks for GCC-options"
             }
           },
           {
@@ -144,12 +144,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "year1/comp0002/20-09-25-L/Intro.md",
+                "file": "year1/comp0002/20-09-25-L/GCC-options.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Intro"
+              "title": "Outgoing links from GCC-options"
             }
           },
           {
@@ -173,13 +173,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "year1/comp0002/20-09-25-L/Intro.md",
+                "file": "year1/comp0002/20-09-25-L/GCC-options.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Intro"
+              "title": "Outline of GCC-options"
             }
           }
         ]
@@ -202,6 +202,10 @@
   },
   "active": "e0fd9fdf62cb6fa7",
   "lastOpenFiles": [
+    "year1/comp0002/20-09-25-L/Intro.md",
+    "Untitled.canvas",
+    "year1/comp0002/20-09-25-L/GCC-options.md",
+    "year1/comp0002/20-09-25-L/The-Compiler.md",
     "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents/Resources/Relocations/aarch64/helloworld.yml",
     "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents/Resources/Relocations/aarch64",
     "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents/Resources/DWARF/helloworld",
@@ -212,9 +216,6 @@
     "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents",
     "year1/comp0002/20-09-25-L/helloworld.dSYM",
     "year1/comp0002/20-09-25-L/helloworld",
-    "year1/comp0002/20-09-25-L/helloworld.c",
-    "year1/comp0002/20-09-25-L/The Compiler.md",
-    "year1/comp0002/20-09-25-L/Intro.md",
     "Welcome.md"
   ]
 }

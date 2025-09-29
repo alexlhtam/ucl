@@ -1,3 +1,7 @@
 {
-  "promptDelete": false
+  "promptDelete": false,
+  "showUnsupportedFiles": true,
+  "userIgnoreFilters": [
+    "(.*\\.dSYM$|^[^.]*$|.*\\.(o|obj|exe|out|app)$)"
+  ]
 }

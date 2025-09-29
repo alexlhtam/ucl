@@ -1,6 +1,17 @@
 # Compiled binaries (executables without extensions)
+# Common executable names
 helloworld
 **/helloworld
+main
+**/main
+test
+**/test
+a.out
+**/a.out
+
+# Pattern for any file that might be a compiled binary
+# (files with no extension in directories containing .c files)
+**/*.c.out
 
 # Debug symbols
 *.dSYM/
@@ -34,9 +45,18 @@ helloworld
 *.exe
 *.out
 *.app
+*.bin
 
 # Debug files
 *.pdb
+
+# Core dumps
+core
+core.*
+
+# Assembly files (generated)
+*.s
+*.asm
 
 # OS generated files
 .DS_Store

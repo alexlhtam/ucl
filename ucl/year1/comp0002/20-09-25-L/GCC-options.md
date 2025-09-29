@@ -1,0 +1,5 @@
+- command line flags/options allow gcc behaviour to be modified
+- gcc -o hello helloworld.c -- name of executable
+- gcc -Wall helloworld.c -- display all warnings, always do this
+- gcc --c helloworld.c -- generate .o file but not the executable
+- gcc -S helloworld.c -- output assembly code
