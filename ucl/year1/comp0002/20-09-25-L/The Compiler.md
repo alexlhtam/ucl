@@ -1,0 +1,23 @@
+- does the source code to processor instruction translation (machine language)
+- knows and checks all the **syntax rules** but only some of the *semantics*
+- the compiler is itself a program
+	- most C compilers are written in C (or C++)
+- comp0002 uses GCC
+	- gcc.gnu.org
+	- the gnu compiler collection
+	- open source software
+- or clang for MacOS
+	- clang.livm.org
+	- also open source
+	- on MacOS, gcc is aliased to clang
+# Compiler Process
+- phases:
+	- tokenisation
+	- parsing and grammar checking
+	- type checking
+	- code generation
+- if anything is wrong, you see error messages
+- the generated code is *machine code*
+	- specific to processor
+- the example is complied with:
+	- gcc example.c
