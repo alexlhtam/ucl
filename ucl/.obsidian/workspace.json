@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "year1/comp0002/20-09-25-L/The-Compiler.md",
+                "file": "year1/comp0147/30-09-25-L/Untitled.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "The-Compiler"
+              "title": "Untitled"
             }
           }
         ],
@@ -200,12 +200,16 @@
       "bases:Create new base": false
     }
   },
-  "active": "e0fd9fdf62cb6fa7",
+  "active": "e3d2727982d44a25",
   "lastOpenFiles": [
+    "Untitled.md",
+    "year1/comp0147/30-09-25-L/Untitled.md",
+    "year1/comp0147/30-09-25-L",
+    "year1/comp0147",
+    "year1/comp0002/20-09-25-L/The-Compiler.md",
     "year1/comp0002/20-09-25-L/a.out",
     "year1/comp0002/20-09-25-L/helloworld",
     "year1/comp0002/20-09-25-L/Intro.md",
-    "year1/comp0002/20-09-25-L/The-Compiler.md",
     "year1/comp0002/20-09-25-L/GCC-options.md",
     "Untitled.canvas",
     "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents/Resources/Relocations/aarch64/helloworld.yml",
@@ -214,9 +218,6 @@
     "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents/Resources/Relocations",
     "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents/Resources/DWARF",
     "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents/Resources",
-    "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents/Info.plist",
-    "year1/comp0002/20-09-25-L/helloworld.dSYM/Contents",
-    "year1/comp0002/20-09-25-L/helloworld.dSYM",
     "Welcome.md"
   ]
 }
