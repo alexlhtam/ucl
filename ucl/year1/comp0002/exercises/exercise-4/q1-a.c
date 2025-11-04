@@ -13,6 +13,6 @@ void draw_background() {
     setColour(green);
 
     // draw circle
-    int x_coords[] = 
+    int x_coords[5];
 }
 
