@@ -75,10 +75,28 @@ length :: [a] -> Int
 
 # classes 
 - a collection of types that support certain operations, called the `methods` of the class
-## haskell basic classes
-
-### Eq
-- equality types
-### Ord
-- ordered types
 - 
+## haskell basic classes
+| Basic Class | Stuff |
+| :---: | :---: |
+| Eq | equality types |
+| Ord | ordered types |
+| Show | showable types |
+| Read | readable types |
+| Num | numeric types |
+
+## example methods
+```hs
+(==) :: Eq a => a-> a -> Bool
+(<) :: Ord a => a -> a -> Bool
+show :: Show a => a -> String
+read :: Read a -> String -> a
+(*) :: NUm a => a -> a -> a 
+```
+
+# Static Types
+- haskell is statically typed
+- data types are defined during compile time and cannot change during runtime
+- this constraint enables static type checking
+- dynamic typing allows variables to change their data type during runtime
+  - e.g. Python, Javascript
