@@ -207,8 +207,8 @@ equivalence classes and partitions are two sides of the same coin
 <br>
 > a set $S$ coupled with a partial order $R$ is called a `partially ordered set`, or poset 
 - examples of posets:
-  1. $\R, \leq$: the set of real numbers with the relation $\leq$
-  2. $\Z^+, \vert$: the set of positive integers with the relation "divides"
+  1. $\mathbb{R}, \leq$: the set of real numbers with the relation $\leq$
+  2. $\mathbb{Z}^+, \vert$: the set of positive integers with the relation "divides"
 <br>
 > two elements $a$ and $b$ of a poset $(S, \preceq)$ are `comparable` if either $ a \preceq b$ or $b \preceq a$
 - otherwise, they are incomparable
