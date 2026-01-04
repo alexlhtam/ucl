@@ -115,3 +115,7 @@ f xs = foldr (+) 0 (map sqr (filter pos xs))
     sqr x = x * x
     pos x = x > 0 
 ```
+
+## `foldr1`
+- like `foldr`, but does not require a "stopper value" or base case
+- takes the last item in the list
