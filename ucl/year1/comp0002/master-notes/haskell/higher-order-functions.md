@@ -33,6 +33,16 @@ can be defined using list comprehension:
 ```hs
 filter p xs = [x | x <- xs, p x]
 ```
+
+example: returning only positive integers in a list
+```hs
+posList :: [Int] -> [Int]
+posList = filter (>0)
+-- really, it is posList xs = filter (>0) xs
+```
+- because of partial application, we can omit the last arg on both sides of the equal sign
+  - this works because functions in Haskell are curried
+
 or using recursion:
 ```hs
 filter p [] = []
