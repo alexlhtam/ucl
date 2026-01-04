@@ -17,12 +17,17 @@ isTripleAny x y z = isTriple x y z ||
 halfEvens :: [Int] -> [Int]
 halfEvens xs = [if x `mod` 2 == 1 then x else x `div` 2 | x <- xs ]
 
+inRange :: Int -> Int -> [Int] -> [Int]
+inRange start end xs = [x | x <- xs, x >= start, x <= end]
+
 countPositives :: [Int] -> Int
 countPositives xs = length [x | x <- xs, x > 0]
 
 capitalised :: String -> String
 capitalised [] = []
 capitalised (x:xs) = toUpper x : [toLower c | c <- xs]
+
+
 
 lowercase :: String -> String
 lowercase xs = [toLower x | x <- xs]
