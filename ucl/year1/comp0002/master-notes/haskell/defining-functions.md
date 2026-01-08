@@ -12,7 +12,7 @@ not :: Bool -> Bool
 not False = True
 not True = False
 ```
-- functions can often be defined in manmy different ways using pattern matching
+- functions can often be defined in many different ways using pattern matching
 ```hs
 (&&) :: Bool -> Bool -> Bool
 True && True = True
@@ -64,7 +64,7 @@ safeTail :: [a] -> [a]
 -- using a conditional expression
 safeTail xs = if null xs then [] else tail xs
 
--- using guared equations
+-- using guard equations
 safeTail xs | null xs = []
             | otherwise = tail xs
 
