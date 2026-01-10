@@ -78,10 +78,10 @@ GHCi> z !! 3
 GHCi> [1..10]
 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-GHCi> ["m".."q"] -- should be `m`
+GHCi> ['m'..'q']
 "mnopq"
 
-GHCi> ["A".."J"] -- should be `A`
+GHCi> ['A'..'J']
 "ABCDEFGHIJ"
 ```
 
