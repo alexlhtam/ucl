@@ -1,0 +1,51 @@
+# --- macOS System Files ---
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# --- IntelliJ IDEA ---
+# This ignores the specific project settings folder we discussed
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# --- VS Code ---
+.vscode/
+
+# --- Java ---
+*.class
+*.log
+*.ctxt
+*.jar
+*.war
+
+# --- C / C++ ---
+# Object files
+*.o
+*.obj
+# Debug symbols (common on macOS)
+*.dSYM/
+# Default executable output
+a.out
+*.exe
+
+# --- Haskell ---
+# GHC compilation artifacts (very common clutter)
+*.hi
+*.o
+*.chi
+*.chs.h
+.stack-work/
+dist/
+dist-newstyle/
+cabal.project.local
+
+# --- General Notes/Temp ---
+# Ignore temporary files or PDF exports if you don't want them tracked
+*.swp
+*~
+*.tmp
+# *.pdf
