@@ -10,7 +10,8 @@
 
 int main(void) {
 
-    for (int i = 1; i <= 10; i++) {
+    int i = 1;
+    while (i <= 10) {
         printf("%d * 13 = %d\n", i, i * 13);
     }
 
