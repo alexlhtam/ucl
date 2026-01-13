@@ -9,7 +9,7 @@ int main(void) {
 
     do {
 
-        printf("%d * 13 = %d", i, i * 13);
+        printf("%d * 13 = %d\n", i, i * 13);
         i++;
 
     } while (i <= 10);
