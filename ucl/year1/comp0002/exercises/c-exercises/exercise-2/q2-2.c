@@ -1,3 +1,5 @@
+# include <stdio.h>
+
 /**
  *  Repeat Q2.1 using a for loop.
  */
