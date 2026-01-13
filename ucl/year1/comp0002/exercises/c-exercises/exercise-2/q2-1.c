@@ -13,6 +13,7 @@ int main(void) {
     int i = 1;
     while (i <= 10) {
         printf("%d * 13 = %d\n", i, i * 13);
+        i++;
     }
 
     return 0;
