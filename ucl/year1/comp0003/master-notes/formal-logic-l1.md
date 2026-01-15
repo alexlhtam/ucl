@@ -83,3 +83,40 @@ $$
   - $Y \subseteq Z$ (premise)
   - $\text{Socrates} \in Y$ (premise)
   - therefore, $\text{Socrates} \in Z$ (conclusion)
+
+# Russel's paradox
+- consider the set of all sets that do not contain themselves:
+  $$ R = \set {X \vert X \notin X} $$
+- if $R \in R$ then $R \notin R$, and if $R \notin R$ then $R \in R$:
+  - this is Russel's paradox, showing naive set theory to be inconsistent
+
+# Hilbert's programme
+- Hilbert's Programme (1920) aimed to find a logical system for all of mathematics which was 
+  1. provably consistent (no contradiction is provable);
+  2. complete (every true statement is provable)
+
+# Godel's incompleteness theorem
+- godel's famous incompleteness theorem showed that any logical statement that can describe arithmetic over $\N$ must either be:
+  - incomplete (some statements are not provable), or else
+  - inconsistent (a contradiction is provable)
+- this rendered Hilbert's programme unachievable
+
+# Alan Turing
+- theoretical Turing machines (1936) were essentially stored-program computers with infinite memory and a very simple set of instructions
+- Turing machines can describe all known computation
+- all other notions fo computability have turned out to be equivalent to "computable by Turing machine"
+
+## undecidability of the halting problem
+- Halting problem:  given a program $P$ and an input $I$, decide whether $P$ halts when run on $I$
+- Turing showed that using logic, this problem is undecidable
+- there is no general algorithm for deciding whether programs terminate on a given input
+
+# Hoare triples
+- proposed (1969) a logic for reasoning about the correctness of computer programs, based on Hoare triples
+$$ \set {A} C \set{B} $$
+where $C$ is a program and $A$, $B$ are logical formulas describing the memory state (e.g. "$x = 1 \land y < 2$")
+
+## Hoare logic for verification
+- $\set{A} C \set{B}$ means that if the program $C$ is run in a memory state satisfying $A$ then, if it terminates, it final memory state satisfies $B$
+- we can use this to construct a logical proof that a program has a particular property: this is called program verification
+- recent advances have made it possible to do this for very large programs
