@@ -1,24 +1,27 @@
-// write a program to determine if an integer of type long entered via the keyboard is a palindrome
+// Write a program to determine if an integer of type long entered via the keyboard is a
+// palindrome (i.e., represents the same value when the digits are reversed, for example 123454321).
 
-#include <stdio.h>
+# include <stdio.h>
 
+int check_pdrm(long num) {
+    long reversed = 0;
+    long original = num;
 
-int check_palindrome(long num) {
-    if (num < 0) return 0;
+    while (num > 0) {
+        reversed = (reversed * 10) + num % 10;
+        num = num / 10;
+    }
 
-    if (num == 0) return 1;
-
-    int digits = (int)log10(num) + 1; // (int) truncates towards zero, even for -ve vals
-    long left_div = (long)pow(10, digits-1); // divisor for left most digit
-    long right_div = 1; // for rightmost digit 
-
-
+    return reversed == original;
 }
 
 int main(void) {
+    long input;
 
+    printf("Enter your long integer: ");
+    scanf("%ld", &input);
 
+    printf("%ld %s\n", input, check_pdrm(input) ? "is a palindrome": "is not a palindrome");
 
     return 0;
 }
-
