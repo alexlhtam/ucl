@@ -29,6 +29,16 @@
 - result: guarantees the tree remain flat, the depth of any node is at most $\log N$
 
 # analysis of algorithms
+
+## observations
+- system independent factors
+  - algorithm
+  - input data
+- system dependent factors
+  - hardware (CPU, memory, cache,...)
+  - software (programming language, compiler,...)
+  - system (operating system, other apps)
+
 - explains how to scientifically predict the performance of code and compare different algorithms
 
 ## mathematical models
