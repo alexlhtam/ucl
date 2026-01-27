@@ -79,7 +79,7 @@ P & Q & R & \neg Q \implies R & P \implies(\neg Q \implies R) \\
 \end{array}
 $$
 DNF: 
-$(\not P \land \neg Q \land \neg R) \lor (P \land \neg Q \land R) \lor (P \land Q \land \neg R) \lor (P \land Q \land R)$
+$(\neg P \land \neg Q \land \neg R) \lor (P \land \neg Q \land R) \lor (P \land Q \land \neg R) \lor (P \land Q \land R)$
 
 # construct DNF using logical equivalences
 - remove $\iff$:
