@@ -66,3 +66,5 @@ $$ \begin{align*}
 - $A$ is valid in $M$, written $M \models A$, if $M \models_\rho A$ for all possible valuations $\rho$ for $M$
 - $A$ is valid, written $\models A$, if it s valid in all structures
 - A formula $A$ is satisfiable in (structure) $M$ if there is a valuation $\rho$ such that $M \models_\rho A$
+- $A$ is satisfiable if it is satisfiable in some structure
+- fact: $A$ is valid (in $M$) iff $\neg A$ is unsatisfiable (in $M$). And $A$ is satisfiable (in $M$) iff $\neg A$ is invalid (in $M$).
