@@ -1,40 +1,37 @@
-// write a program to input the length of the sides of a triangle
-// and prints the area and length of the triangle
-
-// if the input values do not represent a triangle then display an 
-// error message instead
+// Write a program to input the length of the sides of a triangle, and prints the area and length of
+// the perimeter of the triangle. If the input values do not represent a triangle then display an error
+// message instead.
 
 # include <stdio.h>
 # include <math.h>
 
-
-double calculate_semiperimeter(double a, double b, double c) {
-    return (a + b + c) / 2;
+double calc_sp(double a, double b, double c) {
+    return 0.5 * (a + b + c);
 }
 
-double calculate_area(double a, double b, double c, double s) {
-    return sqrt(s * (s-a) * (s-b) * (s-c));
+double calc_a(double a, double b, double c, double s) {
+    return sqrt(s * (s - a) * (s - b) * (s - c));
 }
 
-int check_valid_triangle(double a, double b, double c) {
-    if (a + b > c && a + c > b && b + c > a) {
-        return 1;
-    } else {
-        return 0;
-    }
+int verify_tri(double a, double b, double c) {
+    return (a + b > c) && (a + c > b) && (b + c > a);
 }
 
 int main(void) {
     double a, b, c;
-
-    printf("Enter the lengths of the sides of the triangle: ");
+    
+    printf("Enter 3 sides of a triangle: ");
     scanf("%lf %lf %lf", &a, &b, &c);
 
-    if (check_valid_triangle(a, b, c)) {
-        double semiperimeter = calculate_semiperimeter(a, b, c);
-        printf("Area: %f\n", calculate_area(a, b, c, semiperimeter));
+    if (!verify_tri(a, b, c)) {
+        printf("Invalid triangle\n");
     } else {
-        printf("Triangle lengths provided are geometrically invalid.");
+        double sp = calc_sp(a, b, c);
+        double p = sp * 2;
+        double area = calc_a(a, b, c, sp);
+
+        printf("Perimeter: %lf\n", p);
+        printf("Area: %lf\n", area);
     }
 
     return 0;
