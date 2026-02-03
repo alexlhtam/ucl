@@ -54,6 +54,32 @@ public class Shape {
 - declaring an abstract method forces the class to be declared abstract
 ```java
 public abstract class Shape {
-
+// ...
 }
 ```
+- an abstract class can have no instances
+- provides "shared via inheritance" instance variables/methods
+
+# superclass references
+- LHS type is different from RHS type, but the types are related by inheritance
+
+# dynamic method binding
+- `binding` is the term used for the process of mapping a method call to a method body that can be evaluated
+- dynamic binding means that the method body is determined at runtime by looking at the class of the object the method is called for at runtime
+  - the same variable can reference objects of different subclasses as the program runs
+
+# instance method
+- always dynamically bound
+- look at the class of the object a method is called for
+  - if it provides a method body, call it
+  - otherwise work up superclass chain until a method body is found
+
+# static binding
+- static methods
+- method boyd to be called is always uniquely determined
+- can be determined when program is compiling
+
+# remove duplication
+- a superclass holds common variable and method declarations
+- code does not have to be duplicated in subclasses
+- implementation inheritance
