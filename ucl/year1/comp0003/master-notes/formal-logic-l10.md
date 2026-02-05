@@ -137,3 +137,28 @@ $$
   &= \text{Br}(x, t_1, t_2) && \text{by (IH)}
 \end{align*}
 $$
+
+## tree induction example (2)
+### lemma
+$\forall t \in \text{Tree. size(refl(}t)) = \text{size}(t) $
+
+### proof
+by structural induction on trees $t$
+
+base case: require to prove $\text{size(refl(}Lf)) = \text{size}(Lf)$. Done by $(9)$
+
+inductive hypothesis: $\text{size(refl(}t_1)) = \text{size}(t_1)$ and $\text{size(refl(}t_2)) = \text{size}(t_2)$
+
+step case: let $x$ be given. we have to show:
+$$
+\text{size(refl(Br(}x, t_1, t_2))) = \text{size(Br(}x, t_1, t_2))
+$$
+
+$$\begin{align*}
+&\text{size(refl(Br(}x, t_1, t_2))) \\
+= \quad&\text{size(Br(}x, \text{refl}(t_2), \text{refl}(t_1))) && \text{by (10)} \\
+= \quad & 1 + \text{size(refl(}t_2)) + \text{size(refl}(t_1)) && \text{by (8)} \\
+= \quad & 1 + \text{size}(t_2) + \text{size}(t_1) && \text{by (IH)} \\
+= \quad &\text{size(Br(}x, t_1, t_2)) && \text{by (8)}
+\end{align*}$$
+this completes the step case, and the proof $\square$
