@@ -40,3 +40,30 @@ $$\begin{align*}
 where $k \geq 0$, each $Q_i$ is either $\forall$ or $\exists$, and $A$ is a quantifier-free formula
 - in other words, all the quantifiers are on the outside of the formula
 - fact: every formula can be converted into an equivalent prenex formula
+
+# conversion to prenex
+1. eliminate implication and bi-implication
+$$\begin{align*}
+A \leftrightarrow B &\equiv (A \implies B) \land (B \implies A) \\
+A \rightarrow B &\equiv \neg A \lor B
+\end{align*} 
+$$
+2. push negations inwards (using De Morgan's Laws)
+   $$
+    \neg \forall x A \equiv \exists x \neg A \\
+    \neg \exists x A \equiv \forall x \neg A
+   $$
+3. rename clashing variables (rename bound variables where the same variables is quantified multiple times with different scopes)
+   $$
+    \forall x A \equiv \forall z(A[z/x]) \\
+    \exists x A \equiv \exists z(A[z/x])
+   $$
+4. move quantifiers to the front:
+  $$
+    \begin{align*} 
+      \forall x (A \land B) &\equiv (\forall x A) \land (\forall x B) \\
+      \exists x (A \lor B) &\equiv (\exists x A) \lor (\exists x B) \\
+      \forall x (A \lor B) &\equiv (\forall x A) \lor B \qquad &\text{if } x \text{ does not occur free in } B \\
+      \exists x (A \lor B) &\equiv (\exists x A) \lor B \qquad &\text{if } x \text{ does not occur free in } B
+    \end{align*}
+  $$
