@@ -1,4 +1,4 @@
-package year1.comp0004.exercises.exercise3;
+package year1.comp0004.exercises.exercise3.q1;
 
 import java.util.ArrayList;
 
