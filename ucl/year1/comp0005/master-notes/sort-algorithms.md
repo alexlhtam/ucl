@@ -128,3 +128,110 @@ sort(a[], aux[], lo, hi):
 - a sorting algorithm is said to be stable if two items with equal keys appear in the same order in the sorted output as they appear in the input array
   - stable sorts: insertion and merge
   - non-stable sorts: selection
+
+# quick sort
+## key idea
+- shuffle the array `a[]`
+- partition `a[]` so that, for some `j`
+  - entry `a[j]` is in place
+  - `a[i] <= a[j]` for any `i<j`
+  - `a[i] >= a[j]` for any `i>j`
+- sort each partition recursively
+## partitioning step
+- pivot (partitioning) element: `a[lo]`
+- repeat until `i` and `j` cross
+  - scan `i` from left to right so long as `a[i] < a[lo]`
+  - scan `j` from right to left as long as `a[j] > a[lo]`
+  - swap `a[i]` and `a[j]`
+- swap `a[lo]` with `a[j]`
+- pseudocode:
+  ```java
+  partition(a[], lo, hi):
+    i = lo;
+    j = hi + 1;
+    p = a[lo];
+    while (true) {
+      while (a[++i] < p) {
+        if (i == hi) break;
+      } // find item on left to swap
+      while (p < a[--j]) {
+        if (j == lo) break;
+      } // find item on right to swap
+      if (i >= j) break; // check if indexes have crossed
+      swap (a[i], a[j]); // swap
+    }
+    swap(a[lo], a[j]); // put pivot element in place
+    return j; // return index of pivot
+  ```
+  - pseudocode - recursive call:
+  ```java
+  sort(a[], lo, hi):
+    if (hi <= lo) return;
+
+    j = partition(a, lo, hi);
+
+    sort(a, lo, j-1);
+    sort(a, j+1, hi);
+  ```
+  ```java
+  randomShuffle(a);
+  sort(a, 0, a.length-1);
+  ```
+## analysis
+  - average-case: number of compares $\sim N \log N$
+  - worst-case: number of compares $N + (N-1) + (N-2) + \dots + 1 = \sim 1/2 N^2$
+
+## practical improvements 
+- use insertion sort on small sub-arrays (< 10 items)
+- best choice pivot = median value
+  - estimate tru median by taking median of sample (e.g. median of 3 random items)
+
+## quick sort vs merge sort
+- some properties
+  - quick sort is an in-place algorithm
+  - quick sort is not stable
+  - quick sort running time on duplicate keys could be quadratic
+    - MUST: during partitioning, stop scan on items equal to pivot
+    - SHOULD: during partitioning, pull all items equal to pivot in-place
+
+# HeapSort
+
+## queue v priority queue
+set-up:
+- challenge: find the largest $M$ items in a stream of $N$ items
+- constraint: not enough memory to store all $N$ items
+
+## binary heap data structure
+- binary tree: data structure where each node has at most 2 children
+- complete binary tree: binary tree where each ;level is completely filled, except possibly for bottom level where all nodes are far left as possible
+- property: the height of a complete binary tree with $N$ nodes is lower bound $\log N$. height only increases when $N$ is a power of $2$
+- a complete binary tree can be represented by an array (no explicit links needed)
+  - indices start at 1
+  - store nodes in level order
+  - property: can use array indices to move through tree
+    - parent of node `i` is at `a[1/2]`
+    - children of node `i` are at `a[2i]` and `a[2i+1]`
+- binary heap is a complete binary tree where:
+  - priorities (keys) are stored in the nodes
+  - a parent's key is `>=` than its children keys
+  - the highest priority (largest key) is at `a[1]` the root of the tree
+    - priorities (keys) are stored in the nodes
+    - a parent's key is `>=` than its children keys
+    - the highest priority (largest key) is at `a[1]` (the root of the tree)
+  - binary heaps enable a very efficient implementation of the Priority Queue ADT
+    - insertion: `enqueue(item, priority)`
+    - max deletion: `dequeue()`
+  - insertion in a heap
+    - add the new node at the end
+    - swim it up: if child's key $>$ parents' key, swap & repeat until the heap order is restored
+    - cost: at most $(1 + \log N)$ comparisons
+  - max deletion from heap
+    - swap the root with the node at the end
+    - remove the last node
+    - sink the root down
+
+## heap sort key idea
+- key idea
+  - create a max-heap ordered array with all $N$ keys
+  - repeatedly remove the maximum key remaining 
+  - both in place
