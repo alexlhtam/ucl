@@ -2,8 +2,6 @@
 # Common executable names
 helloworld
 **/helloworld
-main
-**/main
 test
 **/test
 a.out
