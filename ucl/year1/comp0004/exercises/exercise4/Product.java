@@ -1,4 +1,4 @@
-public class Product
+public abstract class Product
 {
   private int code;
   private int price;
