@@ -55,4 +55,4 @@ By construction, $w \not \in \rho(P)$, so $M, w \not \models_\rho P$. But we do 
 Combining the previous two results, we have
 ## lemma
 $M \models \Box A \to A \iff M \text{ is reflexive}$
-- so there is no difference between $(a)$ restricting frames to be reflexive and $(b)$ taking \Box A \to A$ to be an axiom of modal logic: either forces the other.
+- so there is no difference between $(a)$ restricting frames to be reflexive and $(b)$ taking $\Box A \to A$ to be an axiom of modal logic: either forces the other.
