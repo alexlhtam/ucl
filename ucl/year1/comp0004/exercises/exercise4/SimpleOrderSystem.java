@@ -84,11 +84,13 @@ public class SimpleOrderSystem
     String lastName = in.nextLine();
     System.out.println("Enter address:");
     String address = in.nextLine();
+    System.out.println("Enter postcode:");
+    String postcode = in.nextLine();
     System.out.println("Enter phone number:");
     String phone = in.nextLine();
     System.out.println("Enter email address:");
     String email = in.nextLine();
-    Customer customer = new Customer(firstName,lastName,address,phone,email);
+    Customer customer = new Customer(firstName,lastName,address, postcode, phone, email);
     customers.add(customer);
   }
 
@@ -225,6 +227,7 @@ public class SimpleOrderSystem
                                   + ", "
                                   + customer.getFirstName());
       System.out.println("Address: " + customer.getAddress());
+      System.out.println("Postcode: " + customer.getPostcode());
       System.out.println("Phone: " + customer.getPhone());
       System.out.println("Email: " + customer.getEmail());
       System.out.println("Orders made: " + customer.getOrders().size());
@@ -243,6 +246,37 @@ public class SimpleOrderSystem
   public static void main(String[] args)
   {
     SimpleOrderSystem orderSystem = new SimpleOrderSystem();
-    orderSystem.run();
+
+    // --- Test data for overallTotal() ---
+    Product p1 = new Product(1, "Widget", 500);
+    Product p2 = new Product(2, "Gadget", 1200);
+    orderSystem.products.add(p1);
+    orderSystem.products.add(p2);
+
+    Customer c1 = new Customer("Alice", "Smith", "123 Main St", "x1", "0123456789", "alice@example.com");
+    Customer c2 = new Customer("Bob", "Jones", "456 High St", "x3", "0987654321", "bob@example.com");
+    orderSystem.customers.add(c1);
+    orderSystem.customers.add(c2);
+
+    // Alice gets 2 orders
+    Order o1 = new Order();
+    o1.add(new LineItem(3, p1));  // 3 x 500 = 1500
+    c1.addOrder(o1);
+
+    Order o2 = new Order();
+    o2.add(new LineItem(1, p2));  // 1 x 1200 = 1200
+    c1.addOrder(o2);
+
+    // Bob gets 1 order
+    Order o3 = new Order();
+    o3.add(new LineItem(2, p1));  // 2 x 500 = 1000
+    o3.add(new LineItem(1, p2));  // 1 x 1200 = 1200
+    c2.addOrder(o3);
+
+    int total = orderSystem.overallTotal();
+    System.out.println("Overall total (expected 3): " + total);
+
+    // Uncomment to run the interactive menu:
+    // orderSystem.run();
   }
 }
