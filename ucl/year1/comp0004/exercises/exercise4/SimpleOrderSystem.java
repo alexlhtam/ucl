@@ -247,36 +247,36 @@ public class SimpleOrderSystem
   {
     SimpleOrderSystem orderSystem = new SimpleOrderSystem();
 
-    // --- Test data for overallTotal() ---
-    Product p1 = new Product(1, "Widget", 500);
-    Product p2 = new Product(2, "Gadget", 1200);
-    orderSystem.products.add(p1);
-    orderSystem.products.add(p2);
+    // // --- Test data for overallTotal() ---
+    // Product p1 = new Product(1, "Widget", 500);
+    // Product p2 = new Product(2, "Gadget", 1200);
+    // orderSystem.products.add(p1);
+    // orderSystem.products.add(p2);
 
-    Customer c1 = new Customer("Alice", "Smith", "123 Main St", "x1", "0123456789", "alice@example.com");
-    Customer c2 = new Customer("Bob", "Jones", "456 High St", "x3", "0987654321", "bob@example.com");
-    orderSystem.customers.add(c1);
-    orderSystem.customers.add(c2);
+    // Customer c1 = new Customer("Alice", "Smith", "123 Main St", "x1", "0123456789", "alice@example.com");
+    // Customer c2 = new Customer("Bob", "Jones", "456 High St", "x3", "0987654321", "bob@example.com");
+    // orderSystem.customers.add(c1);
+    // orderSystem.customers.add(c2);
 
-    // Alice gets 2 orders
-    Order o1 = new Order();
-    o1.add(new LineItem(3, p1));  // 3 x 500 = 1500
-    c1.addOrder(o1);
+    // // Alice gets 2 orders
+    // Order o1 = new Order();
+    // o1.add(new LineItem(3, p1));  // 3 x 500 = 1500
+    // c1.addOrder(o1);
 
-    Order o2 = new Order();
-    o2.add(new LineItem(1, p2));  // 1 x 1200 = 1200
-    c1.addOrder(o2);
+    // Order o2 = new Order();
+    // o2.add(new LineItem(1, p2));  // 1 x 1200 = 1200
+    // c1.addOrder(o2);
 
-    // Bob gets 1 order
-    Order o3 = new Order();
-    o3.add(new LineItem(2, p1));  // 2 x 500 = 1000
-    o3.add(new LineItem(1, p2));  // 1 x 1200 = 1200
-    c2.addOrder(o3);
+    // // Bob gets 1 order
+    // Order o3 = new Order();
+    // o3.add(new LineItem(2, p1));  // 2 x 500 = 1000
+    // o3.add(new LineItem(1, p2));  // 1 x 1200 = 1200
+    // c2.addOrder(o3);
 
-    int total = orderSystem.overallTotal();
-    System.out.println("Overall total (expected 3): " + total);
+    // int total = orderSystem.overallTotal();
+    // System.out.println("Overall total (expected 3): " + total);
 
     // Uncomment to run the interactive menu:
-    // orderSystem.run();
+    orderSystem.run();
   }
 }
