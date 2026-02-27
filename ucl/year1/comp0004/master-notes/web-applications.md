@@ -65,3 +65,54 @@
     - has methods to provide information for building the HTTP response
     - collects the output, e.g., html, via a `PrintWriter`
     - numerous utility methods
+
+# war files
+- war == Web Archive
+  - actually a `.zip` format file
+- a web app is packaged into a war file for deployment
+- war file is loaded into the application directory of the web server
+- the web server unpacks the file
+  - files/dirs put into place
+- initialises the application
+- then ready to go
+
+# Java server pages
+- we do not want servlets generating html directly
+- instead, the servlet should delegate to another class to create the web page
+  - a version of the MVC design pattern
+  - model == java classes, view == JSP, controller == servlet
+- a Java Server Page looks like an html file with Java code embedded within
+  - can also use JSP tags or libraries like Thymeleaf to avoid Java code
+  - tags are implemented in Java so there is still Java code, just not visible
+- JSPs are actually servlets, with the Java code generated from the JSP source by the JSP compiler
+- they use standard HTML for most of the webpage content
+- special tags, not part of HTML, markup embedded Java code
+- there are tag libraries of JSP tags that are implemented in Java
+
+# scripting elements
+- expressions: <%=expression=>
+- scriplets:<%code%>
+  - Java code that is inserted into the generated serlet's `_jspService` method as is, and compiled.
+  - must be valid Java code with semicolons etc.
+- declarations: <%!code%>
+  - Java code that is inserted into the servlet body outside of any methods (e.g. instance variable)
+
+# variables accessible in a JSP
+- `request` - the`HttpServletRequest`
+- `response` - the `HttpServletResponse`
+- `out` - a `JspWriter`, wrapper for a `PrintStream` with methods like `print`, `println`, which all throw `IOExceptions` if an error occurs
+- `session` - the `HttpSession` object accessible to servlets
+- `application` - the `ServletContext`, which can be used for sharing data
+
+# Java import statements in JSP
+- as the JSP is converted to a Java servlet, there must be import statements for `List` and other libraries
+- this is done by adding directives at the top of the JSP before the `<html>` tag
+  - `<%@ page import="java.util.List"%>`
+- add of these for each class/interface needed in a JSP page
+
+# headers, footers, and shared content
+- you typically want your web pages to have a common layout:
+  - header section, with title, logo, navigation bar, etc.
+  - footer, with info about the site, contact info, copyright, etc.
+  - shared CSS files
+- avoid duplication and copy and paste content
