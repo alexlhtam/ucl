@@ -61,7 +61,7 @@
 - regular expressions can express the regular languages.
 
 # limits of DFAs/regular languages
-- pumping lemma
+## pumping lemma
 - theorem:
   - all regular languages $A$ have a length $p$ (pumping length). Any string $s$ in the language longer than this length can be broken into an $s = xyz$ that fulfills the following 3 properties:
     1. $xy^iz \in A$ for any $i \geq 0$ (middle section can be pumped)
