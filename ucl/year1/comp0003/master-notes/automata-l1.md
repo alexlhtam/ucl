@@ -43,7 +43,7 @@
 - specific type: deterministic finite automata (DFA)
 
 ## finite automata: example
-![alt text](image.png)
+![alt text](resources/image.png)
 - starting state, accepting state, transitions
 - take in any string of input, one character at a time
 - at the end, if you're in an accepting state, this is a string the DFA "likes", if not, it's a string the DFA doesn't like

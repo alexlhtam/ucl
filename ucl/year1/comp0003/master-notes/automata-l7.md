@@ -3,12 +3,12 @@ more specifically:
 # Nondeterministic pushdown automata
 - like an NFA, except with a stack
 - stack has infinite storage
-![](pushdown-automata-1.png)
+![](resources/pushdown-automata-1.png)
 
 # PDA example
 - build a PDA recognising the language $L = \set{0^n1^n | n \geq 0}$
 - solution: push a special character indicating the bottom of the stack
-![](pda-solution-1.png) 
+![](resources/pda-solution-1.png) 
 
 # Pushdown automata: formal definition
 A non-deterministic PDA $M$ is a 6-tuple $(Q, 
@@ -17,13 +17,13 @@ $Q, \Sigma, q_0, F$: no change
 $\Gamma$ is the stack alphabet (can be different from the input stream alphabet)
 $ \delta: Q \times \Sigma_\epsilon \times \Gamma_\epsilon \to \mathcal{P}(Q \times \Gamma_\epsilon)$ is a transition function
 - $\delta(q_i, a, \#) = \set{(q_j, \$)}$
-![](al7-hash.png)
+![](resources/al7-hash.png)
 - $\delta(q_i, a, \epsilon) = \set{(q_j, \$)}$ (push only)
-![](al7-ep.png)
+![](resources/al7-ep.png)
 - $\delta(q_i, a, \#) = \set{(q_j, \epsilon)}$ (pop only)
-![](al7-ep-pop.png)
+![](resources/al7-ep-pop.png)
 - $\delta(q_i, a, \#) = \set{(q_j, \$), (q_k, a)}$
-![](al7-mult-states.png)
+![](resources/al7-mult-states.png)
 can end in multiple states after same input character and top of stack
 
 # non-deterministic computation
@@ -37,7 +37,7 @@ PDA $M = (Q, \Sigma, \Gamma, \delta, q_0, F)$ accepts ipnut string $w = w_1 w_2 
 ---
 
 # acceptance example
-![](al7-acc-ex1.png)
+![](resources/al7-acc-ex1.png)
 - trace string $w = "0011"$
 
 ## transitions
