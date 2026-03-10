@@ -1,79 +1,122 @@
 # introduction
-- why complex numbers?
-  - algebraic argument: some equations must have solutions but have no solutions among real numbers
-  - practical argument: complex numbers make our lives easier in many areas, such as trigonometry, physics, engineering, etc.
-- foundation of complex numbers:
-$$ i = \sqrt{-1}$$
-- a complex number can be written as:
-$$ z = x + iy \qquad x, y \in \R$$
-- $x$ is the real part, $y$ is the imaginary part, both $x$, $y$ are both real numbers
-- the set of all complex numbers is denoted by $C$
-- real numbers are included in complex numbers
+- intuition: complex numbers extend $\mathbb R$ so equations like $x^2+1=0$ have solutions.
+- formal unit:
+$$
+i^2=-1
+$$
+- standard form:
+$$
+z=x+iy,\qquad x,y\in\mathbb R
+$$
+- $x=\Re(z)$, $y=\Im(z)$, and the set is $\mathbb C$
 
 # basic complex arithmetic
-- add up the real parts and imaginary parts separately
-- multiply the real parts and imaginary parts separately
+- add/subtract parts separately
+- multiply then use $i^2=-1$
 
 ## conjugate of a complex number
-$$ \overline{x+iy} = x - iy$$
-- remark: $z \times \overline z = (x + iy) \times (x-iy) = x^2 + y^2$
+$$
+\overline{x+iy}=x-iy
+$$
+- key identity:
+$$
+z\overline z=x^2+y^2=|z|^2
+$$
 
-- division: use the conjugate of the denominator and simplify
+- division: multiply top and bottom by conjugate of denominator
 
 # geometric representation
-- a complex number is represented by a point in the 2D plane
-- cartesian coordinates or polar coordinates
-- $R$ is called absolute value/modulus, $\theta$ is the argument
-$$ \begin{align*}
-z = x &+ iy: \\
-x &= R \times \cos{(\theta)} \\
-y &= R\times \sin{(\theta)} \\
-|z| &= R = \sqrt{x^2 + y^2} \\
-\theta &= \arg(z)
-\end{align*}
-$$ 
+- intuition: $z$ is a point/vector in the plane.
+- polar form:
+$$
+z=R(\cos\theta+i\sin\theta)=Re^{i\theta}
+$$
+$$
+R=|z|=\sqrt{x^2+y^2},\qquad \theta=\arg(z)
+$$
 
 
 ## exponential form
-- a new notation:
-$$ z = R \times e^{i\theta} \\
-R, \theta \in \R; R \geq 0$$
-- two complex numbers whose arguments differ by $2 \pi$ are considered equal
-- multiplication of complex numbers is easier in exponential form
+- intuition: exponential form makes multiplication/division easy.
+$$
+z=Re^{i\theta},\qquad R\ge 0,\ \theta\in\mathbb R
+$$
+- arguments are modulo $2\pi$
+- rules:
+$$
+R_1e^{i\theta_1}\cdot R_2e^{i\theta_2}=(R_1R_2)e^{i(\theta_1+\theta_2)}
+$$
+$$
+\frac{R_1e^{i\theta_1}}{R_2e^{i\theta_2}}=\frac{R_1}{R_2}e^{i(\theta_1-\theta_2)}
+$$
 
-$$\begin{align*}
-(1 \times e^{i \frac{\pi}{6}}) \times (2 \times e^{-i\frac{\pi}{4}}) &= 2 \times e^{i\frac{\pi}{6} + (-i\frac{\pi}{4})} \\ &= 2 \times e^{i(\frac{\pi}{6}-\frac{\pi}{4})}
-\end{align*}
+- triangle inequality:
 $$
-- multiply the moduli and add up the arguments
-- divide the moduli and subtract the arguments
-<br>
-- the absolute value (or modulus) verifies the following:
+|z_1+z_2|\le |z_1|+|z_2|
 $$
-\text{triangular equality} \\
-|z_1 + z_2| \leq |z_1|+|z_2|
-$$
-<br>
-- visualising complex operations geometrically
-- multiplication:
-- $z_1 \times z_2 = (R_1 \times R_2)e^{i(\theta_1 + \theta_2)}$ 
-  - "rotation" by adding the arguments, multiplication of moduli
+- geometric view of multiplication: scale by moduli, rotate by sum of arguments
 
 # roots of unity
-- let $n \in \N$: how to find all complex numbers $z$ such that $z^n = 1$?
-- simple case: $n = 2$
-  -  there are 2 complex numbers $z$ such that $z^2 = 1$: $1, -1$
-- simple case: $n = 3$
-  - $z^3 = 1: 1, e^{i\frac{2\pi}{3}}, e^{i\frac{4\pi}{3}}$
-  - $(e^{i\frac{2\pi}{3}})^3 = (e^{i\times2\pi}) = 1$
-- in general: assume that $z$ is a solution, we write it as $z = R \times e^{i\theta}$
-$$ z^n = (R\times e^{i\theta})^n = R^n \times e ^{i \times n \times \theta} = 1$$
-  - this complex inequality implies equalities for:
-    - the absolute value of $z$
-$$ |z^n| = |1| \implies R^n = 1 \implies R = 1$$
-    - the argument of $z$
-$$ \arg(z^n) = \arg(1) = 0[2\pi] \implies n\theta = 0 + 2k\pi, k \in \N \implies \theta = \frac{2k\pi}{n}$$
-  - need to consider the argument up to increments of $2\pi$
-- to summarise:
-$$ z^n = 1 \implies z = e^{ik\frac{2\pi}{n}}, k \in \N \\ e^{i\frac{2k\pi}{n}} = e^{i\frac{2k\pi}{n}+2\pi} = e^{i\frac{2(k+n)\pi}{n}}$$
-  - we can consider only the first $n$ values of $k$, there are exactly $n$ distinct solutions, which we denote by $\omega_1, \dots, \omega_n$, with $\omega_n$ always $=1$
+- problem: solve $z^n=1$ for $n\in\mathbb N$
+- write $z=Re^{i\theta}$:
+$$
+z^n=R^ne^{in\theta}=1
+$$
+- so $R=1$ and $n\theta=2k\pi$, hence
+$$
+z_k=e^{i\frac{2k\pi}{n}},\qquad k=0,1,\dots,n-1
+$$
+- exactly $n$ distinct roots (equally spaced on unit circle)
+
+## worked exam questions
+
+### basic arithmetic
+- question: compute $(2+3i)(1-4i)$.
+- formula used:
+$$
+i^2=-1
+$$
+- working:
+$$
+(2+3i)(1-4i)=2-8i+3i-12i^2=2-5i+12=14-5i
+$$
+
+### conjugate and division
+- question: simplify $\frac{3+2i}{1-i}$.
+- formula used:
+$$
+\frac{z}{w}=\frac{z\overline w}{w\overline w}
+$$
+- working:
+$$
+\frac{3+2i}{1-i}\cdot\frac{1+i}{1+i}
+=\frac{(3+2i)(1+i)}{1+1}
+=\frac{1+5i}{2}
+=\frac12+\frac52 i
+$$
+
+### modulus/argument form
+- question: write $z=-1+i\sqrt3$ in polar/exponential form.
+- formula used:
+$$
+z=Re^{i\theta},\quad R=|z|,\ \theta=\arg(z)
+$$
+- working:
+$$
+R=\sqrt{(-1)^2+(\sqrt3)^2}=2,\quad \theta=\frac{2\pi}{3}
+$$
+- result:
+$$
+z=2\!\left(\cos\frac{2\pi}{3}+i\sin\frac{2\pi}{3}\right)=2e^{i\frac{2\pi}{3}}
+$$
+
+### roots of unity
+- question: find all roots of $z^4=1$.
+- formula used:
+$$
+z_k=e^{i\frac{2k\pi}{n}},\ k=0,\dots,n-1
+$$
+- working with $n=4$:
+$$
+z_0=1,\ z_1=i,\ z_2=-1,\ z_3=-i
+$$

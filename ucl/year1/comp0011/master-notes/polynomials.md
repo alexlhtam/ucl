@@ -88,3 +88,71 @@ $$
 r_1+r_2=-\frac{b}{a},\qquad r_1r_2=\frac{c}{a}
 $$
 - if constant term is $0$, then $0$ is a root (so $X$ is a factor)
+
+## worked exam questions
+
+### euclidean division
+- question: divide $A(X)=2X^3+3X^2-X+5$ by $B(X)=X-1$.
+- formula used:
+$$
+A=QB+R,\qquad \deg(R)<1 \Rightarrow R \text{ is constant}
+$$
+- working (synthetic division at $1$): coefficients $2,3,-1,5$
+  - bring down $2$
+  - $2\cdot 1=2$, add to $3$ gives $5$
+  - $5\cdot 1=5$, add to $-1$ gives $4$
+  - $4\cdot 1=4$, add to $5$ gives $9$
+- result:
+$$
+Q(X)=2X^2+5X+4,\qquad R=9
+$$
+
+### roots and factors
+- question: factor $P(X)=X^3-6X^2+11X-6$ over $\mathbb R$.
+- formula used:
+$$
+a \text{ root } \iff (X-a)\text{ factor}
+$$
+- working:
+$$
+P(1)=1-6+11-6=0 \Rightarrow (X-1)\text{ factor}
+$$
+divide by $(X-1)$:
+$$
+P(X)=(X-1)(X^2-5X+6)
+$$
+then
+$$
+X^2-5X+6=(X-2)(X-3)
+$$
+- result:
+$$
+P(X)=(X-1)(X-2)(X-3)
+$$
+
+### quadratics and discriminant
+- question: solve $2X^2-5X-3=0$.
+- formula used:
+$$
+\Delta=b^2-4ac,\qquad x=\frac{-b\pm\sqrt\Delta}{2a}
+$$
+- working:
+$$
+a=2,\ b=-5,\ c=-3,\quad \Delta=25+24=49
+$$
+$$
+x=\frac{5\pm 7}{4}\Rightarrow x_1=3,\ x_2=-\frac12
+$$
+- factorisation:
+$$
+2X^2-5X-3=2(X-3)\left(X+\frac12\right)=(2X+1)(X-3)
+$$
+
+### degree n picture / FTA
+- question: state number of complex roots of $P(X)=X^5-1$.
+- formula used (FTA):
+$$
+\deg(P)=n \Rightarrow \text{exactly } n \text{ complex roots counting multiplicity}
+$$
+- working: $\deg(P)=5$.
+- result: $P$ has exactly $5$ complex roots (here all simple).
