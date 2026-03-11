@@ -8,12 +8,12 @@
 # example: $\epsilon$ transitions
 $\Sigma= \set{a, b}$
 create a finite automaton that accepts strings that optionally start with "$baba$" followed by an even number of $b$'s
-![alt text](nfa-example-1.png)
+![alt text](resources/nfa-example-1.png)
 
 # example: substring
 $\Sigma = \set{A, \dots, Z, a, \dots, z, 0, \dots, 9}$
 create a finite automaton that accepts any string containing "hello" as a substring.
-![alt text](nfa-example-2.png)
+![alt text](resources/nfa-example-2.png)
 not a valid DFA (multiple "h" transitions from $q_0$)
 don't need backtracking
 
@@ -31,7 +31,7 @@ An NFA $M$ is a 5-tuple $(Q, \Sigma, \delta, q_0, F)$, where:
 
 # NFA transition function
 - NFAs can transition to any number of states when reading an input character.
-![alt text](nfa-transition-function.png)
+![alt text](resources/nfa-transition-function.png)
 
 # NFA operation (acceptance)
 ## definition
@@ -53,9 +53,9 @@ NFA $N = (Q, \Sigma, \delta, q_0, F)$ accepts input string $w = w_1 w_2 \dots w_
 - similar to union proof in automata lecture 2.
 - instead of tracking a pair of states, we track which combination of states in our NFA $N$ we might currently be in
 - whenever we read in new input, we update that set of states accordingly.
-![alt text](nfa-example-1.png)
+![alt text](resources/nfa-example-1.png)
 - at the beginning, having read in NO input, we could either be in state $q_0$ or $q_4$
-![alt text](q0-q4-init-state.png)
+![alt text](resources/q0-q4-init-state.png)
 - after reading a $b$, we could in $q_1$ or $q_5$
 - after reading in an $a$, we are in no state (trash)
 - from $q_{\set{1, 5}}$, after reading $b$, we could be in $q_4$; after reading an $a$, we could be in $q_2$; reading any $a$'s will land us in $q_\emptyset$

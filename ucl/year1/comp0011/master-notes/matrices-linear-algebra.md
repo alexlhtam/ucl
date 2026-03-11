@@ -1,82 +1,133 @@
-# COMP0011: Matrices & Linear Algebra Notes
+# matrices and linear algebra
 
-## I. Introduction to Matrices
-A matrix is a mathematical tool used to represent **linear maps** (transformations) between vector spaces.
+## matrices as linear maps
+- intuition: matrices are coordinate representations of linear maps.
+- matrix-vector product in $\mathbb R^2$:
+$$
+\begin{bmatrix}a&b\\c&d\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}
+=\begin{bmatrix}ax+by\\cx+dy\end{bmatrix}
+$$
+- examples:
+  - symmetry $(x,y)\mapsto(-x,y)$ has matrix $\begin{bmatrix}-1&0\\0&1\end{bmatrix}$
+  - projection $(x,y)\mapsto(0,y)$ has matrix $\begin{bmatrix}0&0\\0&1\end{bmatrix}$
 
-### 1.1 Matrix-Vector Multiplication
-For a $2 \times 2$ matrix multiplying a vector in $\mathbb{R}^2$:
-$$\begin{bmatrix} a & b \\ c & d \end{bmatrix} \times \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} ax + by \\ cx + dy \end{bmatrix}$$
+## building a matrix of a map
+- for linear $f:W\to V$ with $\dim(W)=n$, $\dim(V)=m$, matrix is $m\times n$
+- each column = image of a basis vector of $W$, written in basis of $V$
+- kernel/image are preserved: $\ker(M)=\ker(f)$ and $\text{Im}(M)=\text{Im}(f)$
 
-*   **Example (Vertical Symmetry):** $f\begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} -x \\ y \end{pmatrix}$ is represented by $M = \begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix}$.
-*   **Example (Projection on $y$-axis):** $p_2\begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 0 \\ y \end{pmatrix}$ is represented by $M = \begin{bmatrix} 0 & 0 \\ 0 & 1 \end{bmatrix}$.
+## matrix operations
+- transpose: $(M^T)_{ij}=m_{ji}$
+- addition and scalar multiplication are componentwise
+- matrix product condition: if $M$ is $m\times n$ and $Q$ is $n\times p$, then $MQ$ exists
+- entry formula:
+$$
+(MQ)_{ij}=\sum_{r=1}^n m_{ir}q_{rj}
+$$
+- properties: associative, generally non-commutative, identity matrix $I$
 
----
+## inverse and invertibility
+- for square $M$, inverse satisfies
+$$
+M^{-1}M=MM^{-1}=I
+$$
+- equivalent conditions:
+  - columns linearly independent
+  - rows linearly independent
+  - $\ker(M)=\{0\}$
+  - $\det(M)\neq 0$
 
-## II. Matrices and Linear Maps
-Every linear map $f: W \to V$ corresponds to a matrix $M$. 
+## linear systems and elimination
+- system form:
+$$
+A\mathbf x=\mathbf b
+$$
+- if $A$ invertible, unique solution:
+$$
+\mathbf x=A^{-1}\mathbf b
+$$
+- Gaussian elimination uses row operations:
+  - swap rows
+  - multiply row by non-zero scalar
+  - add multiple of one row to another
+- then solve by back-substitution
 
-### 2.1 The Construction Rule
-If $W$ has dimension $n$ and $V$ has dimension $m$, the matrix $M$ will have **$m$ rows and $n$ columns**.
-*   **Rule:** Each column of the matrix is the **image of a basis vector** of $W$, expressed in the basis of $V$.
-*   **Kernel and Image:** $\text{Ker}(M) = \text{Ker}(f)$ and $\text{Im}(M) = \text{Im}(f)$.
+## determinants
+- intuition: determinant tells scaling/orientation and invertibility.
+- for $2\times2$:
+$$
+\det\!\begin{bmatrix}a&b\\c&d\end{bmatrix}=ad-bc
+$$
+- triangular matrix: determinant = product of diagonal terms
+- key properties:
+$$
+\det(MN)=\det(M)\det(N),\quad \det(M^T)=\det(M),\quad \det(M^{-1})=\frac1{\det(M)}
+$$
+- geometric meaning: $|\det|$ gives area/volume scaling factor
 
----
+## worked exam questions
 
-## III. Matrix Arithmetic
-The set of matrices with $m$ rows and $n$ columns is denoted $\mathcal{M}_{m,n}(\mathbb{R})$.
+### matrix multiplication
+- question: compute
+$$
+\begin{bmatrix}1&2\\3&4\end{bmatrix}
+\begin{bmatrix}2&0\\1&-1\end{bmatrix}
+$$
+- formula used:
+$$
+(MQ)_{ij}=\sum_r m_{ir}q_{rj}
+$$
+- working:
+$$
+\begin{bmatrix}
+1\cdot2+2\cdot1 & 1\cdot0+2\cdot(-1)\\
+3\cdot2+4\cdot1 & 3\cdot0+4\cdot(-1)
+\end{bmatrix}
+=
+\begin{bmatrix}
+4&-2\\
+10&-4
+\end{bmatrix}
+$$
 
-### 3.1 Basic Operations
-*   **Transpose ($M^T$):** The columns of $M$ become the rows of $M^T$. $(m_{ij})^T = m_{ji}$.
-*   **Addition ($M + Q$):** Performed component-wise. Matrices must be the same size.
-*   **Scalar Multiplication ($a * M$):** Every element is multiplied by the scalar $a$.
+### inverse of a 2x2 matrix
+- question: find inverse of $A=\begin{bmatrix}2&1\\5&3\end{bmatrix}$.
+- formula used:
+$$
+A^{-1}=\frac1{ad-bc}\begin{bmatrix}d&-b\\-c&a\end{bmatrix}
+$$
+- working:
+$$
+\det(A)=2\cdot3-1\cdot5=1\neq0
+$$
+so
+$$
+A^{-1}=\begin{bmatrix}3&-1\\-5&2\end{bmatrix}
+$$
 
-### 3.2 Matrix Multiplication
-Two matrices $M$ and $Q$ can be multiplied if the **number of columns in $M$ equals the number of rows in $Q$**.
-*   **Composition:** If $M$ represents $f$ and $Q$ represents $g$, then $M \times Q$ represents the composition $f \circ g$.
-*   **Formula:** $l_{i,j} = \sum_{r=1}^n m_{i,r} * q_{r,j}$
-*   **Properties:**
-    *   **Associative:** $(A \times B) \times C = A \times (B \times C)$
-    *   **NOT Commutative:** Generally, $M \times Q \neq Q \times M$.
-    *   **Identity Matrix ($I$):** A square matrix with 1s on the diagonal and 0s elsewhere. $M \times I = M$.
+### linear system
+- question: solve
+$$
+\begin{cases}
+x+y=3\\
+2x-y=0
+\end{cases}
+$$
+- formula used: Gaussian elimination/back-substitution.
+- working: add equations:
+$$
+3x=3\Rightarrow x=1,\quad y=2
+$$
+- result: $(x,y)=(1,2)$.
 
----
-
-## IV. Matrix Inversion
-Only **square matrices** can be inverted. An inverse $M^{-1}$ satisfies: $M^{-1} \times M = M \times M^{-1} = I$.
-
-### 4.1 Equivalent Properties for Invertibility
-A square matrix $M$ is invertible if and only if:
-1.  The columns of $M$ are linearly independent.
-2.  The rows of $M$ are linearly independent.
-3.  $\text{Ker}(M) = \{0\}$.
-4.  $\det(M) \neq 0$.
-
----
-
-## V. Linear Systems & Gaussian Elimination
-A system of linear equations can be written as $A\mathbf{x} = \mathbf{b}$. If $A$ is invertible, then $\mathbf{x} = A^{-1}\mathbf{b}$.
-
-### 5.1 Gaussian Elimination Algorithm
-We use 3 basic row manipulations to transform a system into a **triangular shape**:
-1.  Swapping two rows.
-2.  Multiplying a row by a non-zero scalar.
-3.  Adding a row to another row.
-
-**Step 2 (Substitution):** Once the system is triangular, solve for the bottom variable and substitute upwards to find the others.
-
----
-
-## VI. Determinants
-The determinant $\det(A)$ is a scalar value that tells us if a matrix is invertible.
-
-### 6.1 Calculation Rules
-*   **Dimension 2:** $\det\begin{bmatrix} a & b \\ c & d \end{bmatrix} = ad - bc$
-*   **Triangular Matrix:** The determinant is the product of the diagonal coefficients.
-*   **Expansion by Cofactors:** Used for $n \times n$ matrices. Choose a row/column with many zeros to simplify.
-    *   $C_{ij} = (-1)^{i+j} M_{ij}$ (where $M_{ij}$ is the minor determinant).
-
-### 6.2 Properties of Determinants
-*   $\det(M \times N) = \det(M) \times \det(N)$
-*   $\det(M^T) = \det(M)$
-*   $\det(M^{-1}) = \frac{1}{\det(M)}$
-*   **Geometric Interpretation:** The absolute value $|\det(r_1, r_2, r_3)|$ represents the **volume** of the parallelepiped formed by the column vectors.
+### determinant and invertibility
+- question: decide if $B=\begin{bmatrix}1&2\\2&4\end{bmatrix}$ is invertible.
+- formula used:
+$$
+\det(B)\neq 0 \iff B \text{ invertible}
+$$
+- working:
+$$
+\det(B)=1\cdot4-2\cdot2=0
+$$
+- result: $B$ is not invertible.

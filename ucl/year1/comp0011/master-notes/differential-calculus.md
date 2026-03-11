@@ -1,60 +1,95 @@
-# intro
-- study of infinitesimal variation
+# differential calculus
 
-# differentiation of univariate functions
-- consider a continuous function $f$ and $2$ values, $a, h$ such that $a$ and $a+h$ are in the domain of $f$
-- we can study the variations of $f$ between $a$ and $a + h$
-- the ratio below informs us about the variation / slope of the tangent
+## derivative
+- intuition: derivative = local slope / infinitesimal variation.
+- formal:
 $$
-\frac{f(a+h)-f(a)}{(a+h)-a} = \frac{f(a+h) - f(a)}{h}
+f'(a)=\lim_{h\to 0}\frac{f(a+h)-f(a)}{h}
 $$
-- to study the variations close to $a$, we make $h$ tend to 0
-- if the quotient $\frac{f(a+h) - f(a)}{h}$ has a limit when $h$ tends to 0, this limit is called the derivative of $f$ in $a$ and denoted $f'(a)$
-- $f$ is said to be differentiable in $a$
-- we do not require $f$ to be continuous, only that this limit exists
-- $f'(a)$ is the slope of the tangent to the graph of $f$ in $a$
-- for a differentiable function, we denote $f'$ by $\frac{df}{dx}$, or sometimes by $f^{(1)}$
-    - this is not a quotient!
-- if $F' = f$, $F$ is called the primitive, or antiderivative of $f$
-- if we derivate twice, we obtain the second order derivative
-- it is denoted by $\frac{d^2f}{dx^2}$ or $f^{(2)}$
+- if this limit exists, $f$ is differentiable at $a$
+- notation: $f'$, $\frac{df}{dx}$ (not a fraction), and $f''=\frac{d^2f}{dx^2}$
+- if $F'=f$, then $F$ is a primitive (antiderivative) of $f$
 
+## continuity and monotonicity
+- differentiable at $c$ $\Rightarrow$ continuous at $c$
+- if $f'>0$ on interval $I$, then $f$ is increasing on $I$
+- if $f'<0$ on interval $I$, then $f$ is decreasing on $I$
+- stationary points satisfy $f'(x)=0$ (possible min/max/inflection)
 
-> one important result: if $f$ is differentiable in $c$, then $f$ is continuous in $c$
-- differentiability is stronger than continuity
-- angular points indicate non-differentiability
-- differentiable functions are smoother
+## key theorems
+- L'Hopital rule (for $0/0$ or $\infty/\infty$ forms, under standard hypotheses):
+$$
+\lim_{x\to c}\frac{f(x)}{g(x)}=\lim_{x\to c}\frac{f'(x)}{g'(x)}
+$$
+- mean value theorem: if $f$ continuous on $[a,b]$ and differentiable on $(a,b)$, then
+$$
+\exists c\in(a,b),\quad f'(c)=\frac{f(b)-f(a)}{b-a}
+$$
 
-- if $f' > 0$ on an interval $I$ then $f$ is increasing on this interval
-- if $f' < 0$ on an interval $I$ then $f$ is decreasing on this interval
+## first-order differential equations
+- example:
+$$
+f'(x)=-3f(x)\quad \Rightarrow\quad f(x)=Ce^{-3x}
+$$
+- homogeneous linear equation:
+$$
+f'(x)=a(x)f(x)
+$$
+- if $A'(x)=a(x)$, general solution is
+$$
+f(x)=Ce^{A(x)},\qquad C\in\mathbb R
+$$
+- initial condition gives the constant $C$
 
-> theorem: L'Hopital Rule
-Consider functions $f, g$ differentiable on an interval containing $c$ (not necessarily differentiable at $c$ itself)
-if we have $g(x) \neq 0$ near $c$
-and $\lim_{x \to c} f(x) = \lim_{x \to c} g(x) = 0$ or 
-$\lim_{x \to c} f(x) = \lim_{x \to c} g(x) = \infty$
-then: $$\lim_{x \to c} \frac{f(x)}{g(x)} = \lim_{x \to c} \frac{f'(x)}{g'(x)}$$
+## worked exam questions
 
+### derivative
+- question: compute $f'(x)$ for $f(x)=x^3-4x+1$ and find stationary points.
+- formula used:
+$$
+\frac{d}{dx}(x^n)=nx^{n-1}
+$$
+- working:
+$$
+f'(x)=3x^2-4
+$$
+stationary points satisfy $3x^2-4=0$:
+$$
+x=\pm \frac{2}{\sqrt3}
+$$
 
-> theorem: mean value theorem
-Consider a continuous function $f$ defined on an interval $[a, b]$, differentiable on $[a, b]$
-then there exists $c \in [a,b]$ such that $f'(c) = \frac{f(a)-f(b)}{a-b}$
+### monotonicity
+- question: determine where $f(x)=x^3-3x$ is increasing/decreasing.
+- formula used:
+$$
+f'(x)>0 \Rightarrow f \text{ increasing},\quad f'(x)<0 \Rightarrow f \text{ decreasing}
+$$
+- working:
+$$
+f'(x)=3x^2-3=3(x-1)(x+1)
+$$
+so $f'>0$ on $(-\infty,-1)\cup(1,\infty)$ and $f'<0$ on $(-1,1)$.
 
-# stationary points
-- $f'(x) = 0$ means a flat tangent, which can mean:
-    - local minimum
-    - local maximum
-    - inflection point
+### L'Hopital
+- question: compute $\lim_{x\to 0}\frac{e^x-1}{x}$.
+- formula used: L'Hopital for $0/0$.
+- working:
+$$
+\lim_{x\to 0}\frac{e^x-1}{x}
+=\lim_{x\to 0}\frac{e^x}{1}=1
+$$
 
-# diff equations
-- example: $f'(x) = -3f(x)$
-    - solutions: all functions $f(x) = C \times e^{-3x}, \quad C \in \R$
-
-- slightly harder: first order homogeneous linear diff eqs
-$$ f'(x) = a(x) \times f(x)$$
-    - recall that: $$ \frac{d}{dx}(c \times e^{g(x)}) = g'(x) \times c \times e^{g(x)}$$
-    - the solutions are all functions $f(x) = C \times e ^ {A(x)}$, for $C \in \R$ and $A$ a primitive of $a$.
-
-- these solutions are called general solutions of the considered differential equation
-- they contain multiplicative constants, which we keep general
-we will sometimes have to find the value of these constants for particular initial conditions
+### first-order ODE
+- question: solve $y'=2y$ with $y(0)=5$.
+- formula used:
+$$
+y'=a y \Rightarrow y=Ce^{ax}
+$$
+- working:
+$$
+y=Ce^{2x},\quad y(0)=C=5
+$$
+- result:
+$$
+y(x)=5e^{2x}
+$$

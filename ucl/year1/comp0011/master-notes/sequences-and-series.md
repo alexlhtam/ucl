@@ -1,80 +1,168 @@
-# Comp0011: Sequences and Series Notes
+# sequences and series
 
-## 1. Limits of Sequences
+## formula checklist
+- $\epsilon$-$N$ convergence:
+$$
+|a_n-L|<\epsilon
+$$
+- monotone convergence theorem:
+$$
+\text{monotone}+\text{bounded}\Rightarrow\text{convergent}
+$$
+- little-o:
+$$
+f(n)=o(g(n)) \iff \lim_{n\to\infty}\frac{f(n)}{g(n)}=0
+$$
+- arithmetic sequence:
+$$
+u_n=u_1+(n-1)d,\qquad
+S_n=\frac n2(u_1+u_n)=\frac n2\big(2u_1+(n-1)d\big)
+$$
+- geometric sequence:
+$$
+u_n=u_1r^{n-1},\qquad
+\sum_{k=0}^{n-1}ar^k=a\frac{1-r^n}{1-r}\ (r\neq1)
+$$
+- geometric infinite series:
+$$
+\sum_{n=0}^\infty ar^n \text{ converges } \iff |r|<1,\qquad
+S_\infty=\frac{a}{1-r}
+$$
+- divergence test:
+$$
+\lim_{n\to\infty}a_n\neq0 \Rightarrow \sum a_n \text{ diverges}
+$$
+- telescoping:
+$$
+\sum_{k=1}^{n}\big(f(k+1)-f(k)\big)=f(n+1)-f(1)
+$$
 
-### 1.1 Formal Definition ($\epsilon-N$)
-A sequence $(a_n)$ converges to a limit $L$, written $\lim_{n \to \infty} a_n = L$, if for every $\epsilon > 0$, there exists a natural number $N \in \mathbb{N}$ such that for all $n > N$:
-$$|a_n - L| < \epsilon$$
+## sequence limits
+- intuition: $a_n \to L$ means terms get arbitrarily close to $L$ for large $n$.
+- formal ($\epsilon$-$N$):
+$$
+\forall \epsilon>0,\ \exists N\in\mathbb N,\ n>N \Rightarrow |a_n-L|<\epsilon
+$$
+- proof pattern: start from $|a_n-L|<\epsilon$, isolate $n$, choose $N$.
 
-**Pointer for Proofs:**
-1. Start with the inequality $|a_n - L| < \epsilon$.
-2. Isolate $n$ to find a relationship (e.g., $n > f(\epsilon)$).
-3. Set $N = \lceil f(\epsilon) \rceil$ and write the formal argument.
+### worked exam question
+- question: prove with $\epsilon$-$N$ that $a_n=\frac{3n+1}{n+2}\to 3$.
+- working:
+$$
+\left|\frac{3n+1}{n+2}-3\right|=\left|\frac{-5}{n+2}\right|=\frac{5}{n+2}
+$$
+want $\frac{5}{n+2}<\epsilon \iff n>\frac{5}{\epsilon}-2$.
+choose
+$$
+N=\left\lceil \frac{5}{\epsilon}-2\right\rceil
+$$
+then $n>N \Rightarrow |a_n-3|<\epsilon$, so $a_n\to 3$.
 
-### 1.2 Monotonicity and Boundedness
-*   **Increasing:** $a_{n+1} \geq a_n$ for all $n$.
-*   **Decreasing:** $a_{n+1} \leq a_n$ for all $n$.
-*   **Bounded Above:** There exists $M$ such that $a_n \leq M$ for all $n$.
-*   **Bounded Below:** There exists $m$ such that $a_n \geq m$ for all $n$.
+## monotonicity and boundedness
+- increasing: $a_{n+1}\ge a_n$; decreasing: $a_{n+1}\le a_n$
+- bounded above: $\exists M,\ a_n\le M$; bounded below: $\exists m,\ a_n\ge m$
+- monotone convergence theorem: monotone + bounded $\Rightarrow$ convergent
 
-### 1.3 Monotone Convergence Theorem (MCT)
-If a sequence is **monotone** (either increasing or decreasing) and **bounded**, then it is **convergent**.
+### worked exam question
+- question: show $u_n=1-\frac1n$ converges, and find the limit.
+- working:
+$$
+u_{n+1}-u_n=\left(1-\frac1{n+1}\right)-\left(1-\frac1n\right)=\frac1n-\frac1{n+1}>0
+$$
+so $(u_n)$ is increasing.
+also $u_n<1$ for all $n$, so it is bounded above.
+by MCT, $(u_n)$ converges; since $\frac1n\to0$, limit is $1$.
 
-### 1.4 Little "o" Notation
-We say $f(n) = o(g(n))$ ("$f$ is little-o of $g$") as $n \to \infty$ if $g(n)$ grows significantly faster than $f(n)$:
-$$\lim_{n \to \infty} \frac{f(n)}{g(n)} = 0$$
+## little-o notation
+- intuition: $f=o(g)$ means $f$ is negligible compared to $g$.
+- formal:
+$$
+f(n)=o(g(n)) \iff \lim_{n\to\infty}\frac{f(n)}{g(n)}=0
+$$
 
----
+### worked exam question
+- question: prove $n=o(n^2)$ as $n\to\infty$.
+- working:
+$$
+\frac{n}{n^2}=\frac1n\to0
+$$
+hence $n=o(n^2)$.
 
-## 2. Arithmetic and Geometric Progressions
+## arithmetic and geometric sequences
+- arithmetic sequence (difference $d$):
+$$
+u_n=u_1+(n-1)d,\qquad S_n=\frac n2(u_1+u_n)=\frac n2\left(2u_1+(n-1)d\right)
+$$
+- geometric sequence (ratio $r$):
+$$
+u_n=u_1r^{n-1},\qquad \sum_{k=0}^{n-1}ar^k=a\frac{1-r^n}{1-r}\ (r\neq 1)
+$$
 
-### 2.1 Arithmetic Sequences
-Terms change by adding a common difference $d$.
-*   **Recursive:** $u_n = u_{n-1} + d$
-*   **Explicit:** $u_n = u_1 + (n-1)d$
-*   **Finite Sum ($S_n$):** 
-$$S_n = \frac{n}{2}(u_1 + u_n) = \frac{n}{2}[2u_1 + (n-1)d]$$
+### worked exam questions
+- question 1 (arithmetic): $u_1=4,\ d=3$. Find $u_{10}$ and $\sum_{n=1}^{10}u_n$.
+- working:
+$$
+u_{10}=4+9\cdot3=31,\qquad S_{10}=\frac{10}{2}(4+31)=175
+$$
+- question 2 (geometric): $u_1=2,\ r=\frac12$. Find $u_6$ and $\sum_{n=1}^{6}u_n$.
+- working:
+$$
+u_6=2\left(\frac12\right)^5=\frac1{16}
+$$
+$$
+S_6=2\cdot\frac{1-(1/2)^6}{1-1/2}=\frac{63}{16}
+$$
 
-### 2.2 Geometric Sequences
-Terms change by multiplying by a common ratio $r$.
-*   **Recursive:** $u_n = r \cdot u_{n-1}$
-*   **Explicit:** $u_n = u_1 \cdot r^{n-1}$ (or $u_n = u_0 \cdot r^n$ if starting at 0)
-*   **Finite Sum ($S_n$):** 
-$$S_n = \sum_{k=0}^{n-1} a r^k = a \frac{1-r^n}{1-r} \quad (r \neq 1)$$
+## infinite series
+- intuition: $\sum a_n$ converges if partial sums $S_N=\sum_{n=1}^N a_n$ converge.
+- divergence test: if $\lim a_n\neq 0$, then $\sum a_n$ diverges.
+- geometric series:
+$$
+\sum_{n=0}^\infty ar^n \text{ converges } \iff |r|<1,\qquad S_\infty=\frac{a}{1-r}
+$$
 
----
+### worked exam questions
+- question 1: does $\sum_{n=1}^\infty \frac{n+1}{n}$ converge?
+- working:
+$$
+\frac{n+1}{n}=1+\frac1n \to 1\neq 0
+$$
+terms do not go to $0$, so series diverges.
+- question 2: compute $\sum_{n=0}^\infty 3\left(\frac14\right)^n$.
+- working: geometric with $a=3$, $r=\frac14$, $|r|<1$:
+$$
+S_\infty=\frac{3}{1-\frac14}=4
+$$
 
-## 3. Infinite Series
+## useful inequalities and tools
+- logarithm inequality ($x\ge 0$):
+$$
+x\ge \ln(1+x)
+$$
+- telescoping:
+$$
+\sum_{k=1}^n\big(f(k+1)-f(k)\big)=f(n+1)-f(1)
+$$
+- classic example:
+$$
+\sum_{k=1}^n\ln\!\left(\frac{k+1}{k}\right)=\sum_{k=1}^n\big(\ln(k+1)-\ln(k)\big)
+$$
+- growth hierarchy:
+$$
+\ln n \ll n^k \ll a^n \ll n! \ll n^n
+$$
 
-### 3.1 Definition of Convergence
-A series $\sum_{n=1}^\infty a_n$ converges if the sequence of its **partial sums** $S_N = \sum_{n=1}^N a_n$ converges to a finite limit.
-
-### 3.2 The Test for Divergence ($n$-th Term Test)
-If $\lim_{n \to \infty} a_n \neq 0$, then the series $\sum a_n$ **must diverge**.
-*   *Note: If the limit is 0, the test is inconclusive (e.g., the Harmonic Series).*
-
-### 3.3 Geometric Series Test
-The infinite geometric series $\sum_{n=0}^\infty a r^n$ converges if and only if:
-$$|r| < 1$$
-If it converges, the sum is:
-$$S_\infty = \frac{a}{1-r}$$
-
----
-
-## 4. Key Inequalities and Limits
-
-### 4.1 Logarithmic Inequality
-For $x \geq 0$:
-$$x \geq \ln(1+x)$$
-This is often used to prove the divergence of the **Harmonic Series** $\sum \frac{1}{n}$ by showing the partial sums grow without bound.
-
-### 4.2 Telescoping Sums
-A sum where middle terms cancel out. For example:
-$$\sum_{k=1}^n [f(k+1) - f(k)] = f(n+1) - f(1)$$
-In Section 4 of the sheet, you will encounter:
-$$\sum_{k=1}^n \ln\left(\frac{k+1}{k}\right) = \sum_{k=1}^n [\ln(k+1) - \ln(k)]$$
-
-### 4.3 Factorial Growth
-The "Hierarchy of Growth" as $n \to \infty$:
-$$\ln(n) \ll n^k \ll a^n \ll n! \ll n^n$$
-This hierarchy helps determine the limits of ratios like $\frac{n!}{n^n}$ or $\frac{2^n}{n!}$.
+### worked exam questions
+- question 1 (telescoping): compute
+$$
+\sum_{k=1}^n \ln\!\left(\frac{k+1}{k}\right)
+$$
+- working:
+$$
+\sum_{k=1}^n(\ln(k+1)-\ln k)=\ln(n+1)-\ln 1=\ln(n+1)
+$$
+- question 2 (growth): evaluate $\lim_{n\to\infty}\frac{2^n}{n!}$.
+- working: from $a^n\ll n!$, ratio tends to $0$:
+$$
+\lim_{n\to\infty}\frac{2^n}{n!}=0
+$$
