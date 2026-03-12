@@ -1,118 +1,88 @@
-# basic web application architecture
-- client: web browser formats and renders HTML
-- java code runs on the server hardware. webserver + application code
-- data is stored in files or a database
-- referred to as a three-tier or three-layer architecture
+# Java Web Applications
 
-# model-view controller (MVC)
-- a design pattern used to structure a GUI or web application
-- model - the data and code using the data
-    - does not depend on how data might be input or displayed
-- controller - act on input, use model to do processing & update/get data, tell view to update/get data, tell view to update the display & pass data
-    - coordinates and delegates
+## 1) Basic architecture
+- Browser (client) sends HTTP requests.
+- Java server app handles request logic.
+- Data layer stores/retrieves information (files or database).
+- Common mental model: 3-tier architecture.
 
-# development environment
-- work on your local machine
-- use a web server written in Java
-- follow the basic Jakarta EE standards
+## 2) MVC pattern
+- **Model**: domain data + business logic.
+- **View**: presentation (HTML/JSP/templates).
+- **Controller**: receives request, coordinates model, picks response/view.
 
-# tomcat web server
-- an open-source implementation of the core Java web services
-    - one of a number of available servers: e.g. Jetty, WebLogic, WebSphere, Geronimo, GlassFish
-    - Tomcat is more used for dev than for deployment
-- written in Java
+## 3) Web server + servlet model
+- Server maps URL paths to handlers (files/servlets).
+- Servlet classes usually extend `HttpServlet`.
+- Typical lifecycle methods:
+  - `init()` once at startup,
+  - `doGet()` / `doPost()` per request,
+  - `destroy()` on shutdown.
 
-# web servers
-- a web server receives http requests, processes each request, and returns an http response
-    - the default port is 80, but typically 8080 for development
-- each request is mapped to a service handler, using a mapping from the URL Path to a file or a servlet
-- the server is multi-threaded, so requests can be handled concurrently, or in parallel on a multi-core machine
+### Minimal servlet example
+- This is the smallest useful servlet-style endpoint.
+- URL example: `/hello?name=Alex`
+- It reads a query parameter and returns plain text.
 
-# what is a servlet?
-- a servlet is a Java class that plugs into the Jakarta EE framework for web apps
-    - rather than writing out an entire application, the framework provides the overall structure and behaviour
-    - write classes and code to specialise the framework to be our application
-- a URL can be mpped to a servlet, so that the servlet is run to generate the response
+```java
+import java.io.IOException;
+import java.io.PrintWriter;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-# servlet life cycle
-- at runtime one servlet object is created for each Servlet class
-- a `servlet` extends `HttpServlet`, which defines the following core methods:
-    - `init` - called once when the servlet object is created. Can override to do any extra initialisation
-    - `service` - called in a new thread for each request. It calls `doGet`, `doPost` depending on the HTTP request type. Should not be overridden
-    - `doGet`, `doPost` handle requests. Override these to implement the behaviour your app needs
-    - `destroy` - called when the servlet object is taken out of use (e.g. server shutting down). Override to clean upb but may never be called if server crashes
+@WebServlet("/hello")
+public class HelloServlet extends HttpServlet {
+  @Override
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    String name = req.getParameter("name");
+    if (name == null || name.isBlank()) name = "world";
 
-# servlets and threads
-- the server starts a new thread for each request
-    - it does not create a new Servlet object
-- the same servlet object must handle multiple threads (thread safety)
-- for this module threading issues will be ignored'
+    resp.setContentType("text/plain; charset=UTF-8");
+    resp.setStatus(HttpServletResponse.SC_OK);
 
-# `WebServlet`
-- `@WebServlet("/helloworld.html")`
-    - the URL path relative to the document root directory on the server
-    - this means `localhost:8080/helloworld.html` if files are in the `webapp` directory
-    - or `localhost:8080/myApp/helloworld.html` if the app is in the webapp directory
-    - and all other URLs used in your app that refer to the app must include the correct directories in the path
-    - a server may be running several applications, with the files kept in different directories
+    PrintWriter out = resp.getWriter();
+    out.println("Hello, " + name + "!");
+  }
+}
+```
 
-# Request and Response Object
-- `HttpServletRequest` request
-    - Contains information about the request made to invoke servlet.
-    - headers, cookies, parameters, and lots more
-    - numerous utility methods
-- `HttpServletResponse` response
-    - has methods to provide information for building the HTTP response
-    - collects the output, e.g., html, via a `PrintWriter`
-    - numerous utility methods
+- How to think about it:
+  - `@WebServlet("/hello")` maps URL path to this servlet.
+  - `doGet(...)` handles HTTP GET requests.
+  - `req` is request input; `resp` is response output.
+  - The container (e.g. Tomcat) is the actual web server runtime.
 
-# war files
-- war == Web Archive
-  - actually a `.zip` format file
-- a web app is packaged into a war file for deployment
-- war file is loaded into the application directory of the web server
-- the web server unpacks the file
-  - files/dirs put into place
-- initialises the application
-- then ready to go
+## 4) Request/response objects
+- `HttpServletRequest`: input data (params, headers, cookies, session).
+- `HttpServletResponse`: output data (status, headers, body).
 
-# Java server pages
-- we do not want servlets generating html directly
-- instead, the servlet should delegate to another class to create the web page
-  - a version of the MVC design pattern
-  - model == java classes, view == JSP, controller == servlet
-- a Java Server Page looks like an html file with Java code embedded within
-  - can also use JSP tags or libraries like Thymeleaf to avoid Java code
-  - tags are implemented in Java so there is still Java code, just not visible
-- JSPs are actually servlets, with the Java code generated from the JSP source by the JSP compiler
-- they use standard HTML for most of the webpage content
-- special tags, not part of HTML, markup embedded Java code
-- there are tag libraries of JSP tags that are implemented in Java
+### Simple `doPost` shape
+```java
+@Override
+protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+  String email = req.getParameter("email");
+  // validate + call model/service layer
+  resp.sendRedirect("/thanks");
+}
+```
 
-# scripting elements
-- expressions: <%=expression=>
-- scriplets:<%code%>
-  - Java code that is inserted into the generated serlet's `_jspService` method as is, and compiled.
-  - must be valid Java code with semicolons etc.
-- declarations: <%!code%>
-  - Java code that is inserted into the servlet body outside of any methods (e.g. instance variable)
+## 5) Threading note
+- A servlet instance is reused across requests.
+- Multiple request threads may execute concurrently.
+- Shared mutable state in servlets must be handled carefully.
 
-# variables accessible in a JSP
-- `request` - the`HttpServletRequest`
-- `response` - the `HttpServletResponse`
-- `out` - a `JspWriter`, wrapper for a `PrintStream` with methods like `print`, `println`, which all throw `IOExceptions` if an error occurs
-- `session` - the `HttpSession` object accessible to servlets
-- `application` - the `ServletContext`, which can be used for sharing data
+## 6) Deployment
+- Java web apps are often packaged as `.war` files (Web ARchive).
+- Server deploys/unpacks and serves under an application context path.
 
-# Java import statements in JSP
-- as the JSP is converted to a Java servlet, there must be import statements for `List` and other libraries
-- this is done by adding directives at the top of the JSP before the `<html>` tag
-  - `<%@ page import="java.util.List"%>`
-- add of these for each class/interface needed in a JSP page
+## 7) JSP in legacy Java web stacks
+- JSP is view technology compiled into servlets.
+- Historically used to reduce raw HTML generation in servlet code.
+- Modern stacks often favor template engines/framework views (e.g. Thymeleaf).
 
-# headers, footers, and shared content
-- you typically want your web pages to have a common layout:
-  - header section, with title, logo, navigation bar, etc.
-  - footer, with info about the site, contact info, copyright, etc.
-  - shared CSS files
-- avoid duplication and copy and paste content
+## Important Summary
+- Think request lifecycle: **URL -> controller/servlet -> model -> view -> response**.
+- Keep business logic out of view templates.
+- Understand servlet lifecycle + threading; they explain many web bugs.

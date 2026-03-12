@@ -1,85 +1,44 @@
-# inheritance intro
-- models the "kind-of" or "specialisation-of" or "extension-of" relationship between classes
-- allows one class ot extend another class
+# Inheritance (Concise Revision)
 
-# subclass and superclass
-- a subclass inherits from a superclass
-- the subclass gains all the properties of the superclass, can specialise, and it can add more features
+## 1) Core idea
+- Inheritance models an **is-a** relationship.
+- A subclass extends a superclass, reuses shared state/behavior, and can specialize.
+- Java supports **single inheritance** for classes (one direct superclass).
 
-# multiple subclasses
-- more than one subclass can inherit from the same superclass
-- Java supports single inheritance, one superclass only
-  - some languages support multiple inheritance, 2 or more superclasses (like C++)
+## 2) Generalization and specialization
+- Superclass: more general abstraction.
+- Subclass: more specific abstraction.
+- Use inheritance to remove duplication of shared code.
 
-# generalisation and specialisation
-- a superclass is a generalisation
-- a subclass is a specialisation
+## 3) Abstract vs concrete classes
+- **Abstract class**: cannot be instantiated; may contain abstract methods and shared implementation.
+- **Concrete class**: complete implementation; can be instantiated.
 
-# abstract vs concrete
-- abstract classes provide a partial or abstract description
-  - not enough to create instance objects
-  - define a set of public method signatures that all subclass objects must have - common methods
-  - define a common set of variable definitions and method implementations that are shared by inheritance
-    - do not need to be duplicated in subclasses
-- concrete classes provide a complete description
-  - inherited + new attribute/methods
-  - inherit common shared set of public methods signatures
-  - can be used to create instance objects
-
-# private and inheritance
-- private variables are inherited and are part of subclass objects
-- BUT they can be accessed by superclass methods only
-  - scope and encapsulation are respected
-- subclass methods have no access
-
-# protected
-```java
-public class Shape {
-    protected int x, y;
-}
-```
-- a `protected` variable can also be accessed from subclasses
-- allows the selective weakening of strict encapsulation
-- increases the coupling between super and sub classes
-- could use getter, setter methods in superclass instead (or accessor methods)
-
-# super
-- `super` gives a way of referring to the superclass
-- when used in a constructor, it results in a call to the superclass constructor with the matching parameter list
-  - known as 'explicit constructor invocation'
-- `super` must go first:
-  - super statement is typically the first statement in the constructor body
-
-# abstract classes
-- declaring an abstract method forces the class to be declared abstract
 ```java
 public abstract class Shape {
-// ...
+  public abstract double area();
 }
 ```
-- an abstract class can have no instances
-- provides "shared via inheritance" instance variables/methods
 
-# superclass references
-- LHS type is different from RHS type, but the types are related by inheritance
+## 4) Access control with inheritance
+- `private`: not accessible from subclass methods.
+- `protected`: accessible in subclasses (use carefully; increases coupling).
+- Prefer `private` + accessor methods unless `protected` is justified.
 
-# dynamic method binding
-- `binding` is the term used for the process of mapping a method call to a method body that can be evaluated
-- dynamic binding means that the method body is determined at runtime by looking at the class of the object the method is called for at runtime
-  - the same variable can reference objects of different subclasses as the program runs
+## 5) `super` keyword
+- `super(...)` calls superclass constructor and is usually first line of subclass constructor.
+- `super.method()` can call an overridden superclass method.
 
-# instance method
-- always dynamically bound
-- look at the class of the object a method is called for
-  - if it provides a method body, call it
-  - otherwise work up superclass chain until a method body is found
+## 6) Dynamic binding (polymorphism basis)
+- Instance methods are dynamically dispatched at runtime based on actual object type.
+- Static methods are statically bound (compile-time resolution).
 
-# static binding
-- static methods
-- method boyd to be called is always uniquely determined
-- can be determined when program is compiling
+```java
+Shape s = new Circle();
+s.area(); // Circle implementation runs
+```
 
-# remove duplication
-- a superclass holds common variable and method declarations
-- code does not have to be duplicated in subclasses
-- implementation inheritance
+## Important Summary
+- Inheritance is for true is-a reuse, not just code sharing convenience.
+- Favor encapsulation (`private`) and keep hierarchies shallow/clear.
+- Dynamic dispatch enables polymorphism: one supertype reference, many subtype behaviors.
