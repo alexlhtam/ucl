@@ -1,37 +1,27 @@
-# the basic stream abstraction
-- we have seen the `FileInput` and `FileOutput` classes
-    - they are wrappers for some of the Java class library file handling classes, hiding exceptions
-- standard Java library classes for file I/O:
-    - a stream is a sequence of values with a source and destination
-    - Java libraries define a number of stream classes:
-        - `Reader`/`Writer` for dealing with character formatted data
-        - `InputStream`/`OutputStream` for dealing with unformatted data (bytes)
+# File Handling Basics (Concise Revision)
 
-# streams and files
-![alt text](streams-and-files.png)
-- internal data formats:
-    - text (char): UTF-16
-    - int, float, double, etc.
-- external data formats:
-    - text in UTF-8 (and other encodings!)
-    - binary 
+## 1) Stream abstraction
+- Java I/O is stream-based: data flows from source to destination.
+- Main pairs:
+  - `InputStream` / `OutputStream` for bytes (binary data),
+  - `Reader` / `Writer` for characters (text data).
 
-# UTF-8 v. UTF-16
-- UTF-8:1 to 4 bytes per character
-    - More space-efficient for ASCII (English text).
-    - Backward-compatible with ASCII.
--   Default encoding for the web.
-- UTF-16: 2 or 4 bytes per character
-    - UTF-16 a better fit for languages like Chinese family languages, Japanese, etc.
-    -UTF-16 requires Byte Order Mark (BOM) to indicate endianness (i.e., more complex).
-- To write UTF-16 to a UTF-8 data file:
-    - If 2 bytes, write directly to 2-byte UTF-8.
-    - If 4 bytes, map to a pair of 2-byte ‘surrogate pairs’.
+## 2) Text encodings (UTF-8 vs UTF-16)
+- UTF-8: variable width (1-4 bytes), web standard, ASCII-compatible.
+- UTF-16: usually 2 bytes, sometimes 4 via surrogate pairs.
+- Encoding matters whenever text crosses file/network boundaries.
 
-# Class file
-- provides a representation for file/directory pathnames
-    - not the actual files/directories or contents
-- also provides methods to operate on the files/directories named
-- creating a FIle object specifies name/path only:
-- see Javadoc for full details
+## 3) Internal vs external representation
+- Java `String`/char processing is internal character representation.
+- Files/network require encoded byte sequences (UTF-8, UTF-16, etc.).
+- Always be explicit about encoding when reading/writing text.
+
+## 4) `File` class idea
+- `File` (or modern `Path`) represents a pathname, not file contents.
+- Use it to locate files/directories and perform filesystem operations.
+
+## Important Summary
+- Pick byte streams for raw binary, character streams for text.
+- Encoding mismatches cause subtle bugs; default to explicit UTF-8 unless required otherwise.
+- Treat path handling and data reading/writing as separate concerns.
 
