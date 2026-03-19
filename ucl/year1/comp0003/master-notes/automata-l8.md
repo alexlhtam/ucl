@@ -33,6 +33,8 @@ Example:
 Equivalent compact form:
 - $A \to AB \mid Caa \mid \epsilon$
 
+![](resources/al8-convenience.png)
+
 ---
 
 ## exercise: equal number of 0s and 1s
@@ -95,9 +97,13 @@ using this mapping:
   - for each accepting state $q_i \in F$, add rule $Q_i \to \epsilon$
 - **start variable $S$**: set to $Q_0$ (the variable for $q_0$)
 
+![](resources/al8-dfa-to-cfg.png)
+
 ---
 
 ## example: DFA for even number of 1s
+![](resources/al8-even-ones-example.png)
+
 Resulting grammar:
 - $Q_{\text{even}} \to 0Q_{\text{even}} \mid 1Q_{\text{odd}} \mid \epsilon$
 - $Q_{\text{odd}} \to 0Q_{\text{odd}} \mid 1Q_{\text{even}}$
