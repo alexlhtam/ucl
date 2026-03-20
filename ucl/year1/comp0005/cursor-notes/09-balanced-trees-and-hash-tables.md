@@ -46,6 +46,9 @@
 
 **Correspondence.** A **3-node** in the 2-3 tree becomes **two** **2-nodes** in a BST, joined by an internal **red** link. **Convention:** that red link **leans left** (the **smaller** key is the **parent** of the **larger** key via a **left** red child).
 
+![2-3 Trees and Red-Black BSTs](../resources/09-red-black-bst-transformation.png)
+*Left: a 2-3 search tree with perfect balance. Right: the corresponding Left-Leaning Red-Black BST where 3-nodes become two nodes connected by a red (left-leaning) link. Bottom: the three supporting operations — left rotation, right rotation, and color flip.*
+
 **LLRB invariants** (left-leaning red–black BST):
 
 1. **Black balance:** every path from the **root** to **null** uses the **same number of black links** — think “every 2-3 node contributes one **black** step down the conceptual tree.”  
@@ -178,6 +181,9 @@ put(key, value):
 **Worst case.** If the table fills or hashes cluster badly, degrades toward **\(O(N)\)** scans.
 
 ---
+
+![Hash Tables: Separate Chaining vs Linear Probing](../resources/09-hash-table-collision.png)
+*Separate chaining stores collisions in linked lists at each array index. Linear probing uses open addressing — on collision, probe the next slot. Both achieve constant-time average operations with appropriate table sizing.*
 
 ### **Separate chaining vs linear probing**
 

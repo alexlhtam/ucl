@@ -109,6 +109,9 @@ T(N) = 2\,T(N/2) + \Theta(N), \quad T(1) = \Theta(1).
 
 **Solution:** **\(T(N) = \Theta(N \log N)\)**.
 
+![MergeSort Recursion Tree](../resources/04-mergesort-recursion-tree.png)
+*The recursion tree has lg N levels. Each level performs ~N total work (comparisons/copies during merges). Total work: N × lg N.*
+
 **Intuition (when **\(N\)** is a power of two):** The recursion tree has **\(\lg N\)** levels; each level touches all **\(N\)** elements once (across the merges at that level) → **\(N \log N\)** total work.
 
 **Finer statements (as often quoted in COMP0005-style treatments):**

@@ -58,6 +58,9 @@ Nodes are stored in **level order** (breadth-first): root, then its children lef
 
 ### **Binary heap** (**max-heap**)
 
+![Binary Heap: Tree and Array Representation](../resources/07-binary-heap-tree-array.png)
+*A max-heap stored as both a tree and a 1-indexed array. Parent of node i is at a[i/2]; children at a[2i] and a[2i+1]. Swim up restores heap order after insertion; sink down restores it after deletion.*
+
 A **max-heap** is a **complete binary tree** satisfying **heap order**:
 
 - **Heap order:** for every node **\(i\)** (except the root), **\(\texttt{a}[\lfloor i/2 \rfloor] \geq \texttt{a}[i]\)** — each parent’s key is **≥** both children’s keys.

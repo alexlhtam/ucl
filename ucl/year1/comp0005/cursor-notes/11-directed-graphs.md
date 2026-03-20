@@ -196,6 +196,9 @@ class DirectedCycle:
 
 ### Kosaraju–Sharir algorithm for SCCs
 
+![Directed Graphs: Topological Sort and SCCs](../resources/11-topological-sort-and-scc.png)
+*Top: A DAG redrawn in topological order (all edges point downward), found via reverse DFS post-order. Bottom: Strongly connected components identified by the Kosaraju-Sharir algorithm (Phase 1: DFS on reversed graph; Phase 2: DFS on original in reverse post-order).*
+
 **Reverse graph** **\(G^R\)**. Same vertices; reverse every edge: **\(w \to v\)** is in **\(G^R\)** iff **\(v \to w\)** is in **\(G\)**. Building **\(G^R\)** as an adjacency list costs **\(\Theta(V + E)\)**.
 
 **Key idea.** The **SCC partition of \(G\)** equals the **SCC partition of \(G^R\)** (reversing edges preserves “mutual reachability”).

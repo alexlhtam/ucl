@@ -114,6 +114,9 @@ We also express running time as a **function of input size** **$N$** (and someti
 
 When **$N$** is large, the **leading growth rate** tells you which algorithm will win:
 
+![Order of Growth of Common Algorithms](../resources/02-order-of-growth.png)
+*How different growth rates diverge as input size N increases. The gap between O(N log N) and O(N²) is already massive for moderate N, and exponential O(2^N) is off the chart almost immediately.*
+
 | Growth | Name / intuition | Typical examples (illustrative) |
 |--------|------------------|----------------------------------|
 | **$1$** | **Constant** | Hash table lookup **average** (idealised), array index |

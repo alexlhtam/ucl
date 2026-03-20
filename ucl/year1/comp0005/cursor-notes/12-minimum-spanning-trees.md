@@ -164,6 +164,9 @@ class LazyPrimMST:
 
 ---
 
+![Minimum Spanning Tree: Kruskal's vs Prim's](../resources/12-mst-kruskal-prim.png)
+*Top: original weighted graph. Left: Kruskal's processes edges by weight, skipping those that create cycles (detected via Union-Find). Right: Prim's grows the tree from vertex 0, always adding the minimum crossing edge. Both find the same MST.*
+
 ### **Kruskal vs Prim — same greed, different data structures**
 
 | Aspect | **Kruskal** | **Prim (lazy)** |

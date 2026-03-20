@@ -25,6 +25,9 @@
 
 **Linear** ADTs organise elements in a **sequence** (there is a natural “first”, “next”, “last” story, even if access patterns differ).
 
+![Linear ADTs: Stack, Queue, and Linked Lists](../resources/06-adt-stack-queue-linkedlist.png)
+*Stack (LIFO) operations push/pop at the top; Queue (FIFO) operations enqueue at tail, dequeue from head. Singly linked lists have one-way traversal; doubly linked lists support efficient deletion from any node.*
+
 #### **Array ADT** (fixed size, indexable)
 
 - **Idea:** A sequence of **\(n\)** slots, numbered **\(0, 1, \ldots, n-1\)**, each holding one element.

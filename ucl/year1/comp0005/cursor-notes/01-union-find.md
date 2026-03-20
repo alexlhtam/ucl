@@ -182,6 +182,9 @@ Union–Find is a small, self-contained example of that loop.
 
 ### **Cost summary table**
 
+![Union-Find: Three Approaches Compared](../resources/01-union-find-three-approaches.png)
+*Comparison of Quick-Find (flat array), Quick-Union (forest of trees), and Weighted Quick-Union (balanced trees). The key trade-off is between find and union costs.*
+
 | Algorithm | Init | `union` | `find` |
 |-----------|------|---------|--------|
 | **Quick-Find** (eager) | **\(N\)** | **\(N\)** | **\(1\)** |

@@ -58,6 +58,9 @@ Invariant (when weights are handled correctly): \(\texttt{distTo}[v]\) is always
 
 Different algorithms = different **order** of relaxation + **termination** guarantees under different assumptions.
 
+![Shortest Paths: Relaxation and Dijkstra's Algorithm](../resources/13-shortest-paths-dijkstra.png)
+*Top: edge relaxation — if path through v to w is shorter than current best to w, update. Bottom: Dijkstra's algorithm processes vertices in order of distance from source, building the shortest-paths tree. Comparison box shows when to use each algorithm.*
+
 ### Dijkstra’s algorithm
 
 **Assumption:** all edge weights are **non-negative** (\(\geq 0\)).

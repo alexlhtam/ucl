@@ -27,6 +27,9 @@ QuickSort sorts an array by three steps:
 
 **Pivot choice in the classic lecture version:** use **\(a[\text{lo}]\)** as the pivot value **\(p\)**.
 
+![QuickSort Partitioning Step](../resources/05-quicksort-partition.png)
+*The partition step in action: pivot K is chosen, pointers i and j scan inward swapping elements until they cross, then the pivot is placed in its final position. Everything left of K is ≤ K, everything right is ≥ K.*
+
 **Two pointers:**
 
 - **\(i\)** scans **left → right**, looking for an element **\(\ge p\)** (that “belongs” on the right).

@@ -39,6 +39,9 @@ for i in range(N):
     swap(a[i], a[min])
 ```
 
+![Selection Sort Trace](../resources/03-selection-sort-trace.png)
+*Step-by-step trace of Selection Sort on [7, 10, 5, 3, 8, 4, 2, 9]. Green cells are in their final sorted position. At each step, the minimum of the unsorted region (right) is swapped into position.*
+
 **Complexity (comparisons and exchanges)**
 
 - **Comparisons:** the inner loop runs for \(j = i+1,\ldots,N-1\), so for each **i** we do \((N-1-i)\) comparisons. Total:

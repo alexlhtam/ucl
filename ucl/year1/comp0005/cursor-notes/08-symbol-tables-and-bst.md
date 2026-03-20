@@ -68,6 +68,9 @@ A **binary search tree** is a **binary tree** where each node stores a **key** (
 
 Equivalently (and the phrasing you will see in lectures): each node’s key is **larger than all keys in its left subtree** and **smaller than all keys in its right subtree**. This global invariant is stronger than only comparing to the immediate children — it constrains **whole subtrees**.
 
+![Binary Search Tree: Structure and Deletion](../resources/08-bst-operations.png)
+*Left: BST symmetric order property (left < node < right) with in-order traversal giving sorted keys. Right: BST search follows comparisons down the tree. Bottom: Hibbard deletion for a node with two children — replace with the in-order successor.*
+
 **Important:** Many different BST shapes can represent the **same set** of keys; **insertion order** determines shape.
 
 ---

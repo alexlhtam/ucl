@@ -226,6 +226,9 @@ class ConnectedComponents:
 
 ### DFS vs BFS — summary
 
+![DFS vs BFS: Graph Traversal Comparison](../resources/10-dfs-vs-bfs.png)
+*DFS explores deeply using a stack (recursion), producing any path to connected vertices. BFS explores layer-by-layer using a queue, automatically finding shortest paths (fewest edges).*
+
 | | **Intuition** | **Programming** | **Auxiliary structure** | **Typical “hero” capability** |
 |---|----------------|-----------------|-------------------------|--------------------------------|
 | **DFS** | Maze / backtracking | Natural **recursion** (explicit stack if iterative) | **Stack** (implicit or explicit) | **Paths**, **topological ideas** (directed, later), **CC**, cycle detection variants |
