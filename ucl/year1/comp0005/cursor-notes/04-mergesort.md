@@ -1,4 +1,4 @@
-# MergeSort — COMP0005 Algorithms (UCL)
+# MergeSort — COMP0005 Algorithms
 
 *Lecture-style notes. MergeSort is the canonical **divide-and-conquer** sorting algorithm: it is fast, theoretically well understood, and a template for analysing recursion trees and proving lower bounds.*
 

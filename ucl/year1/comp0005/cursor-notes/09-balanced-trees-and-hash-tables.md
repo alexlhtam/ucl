@@ -1,4 +1,4 @@
-# Balanced Search Trees & Hash Tables — COMP0005 Algorithms (UCL)
+# Balanced Search Trees & Hash Tables — COMP0005 Algorithms
 
 *Lecture-style notes. **2-3 trees** and **left-leaning red–black BSTs (LLRB)** guarantee **logarithmic** height so symbol-table operations stay predictable. **Hash tables** trade **ordering** for **expected constant-time** access when **\(M\)** is chosen well and the **hash function** spreads keys evenly.*
 

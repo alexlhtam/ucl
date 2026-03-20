@@ -1,4 +1,4 @@
-# Abstract Data Types — COMP0005 Algorithms (UCL)
+# Abstract Data Types — COMP0005 Algorithms
 
 *Lecture-style notes. An **abstract data type (ADT)** describes *what* operations a collection supports and *how* they behave from the **user’s** perspective. A **data structure** is a **concrete** way to store data in memory so those operations can be implemented efficiently from the **implementer’s** perspective. Separating the two is central to modular software design and to reasoning about correctness vs performance.*
 

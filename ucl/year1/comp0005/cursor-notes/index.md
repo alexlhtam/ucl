@@ -1,6 +1,6 @@
 # COMP0005 — Algorithms: Lecture Notes Index
 
-*Comprehensive revision notes covering all 9 lectures of the COMP0005 Algorithms module at UCL.*
+*Comprehensive revision notes covering all 9 lectures of the COMP0005 Algorithms module.*
 
 ---
 

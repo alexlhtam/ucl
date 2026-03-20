@@ -1,4 +1,4 @@
-# Symbol Tables & Binary Search Trees — COMP0005 Algorithms (UCL)
+# Symbol Tables & Binary Search Trees — COMP0005 Algorithms
 
 *Lecture-style notes. A **symbol table** (dictionary / map) is one of the most used abstractions in computing. This topic connects **ordered data**, **search structures**, and the first **tree-based** implementation whose performance depends on **shape** — setting up balanced trees and hash tables later in the course.*
 

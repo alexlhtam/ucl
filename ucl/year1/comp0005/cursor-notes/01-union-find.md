@@ -1,4 +1,4 @@
-# Union-Find — COMP0005 Algorithms (UCL)
+# Union-Find — COMP0005 Algorithms
 
 *Lecture-style notes. Union–Find is often one of the first topics: it introduces a clean **problem → model → data structure → complexity → refine** workflow that repeats through the course.*
 
@@ -288,4 +288,4 @@ Union–Find is a small, self-contained example of that loop.
 
 ---
 
-*End of notes — Union-Find (COMP0005, UCL).*
+*End of notes — Union-Find (COMP0005).*

@@ -1,4 +1,4 @@
-# Elementary Sorts — COMP0005 Algorithms (UCL)
+# Elementary Sorts — COMP0005 Algorithms
 
 *Lecture-style notes: selection sort, insertion sort, and how they sit in the wider sorting landscape.*
 
@@ -239,4 +239,4 @@ flowchart LR
 
 ---
 
-*Course: COMP0005 Algorithms — UCL. Aligns with standard treatments of selection and insertion sort; check your term’s official notation for big-O conventions and whether “exchange” vs “assignment” is emphasised in marking schemes.*
+*Course: COMP0005 Algorithms. Aligns with standard treatments of selection and insertion sort; check your term’s official notation for big-O conventions and whether “exchange” vs “assignment” is emphasised in marking schemes.*

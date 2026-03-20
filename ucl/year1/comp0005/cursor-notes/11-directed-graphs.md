@@ -1,4 +1,4 @@
-# Directed Graphs (Digraphs) — COMP0005 Algorithms (UCL)
+# Directed Graphs (Digraphs) — COMP0005 Algorithms
 
 *Lecture-style notes. A **directed graph** (**digraph**) is the natural model when relationships are **asymmetric**: “**A points to B**” is **not** the same as “**B points to A**.” The same **DFS/BFS** skeletons as for undirected graphs still apply, but **reachability**, **shortest paths**, and **connectivity** all respect **edge direction**. **Topological sort** and **strongly connected components** are the two flagship digraph problems.*
 

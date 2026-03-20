@@ -1,4 +1,4 @@
-# Shortest Paths — COMP0005 Algorithms (UCL)
+# Shortest Paths — COMP0005 Algorithms
 
 Lecture-style notes on **single-source** and related shortest-path problems on **edge-weighted digraphs**, relaxation, and the main algorithms (DAG, Dijkstra, Bellman–Ford).
 

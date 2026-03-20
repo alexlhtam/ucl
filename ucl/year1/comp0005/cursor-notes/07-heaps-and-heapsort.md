@@ -1,4 +1,4 @@
-# Binary Heaps & HeapSort — COMP0005 Algorithms (UCL)
+# Binary Heaps & HeapSort — COMP0005 Algorithms
 
 *Lecture-style notes. A **binary heap** is a compact way to implement a **priority queue** and to sort **in place** with **\(O(N \log N)\)** worst-case performance. The same array stores the tree in **level order** with **no pointers** — mastery of **swim** and **sink** is central.*
 

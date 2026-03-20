@@ -1,4 +1,4 @@
-# Minimum Spanning Trees — COMP0005 Algorithms (UCL)
+# Minimum Spanning Trees — COMP0005 Algorithms
 
 *Lecture-style notes. A **minimum spanning tree (MST)** is one of the cleanest places where **greedy reasoning** is not just plausible but **provably correct**: the **cut property** justifies two classic algorithms — **Kruskal** (edges + **union–find**) and **Prim** (grow a tree + **priority queue**). This topic ties together **graphs**, **greedy methods**, **priority queues**, and **disjoint-set (union–find)** structures.*
 

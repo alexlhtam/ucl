@@ -1,4 +1,4 @@
-# Undirected Graphs — COMP0005 Algorithms (UCL)
+# Undirected Graphs — COMP0005 Algorithms
 
 *Lecture-style notes on representing undirected graphs, basic traversals (DFS/BFS), and preprocessing for connectivity queries. This block sets up everything from shortest paths in unweighted graphs to MSTs and beyond.*
 
@@ -331,4 +331,4 @@ Both run in **\(\mathcal{O}(V + E)\)** on adjacency lists for their standard gra
 
 ---
 
-*End of notes — Undirected Graphs (COMP0005, UCL).*
+*End of notes — Undirected Graphs (COMP0005).*

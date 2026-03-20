@@ -1,4 +1,4 @@
-# QuickSort — COMP0005 Algorithms (UCL)
+# QuickSort — COMP0005 Algorithms
 
 *Lecture-style notes. QuickSort is the canonical **in-place**, **divide-and-conquer** comparison sort that dominates practice: its **average** behaviour is **\(\Theta(N \log N)\)**, but the **worst case** is **quadratic** unless you randomise or engineer the pivot.*
 

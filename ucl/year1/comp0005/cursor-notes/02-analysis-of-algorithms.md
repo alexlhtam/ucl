@@ -1,4 +1,4 @@
-# Analysis of Algorithms — COMP0005 Algorithms (UCL)
+# Analysis of Algorithms — COMP0005 Algorithms
 
 *Lecture-style notes on how we **measure**, **predict**, and **compare** algorithm performance — from timing experiments to **mathematical models**, **tilde** and **asymptotic** notation, and **best / worst / average** analysis.*
 
