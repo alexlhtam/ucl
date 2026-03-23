@@ -2699,62 +2699,73 @@
 </blockquote>
 <hr>
 <h3 id="array-representation-of-a-complete-binary-tree"><strong>Array representation</strong> of a complete binary tree<a class="headerlink" href="#array-representation-of-a-complete-binary-tree" title="Permanent link">¶</a></h3>
-<p><strong>Convention (textbook style):</strong> array <strong><code>a</code></strong>, heap size <strong><code>N</code></strong>, indices <strong>start at 1</strong> (position <strong><code>a[0]</code></strong> may be unused or a sentinel in code).</p>
+<p><strong>Convention used here:</strong> array <strong><code>a</code></strong>, heap size <strong><code>N</code></strong> (number of active heap elements), indices <strong>start at 0</strong>.</p>
 <p>Nodes are stored in <strong>level order</strong> (breadth-first): root, then its children left-to-right, then the next level, etc.</p>
 <p><strong>Navigation with integer indices</strong> (parent/child via arithmetic — <strong>no explicit pointers</strong>):</p>
 <ul>
-<li><strong>Parent</strong> of node <strong><code>i</code></strong> (for <strong><code>i &gt; 1</code></strong>): index <strong><code>⌊i/2⌋</code></strong> (integer division).</li>
-<li><strong>Left child</strong> of <strong><code>i</code></strong>: <strong><code>2i</code></strong> (if <strong><code>2i ≤ N</code></strong>).</li>
-<li><strong>Right child</strong> of <strong><code>i</code></strong>: <strong><code>2i + 1</code></strong> (if <strong><code>2i + 1 ≤ N</code></strong>).</li>
+<li><strong>Parent</strong> of node <strong><code>i</code></strong> (for <strong><code>i &gt; 0</code></strong>): index <strong><code>⌊(i-1)/2⌋</code></strong> (integer division).</li>
+<li><strong>Left child</strong> of <strong><code>i</code></strong>: <strong><code>2i + 1</code></strong> (if <strong><code>2i + 1 &lt; N</code></strong>).</li>
+<li><strong>Right child</strong> of <strong><code>i</code></strong>: <strong><code>2i + 2</code></strong> (if <strong><code>2i + 2 &lt; N</code></strong>).</li>
 </ul>
 <p><strong>Why complete trees?</strong> They pack perfectly into an array with <strong>no gaps</strong> up to <strong><code>N</code></strong>, so <strong><span class="arithmatex">\(\Theta(N)\)</span></strong> storage is tight and cache-friendly in principle (though <strong>HeapSort</strong> is still known for <strong>mediocre cache behaviour</strong> in practice compared to tuned Quicksort).</p>
 <hr>
 <h3 id="binary-heap-max-heap"><strong>Binary heap</strong> (<strong>max-heap</strong>)<a class="headerlink" href="#binary-heap-max-heap" title="Permanent link">¶</a></h3>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../resources/07-binary-heap-tree-array.png" data-desc-position="bottom"><img alt="Binary Heap: Tree and Array Representation" src="../../resources/07-binary-heap-tree-array.png"></a>
-<em>A max-heap stored as both a tree and a 1-indexed array. Parent of node i is at a[i/2]; children at a[2i] and a[2i+1]. Swim up restores heap order after insertion; sink down restores it after deletion.</em></p>
+<em>A max-heap stored as both a tree and an array in level order. In this note we use 0-based indexing: parent of node i is at a[(i-1)/2], children at a[2i+1] and a[2i+2]. Swim up restores heap order after insertion; sink down restores it after deletion.</em></p>
 <p>A <strong>max-heap</strong> is a <strong>complete binary tree</strong> satisfying <strong>heap order</strong>:</p>
 <ul>
-<li><strong>Heap order:</strong> for every node <strong><span class="arithmatex">\(i\)</span></strong> (except the root), <strong><span class="arithmatex">\(\texttt{a}[\lfloor i/2 \rfloor] \geq \texttt{a}[i]\)</span></strong> — each parent’s key is <strong>≥</strong> both children’s keys.</li>
+<li><strong>Heap order:</strong> for every node <strong><span class="arithmatex">\(i&gt;0\)</span></strong>, <strong><span class="arithmatex">\(\texttt{a}[\lfloor (i-1)/2 \rfloor] \geq \texttt{a}[i]\)</span></strong> — each parent’s key is <strong>≥</strong> both children’s keys.</li>
 </ul>
 <p><strong>Consequences:</strong></p>
 <ul>
-<li>The <strong>largest</strong> key is always at <strong><span class="arithmatex">\(\texttt{a}[1]\)</span></strong> (the <strong>root</strong>).</li>
+<li>The <strong>largest</strong> key is always at <strong><span class="arithmatex">\(\texttt{a}[0]\)</span></strong> (the <strong>root</strong>).</li>
 <li>The tree shape is fixed by <strong><span class="arithmatex">\(N\)</span></strong>; only <strong>values</strong> violate order after an update — restored by <strong>swim</strong> or <strong>sink</strong>.</li>
 </ul>
 <p><em>(A </em><em>min-heap</em><em> reverses the inequality: parent </em><em>≤</em><em> children; root is </em><em>minimum</em><em>.)</em></p>
 <hr>
 <h3 id="heap-operations"><strong>Heap operations</strong><a class="headerlink" href="#heap-operations" title="Permanent link">¶</a></h3>
 <h4 id="insertion-swim-up-swim-sometimes-fix-up"><strong>Insertion — swim up</strong> (<strong>swim</strong>, sometimes <strong>fix-up</strong>)<a class="headerlink" href="#insertion-swim-up-swim-sometimes-fix-up" title="Permanent link">¶</a></h4>
-<p><strong>Idea:</strong> Insert the new key at the <strong>next free leaf</strong> (position <strong><code>N+1</code></strong> after incrementing <strong><code>N</code></strong>), then <strong>bubble up</strong>: while the node is larger than its parent, <strong>swap</strong> with the parent and continue.</p>
+<p><strong>Idea:</strong> Insert the new key at the <strong>next free leaf</strong> (position <strong><code>N+1</code></strong> after incrementing <strong><code>N</code></strong>), then <strong>bubble up</strong> recursively: if the node is larger than its parent, <strong>swap</strong> and recurse on the parent index.</p>
 <p><strong>Pseudocode:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>enqueue(key):
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    a[++N] = key
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    swim(N)
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>swim(i):
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    while (i &gt; 1 &amp;&amp; a[i/2] &lt; a[i]):
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        swap(a[i], a[i/2])
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        i = i/2
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">enqueue</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">swim</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">N</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">swim</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="k">return</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="k">return</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="n">a</span><span class="p">[</span><span class="n">p</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="n">swim</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 </code></pre></div>
 <p><strong>Cost:</strong> Tree height is <strong><span class="arithmatex">\(O(\log N)\)</span></strong>; each step does <strong><span class="arithmatex">\(O(1)\)</span></strong> work and <strong>one compare</strong> with the parent → <strong>at most</strong> <strong><span class="arithmatex">\(1 + \lfloor \log_2 N \rfloor\)</span></strong> <strong>compares</strong> in the usual counting model.</p>
 <hr>
 <h4 id="delete-max-sink-down-sink-sometimes-fix-down"><strong>Delete max — sink down</strong> (<strong>sink</strong>, sometimes <strong>fix-down</strong>)<a class="headerlink" href="#delete-max-sink-down-sink-sometimes-fix-down" title="Permanent link">¶</a></h4>
-<p><strong>Idea:</strong> Save <strong><span class="arithmatex">\(\texttt{a}[1]\)</span></strong>. Move the <strong>last</strong> element to the root to keep a <strong>complete</strong> tree, shrink <strong><code>N</code></strong>, then <strong>bubble down</strong>: while the node is <strong>smaller than the larger of its children</strong>, swap with that <strong>larger child</strong>.</p>
+<p><strong>Idea:</strong> Save <strong><span class="arithmatex">\(\texttt{a}[0]\)</span></strong>. Move the <strong>last active</strong> element to the root to keep a <strong>complete</strong> tree, shrink <strong><code>N</code></strong>, then <strong>bubble down</strong> recursively: swap with the <strong>larger child</strong> only if that child is larger, then recurse.</p>
 <p><strong>Pseudocode:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>dequeue():
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    max = a[1]
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    swap(a[1], a[N])
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    a[N--] = null   // or logically ignore index N+1..oldN
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    sink(1)
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    return max
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>sink(i):
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    while (2*i &lt;= N):
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        j = 2*i
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        if (j &lt; N &amp;&amp; a[j] &lt; a[j+1]): j++
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        if (a[i] &gt;= a[j]): break
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        swap(a[i], a[j])
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        i = j
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">dequeue</span><span class="p">():</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">max_key</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">N</span> <span class="o">-=</span> <span class="mi">1</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># optional: clear removed slot</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">sink</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="k">return</span> <span class="n">max_key</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">sink</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">left</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="k">if</span> <span class="n">left</span> <span class="o">&gt;=</span> <span class="n">N</span><span class="p">:</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="k">return</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="n">j</span> <span class="o">=</span> <span class="n">left</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="n">right</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="k">if</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">N</span> <span class="ow">and</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">[</span><span class="n">right</span><span class="p">]:</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        <span class="n">j</span> <span class="o">=</span> <span class="n">right</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        <span class="k">return</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    <span class="n">sink</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
 </code></pre></div>
 <p><strong>Cost:</strong> At each level you may compare with <strong>two</strong> children → <strong>at most</strong> <strong><span class="arithmatex">\(2 \lfloor \log_2 N \rfloor\)</span></strong> <strong>compares</strong> in the worst case (still <strong><span class="arithmatex">\(O(\log N)\)</span></strong>).</p>
 <hr>
@@ -2795,21 +2806,21 @@
 <p><strong>Goal:</strong> Sort an array <strong>in place</strong> using heap structure.</p>
 <p><strong>Two phases:</strong></p>
 <ol>
-<li><strong>Heap construction</strong> — rearrange <strong><span class="arithmatex">\(\texttt{a}[1..N]\)</span></strong> into <strong>max-heap order</strong>.</li>
+<li><strong>Heap construction</strong> — rearrange <strong><span class="arithmatex">\(\texttt{a}[0..N-1]\)</span></strong> into <strong>max-heap order</strong>.</li>
 <li><strong>Sortdown</strong> — repeatedly <strong>remove the maximum</strong> by swapping root with the end and <strong>sinking</strong> the new root into the smaller heap.</li>
 </ol>
 <h4 id="heap-construction-bottom-up"><strong>Heap construction (bottom-up)</strong><a class="headerlink" href="#heap-construction-bottom-up" title="Permanent link">¶</a></h4>
-<p><strong>Key trick:</strong> In a complete tree, nodes with indices <strong><code>⌊N/2⌋+1 .. N</code></strong> are <strong>leaves</strong> and already trivial heaps. For <strong><code>k</code></strong> from <strong><code>⌊N/2⌋</code></strong> <strong>down to</strong> <strong><code>1</code></strong>, run <strong><code>sink(k)</code></strong>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>for (k = N/2; k &gt;= 1; k--):
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    sink(k)
+<p><strong>Key trick:</strong> In a complete tree, nodes with indices <strong><code>⌊N/2⌋ .. N-1</code></strong> are <strong>leaves</strong> and already trivial heaps. For <strong><code>k</code></strong> from <strong><code>⌊N/2⌋ - 1</code></strong> <strong>down to</strong> <strong><code>0</code></strong>, run <strong><code>sink(k)</code></strong>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">sink</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 </code></pre></div>
 <p><strong>Analysis surprise:</strong> Total time is <strong><span class="arithmatex">\(O(N)\)</span></strong> <strong>compares/exchanges</strong> (not <strong><span class="arithmatex">\(N \log N\)</span></strong>). <strong>Intuition:</strong> Most nodes are near the bottom and only sink a <strong>short</strong> distance; a careful summation over levels gives <strong>linear</strong> total cost.</p>
 <h4 id="sortdown-top-down"><strong>Sortdown (top-down)</strong><a class="headerlink" href="#sortdown-top-down" title="Permanent link">¶</a></h4>
 <p>Repeatedly move the current maximum to its final position at the end of the array:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>while (N &gt; 1):
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    swap(a[1], a[N])
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    N--
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    sink(1)
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">while</span> <span class="n">N</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">N</span> <span class="o">-=</span> <span class="mi">1</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">sink</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </code></pre></div>
 <p>After the loop, the array is sorted <strong>in ascending order</strong> (if using a max-heap and this “largest to the back” strategy).</p>
 <h4 id="overall-analysis-and-properties"><strong>Overall analysis and properties</strong><a class="headerlink" href="#overall-analysis-and-properties" title="Permanent link">¶</a></h4>
@@ -2906,16 +2917,16 @@
 <hr>
 <h2 id="2-exam-style-questions-with-model-answers">2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)<a class="headerlink" href="#2-exam-style-questions-with-model-answers" title="Permanent link">¶</a></h2>
 <h3 id="q1-parentchild-indices">Q1 — Parent/child indices<a class="headerlink" href="#q1-parentchild-indices" title="Permanent link">¶</a></h3>
-<p><strong>Question.</strong> In a 1-based heap array, what are the indices of the <strong>parent</strong>, <strong>left child</strong>, and <strong>right child</strong> of node <strong><code>i</code></strong>? What is the height of a <strong>complete</strong> binary tree with <strong><span class="arithmatex">\(N\)</span></strong> nodes?</p>
-<p><strong>Model answer.</strong> <strong>Parent:</strong> <strong><code>⌊i/2⌋</code></strong> (for <strong><code>i ≥ 2</code></strong>). <strong>Left child:</strong> <strong><code>2i</code></strong>. <strong>Right child:</strong> <strong><code>2i+1</code></strong> (children exist only if their index <strong>≤</strong> heap size <strong><span class="arithmatex">\(N\)</span></strong>). Height is <strong><span class="arithmatex">\(\lfloor \log_2 N \rfloor\)</span></strong>.</p>
+<p><strong>Question.</strong> In a 0-based heap array, what are the indices of the <strong>parent</strong>, <strong>left child</strong>, and <strong>right child</strong> of node <strong><code>i</code></strong>? What is the height of a <strong>complete</strong> binary tree with <strong><span class="arithmatex">\(N\)</span></strong> nodes?</p>
+<p><strong>Model answer.</strong> <strong>Parent:</strong> <strong><code>⌊(i-1)/2⌋</code></strong> (for <strong><code>i ≥ 1</code></strong>). <strong>Left child:</strong> <strong><code>2i+1</code></strong>. <strong>Right child:</strong> <strong><code>2i+2</code></strong> (children exist only if their index <strong>&lt;</strong> heap size <strong><span class="arithmatex">\(N\)</span></strong>). Height is <strong><span class="arithmatex">\(\lfloor \log_2 N \rfloor\)</span></strong>.</p>
 <hr>
 <h3 id="q2-trace-swim-or-sink">Q2 — Trace <strong>swim</strong> or <strong>sink</strong><a class="headerlink" href="#q2-trace-swim-or-sink" title="Permanent link">¶</a></h3>
-<p><strong>Question.</strong> Starting from a valid max-heap on <strong><code>[—, 9, 7, 8, 3, 5, 6]</code></strong> (index 0 unused), suppose <strong><code>enqueue(10)</code></strong> appends <strong><code>10</code></strong> so the array becomes <strong><code>[—, 9, 7, 8, 3, 5, 6, 10]</code></strong> with <strong><code>N = 7</code></strong>. List the <strong>swaps</strong> <strong><code>swim(7)</code></strong> performs until heap order is restored.</p>
-<p><strong>Model answer.</strong> <strong><code>10</code></strong> at index <strong><code>7</code></strong> has parent <strong><code>⌊7/2⌋ = 3</code></strong> (<strong><code>8</code></strong>). <strong><code>10 &gt; 8</code></strong> → swap → <strong><code>[—, 9, 7, 10, 3, 5, 6, 8]</code></strong>, <strong><code>i = 3</code></strong>. Parent of <strong><code>3</code></strong> is <strong><code>1</code></strong> (<strong><code>9</code></strong>). <strong><code>10 &gt; 9</code></strong> → swap → <strong><code>[—, 10, 7, 9, 3, 5, 6, 8]</code></strong>, <strong><code>i = 1</code></strong>. Stop at root. <strong>Swaps:</strong> <strong>(7,3)</strong> then <strong>(3,1)</strong>.</p>
+<p><strong>Question.</strong> Starting from a valid max-heap on <strong><code>[9, 7, 8, 3, 5, 6]</code></strong>, suppose <strong><code>enqueue(10)</code></strong> appends <strong><code>10</code></strong> so the array becomes <strong><code>[9, 7, 8, 3, 5, 6, 10]</code></strong> with <strong><code>N = 7</code></strong>. List the <strong>swaps</strong> <strong><code>swim(6)</code></strong> performs until heap order is restored.</p>
+<p><strong>Model answer.</strong> <strong><code>10</code></strong> at index <strong><code>6</code></strong> has parent <strong><code>⌊(6-1)/2⌋ = 2</code></strong> (<strong><code>8</code></strong>). <strong><code>10 &gt; 8</code></strong> → swap → <strong><code>[9, 7, 10, 3, 5, 6, 8]</code></strong>, <strong><code>i = 2</code></strong>. Parent of <strong><code>2</code></strong> is <strong><code>0</code></strong> (<strong><code>9</code></strong>). <strong><code>10 &gt; 9</code></strong> → swap → <strong><code>[10, 7, 9, 3, 5, 6, 8]</code></strong>, <strong><code>i = 0</code></strong>. Stop at root. <strong>Swaps:</strong> <strong>(6,2)</strong> then <strong>(2,0)</strong>.</p>
 <hr>
 <h3 id="q3-heapsort-phases-and-complexity">Q3 — <strong>HeapSort</strong> phases and complexity<a class="headerlink" href="#q3-heapsort-phases-and-complexity" title="Permanent link">¶</a></h3>
 <p><strong>Question.</strong> Explain the two phases of <strong>HeapSort</strong> and state the <strong>asymptotic</strong> cost of <strong>heap construction</strong>, <strong>sortdown</strong>, and <strong>overall</strong>. Why is HeapSort <strong>not stable</strong>?</p>
-<p><strong>Model answer.</strong> <strong>Phase 1 — build-heap:</strong> for <strong><code>k</code></strong> from <strong><code>⌊N/2⌋</code></strong> down to <strong><code>1</code></strong>, <strong><code>sink(k)</code></strong>; <strong><span class="arithmatex">\(O(N)\)</span></strong>. <strong>Phase 2 — sortdown:</strong> while <strong><code>N &gt; 1</code></strong>, swap root with <strong><code>a[N]</code></strong>, decrement <strong><code>N</code></strong>, <strong><code>sink(1)</code></strong>; <strong><span class="arithmatex">\(O(N \log N)\)</span></strong> because each of <strong><span class="arithmatex">\(N-1\)</span></strong> extractions costs <strong><span class="arithmatex">\(O(\log N)\)</span></strong>. <strong>Total:</strong> <strong><span class="arithmatex">\(O(N \log N)\)</span></strong>. <strong>Not stable</strong> because swapping the root with distant positions reorders <strong>equal</strong> elements relative to each other.</p>
+<p><strong>Model answer.</strong> <strong>Phase 1 — build-heap:</strong> for <strong><code>k</code></strong> from <strong><code>⌊N/2⌋ - 1</code></strong> down to <strong><code>0</code></strong>, <strong><code>sink(k)</code></strong>; <strong><span class="arithmatex">\(O(N)\)</span></strong>. <strong>Phase 2 — sortdown:</strong> while <strong><code>N &gt; 1</code></strong>, swap root with <strong><code>a[N-1]</code></strong>, decrement <strong><code>N</code></strong>, <strong><code>sink(0)</code></strong>; <strong><span class="arithmatex">\(O(N \log N)\)</span></strong> because each of <strong><span class="arithmatex">\(N-1\)</span></strong> extractions costs <strong><span class="arithmatex">\(O(\log N)\)</span></strong>. <strong>Total:</strong> <strong><span class="arithmatex">\(O(N \log N)\)</span></strong>. <strong>Not stable</strong> because swapping the root with distant positions reorders <strong>equal</strong> elements relative to each other.</p>
 <hr>
 <h3 id="q4-priority-queue-strategies-for-top-m">Q4 — Priority queue strategies for <strong>top M</strong><a class="headerlink" href="#q4-priority-queue-strategies-for-top-m" title="Permanent link">¶</a></h3>
 <p><strong>Question.</strong> Compare <strong>“store all </strong><span class="arithmatex">\(N\)</span><strong>, sort”</strong> vs <strong>“binary heap of size </strong><span class="arithmatex">\(M\)</span><strong>”</strong> for finding the <strong><span class="arithmatex">\(M\)</span></strong> largest items in a stream of <strong><span class="arithmatex">\(N\)</span></strong> items. Give <strong>time</strong> and <strong>space</strong>.</p>
@@ -2927,10 +2938,10 @@
 <hr>
 <h2 id="3-must-know-key-points">3. MUST-KNOW KEY POINTS<a class="headerlink" href="#3-must-know-key-points" title="Permanent link">¶</a></h2>
 <ul>
-<li><strong>Complete binary tree</strong> → <strong>level-order</strong> array; <strong>1-based</strong> indexing: parent <strong><code>⌊i/2⌋</code></strong>, children <strong><code>2i</code></strong>, <strong><code>2i+1</code></strong>.</li>
-<li><strong>Max-heap order:</strong> parent <strong>≥</strong> children ⇒ <strong>maximum at root</strong> <strong><code>a[1]</code></strong>.</li>
+<li><strong>Complete binary tree</strong> → <strong>level-order</strong> array; <strong>0-based</strong> indexing: parent <strong><code>⌊(i-1)/2⌋</code></strong>, children <strong><code>2i+1</code></strong>, <strong><code>2i+2</code></strong>.</li>
+<li><strong>Max-heap order:</strong> parent <strong>≥</strong> children ⇒ <strong>maximum at root</strong> <strong><code>a[0]</code></strong>.</li>
 <li><strong>Insert:</strong> append, then <strong><code>swim</code></strong> — <strong><span class="arithmatex">\(O(\log N)\)</span></strong> compares (about <strong>height</strong>).</li>
-<li><strong>Delete max:</strong> swap root with last, shrink heap, <strong><code>sink(1)</code></strong> — <strong><span class="arithmatex">\(O(\log N)\)</span></strong>, up to <strong>two</strong> compares per level when choosing the larger child.</li>
+<li><strong>Delete max:</strong> swap root with last active index, shrink heap, <strong><code>sink(0)</code></strong> — <strong><span class="arithmatex">\(O(\log N)\)</span></strong>, up to <strong>two</strong> compares per level when choosing the larger child.</li>
 <li><strong>PQ costs:</strong> heap achieves <strong><span class="arithmatex">\(O(\log M)\)</span></strong> insert/delete-max and <strong><span class="arithmatex">\(O(1)\)</span></strong> find-max.</li>
 <li><strong>HeapSort:</strong> <strong>bottom-up build</strong> <strong><span class="arithmatex">\(O(N)\)</span></strong> + <strong>sortdown</strong> <strong><span class="arithmatex">\(O(N \log N)\)</span></strong> → <strong><span class="arithmatex">\(O(N \log N)\)</span></strong> total; <strong>in-place</strong>, <strong>worst-case</strong> <strong><span class="arithmatex">\(N \log N\)</span></strong>, <strong>not stable</strong>.</li>
 <li><strong>Contrast sorts:</strong> HeapSort is <strong>in-place</strong> like Selection/Insertion/QuickSort but <strong>unstable</strong> like Selection/QuickSort; MergeSort is <strong>stable</strong> and <strong><span class="arithmatex">\(N \log N\)</span></strong> but needs <strong>linear extra space</strong>.</li>
@@ -2939,11 +2950,11 @@
 <h2 id="4-high-priority-topics">4. HIGH-PRIORITY TOPICS<a class="headerlink" href="#4-high-priority-topics" title="Permanent link">¶</a></h2>
 <h3 id="must-know">🔴 Must Know<a class="headerlink" href="#must-know" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Array indexing</strong> for complete trees: <strong>parent / left / right</strong> formulas with <strong>1-based</strong> heaps.</li>
-<li><strong>Max-heap invariant</strong> and <strong>why</strong> the maximum is at <strong><span class="arithmatex">\(\texttt{a}[1]\)</span></strong>.</li>
+<li><strong>Array indexing</strong> for complete trees: <strong>parent / left / right</strong> formulas with <strong>0-based</strong> heaps.</li>
+<li><strong>Max-heap invariant</strong> and <strong>why</strong> the maximum is at <strong><span class="arithmatex">\(\texttt{a}[0]\)</span></strong>.</li>
 <li><strong><code>swim</code></strong> vs <strong><code>sink</code></strong> — <strong>when</strong> each runs (insert vs delete-max).</li>
 <li><strong>Pseudocode</strong> for <strong><code>swim</code></strong> and <strong><code>sink</code></strong> (including <strong>choose larger child</strong> in <strong><code>sink</code></strong>).</li>
-<li><strong>Heap construction</strong> loop <strong><code>for k = N/2 downto 1</code></strong> and that it is <strong><span class="arithmatex">\(O(N)\)</span></strong>.</li>
+<li><strong>Heap construction</strong> loop <strong><code>for k = N/2 - 1 downto 0</code></strong> and that it is <strong><span class="arithmatex">\(O(N)\)</span></strong>.</li>
 <li><strong>Sortdown</strong> loop and <strong><span class="arithmatex">\(O(N \log N)\)</span></strong> <strong>total</strong> HeapSort time.</li>
 <li><strong>HeapSort properties:</strong> <strong>in-place</strong>, <strong>not stable</strong>, <strong><span class="arithmatex">\(N \log N\)</span></strong> worst case; <strong>poor cache</strong> relative to tuned Quicksort (qualitative).</li>
 <li><strong>PQ implementation table</strong> (unordered vs ordered array vs heap).</li>
@@ -2958,7 +2969,7 @@
 <h3 id="useful-but-lower-priority">🟢 Useful but Lower Priority<a class="headerlink" href="#useful-but-lower-priority" title="Permanent link">¶</a></h3>
 <ul>
 <li><strong>Min-heap</strong> variant for <strong><span class="arithmatex">\(k\)</span></strong> smallest or for <strong>largest <span class="arithmatex">\(M\)</span></strong> on a stream (min-heap of size <strong><span class="arithmatex">\(M\)</span></strong> to retain the <strong><span class="arithmatex">\(M\)</span></strong> largest).</li>
-<li><strong>0-based</strong> indexing formulas (if your lab code uses them): parent <strong><code>⌊(i-1)/2⌋</code></strong>, children <strong><code>2i+1</code></strong>, <strong><code>2i+2</code></strong> — derive from first principles if asked.</li>
+<li><strong>Alternative conventions:</strong> some texts still use 1-based heaps; convert carefully during exams if notation differs.</li>
 <li><strong>Why</strong> bottom-up build is linear (layer-sum argument); <strong>d-ary heaps</strong> as generalisation.</li>
 </ul>
 <hr>
@@ -2974,7 +2985,7 @@
 <h2 id="6-exam-strategy-tips">6. EXAM STRATEGY TIPS<a class="headerlink" href="#6-exam-strategy-tips" title="Permanent link">¶</a></h2>
 <ul>
 <li><strong>Draw a small tree</strong> (7–15 nodes) alongside the array; trace <strong><code>swim</code></strong>/<strong><code>sink</code></strong> on paper — index arithmetic errors are the main failure mode.</li>
-<li>If asked for <strong>parent of</strong> node <strong>i</strong>, restate <strong>integer division</strong> explicitly (<strong><code>⌊i/2⌋</code></strong>).</li>
+<li>If asked for <strong>parent of</strong> node <strong>i</strong>, restate <strong>integer division</strong> explicitly (<strong><code>⌊(i-1)/2⌋</code></strong>).</li>
 <li><strong><code>sink</code>:</strong> always mention <strong>compare both children</strong> and <strong>swap with the larger</strong> (unless ties are specified).</li>
 <li><strong>HeapSort:</strong> separate <strong>“build heap </strong><span class="arithmatex">\(O(N)\)</span><strong>”</strong> from <strong>“</strong><span class="arithmatex">\(N\)</span><strong> times delete-max </strong><span class="arithmatex">\(O(\log N)\)</span><strong>”</strong> → <strong><span class="arithmatex">\(O(N \log N)\)</span></strong>; do <strong>not</strong> claim build-heap is <strong><span class="arithmatex">\(N \log N\)</span></strong>.</li>
 <li><strong>Stability:</strong> link to <strong>long-distance swaps</strong> in sortdown (equal keys can <strong>cross</strong>).</li>
@@ -2982,7 +2993,7 @@
 <li>When a question says <strong>“in-place”</strong>, contrast <strong>HeapSort/QuickSort/Insertion</strong> with <strong>MergeSort’s </strong><span class="arithmatex">\(\Theta(N)\)</span><strong> auxiliary array</strong>.</li>
 </ul>
 <hr>
-<p><em>These notes align with standard COMP0005 treatments of binary heaps and HeapSort; follow your lecturer’s conventions for </em><em>0-based vs 1-based</em><em> heaps, tie-breaking in </em><em><code>sink</code></em><em>, and exact compare/exchange counts if they differ.</em></p>
+<p><em>These notes align with standard COMP0005 treatments of binary heaps and HeapSort; this page uses </em><em>0-based indexing</em><em>, and you should still follow your lecturer’s conventions for tie-breaking in </em><em><code>sink</code></em><em> and exact compare/exchange counts if they differ.</em></p>
 
 
 

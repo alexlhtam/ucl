@@ -83,19 +83,22 @@ A **max-heap** is a **complete binary tree** satisfying **heap order**:
 **Pseudocode:**
 
 ```python
-def enqueue(key):
-    a[N] = key
-    swim(N)
-    N += 1
+def _parent(i):
+    return (i - 1) // 2
 
-def swim(i):
-    if i <= 0:
-        return
-    p = (i - 1) // 2
-    if a[p] >= a[i]:
-        return
-    a[p], a[i] = a[i], a[p]
-    swim(p)
+def _swap(i, j):
+    self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
+
+def enqueue(key):
+    self.heap[self.size] = key
+    self._sift_up(self.size)
+    self.size += 1
+
+def _sift_up(i):
+    parent = self._parent(i)
+    if i > 0 and self.heap[parent] < self.heap[i]:
+        self._swap(i, parent)
+        self._sift_up(parent)
 ```
 
 **Cost:** Tree height is **\(O(\log N)\)**; each step does **\(O(1)\)** work and **one compare** with the parent → **at most** **\(1 + \lfloor \log_2 N \rfloor\)** **compares** in the usual counting model.
@@ -109,26 +112,33 @@ def swim(i):
 **Pseudocode:**
 
 ```python
+def _left(i):
+    return 2 * i + 1
+
+def _right(i):
+    return 2 * i + 2
+
 def dequeue():
-    max_key = a[0]
-    N -= 1
-    a[0], a[N] = a[N], a[0]
-    a[N] = None  # optional: clear removed slot
-    sink(0)
+    max_key = self.heap[0]
+    self.size -= 1
+    self._swap(0, self.size)
+    self.heap[self.size] = None  # optional: clear removed slot
+    self._sift_down(0)
     return max_key
 
-def sink(i):
-    left = 2 * i + 1
-    if left >= N:
-        return
-    j = left
-    right = left + 1
-    if right < N and a[j] < a[right]:
-        j = right
-    if a[i] >= a[j]:
-        return
-    a[i], a[j] = a[j], a[i]
-    sink(j)
+def _sift_down(i):
+    largest = i
+    l = self._left(i)
+    r = self._right(i)
+
+    if l < self.size and self.heap[l] > self.heap[largest]:
+        largest = l
+    if r < self.size and self.heap[r] > self.heap[largest]:
+        largest = r
+
+    if largest != i:
+        self._swap(i, largest)
+        self._sift_down(largest)
 ```
 
 **Cost:** At each level you may compare with **two** children → **at most** **\(2 \lfloor \log_2 N \rfloor\)** **compares** in the worst case (still **\(O(\log N)\)**).
@@ -158,11 +168,11 @@ def sink(i):
 
 #### **Heap construction (bottom-up)**
 
-**Key trick:** In a complete tree, nodes with indices **`⌊N/2⌋ .. N-1`** are **leaves** and already trivial heaps. For **`k`** from **`⌊N/2⌋ - 1`** **down to** **`0`**, run **`sink(k)`**.
+**Key trick:** In a complete tree, nodes with indices **`⌊N/2⌋ .. N-1`** are **leaves** and already trivial heaps. For **`k`** from **`⌊N/2⌋ - 1`** **down to** **`0`**, run **`_sift_down(k)`**.
 
 ```python
-for k in range(N // 2 - 1, -1, -1):
-    sink(k)
+for k in range(self.size // 2 - 1, -1, -1):
+    self._sift_down(k)
 ```
 
 **Analysis surprise:** Total time is **\(O(N)\)** **compares/exchanges** (not **\(N \log N\)**). **Intuition:** Most nodes are near the bottom and only sink a **short** distance; a careful summation over levels gives **linear** total cost.
@@ -172,10 +182,10 @@ for k in range(N // 2 - 1, -1, -1):
 Repeatedly move the current maximum to its final position at the end of the array:
 
 ```python
-while N > 1:
-    a[0], a[N - 1] = a[N - 1], a[0]
-    N -= 1
-    sink(0)
+while self.size > 1:
+    self._swap(0, self.size - 1)
+    self.size -= 1
+    self._sift_down(0)
 ```
 
 After the loop, the array is sorted **in ascending order** (if using a max-heap and this “largest to the back” strategy).
