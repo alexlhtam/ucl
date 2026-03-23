@@ -64,7 +64,7 @@ A typical **operation-by-operation** count (exact constants depend on how you de
 
 **Big picture:** The loop body runs **$\Theta(N)$** times; **dominant** work is **linear in $N$**.
 
-#### **Double loop** — count pairs $(i,j)$ with $i<j$ and $a[i]+a[j]=0$
+#### **Double loop** — count pairs (i,j) summing to zero
 
 ```text
 count = 0
@@ -87,7 +87,7 @@ So the **pair body** runs **$\Theta(N^2)$** times.
 
 **Comparison counts** (outer `i < N`, inner `j < N`, etc.) accumulate to **cubic polynomials in $N$** in a fully itemised count; a common textbook-style total for the nested **`<`** checks alone is on the order of **$\tfrac{1}{2}(N+1)(N+2)$** — still **$\Theta(N^2)$** when we focus on **growth**.
 
-#### **Triple nested loop** — typical **$\Theta(N^3)$** pattern
+#### **Triple nested loop** — typical cubic pattern
 
 Many brute-force routines with **$i<j<k$** or three independent indices **$0 \le i,j,k < N$** end up with **innermost** work **$\Theta(N^3)$**. A common **sorted-triple** style scan has about **$\sim \tfrac{1}{6}N^3$** innermost executions (binomial coefficient **$\binom{N}{3}$**); a full **$N\times N\times N$** cube has **$N^3$**. Either way, **array accesses** are **$\Theta(N^3)$** — the course shorthand **“~$\tfrac{1}{2}N^3$”** is a **representative** order-of-magnitude for some specific triple-loop variants; always **read the loop bounds** on the sheet you are given.
 

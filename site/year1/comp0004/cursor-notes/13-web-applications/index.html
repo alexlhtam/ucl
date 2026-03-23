@@ -1,0 +1,2856 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Year 1 Computer Science notes — UCL">
+      
+      
+        <meta name="author" content="Alex Tam">
+      
+      
+        <link rel="canonical" href="https://alexlhtam.github.io/ucl/year1/comp0004/cursor-notes/13-web-applications/">
+      
+      
+        <link rel="prev" href="../12-lambdas-and-streams/">
+      
+      
+        <link rel="next" href="../14-data-structures-in-java/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Web Applications - Alex's UCL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#web-applications-comp0004-object-oriented-programming-ucl" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Alex's UCL Notes" class="md-header__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex's UCL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Web Applications
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../comp0005/cursor-notes/01-union-find/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Year 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Alex's UCL Notes" class="md-nav__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    Alex's UCL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Year 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Year 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms (COMP0005)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms (COMP0005)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/01-union-find/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/02-analysis-of-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis of Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/06-abstract-data-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sorting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sorting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/03-elementary-sorts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementary Sorts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/04-mergesort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MergeSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/05-quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QuickSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/07-heaps-and-heapsort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heaps &amp; HeapSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/08-symbol-tables-and-bst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbol Tables &amp; BST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/09-balanced-trees-and-hash-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balanced Trees &amp; Hash Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/10-undirected-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undirected Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/11-directed-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/12-minimum-spanning-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Spanning Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/13-shortest-paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shortest Paths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OOP / Java (COMP0004)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OOP / Java (COMP0004)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-intro-to-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-core-java-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Java Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Object-Oriented Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-classes-objects-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes, Objects &amp; References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-designing-with-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-interfaces-and-polymorphism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces &amp; Polymorphism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-file-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-json-csv-and-records/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON, CSV &amp; Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-packages-and-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages &amp; Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-lambdas-and-streams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambdas &amp; Streams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#three-tier-three-layer-web-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three-tier / three-layer web architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-protocol-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTTP protocol basics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#html-basics-for-web-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTML basics for web UI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#java-web-frameworks-servlets-jsp-spring-boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Java web frameworks: Servlets, JSP, Spring Boot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restful-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RESTful APIs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-for-web-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON for web APIs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mvc-modelviewcontroller" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MVC: Model–View–Controller
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clientserver-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Client–server communication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-vs-dynamic-web-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static vs dynamic web content
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment-basics-web-servers-and-application-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployment basics: web servers and application servers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security considerations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (with model answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (with model answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-three-tier-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Three-tier architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-get-vs-post" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — GET vs POST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-rest-and-crud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — REST and CRUD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-mvc-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — MVC roles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-static-vs-dynamic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Static vs dynamic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS (🔴 / 🟡 / 🟢)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-data-structures-in-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures in Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-design-patterns-and-threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns &amp; Threads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#three-tier-three-layer-web-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three-tier / three-layer web architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-protocol-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTTP protocol basics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#html-basics-for-web-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTML basics for web UI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#java-web-frameworks-servlets-jsp-spring-boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Java web frameworks: Servlets, JSP, Spring Boot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restful-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RESTful APIs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-for-web-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON for web APIs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mvc-modelviewcontroller" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MVC: Model–View–Controller
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clientserver-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Client–server communication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-vs-dynamic-web-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static vs dynamic web content
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment-basics-web-servers-and-application-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployment basics: web servers and application servers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security considerations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (with model answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (with model answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-three-tier-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Three-tier architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-get-vs-post" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — GET vs POST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-rest-and-crud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — REST and CRUD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-mvc-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — MVC roles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-static-vs-dynamic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Static vs dynamic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS (🔴 / 🟡 / 🟢)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="web-applications-comp0004-object-oriented-programming-ucl">Web Applications — COMP0004 Object-Oriented Programming (UCL)<a class="headerlink" href="#web-applications-comp0004-object-oriented-programming-ucl" title="Permanent link">¶</a></h1>
+<p><em>Lecture-style notes aligned with Slides 14: </em><em>three-tier architecture</em><em>, </em><em>HTTP</em><em>, </em><em>HTML</em><em>, </em><em>Java web stacks</em><em> (</em><em>Servlets</em><em>, </em><em>JSP</em><em>, </em><em>Spring Boot</em><em>), </em><em>REST</em><em> and </em><em>JSON</em><em>, </em><em>MVC</em><em>, </em><em>static vs dynamic</em><em> content, </em><em>deployment</em><em>, and </em><em>security</em><em> basics.</em></p>
+<hr>
+<h2 id="1-complete-topic-summaries">1. COMPLETE TOPIC SUMMARIES<a class="headerlink" href="#1-complete-topic-summaries" title="Permanent link">¶</a></h2>
+<h3 id="three-tier-three-layer-web-architecture"><strong>Three-tier / three-layer web architecture</strong><a class="headerlink" href="#three-tier-three-layer-web-architecture" title="Permanent link">¶</a></h3>
+<p>Most <strong>web applications</strong> are described as <strong>three tiers</strong> (or three logical layers):</p>
+<ol>
+<li><strong>Presentation tier (client)</strong> — usually a <strong>web browser</strong> (or mobile app) that sends <strong>HTTP requests</strong> and renders <strong>HTML</strong>, <strong>JSON</strong> consumers, etc.</li>
+<li><strong>Application tier (server)</strong> — a <strong>web server</strong> runs your <strong>application code</strong> (e.g. <strong>Servlets</strong>, <strong>Spring Boot</strong> controllers). This layer implements <strong>business logic</strong>, talks to storage, and builds responses.</li>
+<li><strong>Data tier</strong> — <strong>databases</strong>, file systems, or other services where information is <strong>persisted</strong> and <strong>queried</strong>.</li>
+</ol>
+<blockquote>
+<p><strong>Beginner intuition:</strong> The <strong>browser</strong> asks a question; the <strong>server</strong> thinks and fetches data; the <strong>database</strong> remembers things long-term. Each tier can scale or change technology somewhat independently.</p>
+</blockquote>
+<hr>
+<h3 id="http-protocol-basics"><strong>HTTP protocol basics</strong><a class="headerlink" href="#http-protocol-basics" title="Permanent link">¶</a></h3>
+<p><strong>HTTP</strong> (<strong>Hypertext Transfer Protocol</strong>) is how clients and servers communicate on the web.</p>
+<ul>
+<li>A <strong>request</strong> from the client includes: a <strong>method</strong> (verb), a <strong>URL</strong> (path + optional query string), <strong>headers</strong>, and sometimes a <strong>body</strong>.</li>
+<li>A <strong>response</strong> from the server includes: a <strong>status code</strong> (e.g. <strong>200 OK</strong>, <strong>404 Not Found</strong>), <strong>headers</strong>, and a <strong>body</strong> (HTML, JSON, image bytes, …).</li>
+</ul>
+<p><strong>Common methods:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Typical use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GET</strong></td>
+<td><strong>Retrieve</strong> a resource; should be <strong>safe</strong> and <strong>idempotent</strong> in good design (no lasting side effects). Data often in <strong>query string</strong> (<code>?name=value</code>).</td>
+</tr>
+<tr>
+<td><strong>POST</strong></td>
+<td><strong>Submit</strong> data (forms, file uploads); often creates resources or triggers actions. Data usually in <strong>request body</strong>.</td>
+</tr>
+</tbody>
+</table>
+<p>Other methods you should recognise: <strong>PUT</strong> (replace/update), <strong>PATCH</strong> (partial update), <strong>DELETE</strong> (remove) — central to <strong>RESTful APIs</strong>.</p>
+<hr>
+<h3 id="html-basics-for-web-ui"><strong>HTML basics for web UI</strong><a class="headerlink" href="#html-basics-for-web-ui" title="Permanent link">¶</a></h3>
+<p><strong>HTML</strong> (<strong>HyperText Markup Language</strong>) structures the <strong>content</strong> of web pages: headings, paragraphs, lists, links, forms, buttons.</p>
+<ul>
+<li>Browsers <strong>parse</strong> HTML and <strong>render</strong> a page; <strong>CSS</strong> styles it; <strong>JavaScript</strong> adds interactivity.</li>
+<li><strong>Forms</strong> (<code>&lt;form&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;button&gt;</code>) are how users <strong>submit</strong> data; the <strong><code>action</code></strong> URL and <strong><code>method</code></strong> (often <strong>GET</strong> or <strong>POST</strong>) determine how the <strong>server</strong> receives input.</li>
+</ul>
+<hr>
+<h3 id="java-web-frameworks-servlets-jsp-spring-boot"><strong>Java web frameworks: Servlets, JSP, Spring Boot</strong><a class="headerlink" href="#java-web-frameworks-servlets-jsp-spring-boot" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Servlets</strong> — low-level Java <strong>request handlers</strong> (often subclass <strong><code>HttpServlet</code></strong>). The <strong>servlet container</strong> (e.g. <strong>Tomcat</strong>) maps URLs to servlet classes and calls <strong><code>doGet</code></strong>, <strong><code>doPost</code></strong>, etc. Still the conceptual core of many Java web stacks.</li>
+<li><strong>JSP</strong> (<strong>JavaServer Pages</strong>) — <strong>historical</strong> view technology: HTML mixed with Java snippets, <strong>compiled to servlets</strong>. Helped avoid printing HTML from Java by hand; modern apps often prefer <strong>template engines</strong> or <strong>SPA</strong> front ends.</li>
+<li><strong>Spring Boot</strong> — <strong>modern</strong> framework: <strong>convention over configuration</strong>, embedded server, <strong>annotations</strong> (<code>@RestController</code>, <code>@GetMapping</code>), <strong>dependency injection</strong>, and strong <strong>ecosystem</strong> for <strong>REST</strong>, <strong>security</strong>, and <strong>data access</strong>.</li>
+</ul>
+<hr>
+<h3 id="restful-apis"><strong>RESTful APIs</strong><a class="headerlink" href="#restful-apis" title="Permanent link">¶</a></h3>
+<p><strong>REST</strong> (<strong>Representational State Transfer</strong>) is an <strong>architectural style</strong> (not a single library) for networked systems.</p>
+<p><strong>REST principles</strong> (exam-friendly summary):</p>
+<ul>
+<li><strong>Resources</strong> are identified by <strong>URLs</strong> (e.g. <code>/api/books/42</code>).</li>
+<li><strong>Representations</strong> (often <strong>JSON</strong>) are exchanged; the server sends <strong>state</strong> of a resource, not hidden “RPC endpoints” named after verbs only.</li>
+<li><strong>Stateless</strong> requests: each request carries what the server needs (tokens, IDs); the server does not rely on hidden <strong>server-side session</strong> for every API call (though cookies/sessions exist for browser apps).</li>
+<li>Use <strong>HTTP methods</strong> meaningfully (<strong>GET</strong> read, <strong>POST</strong> create, <strong>PUT/PATCH</strong> update, <strong>DELETE</strong> delete).</li>
+</ul>
+<p><strong>HTTP methods mapped to CRUD</strong> (typical mapping):</p>
+<table>
+<thead>
+<tr>
+<th>CRUD</th>
+<th>HTTP</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Create</strong></td>
+<td><strong>POST</strong></td>
+<td><code>POST /api/books</code> with JSON body</td>
+</tr>
+<tr>
+<td><strong>Read</strong></td>
+<td><strong>GET</strong></td>
+<td><code>GET /api/books/42</code></td>
+</tr>
+<tr>
+<td><strong>Update</strong></td>
+<td><strong>PUT</strong> or <strong>PATCH</strong></td>
+<td><code>PUT /api/books/42</code></td>
+</tr>
+<tr>
+<td><strong>Delete</strong></td>
+<td><strong>DELETE</strong></td>
+<td><code>DELETE /api/books/42</code></td>
+</tr>
+</tbody>
+</table>
+<p>An <strong>endpoint</strong> is a specific <strong>URL + method</strong> combination your server exposes.</p>
+<hr>
+<h3 id="json-for-web-apis"><strong>JSON for web APIs</strong><a class="headerlink" href="#json-for-web-apis" title="Permanent link">¶</a></h3>
+<p><strong>JSON</strong> (<strong>JavaScript Object Notation</strong>) is a <strong>lightweight text format</strong>: objects <code>{ "key": value }</code>, arrays <code>[ ... ]</code>, strings, numbers, booleans, <code>null</code>.</p>
+<ul>
+<li><strong>Human-readable</strong> and <strong>language-neutral</strong> — easy for browsers, mobile apps, and servers to exchange data.</li>
+<li>In Java, libraries like <strong>Jackson</strong> or <strong>Gson</strong> <strong>serialize</strong> objects → JSON and <strong>deserialize</strong> JSON → objects.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// Conceptual: a record or POJO maps cleanly to JSON fields</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kd">public</span><span class="w"> </span><span class="kd">record</span> <span class="nc">Book</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">title</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">author</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">year</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1">// Server sends: {"title":"...","author":"...","year":2024}</span>
+</code></pre></div>
+<hr>
+<h3 id="mvc-modelviewcontroller"><strong>MVC: Model–View–Controller</strong><a class="headerlink" href="#mvc-modelviewcontroller" title="Permanent link">¶</a></h3>
+<p><strong>MVC</strong> separates concerns:</p>
+<ul>
+<li><strong>Model</strong> — <strong>domain data</strong> and <strong>business rules</strong> (e.g. <code>Book</code>, <code>Order</code>, services that validate and persist).</li>
+<li><strong>View</strong> — <strong>presentation</strong> (HTML page, JSP, Thymeleaf template, or JSON is “view” in API terms).</li>
+<li><strong>Controller</strong> — <strong>handles HTTP request</strong>, calls the <strong>model</strong>, chooses <strong>which view</strong> or <strong>response</strong> to return.</li>
+</ul>
+<p>This improves <strong>testability</strong> and <strong>maintainability</strong>: UI changes don’t force rewriting core logic, and logic isn’t buried in templates.</p>
+<hr>
+<h3 id="clientserver-communication"><strong>Client–server communication</strong><a class="headerlink" href="#clientserver-communication" title="Permanent link">¶</a></h3>
+<ol>
+<li><strong>Client</strong> sends <strong>request</strong> (browser navigation, form submit, <code>fetch</code>/XHR).</li>
+<li><strong>Server</strong> <strong>routing</strong> picks a <strong>handler</strong> (servlet, controller).</li>
+<li>Handler <strong>parses</strong> input (parameters, JSON body), calls <strong>model</strong> layer.</li>
+<li>Handler <strong>generates response</strong> — set <strong>status</strong>, <strong>headers</strong>, write <strong>body</strong> (HTML or JSON).</li>
+</ol>
+<hr>
+<h3 id="static-vs-dynamic-web-content"><strong>Static vs dynamic web content</strong><a class="headerlink" href="#static-vs-dynamic-web-content" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Static</strong></th>
+<th><strong>Dynamic</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>What</strong></td>
+<td>Fixed files (<strong>HTML</strong>, CSS, images) served as-is</td>
+<td>Content <strong>generated per request</strong> (database lookup, user session, template fill)</td>
+</tr>
+<tr>
+<td><strong>Who builds it</strong></td>
+<td>Uploaded to server once</td>
+<td><strong>Application code</strong> runs on each request</td>
+</tr>
+<tr>
+<td><strong>Example</strong></td>
+<td>Course syllabus <code>.html</code></td>
+<td>“My account” page with your name and orders</td>
+</tr>
+</tbody>
+</table>
+<p>Many real sites mix both: <strong>static assets</strong> from a CDN, <strong>dynamic</strong> data from APIs.</p>
+<hr>
+<h3 id="deployment-basics-web-servers-and-application-servers"><strong>Deployment basics: web servers and application servers</strong><a class="headerlink" href="#deployment-basics-web-servers-and-application-servers" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Web server</strong> — serves HTTP, often <strong>static files</strong>, and may <strong>reverse proxy</strong> to an app (e.g. <strong>nginx</strong> in front of Java).</li>
+<li><strong>Application server / servlet container</strong> — runs <strong>Java web applications</strong> (<strong>.war</strong> deployable), manages <strong>servlets</strong>, <strong>threads</strong>, <strong>sessions</strong> (e.g. <strong>Tomcat</strong>, <strong>Jetty</strong>).</li>
+<li><strong>Spring Boot</strong> often bundles an <strong>embedded</strong> server — one <strong>JAR</strong> runs the whole app for development and many production setups.</li>
+</ul>
+<hr>
+<h3 id="security-considerations"><strong>Security considerations</strong><a class="headerlink" href="#security-considerations" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Input validation</strong> — never trust <strong>query parameters</strong>, <strong>form fields</strong>, or <strong>JSON</strong> from clients. Validate <strong>types</strong>, <strong>ranges</strong>, and <strong>allowed values</strong> before using data in <strong>SQL</strong>, <strong>file paths</strong>, or <strong>HTML output</strong>.</li>
+<li><strong>Authentication</strong> — verify <strong>who</strong> the user is (login, <strong>tokens</strong>, <strong>sessions</strong>). <strong>Authorisation</strong> decides <strong>what</strong> they may do.</li>
+<li>Related exam topics: <strong>SQL injection</strong> (use <strong>parameterised queries</strong>), <strong>XSS</strong> (escape output when injecting user text into HTML), <strong>HTTPS</strong> for transport encryption.</li>
+</ul>
+<hr>
+<h2 id="2-exam-style-questions-with-model-answers">2. EXAM-STYLE QUESTIONS (with model answers)<a class="headerlink" href="#2-exam-style-questions-with-model-answers" title="Permanent link">¶</a></h2>
+<h3 id="q1-three-tier-architecture">Q1 — Three-tier architecture<a class="headerlink" href="#q1-three-tier-architecture" title="Permanent link">¶</a></h3>
+<p><strong>Question:</strong> Name the <strong>three tiers</strong> in a typical web application and state <strong>one responsibility</strong> of each.</p>
+<p><strong>Model answer:</strong> <strong>(1) Client/presentation</strong> — browser or app sends requests and displays responses. <strong>(2) Application</strong> — web server runs business logic, orchestrates processing. <strong>(3) Data</strong> — persistent storage (database/files) for reading and writing domain data.</p>
+<hr>
+<h3 id="q2-get-vs-post">Q2 — GET vs POST<a class="headerlink" href="#q2-get-vs-post" title="Permanent link">¶</a></h3>
+<p><strong>Question:</strong> Explain when you would use <strong>HTTP GET</strong> vs <strong>HTTP POST</strong> for a form that searches a product catalogue vs one that places an order.</p>
+<p><strong>Model answer:</strong> <strong>Search</strong> is a <strong>read</strong> operation with no lasting server-side change → <strong>GET</strong> is appropriate (bookmarkable URL, cacheable; parameters in query string). <strong>Placing an order</strong> <strong>creates</strong> state and must not be accidentally repeated by refresh → <strong>POST</strong> (body carries order details; browsers warn on resubmit). Design <strong>POST</strong> for <strong>non-idempotent</strong> actions.</p>
+<hr>
+<h3 id="q3-rest-and-crud">Q3 — REST and CRUD<a class="headerlink" href="#q3-rest-and-crud" title="Permanent link">¶</a></h3>
+<p><strong>Question:</strong> Map <strong>CRUD</strong> operations to <strong>HTTP methods</strong> and give an example URL pattern for a <code>Student</code> resource with id <code>7</code>.</p>
+<p><strong>Model answer:</strong> <strong>Create</strong> → <strong>POST</strong> <code>/students</code>; <strong>Read</strong> → <strong>GET</strong> <code>/students/7</code>; <strong>Update</strong> → <strong>PUT</strong> or <strong>PATCH</strong> <code>/students/7</code>; <strong>Delete</strong> → <strong>DELETE</strong> <code>/students/7</code>. (Plural resource collections with <strong>id</strong> in the path is standard REST style.)</p>
+<hr>
+<h3 id="q4-mvc-roles">Q4 — MVC roles<a class="headerlink" href="#q4-mvc-roles" title="Permanent link">¶</a></h3>
+<p><strong>Question:</strong> In <strong>MVC</strong>, which component should contain validation rules for “a user must not borrow more than five books”? Justify briefly.</p>
+<p><strong>Model answer:</strong> The <strong>model</strong> (domain/service layer). Validation is <strong>business logic</strong>, not presentation. The <strong>controller</strong> should <strong>invoke</strong> the model and map results to HTTP; the <strong>view</strong> should only <strong>display</strong> outcomes/errors, not encode the rule.</p>
+<hr>
+<h3 id="q5-static-vs-dynamic">Q5 — Static vs dynamic<a class="headerlink" href="#q5-static-vs-dynamic" title="Permanent link">¶</a></h3>
+<p><strong>Question:</strong> Distinguish <strong>static</strong> and <strong>dynamic</strong> web content with one example of each.</p>
+<p><strong>Model answer:</strong> <strong>Static</strong> content is <strong>pre-written</strong> and served unchanged (e.g. a <code>logo.png</code> or <code>about.html</code>). <strong>Dynamic</strong> content is <strong>generated per request</strong> using application logic and often data stores (e.g. “Welcome, Alex” on a dashboard after database lookup).</p>
+<hr>
+<h2 id="3-must-know-key-points">3. MUST-KNOW KEY POINTS<a class="headerlink" href="#3-must-know-key-points" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Three tiers:</strong> <strong>client</strong>, <strong>application server</strong>, <strong>data</strong> storage.</li>
+<li><strong>HTTP request/response:</strong> <strong>method</strong>, <strong>URL</strong>, <strong>headers</strong>, <strong>body</strong>; <strong>status codes</strong>.</li>
+<li><strong>GET</strong> for <strong>safe reads</strong>; <strong>POST</strong> for <strong>submissions</strong> / creates; <strong>PUT/PATCH/DELETE</strong> in <strong>REST</strong>.</li>
+<li><strong>JSON</strong> as the dominant <strong>API payload</strong> format; <strong>serialisation</strong> in Java.</li>
+<li><strong>REST:</strong> <strong>resources</strong> as <strong>URLs</strong>, <strong>stateless</strong> style, meaningful <strong>HTTP verbs</strong>.</li>
+<li><strong>MVC:</strong> <strong>Model</strong> (logic/data), <strong>View</strong> (UI/representation), <strong>Controller</strong> (request coordination).</li>
+<li><strong>Static</strong> vs <strong>dynamic</strong> pages; <strong>Servlets</strong> vs <strong>Spring Boot</strong> as <strong>historical vs modern</strong> Java web style.</li>
+<li><strong>Security:</strong> <strong>validate input</strong>, <strong>authenticate</strong> users, mind <strong>injection</strong> and <strong>XSS</strong>.</li>
+</ul>
+<hr>
+<h2 id="4-high-priority-topics">4. HIGH-PRIORITY TOPICS (🔴 / 🟡 / 🟢)<a class="headerlink" href="#4-high-priority-topics" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Topic</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🔴</td>
+<td><strong>HTTP</strong> methods (<strong>GET/POST</strong>) + <strong>request/response</strong></td>
+<td>Foundation for everything web-related on exams.</td>
+</tr>
+<tr>
+<td>🔴</td>
+<td><strong>Three-tier architecture</strong></td>
+<td>Standard high-level diagram question.</td>
+</tr>
+<tr>
+<td>🔴</td>
+<td><strong>REST</strong> + <strong>CRUD ↔ HTTP</strong> mapping</td>
+<td>Very common short-answer / design question.</td>
+</tr>
+<tr>
+<td>🟡</td>
+<td><strong>MVC</strong> responsibilities</td>
+<td>Links OOP course to how real apps are structured.</td>
+</tr>
+<tr>
+<td>🟡</td>
+<td><strong>JSON</strong> + <strong>APIs</strong></td>
+<td>Explain data exchange without HTML.</td>
+</tr>
+<tr>
+<td>🟡</td>
+<td><strong>Static vs dynamic</strong></td>
+<td>Quick definitional plus example.</td>
+</tr>
+<tr>
+<td>🟢</td>
+<td><strong>Servlets / JSP / Spring Boot</strong></td>
+<td>“What is X?” and <strong>historical vs modern</strong> comparison.</td>
+</tr>
+<tr>
+<td>🟢</td>
+<td><strong>Deployment</strong> (<strong>.war</strong>, <strong>Tomcat</strong>, embedded server)</td>
+<td>Vocabulary and one-sentence roles.</td>
+</tr>
+<tr>
+<td>🟢</td>
+<td><strong>Security</strong> (validation, auth)</td>
+<td>Often a bullet list in “what could go wrong?” questions.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="5-topic-interconnections">5. TOPIC INTERCONNECTIONS<a class="headerlink" href="#5-topic-interconnections" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Browser (HTML/JS)  --HTTP--&gt;  Web server + Java app (Servlets / Spring)
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>                                    |
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>                                    | JDBC / repositories
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>                                    v
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>                              Database / files
+</code></pre></div>
+<ul>
+<li><strong>MVC</strong> structures the <strong>application tier</strong> so <strong>HTTP handlers</strong> stay thin.</li>
+<li><strong>REST + JSON</strong> often means the <strong>view</strong> is not HTML but <strong>serialised objects</strong> consumed by <strong>JavaScript</strong> clients.</li>
+<li><strong>Three-tier</strong> explains <strong>where</strong> <strong>authentication</strong> happens (usually <strong>application tier</strong> + <strong>data</strong> for user records).</li>
+<li><strong>GET/POST</strong> choices affect <strong>caching</strong>, <strong>bookmarks</strong>, and <strong>security</strong> (e.g. not putting secrets in <strong>GET</strong> URLs).</li>
+</ul>
+<hr>
+<h2 id="6-exam-strategy-tips">6. EXAM STRATEGY TIPS<a class="headerlink" href="#6-exam-strategy-tips" title="Permanent link">¶</a></h2>
+<ul>
+<li>Draw <strong>three boxes</strong> (client, server, data) and label <strong>one arrow</strong> each way with <strong>HTTP</strong> and <strong>SQL</strong> (or “persistence”) when asked for architecture.</li>
+<li>For <strong>REST</strong>, write a <strong>mini table</strong>: <strong>Create → POST</strong>, <strong>Read → GET</strong>, etc., with a <strong>plural noun</strong> URL like <code>/items/{id}</code>.</li>
+<li>When comparing <strong>GET</strong> and <strong>POST</strong>, mention <strong>idempotency</strong>, <strong>side effects</strong>, and <strong>where data lives</strong> (query string vs body).</li>
+<li>For <strong>MVC</strong>, use a <strong>one-line job description</strong> per letter — avoid repeating “handles requests” for both <strong>C</strong> and <strong>M</strong>.</li>
+<li>If a question mentions <strong>security</strong>, pair <strong>input validation</strong> with a <strong>concrete risk</strong> (e.g. <strong>SQL injection</strong>, <strong>XSS</strong>) for full marks.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

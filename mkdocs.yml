@@ -78,112 +78,136 @@ docs_dir: ucl
 nav:
   - Home: index.md
 
-  # ── COMP0005: Algorithms ──────────────────────────────────────
-  - Algorithms (COMP0005):
-    - year1/comp0005/cursor-notes/index.md
-    - Foundations:
-      - year1/comp0005/cursor-notes/01-union-find.md
-      - year1/comp0005/cursor-notes/02-analysis-of-algorithms.md
-      - year1/comp0005/cursor-notes/06-abstract-data-types.md
-    - Sorting:
-      - year1/comp0005/cursor-notes/03-elementary-sorts.md
-      - year1/comp0005/cursor-notes/04-mergesort.md
-      - year1/comp0005/cursor-notes/05-quicksort.md
-      - year1/comp0005/cursor-notes/07-heaps-and-heapsort.md
-    - Search:
-      - year1/comp0005/cursor-notes/08-symbol-tables-and-bst.md
-      - year1/comp0005/cursor-notes/09-balanced-trees-and-hash-tables.md
-    - Graphs:
-      - year1/comp0005/cursor-notes/10-undirected-graphs.md
-      - year1/comp0005/cursor-notes/11-directed-graphs.md
-      - year1/comp0005/cursor-notes/12-minimum-spanning-trees.md
-      - year1/comp0005/cursor-notes/13-shortest-paths.md
+  # ── Year 1 ────────────────────────────────────────────────────
+  - Year 1:
 
-  # ── COMP0002: Programming ─────────────────────────────────────
-  # Uncomment when ready to publish:
-  # - Programming (COMP0002):
-  #   - C:
-  #     - year1/comp0002/master-notes/c/imperative-programming.md
-  #     - year1/comp0002/master-notes/c/memory-and-c-compiler.md
-  #     - year1/comp0002/master-notes/c/pointers.md
-  #     - year1/comp0002/master-notes/c/functions.md
-  #     - year1/comp0002/master-notes/c/arrays.md
-  #     - year1/comp0002/master-notes/c/c-strings.md
-  #     - year1/comp0002/master-notes/c/scope-and-lifetime.md
-  #     - year1/comp0002/master-notes/c/terminal-based-io.md
-  #   - Haskell:
-  #     - year1/comp0002/master-notes/haskell/haskell-intro.md
-  #     - year1/comp0002/master-notes/haskell/defining-functions.md
-  #     - year1/comp0002/master-notes/haskell/types-and-classes.md
-  #     - year1/comp0002/master-notes/haskell/lists-tuples.md
-  #     - year1/comp0002/master-notes/haskell/recursive-functions.md
-  #     - year1/comp0002/master-notes/haskell/higher-order-functions.md
-  #     - year1/comp0002/master-notes/haskell/function-properties.md
-  #     - year1/comp0002/master-notes/haskell/user-defined-types.md
-  #     - year1/comp0002/master-notes/haskell/interactive-programs.md
+    # ── COMP0005: Algorithms ──────────────────────────────────────
+    - Algorithms (COMP0005):
+      - Foundations:
+        - Union-Find: year1/comp0005/cursor-notes/01-union-find.md
+        - Analysis of Algorithms: year1/comp0005/cursor-notes/02-analysis-of-algorithms.md
+        - Abstract Data Types: year1/comp0005/cursor-notes/06-abstract-data-types.md
+      - Sorting:
+        - Elementary Sorts: year1/comp0005/cursor-notes/03-elementary-sorts.md
+        - MergeSort: year1/comp0005/cursor-notes/04-mergesort.md
+        - QuickSort: year1/comp0005/cursor-notes/05-quicksort.md
+        - Heaps & HeapSort: year1/comp0005/cursor-notes/07-heaps-and-heapsort.md
+      - Search:
+        - Symbol Tables & BST: year1/comp0005/cursor-notes/08-symbol-tables-and-bst.md
+        - Balanced Trees & Hash Tables: year1/comp0005/cursor-notes/09-balanced-trees-and-hash-tables.md
+      - Graphs:
+        - Undirected Graphs: year1/comp0005/cursor-notes/10-undirected-graphs.md
+        - Directed Graphs: year1/comp0005/cursor-notes/11-directed-graphs.md
+        - Minimum Spanning Trees: year1/comp0005/cursor-notes/12-minimum-spanning-trees.md
+        - Shortest Paths: year1/comp0005/cursor-notes/13-shortest-paths.md
 
-  # ── COMP0003: Discrete Maths & Automata ──────────────────────
-  # Uncomment when ready to publish:
-  # - Discrete Maths & Automata (COMP0003):
-  #   - Automata:
-  #     - year1/comp0003/master-notes/automata-l1.md
-  #     - year1/comp0003/master-notes/automata-l2.md
-  #     - year1/comp0003/master-notes/automata-l3.md
-  #     - year1/comp0003/master-notes/automata-l4.md
-  #     - year1/comp0003/master-notes/automata-l6.md
-  #     - year1/comp0003/master-notes/automata-l7.md
-  #     - year1/comp0003/master-notes/automata-l8.md
-  #     - year1/comp0003/master-notes/automata-l9.md
-  #     - year1/comp0003/master-notes/automata-l10.md
-  #     - year1/comp0003/master-notes/automata-l11.md
-  #   - Formal Logic:
-  #     - year1/comp0003/master-notes/formal-logic-l1.md
-  #     - year1/comp0003/master-notes/formal-logic-l2.md
-  #     - year1/comp0003/master-notes/formal-logic-l3.md
-  #     - year1/comp0003/master-notes/formal-logic-l4.md
-  #     - year1/comp0003/master-notes/formal-logic-l5.md
-  #     - year1/comp0003/master-notes/formal-logic-l6.md
-  #     - year1/comp0003/master-notes/formal-logic-l7.md
-  #     - year1/comp0003/master-notes/formal-logic-l8.md
-  #     - year1/comp0003/master-notes/formal-logic-l9.md
-  #     - year1/comp0003/master-notes/formal-logic-l10.md
-  #     - year1/comp0003/master-notes/formal-logic-l11.md
-  #     - year1/comp0003/master-notes/formal-logic-l12.md
-  #     - year1/comp0003/master-notes/formal-logic-l13.md
-  #     - year1/comp0003/master-notes/formal-logic-l14.md
-  #     - year1/comp0003/master-notes/formal-logic-l15.md
+    # ── COMP0004: OOP / Java ──────────────────────────────────
+    - OOP / Java (COMP0004):
+      - Java Basics:
+        - Intro to Java: year1/comp0004/cursor-notes/01-intro-to-java.md
+        - Core Java Language: year1/comp0004/cursor-notes/02-core-java-language.md
+        - Arrays: year1/comp0004/cursor-notes/03-arrays.md
+      - Object-Oriented Design:
+        - Classes, Objects & References: year1/comp0004/cursor-notes/04-classes-objects-references.md
+        - Designing with Classes: year1/comp0004/cursor-notes/05-designing-with-classes.md
+        - Inheritance: year1/comp0004/cursor-notes/06-inheritance.md
+        - Interfaces & Polymorphism: year1/comp0004/cursor-notes/07-interfaces-and-polymorphism.md
+      - Advanced Topics:
+        - Exceptions: year1/comp0004/cursor-notes/08-exceptions.md
+        - File Handling: year1/comp0004/cursor-notes/09-file-handling.md
+        - JSON, CSV & Records: year1/comp0004/cursor-notes/10-json-csv-and-records.md
+        - Packages & Modules: year1/comp0004/cursor-notes/11-packages-and-modules.md
+        - Lambdas & Streams: year1/comp0004/cursor-notes/12-lambdas-and-streams.md
+      - Applications:
+        - Web Applications: year1/comp0004/cursor-notes/13-web-applications.md
+        - Data Structures in Java: year1/comp0004/cursor-notes/14-data-structures-in-java.md
+        - Design Patterns & Threads: year1/comp0004/cursor-notes/15-design-patterns-and-threads.md
 
-  # ── COMP0004: OOP / Java ─────────────────────────────────────
-  # Uncomment when ready to publish:
-  # - OOP / Java (COMP0004):
-  #   - year1/comp0004/master-notes/classes-objects-references.md
-  #   - year1/comp0004/master-notes/inheritance.md
-  #   - year1/comp0004/master-notes/intro-to-interfaces.md
-  #   - year1/comp0004/master-notes/arrays.md
-  #   - year1/comp0004/master-notes/exceptions.md
-  #   - year1/comp0004/master-notes/file-handling.md
-  #   - year1/comp0004/master-notes/java-records.md
-  #   - year1/comp0004/master-notes/json-and-csv.md
+    # ── COMP0002: Programming ──────────────────────────────────
+    # Uncomment when ready to publish:
+    # - Programming (COMP0002):
+    #   - C:
+    #     - year1/comp0002/master-notes/c/imperative-programming.md
+    #     - year1/comp0002/master-notes/c/memory-and-c-compiler.md
+    #     - year1/comp0002/master-notes/c/pointers.md
+    #     - year1/comp0002/master-notes/c/functions.md
+    #     - year1/comp0002/master-notes/c/arrays.md
+    #     - year1/comp0002/master-notes/c/c-strings.md
+    #     - year1/comp0002/master-notes/c/scope-and-lifetime.md
+    #     - year1/comp0002/master-notes/c/terminal-based-io.md
+    #   - Haskell:
+    #     - year1/comp0002/master-notes/haskell/haskell-intro.md
+    #     - year1/comp0002/master-notes/haskell/defining-functions.md
+    #     - year1/comp0002/master-notes/haskell/types-and-classes.md
+    #     - year1/comp0002/master-notes/haskell/lists-tuples.md
+    #     - year1/comp0002/master-notes/haskell/recursive-functions.md
+    #     - year1/comp0002/master-notes/haskell/higher-order-functions.md
+    #     - year1/comp0002/master-notes/haskell/function-properties.md
+    #     - year1/comp0002/master-notes/haskell/user-defined-types.md
+    #     - year1/comp0002/master-notes/haskell/interactive-programs.md
 
-  # ── COMP0011: Mathematics ─────────────────────────────────────
-  # Uncomment when ready to publish:
-  # - Mathematics (COMP0011):
-  #   - year1/comp0011/master-notes/polynomials.md
-  #   - year1/comp0011/master-notes/calculus.md
-  #   - year1/comp0011/master-notes/differential-calculus.md
-  #   - year1/comp0011/master-notes/integral-calculus.md
-  #   - year1/comp0011/master-notes/sequences-and-series.md
-  #   - year1/comp0011/master-notes/complex-numbers.md
-  #   - year1/comp0011/master-notes/matrices-linear-algebra.md
-  #   - year1/comp0011/master-notes/vector-spaces.md
+    # ── COMP0003: Discrete Maths & Automata ───────────────────
+    # Uncomment when ready to publish:
+    # - Discrete Maths & Automata (COMP0003):
+    #   - Automata:
+    #     - year1/comp0003/master-notes/automata-l1.md
+    #     - year1/comp0003/master-notes/automata-l2.md
+    #     - year1/comp0003/master-notes/automata-l3.md
+    #     - year1/comp0003/master-notes/automata-l4.md
+    #     - year1/comp0003/master-notes/automata-l6.md
+    #     - year1/comp0003/master-notes/automata-l7.md
+    #     - year1/comp0003/master-notes/automata-l8.md
+    #     - year1/comp0003/master-notes/automata-l9.md
+    #     - year1/comp0003/master-notes/automata-l10.md
+    #     - year1/comp0003/master-notes/automata-l11.md
+    #   - Formal Logic:
+    #     - year1/comp0003/master-notes/formal-logic-l1.md
+    #     - year1/comp0003/master-notes/formal-logic-l2.md
+    #     - year1/comp0003/master-notes/formal-logic-l3.md
+    #     - year1/comp0003/master-notes/formal-logic-l4.md
+    #     - year1/comp0003/master-notes/formal-logic-l5.md
+    #     - year1/comp0003/master-notes/formal-logic-l6.md
+    #     - year1/comp0003/master-notes/formal-logic-l7.md
+    #     - year1/comp0003/master-notes/formal-logic-l8.md
+    #     - year1/comp0003/master-notes/formal-logic-l9.md
+    #     - year1/comp0003/master-notes/formal-logic-l10.md
+    #     - year1/comp0003/master-notes/formal-logic-l11.md
+    #     - year1/comp0003/master-notes/formal-logic-l12.md
+    #     - year1/comp0003/master-notes/formal-logic-l13.md
+    #     - year1/comp0003/master-notes/formal-logic-l14.md
+    #     - year1/comp0003/master-notes/formal-logic-l15.md
 
-  # ── COMP0147: Proofs & Foundations ───────────────────────────
-  # Uncomment when ready to publish:
-  # - Proofs (COMP0147):
-  #   - year1/comp0147/master-notes/sets.md
-  #   - year1/comp0147/master-notes/functions.md
-  #   - year1/comp0147/master-notes/relations.md
-  #   - year1/comp0147/master-notes/graphs-1.md
-  #   - year1/comp0147/master-notes/graphs-2.md
-  #   - year1/comp0147/master-notes/recursion-and-structural-induction.md
-  #   - year1/comp0147/master-notes/proofs-cheatsheet.md
+    # ── COMP0004: OOP / Java ──────────────────────────────────
+    # Uncomment when ready to publish:
+    # - OOP / Java (COMP0004):
+    #   - year1/comp0004/master-notes/classes-objects-references.md
+    #   - year1/comp0004/master-notes/inheritance.md
+    #   - year1/comp0004/master-notes/intro-to-interfaces.md
+    #   - year1/comp0004/master-notes/arrays.md
+    #   - year1/comp0004/master-notes/exceptions.md
+    #   - year1/comp0004/master-notes/file-handling.md
+    #   - year1/comp0004/master-notes/java-records.md
+    #   - year1/comp0004/master-notes/json-and-csv.md
+
+    # ── COMP0011: Mathematics ─────────────────────────────────
+    # Uncomment when ready to publish:
+    # - Mathematics (COMP0011):
+    #   - year1/comp0011/master-notes/polynomials.md
+    #   - year1/comp0011/master-notes/calculus.md
+    #   - year1/comp0011/master-notes/differential-calculus.md
+    #   - year1/comp0011/master-notes/integral-calculus.md
+    #   - year1/comp0011/master-notes/sequences-and-series.md
+    #   - year1/comp0011/master-notes/complex-numbers.md
+    #   - year1/comp0011/master-notes/matrices-linear-algebra.md
+    #   - year1/comp0011/master-notes/vector-spaces.md
+
+    # ── COMP0147: Proofs & Foundations ───────────────────────
+    # Uncomment when ready to publish:
+    # - Proofs (COMP0147):
+    #   - year1/comp0147/master-notes/sets.md
+    #   - year1/comp0147/master-notes/functions.md
+    #   - year1/comp0147/master-notes/relations.md
+    #   - year1/comp0147/master-notes/graphs-1.md
+    #   - year1/comp0147/master-notes/graphs-2.md
+    #   - year1/comp0147/master-notes/recursion-and-structural-induction.md
+    #   - year1/comp0147/master-notes/proofs-cheatsheet.md
