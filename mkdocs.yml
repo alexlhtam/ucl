@@ -146,36 +146,30 @@ nav:
     #     - year1/comp0002/master-notes/haskell/user-defined-types.md
     #     - year1/comp0002/master-notes/haskell/interactive-programs.md
 
-    # ── COMP0003: Discrete Maths & Automata ───────────────────
-    # Uncomment when ready to publish:
-    # - Discrete Maths & Automata (COMP0003):
-    #   - Automata:
-    #     - year1/comp0003/master-notes/automata-l1.md
-    #     - year1/comp0003/master-notes/automata-l2.md
-    #     - year1/comp0003/master-notes/automata-l3.md
-    #     - year1/comp0003/master-notes/automata-l4.md
-    #     - year1/comp0003/master-notes/automata-l6.md
-    #     - year1/comp0003/master-notes/automata-l7.md
-    #     - year1/comp0003/master-notes/automata-l8.md
-    #     - year1/comp0003/master-notes/automata-l9.md
-    #     - year1/comp0003/master-notes/automata-l10.md
-    #     - year1/comp0003/master-notes/automata-l11.md
-    #   - Formal Logic:
-    #     - year1/comp0003/master-notes/formal-logic-l1.md
-    #     - year1/comp0003/master-notes/formal-logic-l2.md
-    #     - year1/comp0003/master-notes/formal-logic-l3.md
-    #     - year1/comp0003/master-notes/formal-logic-l4.md
-    #     - year1/comp0003/master-notes/formal-logic-l5.md
-    #     - year1/comp0003/master-notes/formal-logic-l6.md
-    #     - year1/comp0003/master-notes/formal-logic-l7.md
-    #     - year1/comp0003/master-notes/formal-logic-l8.md
-    #     - year1/comp0003/master-notes/formal-logic-l9.md
-    #     - year1/comp0003/master-notes/formal-logic-l10.md
-    #     - year1/comp0003/master-notes/formal-logic-l11.md
-    #     - year1/comp0003/master-notes/formal-logic-l12.md
-    #     - year1/comp0003/master-notes/formal-logic-l13.md
-    #     - year1/comp0003/master-notes/formal-logic-l14.md
-    #     - year1/comp0003/master-notes/formal-logic-l15.md
+    # ── COMP0003: Theory of Computation ──────────────────────
+    - Theory of Computation (COMP0003):
+
+      # ── Formal Logic ─────────────────────────────────────
+      - Formal Logic:
+        - Overview & History: year1/comp0003/cursor-notes/logic/01-overview-and-history.md
+        - Propositional Logic: year1/comp0003/cursor-notes/logic/02-propositional-logic.md
+        - Boolean Algebra: year1/comp0003/cursor-notes/logic/03-boolean-algebra.md
+        - First-Order Logic: year1/comp0003/cursor-notes/logic/04-first-order-logic.md
+        - Proof by Induction: year1/comp0003/cursor-notes/logic/05-proof-by-induction.md
+        - Complete Induction & Descent: year1/comp0003/cursor-notes/logic/06-complete-induction-and-descent.md
+        - Modal Logic: year1/comp0003/cursor-notes/logic/07-modal-logic.md
+
+      # ── Automata ──────────────────────────────────────────
+      - Automata:
+        - DFAs & Regular Languages: year1/comp0003/cursor-notes/automata/01-dfas-and-regular-languages.md
+        - NFAs & DFA Equivalence: year1/comp0003/cursor-notes/automata/02-nfas-and-dfa-equivalence.md
+        - Closure & Regular Expressions: year1/comp0003/cursor-notes/automata/03-closure-and-regular-expressions.md
+        - Pumping Lemma: year1/comp0003/cursor-notes/automata/04-pumping-lemma.md
+        - Pushdown Automata: year1/comp0003/cursor-notes/automata/05-pushdown-automata.md
+        - Context-Free Grammars: year1/comp0003/cursor-notes/automata/06-context-free-grammars.md
+        - Pumping Lemma for CFLs: year1/comp0003/cursor-notes/automata/07-pumping-lemma-for-cfls.md
+        - Turing Machines: year1/comp0003/cursor-notes/automata/08-turing-machines.md
+        - Decidability & Undecidability: year1/comp0003/cursor-notes/automata/09-decidability-and-undecidability.md
 
     # ── COMP0004: OOP / Java ──────────────────────────────────
     # Uncomment when ready to publish:
