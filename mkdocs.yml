@@ -100,6 +100,10 @@ nav:
         - Directed Graphs: year1/comp0005/cursor-notes/11-directed-graphs.md
         - Minimum Spanning Trees: year1/comp0005/cursor-notes/12-minimum-spanning-trees.md
         - Shortest Paths: year1/comp0005/cursor-notes/13-shortest-paths.md
+      - Strings:
+        - String Sorting: year1/comp0005/cursor-notes/14-string-sorting.md
+        - Tries & String Search: year1/comp0005/cursor-notes/15-tries-and-string-search.md
+        - Substring Search: year1/comp0005/cursor-notes/16-substring-search.md
 
     # ── COMP0004: OOP / Java ──────────────────────────────────
     - OOP / Java (COMP0004):
