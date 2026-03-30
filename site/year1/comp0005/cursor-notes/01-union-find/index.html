@@ -1,0 +1,2821 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Year 1 Computer Science notes — UCL">
+      
+      
+        <meta name="author" content="Alex Tam">
+      
+      
+        <link rel="canonical" href="https://alexlhtam.github.io/ucl/year1/comp0005/cursor-notes/01-union-find/">
+      
+      
+        <link rel="prev" href="../../../..">
+      
+      
+        <link rel="next" href="../02-analysis-of-algorithms/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Union-Find - Alex's UCL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#union-find-comp0005-algorithms" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Alex's UCL Notes" class="md-header__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex's UCL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Union-Find
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Year 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Alex's UCL Notes" class="md-nav__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    Alex's UCL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Year 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Year 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms (COMP0005)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms (COMP0005)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-unionfind-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Union–Find problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-modelling-the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — Modelling the problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-quick-find-eager-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Quick-Find (eager approach)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-quick-union-lazy-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Quick-Union (lazy approach)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-weighted-quick-union" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Weighted Quick-Union
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithm-development-cycle-recap-how-the-course-thinks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm development cycle (recap — how the course thinks)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cost summary table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-35-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (3–5 with model answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (3–5 with model answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Definitions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-quick-find-complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Quick-Find complexity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-quick-union-failure-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Quick-Union failure mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-weighted-union-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Weighted union rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-compare-trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Compare trade-offs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-analysis-of-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis of Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-abstract-data-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sorting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sorting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-elementary-sorts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementary Sorts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-mergesort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MergeSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QuickSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-heaps-and-heapsort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heaps &amp; HeapSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-symbol-tables-and-bst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbol Tables &amp; BST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-balanced-trees-and-hash-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balanced Trees &amp; Hash Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-undirected-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undirected Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-directed-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-minimum-spanning-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Spanning Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-shortest-paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shortest Paths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OOP / Java (COMP0004)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OOP / Java (COMP0004)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/01-intro-to-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/02-core-java-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Java Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/03-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Object-Oriented Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/04-classes-objects-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes, Objects &amp; References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/05-designing-with-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/06-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/07-interfaces-and-polymorphism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces &amp; Polymorphism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/08-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/09-file-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/10-json-csv-and-records/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON, CSV &amp; Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/11-packages-and-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages &amp; Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/12-lambdas-and-streams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambdas &amp; Streams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/13-web-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/14-data-structures-in-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures in Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/15-design-patterns-and-threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns &amp; Threads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-unionfind-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Union–Find problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-modelling-the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — Modelling the problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-quick-find-eager-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Quick-Find (eager approach)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-quick-union-lazy-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Quick-Union (lazy approach)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-weighted-quick-union" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Weighted Quick-Union
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithm-development-cycle-recap-how-the-course-thinks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm development cycle (recap — how the course thinks)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cost summary table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-35-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (3–5 with model answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (3–5 with model answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Definitions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-quick-find-complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Quick-Find complexity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-quick-union-failure-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Quick-Union failure mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-weighted-union-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Weighted union rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-compare-trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Compare trade-offs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="union-find-comp0005-algorithms">Union-Find — COMP0005 Algorithms<a class="headerlink" href="#union-find-comp0005-algorithms" title="Permanent link">¶</a></h1>
+<p><em>Lecture-style notes. Union–Find is often one of the first topics: it introduces a clean </em><em>problem → model → data structure → complexity → refine</em><em> workflow that repeats through the course.</em></p>
+<hr>
+<h2 id="1-complete-topic-summaries">1. COMPLETE TOPIC SUMMARIES<a class="headerlink" href="#1-complete-topic-summaries" title="Permanent link">¶</a></h2>
+<h3 id="the-unionfind-problem">The <strong>Union–Find</strong> problem<a class="headerlink" href="#the-unionfind-problem" title="Permanent link">¶</a></h3>
+<p>You are given an undirected graph with <strong><span class="arithmatex">\(N\)</span></strong> nodes (often labelled <strong><span class="arithmatex">\(0, 1, \ldots, N-1\)</span></strong>). Initially there are <strong>no edges</strong>. You must support two operations:</p>
+<ul>
+<li><strong><code>union(x, y)</code></strong> — add an (undirected) connection between <strong><span class="arithmatex">\(x\)</span></strong> and <strong><span class="arithmatex">\(y\)</span></strong> (conceptually: “merge their connectivity”).</li>
+<li><strong><code>find(x, y)</code></strong> (equivalently: <strong>“are <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span> connected?”</strong>) — return whether there is a <strong>path</strong> between <strong><span class="arithmatex">\(x\)</span></strong> and <strong><span class="arithmatex">\(y\)</span></strong> using the edges added so far.</li>
+</ul>
+<blockquote>
+<p><strong>Intuition:</strong> Think of islands and bridges. <code>union</code> builds bridges; <code>find</code> asks whether you can walk from one island to the other using existing bridges.</p>
+</blockquote>
+<hr>
+<h3 id="step-1-modelling-the-problem">Step 1 — <strong>Modelling</strong> the problem<a class="headerlink" href="#step-1-modelling-the-problem" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Nodes as integers:</strong> represent vertices as <strong><span class="arithmatex">\(\{0,\ldots,N-1\}\)</span></strong> so arrays index directly.</li>
+<li><strong>“Connected by a path”</strong> (after a sequence of unions) is an <strong>equivalence relation</strong> on vertices:</li>
+<li><strong>Reflexive:</strong> every node is connected to itself.</li>
+<li><strong>Symmetric:</strong> if there is a path <span class="arithmatex">\(x \leadsto y\)</span>, there is a path <span class="arithmatex">\(y \leadsto x\)</span> (undirected edges).</li>
+<li><strong>Transitive:</strong> if <span class="arithmatex">\(x\)</span> connects to <span class="arithmatex">\(y\)</span> and <span class="arithmatex">\(y\)</span> connects to <span class="arithmatex">\(z\)</span>, then <span class="arithmatex">\(x\)</span> connects to <span class="arithmatex">\(z\)</span>.</li>
+<li><strong>Connected components:</strong> partition the nodes into <strong>maximal</strong> sets where every pair in the same set is connected. Two nodes satisfy <code>find(x, y) == true</code> <strong>iff</strong> they lie in the <strong>same</strong> component.</li>
+<li><strong><code>union(x, y)</code></strong> merges the two components containing <strong><span class="arithmatex">\(x\)</span></strong> and <strong><span class="arithmatex">\(y\)</span></strong> (if they are already the same, merging is a no-op).</li>
+</ul>
+<p>This model is what lets us replace “graph reachability” with “same set / same component” — the algorithmic task becomes maintaining a <strong>partition</strong> under <strong>merges</strong> and <strong>same-set queries</strong>.</p>
+<hr>
+<h3 id="step-2-quick-find-eager-approach">Step 2 — <strong>Quick-Find</strong> (eager approach)<a class="headerlink" href="#step-2-quick-find-eager-approach" title="Permanent link">¶</a></h3>
+<p><strong>Data structure:</strong> an integer array <strong><code>id[0..N-1]</code></strong>.</p>
+<p><strong>Meaning:</strong> <strong><code>id[i]</code></strong> is the <strong>component id</strong> (a label) for node <strong><span class="arithmatex">\(i\)</span></strong>.</p>
+<p><strong>Connection test:</strong> <strong><span class="arithmatex">\(u\)</span></strong> and <strong><span class="arithmatex">\(v\)</span></strong> are connected iff <strong><code>id[u] == id[v]</code></strong>.</p>
+<p><strong>Operations:</strong></p>
+<ul>
+<li><strong><code>find(u, v)</code>:</strong> compare two array entries → <strong><span class="arithmatex">\(\mathcal{O}(1)\)</span></strong> time.</li>
+<li><strong><code>union(u, v)</code>:</strong> every node <strong><span class="arithmatex">\(i\)</span></strong> that used to be in <strong><span class="arithmatex">\(u\)</span></strong>’s component must be relabelled to <strong><span class="arithmatex">\(v\)</span></strong>’s component:</li>
+<li>scan <strong><span class="arithmatex">\(i = 0..N-1\)</span></strong>; if <strong><code>id[i] == id[u]</code></strong>, set <strong><code>id[i] = id[v]</code></strong> → <strong><span class="arithmatex">\(\mathcal{O}(N)\)</span></strong> time.</li>
+</ul>
+<p><strong>Pseudocode:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a># init: each node is its own component
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>id = []
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>for i in range(N):
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    id.append(i)
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>def union(u, v):
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    uid = id[u]
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    vid = id[v]
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    for i in range(N):
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        if id[i] == uid:
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>            id[i] = vid
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>def find(u, v):
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    return id[u] == id[v]
+</code></pre></div>
+<p><strong>Costs (per operation, unless stated otherwise):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Init</td>
+<td><strong><span class="arithmatex">\(\Theta(N)\)</span></strong> (build array)</td>
+</tr>
+<tr>
+<td><code>union</code></td>
+<td><strong><span class="arithmatex">\(\mathcal{O}(N)\)</span></strong></td>
+</tr>
+<tr>
+<td><code>find</code></td>
+<td><strong><span class="arithmatex">\(\mathcal{O}(1)\)</span></strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why this can fail at scale:</strong> <strong><span class="arithmatex">\(N\)</span></strong> unions each costing <strong><span class="arithmatex">\(\mathcal{O}(N)\)</span></strong> gives <strong><span class="arithmatex">\(\mathcal{O}(N^2)\)</span></strong> total work — too slow when <strong><span class="arithmatex">\(N\)</span></strong> is large. The eager update makes <strong>merges</strong> expensive to keep <strong>queries</strong> cheap.</p>
+<hr>
+<h3 id="step-2-quick-union-lazy-approach">Step 2 — <strong>Quick-Union</strong> (lazy approach)<a class="headerlink" href="#step-2-quick-union-lazy-approach" title="Permanent link">¶</a></h3>
+<p><strong>Data structure:</strong> still <strong><code>id[0..N-1]</code></strong>, but the meaning changes.</p>
+<p><strong>Meaning:</strong> <strong><code>id[i]</code></strong> is <strong><span class="arithmatex">\(i\)</span>’s parent</strong> in a <strong>forest</strong> (a collection of rooted trees). Roots satisfy <strong><code>id[r] == r</code></strong>.</p>
+<p><strong>Root:</strong> <strong><code>root(i)</code></strong> walks <strong><span class="arithmatex">\(i \to id[i] \to id[id[i]] \to \cdots\)</span></strong> until it reaches a root.</p>
+<p><strong>Connection test:</strong> <strong><span class="arithmatex">\(u\)</span></strong> and <strong><span class="arithmatex">\(v\)</span></strong> are connected iff <strong><code>root(u) == root(v)</code></strong> (same tree ⇔ same component).</p>
+<p><strong>Operations:</strong></p>
+<ul>
+<li><strong><code>find(u, v)</code>:</strong> two root walks → cost dominated by tree <strong>depth</strong>.</li>
+<li><strong><code>union(u, v)</code>:</strong> attach one root under the other: <strong><code>id[root(u)] = root(v)</code></strong> (or the symmetric choice).</li>
+</ul>
+<p><strong>Pseudocode:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>def root(i):
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    while i != id[i]:
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        i = id[i]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    return i
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>def find(u, v):
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    return root(u) == root(v)
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>def union(u, v):
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    r_u = root(u)
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    r_v = root(v)
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    id[r_u] = r_v
+</code></pre></div>
+<p><strong>Costs:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Init</td>
+<td><strong><span class="arithmatex">\(\Theta(N)\)</span></strong></td>
+</tr>
+<tr>
+<td><code>union</code></td>
+<td><strong><span class="arithmatex">\(\mathcal{O}(N)\)</span></strong> in the <strong>worst case</strong> (deep trees)</td>
+</tr>
+<tr>
+<td><code>find</code></td>
+<td><strong><span class="arithmatex">\(\mathcal{O}(N)\)</span></strong> in the <strong>worst case</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Core issue:</strong> without care, trees can become <strong>long chains</strong> (essentially linked lists), so <strong><code>root</code></strong> becomes linear time. Quick-Union makes <strong>merges</strong> cheap <strong>locally</strong>, but can create <strong>bad global shape</strong>.</p>
+<hr>
+<h3 id="step-2-weighted-quick-union">Step 2 — <strong>Weighted Quick-Union</strong><a class="headerlink" href="#step-2-weighted-quick-union" title="Permanent link">¶</a></h3>
+<p><strong>Idea:</strong> when merging two trees, <strong>always hang the smaller tree under the larger tree’s root</strong> (by <strong>number of nodes</strong> in each tree). This controls height.</p>
+<p><strong>Extra array:</strong> <strong><code>size[i]</code></strong> — for a root <strong><span class="arithmatex">\(i\)</span></strong>, the number of nodes in the tree rooted at <strong><span class="arithmatex">\(i\)</span></strong>. For non-roots you may ignore <strong><code>size[i]</code></strong> in simple implementations (only roots must stay meaningful), but the lecture pattern is: maintain sizes at roots and update on merge.</p>
+<p><strong><code>find</code>:</strong> unchanged in spirit — still compare roots.</p>
+<p><strong><code>union</code>:</strong></p>
+<ol>
+<li><strong><code>r_u = root(u)</code></strong>, <strong><code>r_v = root(v)</code></strong>; if equal, return.</li>
+<li>If <strong><code>size[r_u] &lt; size[r_v]</code></strong>, set <strong><code>id[r_u] = r_v</code></strong> and <strong><code>size[r_v] += size[r_u]</code></strong>; else the symmetric case.</li>
+</ol>
+<p><strong>Pseudocode:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>id = []
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>size = []
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>for i in range(N):
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    id.append(i)
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    size.append(1)
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>def union(u, v):
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    r_u = root(u)
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    r_v = root(v)
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    if r_u == r_v:
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        return
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    if size[r_u] &lt; size[r_v]:
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        id[r_u] = r_v
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        size[r_v] += size[r_u]
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    else:
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>        id[r_v] = r_u
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>        size[r_u] += size[r_v]
+</code></pre></div>
+<p><strong>Costs (standard bound for this version, without extra optimisations):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Init</td>
+<td><strong><span class="arithmatex">\(\Theta(N)\)</span></strong></td>
+</tr>
+<tr>
+<td><code>union</code></td>
+<td><strong><span class="arithmatex">\(\mathcal{O}(\log N)\)</span></strong></td>
+</tr>
+<tr>
+<td><code>find</code></td>
+<td><strong><span class="arithmatex">\(\mathcal{O}(\log N)\)</span></strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why <span class="arithmatex">\(\log N\)</span> shows up (high-level):</strong> a node’s tree can at most double in size when it becomes a non-root child of a strictly larger tree; you can relate this to a <strong>“how many times can my component size at least double?”</strong> argument, yielding a <strong>logarithmic</strong> depth bound.</p>
+<blockquote>
+<p><strong>Course note:</strong> Later you may see <strong>path compression</strong> and <strong>union by rank</strong>, which tighten amortised bounds further. For COMP0005’s first pass, <strong>weighted union + logarithmic depth</strong> is the main “shape control” lesson.</p>
+</blockquote>
+<hr>
+<h3 id="algorithm-development-cycle-recap-how-the-course-thinks"><strong>Algorithm development cycle</strong> (recap — how the course thinks)<a class="headerlink" href="#algorithm-development-cycle-recap-how-the-course-thinks" title="Permanent link">¶</a></h3>
+<ol>
+<li><strong>Model</strong> the problem (objects, operations, mathematical structure — here: equivalence classes / components).</li>
+<li><strong>Choose</strong> data structures and algorithms that implement the operations.</li>
+<li><strong>Analyse</strong> correctness and <strong>cost</strong> (often worst-case per operation, sometimes totals for sequences).</li>
+<li><strong>Iterate</strong> — if too slow or too complex, refine (Quick-Find → Quick-Union → Weighted Quick-Union is a textbook iteration).</li>
+</ol>
+<p>Union–Find is a small, self-contained example of that loop.</p>
+<hr>
+<h3 id="cost-summary-table"><strong>Cost summary table</strong><a class="headerlink" href="#cost-summary-table" title="Permanent link">¶</a></h3>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../resources/01-union-find-three-approaches.png" data-desc-position="bottom"><img alt="Union-Find: Three Approaches Compared" src="../../resources/01-union-find-three-approaches.png"></a>
+<em>Comparison of Quick-Find (flat array), Quick-Union (forest of trees), and Weighted Quick-Union (balanced trees). The key trade-off is between find and union costs.</em></p>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Init</th>
+<th><code>union</code></th>
+<th><code>find</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Quick-Find</strong> (eager)</td>
+<td><strong><span class="arithmatex">\(N\)</span></strong></td>
+<td><strong><span class="arithmatex">\(N\)</span></strong></td>
+<td><strong><span class="arithmatex">\(1\)</span></strong></td>
+</tr>
+<tr>
+<td><strong>Quick-Union</strong> (lazy)</td>
+<td><strong><span class="arithmatex">\(N\)</span></strong></td>
+<td><strong><span class="arithmatex">\(N\)</span></strong>†</td>
+<td><strong><span class="arithmatex">\(N\)</span></strong>†</td>
+</tr>
+<tr>
+<td><strong>Weighted Quick-Union</strong></td>
+<td><strong><span class="arithmatex">\(N\)</span></strong></td>
+<td><strong><span class="arithmatex">\(\log N\)</span></strong></td>
+<td><strong><span class="arithmatex">\(\log N\)</span></strong></td>
+</tr>
+</tbody>
+</table>
+<p>† <strong>Worst case</strong> for Quick-Union (bad union sequence creates tall trees).</p>
+<p><em>(Big-<span class="arithmatex">\(\mathcal{O}\)</span> notation is used for growth rates; init is </em><em><span class="arithmatex">\(\Theta(N)\)</span></em><em> to allocate and initialise arrays.)</em></p>
+<hr>
+<h2 id="2-exam-style-questions-35-with-model-answers">2. EXAM-STYLE QUESTIONS (3–5 with model answers)<a class="headerlink" href="#2-exam-style-questions-35-with-model-answers" title="Permanent link">¶</a></h2>
+<h3 id="q1-definitions">Q1 — Definitions<a class="headerlink" href="#q1-definitions" title="Permanent link">¶</a></h3>
+<p><strong>Question:</strong> Define <strong>connected components</strong> in an undirected graph built incrementally by <code>union</code> operations. Explain why “<span class="arithmatex">\(x\)</span> is connected to <span class="arithmatex">\(y\)</span>” is an <strong>equivalence relation</strong>.</p>
+<p><strong>Model answer:</strong> A <strong>connected component</strong> is a <strong>maximal</strong> subset of vertices such that for any two vertices <strong><span class="arithmatex">\(a, b\)</span></strong> in the subset, there exists a <strong>path</strong> between them using edges added so far, and no vertex outside the subset can be added without breaking maximality. The relation <strong><span class="arithmatex">\(x \sim y\)</span></strong> iff <strong><span class="arithmatex">\(x\)</span></strong> is connected to <strong><span class="arithmatex">\(y\)</span></strong> is <strong>reflexive</strong> (empty path), <strong>symmetric</strong> (undirected paths reverse), and <strong>transitive</strong> (concatenate paths), hence an <strong>equivalence relation</strong>. Components are exactly the <strong>equivalence classes</strong> of <strong><span class="arithmatex">\(\sim\)</span></strong>.</p>
+<hr>
+<h3 id="q2-quick-find-complexity">Q2 — Quick-Find complexity<a class="headerlink" href="#q2-quick-find-complexity" title="Permanent link">¶</a></h3>
+<p><strong>Question:</strong> In Quick-Find, what are the time complexities of <strong><code>find</code></strong> and <strong><code>union</code></strong>? Give a sequence of operations illustrating why <strong><code>union</code></strong> can be <strong><span class="arithmatex">\(\mathcal{O}(N)\)</span></strong>.</p>
+<p><strong>Model answer:</strong> <strong><code>find</code></strong> is <strong><span class="arithmatex">\(\mathcal{O}(1)\)</span></strong> (two array lookups and a comparison). <strong><code>union</code></strong> scans all <strong><span class="arithmatex">\(N\)</span></strong> entries to relabel one entire component, so it is <strong><span class="arithmatex">\(\mathcal{O}(N)\)</span></strong>. Example: if component ids are integers and many nodes share <strong><code>id == 0</code></strong>, a <code>union</code> that relabels all those nodes to another id must touch each of those nodes once — linear work.</p>
+<hr>
+<h3 id="q3-quick-union-failure-mode">Q3 — Quick-Union failure mode<a class="headerlink" href="#q3-quick-union-failure-mode" title="Permanent link">¶</a></h3>
+<p><strong>Question:</strong> Explain how Quick-Union can degrade so that <strong><code>root(i)</code></strong> takes <strong><span class="arithmatex">\(\Theta(N)\)</span></strong> time. What structural feature of the forest causes this?</p>
+<p><strong>Model answer:</strong> If unions always attach the current root as a child of the other root in an unfortunate order, the forest can become a <strong>chain</strong> (each node has one child in a line). Then reaching the root from a leaf requires walking <strong><span class="arithmatex">\(\Theta(N)\)</span></strong> parent pointers. The issue is <strong>unbalanced tree height</strong> (linear depth), not the parent-pointer idea itself.</p>
+<hr>
+<h3 id="q4-weighted-union-rule">Q4 — Weighted union rule<a class="headerlink" href="#q4-weighted-union-rule" title="Permanent link">¶</a></h3>
+<p><strong>Question:</strong> State the <strong>weighted union</strong> rule. Why does linking the <strong>smaller</strong> tree under the <strong>larger</strong> tree’s root help?</p>
+<p><strong>Model answer:</strong> Maintain <strong><code>size[r]</code></strong> for each root <strong><span class="arithmatex">\(r\)</span></strong>. On <code>union</code>, find roots <strong><code>r_u, r_v</code></strong>; if <strong><code>size[r_u] &lt; size[r_v]</code></strong>, set <strong><code>id[r_u]=r_v</code></strong> and update <strong><code>size[r_v]</code></strong>, else symmetrically. This ensures the depth of nodes in the smaller tree increases by <strong>1</strong> while attaching into a tree that already had <strong>at least as many</strong> nodes, preventing repeated “grow a tall skinny tree” behaviour. A standard consequence is a <strong>logarithmic</strong> upper bound on tree height, making <strong><code>root</code></strong> <strong><span class="arithmatex">\(\mathcal{O}(\log N)\)</span></strong>.</p>
+<hr>
+<h3 id="q5-compare-trade-offs">Q5 — Compare trade-offs<a class="headerlink" href="#q5-compare-trade-offs" title="Permanent link">¶</a></h3>
+<p><strong>Question:</strong> Compare Quick-Find and Quick-Union in terms of which operation is expensive and why. Where does Weighted Quick-Union sit in that trade-off?</p>
+<p><strong>Model answer:</strong> <strong>Quick-Find</strong> makes <strong><code>union</code></strong> expensive (<strong><span class="arithmatex">\(\mathcal{O}(N)\)</span></strong> global relabelling) but <strong><code>find</code></strong> cheap (<strong><span class="arithmatex">\(\mathcal{O}(1)\)</span></strong>). <strong>Quick-Union</strong> makes <strong><code>union</code></strong> cheap (<strong><span class="arithmatex">\(\mathcal{O}(1)\)</span></strong> pointer change at roots, ignoring the cost of finding roots) but allows <strong><code>find</code>/root-finding</strong> to degrade to <strong><span class="arithmatex">\(\mathcal{O}(N)\)</span></strong> if trees degenerate. <strong>Weighted Quick-Union</strong> keeps the cheap-linking idea but <strong>controls tree shape</strong>, so both <strong><code>union</code></strong> and <strong><code>find</code></strong> (via root walks) become <strong><span class="arithmatex">\(\mathcal{O}(\log N)\)</span></strong> in the standard analysis taught at this stage — a more balanced compromise for long sequences of operations.</p>
+<hr>
+<h2 id="3-must-know-key-points">3. MUST-KNOW KEY POINTS<a class="headerlink" href="#3-must-know-key-points" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Union–Find</strong> supports <strong>dynamic connectivity</strong>: add edges (<code>union</code>) and test reachability (<code>find</code>).</li>
+<li>Model connectivity as <strong>equivalence classes</strong> → <strong>connected components</strong>.</li>
+<li><strong>Quick-Find:</strong> <strong><code>id[i]</code></strong> is a <strong>component label</strong>; <strong><code>find</code></strong> <span class="arithmatex">\(\mathcal{O}(1)\)</span>, <strong><code>union</code></strong> <span class="arithmatex">\(\mathcal{O}(N)\)</span>.</li>
+<li><strong>Quick-Union:</strong> <strong><code>id[i]</code></strong> is a <strong>parent</strong>; same component ⇔ <strong>same root</strong>; worst case <strong>linear</strong> depth.</li>
+<li><strong>Weighted Quick-Union:</strong> merge <strong>smaller tree into larger tree</strong> using <strong><code>size[]</code></strong>; typical depth bound <strong><span class="arithmatex">\(\mathcal{O}(\log N)\)</span></strong> → <strong><code>find</code>/<code>union</code></strong> <span class="arithmatex">\(\mathcal{O}(\log N)\)</span> (with the usual root-walk union implementation).</li>
+<li>Know the <strong>algorithm development cycle:</strong> model → implement → analyse cost → refine.</li>
+<li>Memorise the <strong>comparison table</strong> pattern: init <strong><span class="arithmatex">\(\Theta(N)\)</span></strong> for array initialisation; per-op costs as in the table.</li>
+</ul>
+<hr>
+<h2 id="4-high-priority-topics">4. HIGH-PRIORITY TOPICS<a class="headerlink" href="#4-high-priority-topics" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Topic</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🔴 <strong>Must know</strong></td>
+<td><strong>Problem statement:</strong> <code>union</code> / <code>find</code></td>
+<td>Defines what you are implementing and analysing.</td>
+</tr>
+<tr>
+<td>🔴 <strong>Must know</strong></td>
+<td><strong>Equivalence relation + components</strong></td>
+<td>Explains <em>why</em> the array/forest models are valid.</td>
+</tr>
+<tr>
+<td>🔴 <strong>Must know</strong></td>
+<td><strong>Quick-Find vs Quick-Union meaning of <code>id[]</code></strong></td>
+<td>Classic exam trap: same array, different semantics.</td>
+</tr>
+<tr>
+<td>🔴 <strong>Must know</strong></td>
+<td><strong>Per-operation costs + summary table</strong></td>
+<td>Core complexity literacy for the course.</td>
+</tr>
+<tr>
+<td>🟡 <strong>Important</strong></td>
+<td><strong>Why Quick-Union can be <span class="arithmatex">\(\mathcal{O}(N)\)</span></strong></td>
+<td>Shows “lazy” updates can still fail without invariants.</td>
+</tr>
+<tr>
+<td>🟡 <strong>Important</strong></td>
+<td><strong>Weighted union rule + <code>size[]</code> updates</strong></td>
+<td>Standard implementation detail and proof sketch anchor.</td>
+</tr>
+<tr>
+<td>🟡 <strong>Important</strong></td>
+<td><strong>Algorithm development methodology</strong></td>
+<td>Meta-skill reused in every algorithms topic.</td>
+</tr>
+<tr>
+<td>🟢 <strong>Useful but lower priority</strong></td>
+<td><strong>Proof details of the <span class="arithmatex">\(\log N\)</span></strong> height bound</td>
+<td>Often asked as “outline the argument” rather than full formal proof.</td>
+</tr>
+<tr>
+<td>🟢 <strong>Useful but lower priority</strong></td>
+<td><strong>Variants:</strong> union by rank, path compression</td>
+<td>May appear as “extension” reading; not always exam-core in week 1.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="5-topic-interconnections-bigger-picture">5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE<a class="headerlink" href="#5-topic-interconnections-bigger-picture" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Graphs:</strong> Union–Find is <strong>connectivity</strong> without storing all edges explicitly — useful when edges arrive online or you only care about components.</li>
+<li><strong>Sets and partitions:</strong> You are maintaining a <strong>partition</strong> of <strong><span class="arithmatex">\(\{0,\ldots,N-1\}\)</span></strong> under <strong>union</strong> of blocks — the same abstract structure appears in clustering, Kruskal’s MST algorithm, and network reliability sketches.</li>
+<li><strong>Amortised analysis (later):</strong> Path compression + union by rank/weight leads to <strong>inverse-Ackermann</strong> amortised bounds — a famous “tiny growth rate” story built on the same forest model.</li>
+<li><strong>Trade-offs:</strong> The progression <strong>eager vs lazy vs balanced lazy</strong> mirrors recurring design pressure: <strong>local simplicity vs global performance</strong>.</li>
+<li><strong>Complexity notation:</strong> This topic is a gentle introduction to claiming <strong><span class="arithmatex">\(\mathcal{O}\)</span></strong> bounds for <strong>init</strong>, <strong>single operations</strong>, and <strong>sequences</strong> (e.g. <strong><span class="arithmatex">\(N\)</span></strong> unions).</li>
+</ul>
+<hr>
+<h2 id="6-exam-strategy-tips">6. EXAM STRATEGY TIPS<a class="headerlink" href="#6-exam-strategy-tips" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>State the invariant first.</strong> For each variant, one sentence: “<strong><code>id[i]</code></strong> means <strong>…</strong>; connected iff <strong>…</strong>.” Examiners reward precise semantics.</li>
+<li><strong>Match operation to cost.</strong> If a question says “many <code>find</code> queries, few <code>union</code>s”, articulate which structure favours which — but also note <strong>total work</strong> matters (e.g. <strong><span class="arithmatex">\(N\)</span></strong> unions in Quick-Find).</li>
+<li><strong>Worst-case shapes:</strong> For Quick-Union, mention <strong>chains</strong>; for weighted union, mention <strong>controlled growth / doubling</strong> intuition for <strong><span class="arithmatex">\(\log N\)</span></strong>.</li>
+<li><strong>Pseudocode discipline:</strong> Always <strong><code>if r_u == r_v: return</code></strong> in <code>union</code> — avoid self-loops and redundant work in written answers.</li>
+<li><strong>Table recall:</strong> Be able to reproduce the <strong>Init / Union / Find</strong> row for all three algorithms from understanding, not rote alone.</li>
+<li><strong>Big picture sentence:</strong> Ending with one line tying back to <strong>“model → DS → analyse → iterate”</strong> often captures methodology marks.</li>
+</ul>
+<hr>
+<p><em>End of notes — Union-Find (COMP0005).</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

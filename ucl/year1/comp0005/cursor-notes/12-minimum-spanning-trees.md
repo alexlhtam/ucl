@@ -182,7 +182,7 @@ Both are **valid instantiations** of the **generic greedy MST** method justified
 
 ## 2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
 
-### Q1 — Definitions and the **\(V-1\)** edge count
+### Q1 — Definitions and the V-1 edge count
 
 **Question.** Define **spanning tree** and **minimum spanning tree** for a connected undirected graph **\(G=(V,E)\)** with positive edge weights. Prove that every spanning tree of **\(G\)** has exactly **\(|V|-1\)** edges.
 

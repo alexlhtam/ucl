@@ -1,0 +1,3091 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Year 1 Computer Science notes — UCL">
+      
+      
+        <meta name="author" content="Alex Tam">
+      
+      
+        <link rel="canonical" href="https://alexlhtam.github.io/ucl/year1/comp0004/cursor-notes/08-exceptions/">
+      
+      
+        <link rel="prev" href="../07-interfaces-and-polymorphism/">
+      
+      
+        <link rel="next" href="../09-file-handling/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Exceptions - Alex's UCL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#exceptions-comp0004-object-oriented-programming-ucl" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Alex's UCL Notes" class="md-header__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex's UCL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Exceptions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../comp0005/cursor-notes/01-union-find/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Year 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Alex's UCL Notes" class="md-nav__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    Alex's UCL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Year 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Year 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms (COMP0005)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms (COMP0005)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/01-union-find/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/02-analysis-of-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis of Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/06-abstract-data-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sorting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sorting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/03-elementary-sorts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementary Sorts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/04-mergesort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MergeSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/05-quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QuickSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/07-heaps-and-heapsort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heaps &amp; HeapSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/08-symbol-tables-and-bst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbol Tables &amp; BST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/09-balanced-trees-and-hash-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balanced Trees &amp; Hash Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/10-undirected-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undirected Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/11-directed-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/12-minimum-spanning-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Spanning Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/13-shortest-paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shortest Paths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OOP / Java (COMP0004)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OOP / Java (COMP0004)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-intro-to-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-core-java-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Java Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Object-Oriented Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-classes-objects-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes, Objects &amp; References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-designing-with-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-interfaces-and-polymorphism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces &amp; Polymorphism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#runtime-errors-when-correct-syntax-still-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime errors — when “correct syntax” still fails
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exceptions-signalling-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exceptions — signalling failure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#call-stack-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Call stack trace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nullpointerexception-npe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NullPointerException (NPE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checked-vs-unchecked-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checked vs unchecked exceptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling-strategies-stack-example-mindset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error-handling strategies (Stack example mindset)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exceptions-vs-optionalt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exceptions vs Optional&lt;T&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#java-exception-syntax-try-catch-throw-throws-finally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Java exception syntax: try, catch, throw, throws, finally
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try-with-multiple-catch-blocks-and-multi-catch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        try with multiple catch blocks and multi-catch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        finally
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try-with-resources-autocloseable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Try-with-resources — AutoCloseable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exception-class-hierarchy-core-exam-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exception class hierarchy (core exam diagram)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-exception-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom exception classes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#throws-and-compile-time-checking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        throws and compile-time checking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exception-propagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exception propagation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parseint-loop-practical-input-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        parseInt loop — practical input validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-exceptions-and-when-not-to" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to use exceptions — and when not to
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controversy-checked-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Controversy: checked exceptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-explain-the-difference-between-checked-and-unchecked-exceptions-in-java-give-one-example-of-each-and-state-what-the-compiler-enforces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1. Explain the difference between checked and unchecked exceptions in Java. Give one example of each and state what the compiler enforces.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-what-is-a-stack-trace-using-a-small-example-describe-how-you-would-use-it-to-locate-a-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2. What is a stack trace? Using a small example, describe how you would use it to locate a bug.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-compare-strategies-5-throw-exception-vs-6-return-optional-for-a-stackpop-style-operation-which-fits-expected-empty-stack-in-a-parser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3. Compare strategies (5) throw exception vs (6) return Optional for a Stack.pop-style operation. Which fits expected empty stack in a parser?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-write-or-sketch-the-try-with-resources-pattern-why-is-it-preferable-to-manual-finally-with-close" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4. Write or sketch the try-with-resources pattern. Why is it preferable to manual finally with close()?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-why-might-catch-exception-e-be-considered-harmful-what-should-you-do-instead" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5. Why might catch (Exception e) { } be considered harmful? What should you do instead?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-file-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-json-csv-and-records/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON, CSV &amp; Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-packages-and-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages &amp; Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-lambdas-and-streams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambdas &amp; Streams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-web-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-data-structures-in-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures in Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-design-patterns-and-threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns &amp; Threads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#runtime-errors-when-correct-syntax-still-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime errors — when “correct syntax” still fails
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exceptions-signalling-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exceptions — signalling failure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#call-stack-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Call stack trace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nullpointerexception-npe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NullPointerException (NPE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checked-vs-unchecked-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checked vs unchecked exceptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling-strategies-stack-example-mindset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error-handling strategies (Stack example mindset)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exceptions-vs-optionalt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exceptions vs Optional&lt;T&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#java-exception-syntax-try-catch-throw-throws-finally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Java exception syntax: try, catch, throw, throws, finally
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try-with-multiple-catch-blocks-and-multi-catch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        try with multiple catch blocks and multi-catch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        finally
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try-with-resources-autocloseable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Try-with-resources — AutoCloseable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exception-class-hierarchy-core-exam-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exception class hierarchy (core exam diagram)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-exception-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom exception classes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#throws-and-compile-time-checking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        throws and compile-time checking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exception-propagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exception propagation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parseint-loop-practical-input-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        parseInt loop — practical input validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-exceptions-and-when-not-to" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to use exceptions — and when not to
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controversy-checked-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Controversy: checked exceptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-explain-the-difference-between-checked-and-unchecked-exceptions-in-java-give-one-example-of-each-and-state-what-the-compiler-enforces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1. Explain the difference between checked and unchecked exceptions in Java. Give one example of each and state what the compiler enforces.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-what-is-a-stack-trace-using-a-small-example-describe-how-you-would-use-it-to-locate-a-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2. What is a stack trace? Using a small example, describe how you would use it to locate a bug.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-compare-strategies-5-throw-exception-vs-6-return-optional-for-a-stackpop-style-operation-which-fits-expected-empty-stack-in-a-parser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3. Compare strategies (5) throw exception vs (6) return Optional for a Stack.pop-style operation. Which fits expected empty stack in a parser?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-write-or-sketch-the-try-with-resources-pattern-why-is-it-preferable-to-manual-finally-with-close" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4. Write or sketch the try-with-resources pattern. Why is it preferable to manual finally with close()?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-why-might-catch-exception-e-be-considered-harmful-what-should-you-do-instead" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5. Why might catch (Exception e) { } be considered harmful? What should you do instead?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="exceptions-comp0004-object-oriented-programming-ucl">Exceptions — COMP0004 Object-Oriented Programming (UCL)<a class="headerlink" href="#exceptions-comp0004-object-oriented-programming-ucl" title="Permanent link">¶</a></h1>
+<p><em>Lecture-style notes aligned with Slide deck 8: </em><em>runtime errors</em><em>, the </em><em>exception mechanism</em><em>, </em><em>checked vs unchecked</em><em> exceptions, </em><em>try / catch / finally / try-with-resources</em><em>, </em><em>propagation</em><em>, </em><em>custom exceptions</em><em>, </em><em>strategies</em><em> (including </em><em><code>Optional</code></em><em>), and the </em><em>checked exceptions</em><em> debate.</em></p>
+<hr>
+<h2 id="1-complete-topic-summaries">1. COMPLETE TOPIC SUMMARIES<a class="headerlink" href="#1-complete-topic-summaries" title="Permanent link">¶</a></h2>
+<h3 id="runtime-errors-when-correct-syntax-still-fails"><strong>Runtime errors — when “correct syntax” still fails</strong><a class="headerlink" href="#runtime-errors-when-correct-syntax-still-fails" title="Permanent link">¶</a></h3>
+<p>Programs fail at runtime for many reasons beyond compile-time type checking:</p>
+<ul>
+<li><strong>Logic bugs</strong> — wrong algorithm, off-by-one, incorrect assumptions.</li>
+<li><strong>Unanticipated user behaviour</strong> — empty input, letters where numbers expected, files missing.</li>
+<li><strong>Environment / service failures</strong> — disk full, network down, database unavailable.</li>
+</ul>
+<p>These situations need a disciplined <strong>reaction model</strong>. In Java, <strong>exceptions</strong> are the primary structured mechanism for <strong>non-local</strong> control flow when something goes wrong.</p>
+<hr>
+<h3 id="exceptions-signalling-failure"><strong>Exceptions — signalling failure</strong><a class="headerlink" href="#exceptions-signalling-failure" title="Permanent link">¶</a></h3>
+<p>An <strong>exception</strong> is an <strong>object</strong> (usually a <strong><code>Throwable</code></strong> subtype) <strong>thrown</strong> at the point of failure. If nothing <strong>catches</strong> it, the <strong>thread</strong> unwinds and the program may <strong>terminate</strong> after printing a <strong>stack trace</strong>.</p>
+<blockquote>
+<p><strong>Beginner intuition:</strong> A <strong>return</strong> says “here is a normal result.” A <strong>throw</strong> says “I cannot complete this operation as intended; here is <strong>why</strong> (encoded as an exception object).”</p>
+</blockquote>
+<hr>
+<h3 id="call-stack-trace"><strong>Call stack trace</strong><a class="headerlink" href="#call-stack-trace" title="Permanent link">¶</a></h3>
+<p>When an exception is printed (often <strong>uncaught</strong>), the <strong>stack trace</strong> lists <strong>active method calls</strong> from <strong>innermost</strong> (where <strong><code>throw</code> happened</strong>) outward. Reading it is a core debugging skill: find the <strong>first line in your code</strong>, then ask what <strong>inputs</strong> or <strong>state</strong> caused it.</p>
+<hr>
+<h3 id="nullpointerexception-npe"><strong><code>NullPointerException</code> (NPE)</strong><a class="headerlink" href="#nullpointerexception-npe" title="Permanent link">¶</a></h3>
+<p><strong><code>NullPointerException</code></strong> is thrown when you use a <strong><code>null</code></strong> reference as if it were an object — e.g. calling <strong><code>someRef.method()</code></strong> when <strong><code>someRef</code></strong> is <strong><code>null</code></strong>. It is an <strong><code>RuntimeException</code></strong> (<strong>unchecked</strong>): the compiler does not force you to declare or catch it. Prevention: <strong>validate</strong> references, use <strong>defensive coding</strong>, or <strong><code>Optional</code></strong> for explicit absence (see below).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">String</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">// int n = s.length();  // NullPointerException</span>
+</code></pre></div>
+<hr>
+<h3 id="checked-vs-unchecked-exceptions"><strong>Checked vs unchecked exceptions</strong><a class="headerlink" href="#checked-vs-unchecked-exceptions" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>Extends</th>
+<th>Compiler</th>
+<th>Typical meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Checked</strong></td>
+<td><strong><code>Exception</code></strong> but <strong>not</strong> <strong><code>RuntimeException</code></strong></td>
+<td>Caller must <strong><code>catch</code></strong> or declare <strong><code>throws</code></strong></td>
+<td><strong>Expected recoverable</strong> conditions (I/O, parsing, missing files).</td>
+</tr>
+<tr>
+<td><strong>Unchecked</strong></td>
+<td><strong><code>RuntimeException</code></strong> (or <strong><code>Error</code></strong>)</td>
+<td>Optional to handle</td>
+<td>Often <strong>programming bugs</strong> or failures you rarely recover from (<code>NullPointerException</code>, <code>IllegalArgumentException</code>).</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>Error</code></strong> (e.g. <strong><code>OutOfMemoryError</code></strong>) is <strong>unchecked</strong> but usually <strong>not</strong> caught in application code — it signals serious JVM/resource problems.</p>
+<hr>
+<h3 id="error-handling-strategies-stack-example-mindset"><strong>Error-handling strategies (Stack example mindset)</strong><a class="headerlink" href="#error-handling-strategies-stack-example-mindset" title="Permanent link">¶</a></h3>
+<p>Using a <strong>stack</strong> ADT as a narrative, lectures often contrast strategies:</p>
+<ol>
+<li><strong>Ignore</strong> — silently wrong behaviour (<strong>bad</strong>); violates correctness.</li>
+<li><strong>Print message + return <code>null</code></strong> — error <strong>disappears</strong> locally but <strong>forces every caller</strong> to remember <strong><code>null</code> checks</strong>; easy to forget → <strong><code>NullPointerException</code></strong> later.</li>
+<li><strong><code>System.exit</code></strong> — abrupt termination; may <strong>lose unsaved data</strong> and gives no structured recovery.</li>
+<li><strong><code>assert</code></strong> — excellent in <strong>development</strong> to document invariants; <strong>can be disabled</strong> at runtime (<code>-ea</code>), so not a substitute for validating <strong>user-facing</strong> input in production.</li>
+<li><strong>Throw an exception</strong> — <strong>forces</strong> callers (for <strong>checked</strong>) or at least <strong>documents</strong> failure (<strong>unchecked</strong>); centralises <strong>non-local</strong> recovery.</li>
+<li><strong>Return <code>Optional&lt;T&gt;</code></strong> — for <strong>local</strong>, <strong>expected</strong> “value or nothing” outcomes without abusing exceptions.</li>
+</ol>
+<p><strong>Best practice big picture:</strong> use <strong>exceptions</strong> for <strong>exceptional</strong> control flow; use <strong><code>Optional</code></strong> (or sensible defaults) for <strong>ordinary</strong> absence when the <strong>caller</strong> is the right place to decide.</p>
+<hr>
+<h3 id="exceptions-vs-optionalt"><strong>Exceptions vs <code>Optional&lt;T&gt;</code></strong><a class="headerlink" href="#exceptions-vs-optionalt" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Best when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Exception</strong></td>
+<td>Failure is <strong>surprising</strong> or needs to <strong>abort</strong> several layers; multiple <strong>recovery policies</strong> possible upstream; <strong>checked</strong> exceptions document mandatory handling for <strong>API contracts</strong> (e.g. I/O).</td>
+</tr>
+<tr>
+<td><strong><code>Optional&lt;T&gt;</code></strong></td>
+<td>A method <strong>normally</strong> might have <strong>no result</strong> (<code>find</code> by key); caller handles <strong>locally</strong> without <strong><code>try/catch</code></strong> ceremony.</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">Optional</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findUser</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w">   </span><span class="c1">// expected "maybe none"</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kt">void</span><span class="w"> </span><span class="nf">readConfig</span><span class="p">(</span><span class="n">Path</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// IO failure is exceptional for many apps</span>
+</code></pre></div>
+<hr>
+<h3 id="java-exception-syntax-try-catch-throw-throws-finally"><strong>Java exception syntax: <code>try</code>, <code>catch</code>, <code>throw</code>, <code>throws</code>, <code>finally</code></strong><a class="headerlink" href="#java-exception-syntax-try-catch-throw-throws-finally" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong><code>throw</code></strong> — create and throw an exception object: <strong><code>throw new IllegalArgumentException("bad");</code></strong></li>
+<li><strong><code>try</code> / <code>catch</code></strong> — <strong>try</strong> risky code; <strong>catch</strong> specific types to <strong>recover</strong> or <strong>rethrow</strong> / <strong>wrap</strong>.</li>
+<li><strong><code>throws</code></strong> — method <strong>signature</strong> declares <strong>checked</strong> exceptions that may escape; <strong>callers</strong> must handle or declare.</li>
+<li><strong><code>finally</code></strong> — runs <strong>always</strong> after <code>try</code> (whether success, exception, or <strong><code>return</code></strong>) — classic cleanup (often replaced by <strong>try-with-resources</strong> for closables).</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">parsePositive</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">NumberFormatException</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Integer</span><span class="p">.</span><span class="na">parseInt</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">"must be positive"</span><span class="p">);</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">}</span>
+</code></pre></div>
+<hr>
+<h3 id="try-with-multiple-catch-blocks-and-multi-catch"><strong><code>try</code> with multiple <code>catch</code> blocks and multi-catch</strong><a class="headerlink" href="#try-with-multiple-catch-blocks-and-multi-catch" title="Permanent link">¶</a></h3>
+<p>Catch <strong>most specific</strong> exceptions <strong>first</strong>; broader catches <strong>after</strong>.</p>
+<p><strong>Multi-catch</strong> (Java 7+): <strong><code>catch (IOException | SQLException ex)</code></strong> — shared handler; <strong><code>ex</code> is effectively final</strong>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">risky</span><span class="p">();</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">FileNotFoundException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="c1">// specific recovery</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">IOException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="c1">// broader IO recovery</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">}</span>
+</code></pre></div>
+<hr>
+<h3 id="finally"><strong><code>finally</code></strong><a class="headerlink" href="#finally" title="Permanent link">¶</a></h3>
+<p>Use <strong><code>finally</code></strong> to release resources or restore invariants when <strong><code>try</code></strong> may exit in <strong>many</strong> ways. <strong>Pitfall:</strong> swallowing exceptions in <strong><code>catch</code></strong> without logging; <strong>another pitfall:</strong> <strong><code>finally</code></strong> that throws — can <strong>mask</strong> the original exception.</p>
+<hr>
+<h3 id="try-with-resources-autocloseable"><strong>Try-with-resources — <code>AutoCloseable</code></strong><a class="headerlink" href="#try-with-resources-autocloseable" title="Permanent link">¶</a></h3>
+<p>For objects that must be <strong>closed</strong> (<code>InputStream</code>, <code>BufferedReader</code>, etc.), <strong>try-with-resources</strong> guarantees <strong><code>close()</code></strong> is called automatically (with <strong>suppressed exception</strong> handling rules).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">BufferedReader</span><span class="w"> </span><span class="n">br</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Files</span><span class="p">.</span><span class="na">newBufferedReader</span><span class="p">(</span><span class="n">path</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">br</span><span class="p">.</span><span class="na">readLine</span><span class="p">();</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">}</span><span class="w">  </span><span class="c1">// br.close() called automatically</span>
+</code></pre></div>
+<p>The resource type must implement <strong><code>AutoCloseable</code></strong> (or <strong><code>Closeable</code></strong>).</p>
+<hr>
+<h3 id="exception-class-hierarchy-core-exam-diagram"><strong>Exception class hierarchy (core exam diagram)</strong><a class="headerlink" href="#exception-class-hierarchy-core-exam-diagram" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong><code>Throwable</code></strong></li>
+<li><strong><code>Error</code></strong> — serious JVM / resource problems; <strong>do not</strong> usually catch.</li>
+<li><strong><code>Exception</code></strong><ul>
+<li><strong><code>RuntimeException</code></strong> and subclasses — <strong>unchecked</strong></li>
+<li>Other <strong><code>Exception</code></strong> subclasses — <strong>checked</strong> (e.g. <strong><code>IOException</code></strong>)</li>
+</ul>
+</li>
+</ul>
+<p><strong><code>RuntimeException</code></strong> is for conditions that <strong>need not</strong> be declared in every signature — often <strong>programmer mistakes</strong> or <strong>precondition violations</strong>.</p>
+<hr>
+<h3 id="custom-exception-classes"><strong>Custom exception classes</strong><a class="headerlink" href="#custom-exception-classes" title="Permanent link">¶</a></h3>
+<p>Extend <strong><code>Exception</code></strong> (checked) or <strong><code>RuntimeException</code></strong> (unchecked). Provide <strong>constructors</strong> forwarding <strong>message</strong> and <strong>cause</strong> (<code>Throwable</code>).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">EmptyStackException</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">EmptyStackException</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">        </span><span class="kd">super</span><span class="p">(</span><span class="s">"stack is empty"</span><span class="p">);</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">EmptyStackException</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">        </span><span class="kd">super</span><span class="p">(</span><span class="n">message</span><span class="p">);</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="p">}</span>
+</code></pre></div>
+<p>Choose <strong>checked</strong> if recovery is <strong>expected</strong> and <strong>callers must plan</strong>; <strong>unchecked</strong> if it indicates <strong>bug</strong> or <strong>caller precondition failure</strong>.</p>
+<hr>
+<h3 id="throws-and-compile-time-checking"><strong><code>throws</code> and compile-time checking</strong><a class="headerlink" href="#throws-and-compile-time-checking" title="Permanent link">¶</a></h3>
+<p>A method that can throw a <strong>checked</strong> exception <strong>without catching</strong> it must <strong>declare</strong> <strong><code>throws IOException</code></strong> (etc.). The <strong>compiler</strong> enforces that <strong>every caller</strong> either <strong>catches</strong> or <strong>declares</strong> — this is the <strong>“checked exception contract.”</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">readFirstLine</span><span class="p">(</span><span class="n">Path</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Files</span><span class="p">.</span><span class="na">readAllLines</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="na">get</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr>
+<h3 id="exception-propagation"><strong>Exception propagation</strong><a class="headerlink" href="#exception-propagation" title="Permanent link">¶</a></h3>
+<p>If <strong><code>methodA</code></strong> calls <strong><code>methodB</code></strong> and <strong><code>methodB</code></strong> throws an <strong>uncaught</strong> exception, execution of <strong><code>methodB</code></strong> <strong>stops</strong>; <strong><code>methodA</code></strong> gets a chance to <strong>catch</strong>; if not, the exception <strong>propagates</strong> up until a <strong><code>catch</code></strong> handles it or the thread <strong>terminates</strong>. This is <strong>non-local</strong> control flow — powerful but easy to misuse if every layer <strong>logs and rethrows</strong> without adding context.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../resources/08-exception-propagation.png" data-desc-position="bottom"><img alt="Exception Propagation Through the Call Stack" src="../../resources/08-exception-propagation.png"></a>
+<em>When an exception is thrown, it propagates up the call stack until a matching catch block is found. The exception hierarchy determines which are checked (compiler-enforced) vs unchecked (optional to catch).</em></p>
+<hr>
+<h3 id="parseint-loop-practical-input-validation"><strong><code>parseInt</code> loop — practical input validation</strong><a class="headerlink" href="#parseint-loop-practical-input-validation" title="Permanent link">¶</a></h3>
+<p>Interactive programs often <strong>loop</strong> until input parses:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">Scanner</span><span class="w"> </span><span class="n">sc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">);</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="kt">boolean</span><span class="w"> </span><span class="n">ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ok</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="s">"Enter an int: "</span><span class="p">);</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="na">nextLine</span><span class="p">();</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">        </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Integer</span><span class="p">.</span><span class="na">parseInt</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">        </span><span class="n">ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">NumberFormatException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Not an integer — try again."</span><span class="p">);</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="p">}</span>
+</code></pre></div>
+<p>Here <strong><code>NumberFormatException</code></strong> is <strong>unchecked</strong>, but <strong>catching</strong> it is <strong>appropriate</strong> for <strong>user input</strong> recovery.</p>
+<hr>
+<h3 id="when-to-use-exceptions-and-when-not-to"><strong>When to use exceptions — and when not to</strong><a class="headerlink" href="#when-to-use-exceptions-and-when-not-to" title="Permanent link">¶</a></h3>
+<p><strong>Good uses:</strong></p>
+<ul>
+<li><strong>Violated preconditions</strong> you cannot fix locally (<code>IllegalArgumentException</code>).</li>
+<li><strong>I/O and system</strong> failures (<code>IOException</code>).</li>
+<li><strong>Cannot complete</strong> business operation without misleading return values.</li>
+</ul>
+<p><strong>Poor uses:</strong></p>
+<ul>
+<li><strong>Routine control flow</strong> (<code>break</code> a loop by throwing — expensive, confusing).</li>
+<li><strong>Expected “not found”</strong> in tight inner loops where <strong><code>Optional</code></strong> or <strong><code>null</code>-free</strong> APIs are clearer.</li>
+<li><strong>Catching <code>Exception</code> or <code>Throwable</code> broadly</strong> without <strong>rethrowing</strong> or <strong>logging</strong> — hides bugs.</li>
+</ul>
+<hr>
+<h3 id="controversy-checked-exceptions"><strong>Controversy: checked exceptions</strong><a class="headerlink" href="#controversy-checked-exceptions" title="Permanent link">¶</a></h3>
+<p><strong>Defence of checked exceptions:</strong> They make <strong>failure modes</strong> <strong>visible</strong> in <strong>signatures</strong>; callers <strong>must</strong> confront I/O reality — good for <strong>reliability</strong> in large teams.</p>
+<p><strong>Criticism:</strong> <strong>Boilerplate</strong> (<code>throws</code> chains), <strong>API evolution</strong> pain, poor interaction with <strong>lambdas</strong> / <strong>functional</strong> style, and temptation to <strong><code>catch (Exception e) {}</code></strong> — the worst of both worlds.</p>
+<p>Modern Java APIs and many libraries lean on <strong>unchecked</strong> for many cases; <strong>checked</strong> remains important for <strong><code>IOException</code></strong>-style <strong>recoverable</strong> conditions. <strong>Exam angle:</strong> be able to <strong>argue both sides</strong> with <strong>concrete trade-offs</strong>.</p>
+<hr>
+<h2 id="2-exam-style-questions-with-model-answers">2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)<a class="headerlink" href="#2-exam-style-questions-with-model-answers" title="Permanent link">¶</a></h2>
+<h3 id="q1-explain-the-difference-between-checked-and-unchecked-exceptions-in-java-give-one-example-of-each-and-state-what-the-compiler-enforces"><strong>Q1.</strong> Explain the difference between <strong>checked</strong> and <strong>unchecked</strong> exceptions in Java. Give <strong>one example</strong> of each and state what the <strong>compiler</strong> enforces.<a class="headerlink" href="#q1-explain-the-difference-between-checked-and-unchecked-exceptions-in-java-give-one-example-of-each-and-state-what-the-compiler-enforces" title="Permanent link">¶</a></h3>
+<p><strong>Model answer:</strong> <strong>Checked exceptions</strong> extend <strong><code>Exception</code></strong> but <strong>not</strong> <strong><code>RuntimeException</code></strong> (e.g. <strong><code>IOException</code></strong>). The <strong>compiler</strong> requires that they be <strong>caught</strong> with <strong><code>try/catch</code></strong> or <strong>declared</strong> in the method <strong><code>throws</code></strong> clause; callers must continue this contract. <strong>Unchecked exceptions</strong> extend <strong><code>RuntimeException</code></strong> (e.g. <strong><code>NullPointerException</code></strong>, <strong><code>IllegalArgumentException</code></strong>) or are <strong><code>Error</code></strong> types; the <strong>compiler does not</strong> force handling. <strong>Checked</strong> signals <strong>expected recoverable</strong> conditions; <strong>unchecked</strong> often signals <strong>bugs</strong> or <strong>precondition failures</strong>.</p>
+<hr>
+<h3 id="q2-what-is-a-stack-trace-using-a-small-example-describe-how-you-would-use-it-to-locate-a-bug"><strong>Q2.</strong> What is a <strong>stack trace</strong>? Using a small example, describe how you would use it to locate a bug.<a class="headerlink" href="#q2-what-is-a-stack-trace-using-a-small-example-describe-how-you-would-use-it-to-locate-a-bug" title="Permanent link">¶</a></h3>
+<p><strong>Model answer:</strong> A <strong>stack trace</strong> is the <strong>list of active method calls</strong> at the moment an exception is thrown/printed, from <strong>innermost</strong> frame to <strong>outermost</strong>. The <strong>top lines</strong> usually include the <strong>exception type</strong> and <strong>message</strong>; the <strong>first frame in your package</strong> often pinpoints the <strong>exact line</strong> that failed. You then inspect <strong>inputs</strong>, <strong>nullability</strong>, and <strong>preconditions</strong> for that line and work <strong>outward</strong> to see <strong>which caller</strong> supplied bad state.</p>
+<hr>
+<h3 id="q3-compare-strategies-5-throw-exception-vs-6-return-optional-for-a-stackpop-style-operation-which-fits-expected-empty-stack-in-a-parser"><strong>Q3.</strong> Compare strategies (5) <strong>throw exception</strong> vs (6) <strong>return <code>Optional</code></strong> for a <strong><code>Stack.pop</code></strong>-style operation. Which fits <strong>expected empty stack</strong> in a parser?<a class="headerlink" href="#q3-compare-strategies-5-throw-exception-vs-6-return-optional-for-a-stackpop-style-operation-which-fits-expected-empty-stack-in-a-parser" title="Permanent link">¶</a></h3>
+<p><strong>Model answer:</strong> <strong>Throwing</strong> (e.g. <strong><code>EmptyStackException</code></strong>) signals <strong>abnormal</strong> use: callers must <strong><code>try/catch</code></strong> or propagate — good when emptiness is a <strong>logic error</strong> that should <strong>abort</strong> a larger process. <strong><code>Optional&lt;T&gt;</code></strong> fits when <strong>absence is a normal outcome</strong> the <strong>immediate caller</strong> can branch on (<code>ifPresent</code>, <code>orElse</code>). For a <strong>parser</strong>, <strong>unexpected</strong> pop on empty often indicates <strong>bad grammar / input</strong> — many designs use <strong>exception</strong> or <strong>result type</strong> to <strong>fail fast</strong>; if “try pop” is part of <strong>backtracking</strong>, <strong><code>Optional</code></strong> might model <strong>“no token”</strong> cleanly <strong>without</strong> exceptions for control flow.</p>
+<hr>
+<h3 id="q4-write-or-sketch-the-try-with-resources-pattern-why-is-it-preferable-to-manual-finally-with-close"><strong>Q4.</strong> Write or sketch the <strong>try-with-resources</strong> pattern. Why is it preferable to manual <strong><code>finally</code></strong> with <strong><code>close()</code></strong>?<a class="headerlink" href="#q4-write-or-sketch-the-try-with-resources-pattern-why-is-it-preferable-to-manual-finally-with-close" title="Permanent link">¶</a></h3>
+<p><strong>Model answer:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">BufferedReader</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Files</span><span class="p">.</span><span class="na">newBufferedReader</span><span class="p">(</span><span class="n">path</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="c1">// use in</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="p">}</span>
+</code></pre></div>
+<p>Resources declared in parentheses implement <strong><code>AutoCloseable</code></strong>; <strong><code>close()</code></strong> is invoked <strong>automatically</strong> in all exit paths, with <strong>suppression rules</strong> if <strong><code>close</code></strong> also throws. It reduces <strong>boilerplate</strong>, avoids <strong>forgetting <code>close()</code></strong> on early <strong><code>return</code></strong>, and is <strong>less error-prone</strong> than hand-written <strong><code>finally</code></strong> blocks.</p>
+<hr>
+<h3 id="q5-why-might-catch-exception-e-be-considered-harmful-what-should-you-do-instead"><strong>Q5.</strong> Why might <strong><code>catch (Exception e) { }</code></strong> be considered harmful? What should you do instead?<a class="headerlink" href="#q5-why-might-catch-exception-e-be-considered-harmful-what-should-you-do-instead" title="Permanent link">¶</a></h3>
+<p><strong>Model answer:</strong> An <strong>empty catch</strong> <strong>swallows</strong> <strong>all</strong> checked+unchecked exceptions under <strong><code>Exception</code></strong>, including <strong>bugs</strong> (<code>NullPointerException</code>) and <strong><code>OutOfMemoryError</code></strong> is not under <strong><code>Exception</code></strong> but the same <strong>anti-pattern</strong> exists for <strong><code>Throwable</code></strong>). It <strong>hides failures</strong>, breaks <strong>invariants</strong>, and makes debugging <strong>impossible</strong>. Prefer <strong>catch specific types</strong>, <strong>log</strong> with context, <strong>recover</strong> if meaningful, or <strong><code>rethrow</code></strong>/<strong>wrap</strong> (<code>throw new ServiceException("...", e)</code>) to preserve <strong>cause</strong>.</p>
+<hr>
+<h2 id="3-must-know-key-points">3. MUST-KNOW KEY POINTS<a class="headerlink" href="#3-must-know-key-points" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Exceptions</strong> signal <strong>abnormal</strong> situations; <strong>uncaught</strong> → <strong>thread</strong> unwinds / <strong>termination</strong> + <strong>stack trace</strong>.</li>
+<li><strong><code>NullPointerException</code></strong> — <strong>unchecked</strong>; dereferencing <strong><code>null</code></strong>.</li>
+<li><strong>Checked</strong> = <strong><code>Exception</code></strong> not <strong><code>RuntimeException</code></strong> — <strong>must</strong> <strong><code>catch</code></strong> or <strong><code>throws</code></strong>.</li>
+<li><strong>Unchecked</strong> = <strong><code>RuntimeException</code></strong>/<strong><code>Error</code></strong> — no compiler enforcement.</li>
+<li><strong>Strategies:</strong> avoid <strong>ignore</strong> / careless <strong><code>null</code> returns</strong> / <strong><code>System.exit</code></strong> for routine errors; <strong><code>assert</code></strong> for <strong>dev</strong> invariants; <strong>exceptions</strong> for <strong>serious / non-local</strong> failure; <strong><code>Optional</code></strong> for <strong>local “maybe”</strong> results.</li>
+<li><strong><code>try</code> / <code>catch</code> / <code>finally</code></strong>, <strong>multi-catch</strong>, <strong>try-with-resources</strong> for <strong><code>AutoCloseable</code></strong>.</li>
+<li><strong>Hierarchy:</strong> <strong><code>Throwable</code> → Error / Exception → RuntimeException`</strong>.</li>
+<li><strong>Custom exceptions:</strong> <strong><code>extends Exception</code> or <code>RuntimeException</code></strong>, <strong>constructors</strong> with <strong>message/cause</strong>.</li>
+<li><strong><code>throws</code></strong> propagates <strong>checked</strong> exceptions; <strong>propagation</strong> up the <strong>call stack</strong> until <strong><code>catch</code></strong>.</li>
+<li><strong><code>parseInt</code> + loop</strong> pattern for <strong>robust input</strong>.</li>
+<li><strong>Debate:</strong> <strong>checked</strong> exceptions — <strong>reliability vs ergonomics</strong>.</li>
+</ul>
+<hr>
+<h2 id="4-high-priority-topics">4. HIGH-PRIORITY TOPICS<a class="headerlink" href="#4-high-priority-topics" title="Permanent link">¶</a></h2>
+<h3 id="must-know">🔴 <strong>Must Know</strong><a class="headerlink" href="#must-know" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Checked vs unchecked</strong> — definitions, <strong>compiler rules</strong>, <strong>examples</strong></li>
+<li><strong><code>try</code> / <code>catch</code> / <code>finally</code></strong> execution order (including <strong><code>return</code></strong> interactions — conceptually)</li>
+<li><strong><code>throw</code> vs <code>throws</code></strong> — statement vs clause</li>
+<li><strong>Exception hierarchy</strong> — <strong><code>Throwable</code></strong>, <strong><code>Exception</code></strong>, <strong><code>RuntimeException</code></strong>, <strong><code>Error</code></strong></li>
+<li><strong>Try-with-resources</strong> and <strong><code>AutoCloseable</code></strong></li>
+<li><strong>Propagation</strong> — who handles what when <strong><code>catch</code> is absent</strong></li>
+</ul>
+<h3 id="important">🟡 <strong>Important</strong><a class="headerlink" href="#important" title="Permanent link">¶</a></h3>
+<ul>
+<li>Reading <strong>stack traces</strong></li>
+<li><strong><code>NullPointerException</code></strong> causes and prevention</li>
+<li><strong>Multi-catch</strong> syntax and <strong>ordering</strong> of <strong><code>catch</code></strong> blocks</li>
+<li><strong>Custom exception</strong> design (<strong>message</strong>, <strong>cause</strong>)</li>
+<li><strong>Input validation</strong> loops (<code>NumberFormatException</code>)</li>
+<li><strong>When not</strong> to use exceptions (control flow, swallowing <strong><code>Exception</code></strong>)</li>
+</ul>
+<h3 id="useful">🟢 <strong>Useful</strong><a class="headerlink" href="#useful" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong><code>assert</code></strong> semantics (disabled without <strong><code>-ea</code></strong>)</li>
+<li><strong>Suppressed exceptions</strong> in <strong>try-with-resources</strong> (advanced)</li>
+<li><strong>Wrapping</strong> exceptions to preserve <strong>cause</strong> (<code>initCause</code> / constructor)</li>
+<li><strong>Checked exceptions controversy</strong> — articulate <strong>trade-offs</strong></li>
+</ul>
+<hr>
+<h2 id="5-topic-interconnections-bigger-picture">5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE<a class="headerlink" href="#5-topic-interconnections-bigger-picture" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Exceptions</strong> connect <strong>correctness</strong>, <strong>API design</strong>, and <strong>user experience</strong>: they encode <strong>contracts</strong> (“this method may fail because of I/O”).</li>
+<li><strong>Checked exceptions</strong> push <strong>reliability</strong> into <strong>signatures</strong>; <strong><code>Optional</code></strong> and <strong>unchecked</strong> errors push it into <strong>documentation</strong> and <strong>discipline</strong> — different <strong>philosophies</strong> of the same problem: <strong>failure is data</strong>.</li>
+<li><strong>Try-with-resources</strong> links <strong>exceptions</strong> to <strong>resource management</strong> (files, sockets) — a preview of <strong>RAII-like</strong> thinking in a garbage-collected language.</li>
+<li><strong>Stacks / ADTs</strong> in lectures illustrate <strong>preconditions</strong> (<strong>pop</strong> on empty): the same scenario appears in <strong>design by contract</strong>, <strong>assertions</strong>, and <strong>tests</strong>.</li>
+<li><strong>Parsing</strong> ties to <strong>validation</strong> — a bridge to <strong>defensive programming</strong> and later <strong>parsing</strong> / <strong>file</strong> topics in the module.</li>
+</ul>
+<hr>
+<h2 id="6-exam-strategy-tips">6. EXAM STRATEGY TIPS<a class="headerlink" href="#6-exam-strategy-tips" title="Permanent link">¶</a></h2>
+<ul>
+<li>Label answers with <strong>checked vs unchecked</strong> using the <strong><code>RuntimeException</code> boundary</strong>, not vague “compiler error” wording.</li>
+<li>Draw the <strong>small hierarchy</strong> (<code>Throwable</code> split) if a question asks for “structure” — quick marks.</li>
+<li>For <strong>code</strong> questions, show <strong><code>throws IOException</code></strong> on <strong>signatures</strong> when <strong><code>Files.read...</code></strong> appears without <strong><code>catch</code></strong>.</li>
+<li>Mention <strong><code>finally</code> vs try-with-resources</strong> when the question involves <strong><code>close()</code></strong>.</li>
+<li>If asked <strong>“is this good style?”</strong> on <strong>empty catch</strong>, answer <strong>no</strong> and give <strong>logging / rethrow / specific type</strong> as the fix.</li>
+<li>For <strong>discursive</strong> questions, use <strong>two short paragraphs</strong>: <strong>pro checked</strong> (explicit contracts, I/O) and <strong>con checked</strong> (verbosity, lambdas, API evolution).</li>
+</ul>
+<hr>
+<p><em>End of notes — Exceptions (Slide deck 8).</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

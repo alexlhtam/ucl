@@ -42,15 +42,15 @@ For “**largest **\(M\)** in a stream**,” maintain a **min-heap** of size **\
 
 ### **Array representation** of a complete binary tree
 
-**Convention (textbook style):** array **`a`**, heap size **`N`**, indices **start at 1** (position **`a[0]`** may be unused or a sentinel in code).
+**Convention used here:** array **`a`**, heap size **`N`** (number of active heap elements), indices **start at 0**.
 
 Nodes are stored in **level order** (breadth-first): root, then its children left-to-right, then the next level, etc.
 
 **Navigation with integer indices** (parent/child via arithmetic — **no explicit pointers**):
 
-- **Parent** of node **`i`** (for **`i > 1`**): index **`⌊i/2⌋`** (integer division).
-- **Left child** of **`i`**: **`2i`** (if **`2i ≤ N`**).
-- **Right child** of **`i`**: **`2i + 1`** (if **`2i + 1 ≤ N`**).
+- **Parent** of node **`i`** (for **`i > 0`**): index **`⌊(i-1)/2⌋`** (integer division).
+- **Left child** of **`i`**: **`2i + 1`** (if **`2i + 1 < N`**).
+- **Right child** of **`i`**: **`2i + 2`** (if **`2i + 2 < N`**).
 
 **Why complete trees?** They pack perfectly into an array with **no gaps** up to **`N`**, so **\(\Theta(N)\)** storage is tight and cache-friendly in principle (though **HeapSort** is still known for **mediocre cache behaviour** in practice compared to tuned Quicksort).
 
@@ -59,15 +59,15 @@ Nodes are stored in **level order** (breadth-first): root, then its children lef
 ### **Binary heap** (**max-heap**)
 
 ![Binary Heap: Tree and Array Representation](../resources/07-binary-heap-tree-array.png)
-*A max-heap stored as both a tree and a 1-indexed array. Parent of node i is at a[i/2]; children at a[2i] and a[2i+1]. Swim up restores heap order after insertion; sink down restores it after deletion.*
+*A max-heap stored as both a tree and an array in level order. In this note we use 0-based indexing: parent of node i is at a[(i-1)/2], children at a[2i+1] and a[2i+2]. Swim up restores heap order after insertion; sink down restores it after deletion.*
 
 A **max-heap** is a **complete binary tree** satisfying **heap order**:
 
-- **Heap order:** for every node **\(i\)** (except the root), **\(\texttt{a}[\lfloor i/2 \rfloor] \geq \texttt{a}[i]\)** — each parent’s key is **≥** both children’s keys.
+- **Heap order:** for every node **\(i>0\)**, **\(\texttt{a}[\lfloor (i-1)/2 \rfloor] \geq \texttt{a}[i]\)** — each parent’s key is **≥** both children’s keys.
 
 **Consequences:**
 
-- The **largest** key is always at **\(\texttt{a}[1]\)** (the **root**).
+- The **largest** key is always at **\(\texttt{a}[0]\)** (the **root**).
 - The tree shape is fixed by **\(N\)**; only **values** violate order after an update — restored by **swim** or **sink**.
 
 *(A **min-heap** reverses the inequality: parent **≤** children; root is **minimum**.)*
@@ -78,19 +78,27 @@ A **max-heap** is a **complete binary tree** satisfying **heap order**:
 
 #### **Insertion — swim up** (**swim**, sometimes **fix-up**)
 
-**Idea:** Insert the new key at the **next free leaf** (position **`N+1`** after incrementing **`N`**), then **bubble up**: while the node is larger than its parent, **swap** with the parent and continue.
+**Idea:** Insert the new key at the **next free leaf** (position **`N+1`** after incrementing **`N`**), then **bubble up** recursively: if the node is larger than its parent, **swap** and recurse on the parent index.
 
 **Pseudocode:**
 
-```text
-enqueue(key):
-    a[++N] = key
-    swim(N)
+```python
+def _parent(i):
+    return (i - 1) // 2
 
-swim(i):
-    while (i > 1 && a[i/2] < a[i]):
-        swap(a[i], a[i/2])
-        i = i/2
+def _swap(i, j):
+    self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
+
+def enqueue(key):
+    self.heap[self.size] = key
+    self._sift_up(self.size)
+    self.size += 1
+
+def _sift_up(i):
+    parent = self._parent(i)
+    if i > 0 and self.heap[parent] < self.heap[i]:
+        self._swap(i, parent)
+        self._sift_up(parent)
 ```
 
 **Cost:** Tree height is **\(O(\log N)\)**; each step does **\(O(1)\)** work and **one compare** with the parent → **at most** **\(1 + \lfloor \log_2 N \rfloor\)** **compares** in the usual counting model.
@@ -99,32 +107,45 @@ swim(i):
 
 #### **Delete max — sink down** (**sink**, sometimes **fix-down**)
 
-**Idea:** Save **\(\texttt{a}[1]\)**. Move the **last** element to the root to keep a **complete** tree, shrink **`N`**, then **bubble down**: while the node is **smaller than the larger of its children**, swap with that **larger child**.
+**Idea:** Save **\(\texttt{a}[0]\)**. Move the **last active** element to the root to keep a **complete** tree, shrink **`N`**, then **bubble down** recursively: swap with the **larger child** only if that child is larger, then recurse.
 
 **Pseudocode:**
 
-```text
-dequeue():
-    max = a[1]
-    swap(a[1], a[N])
-    a[N--] = null   // or logically ignore index N+1..oldN
-    sink(1)
-    return max
+```python
+def _left(i):
+    return 2 * i + 1
 
-sink(i):
-    while (2*i <= N):
-        j = 2*i
-        if (j < N && a[j] < a[j+1]): j++
-        if (a[i] >= a[j]): break
-        swap(a[i], a[j])
-        i = j
+def _right(i):
+    return 2 * i + 2
+
+def dequeue():
+    max_key = self.heap[0]
+    self.size -= 1
+    self._swap(0, self.size)
+    self.heap[self.size] = None  # optional: clear removed slot
+    self._sift_down(0)
+    return max_key
+
+def _sift_down(i):
+    largest = i
+    l = self._left(i)
+    r = self._right(i)
+
+    if l < self.size and self.heap[l] > self.heap[largest]:
+        largest = l
+    if r < self.size and self.heap[r] > self.heap[largest]:
+        largest = r
+
+    if largest != i:
+        self._swap(i, largest)
+        self._sift_down(largest)
 ```
 
 **Cost:** At each level you may compare with **two** children → **at most** **\(2 \lfloor \log_2 N \rfloor\)** **compares** in the worst case (still **\(O(\log N)\)**).
 
 ---
 
-### **Implementation cost summary** (PQ of size **\(M\)**)
+### **Implementation cost summary** (PQ of size M)
 
 | Data structure | Insert | Delete max | Find max |
 |----------------|--------|------------|----------|
@@ -142,16 +163,16 @@ sink(i):
 
 **Two phases:**
 
-1. **Heap construction** — rearrange **\(\texttt{a}[1..N]\)** into **max-heap order**.
+1. **Heap construction** — rearrange **\(\texttt{a}[0..N-1]\)** into **max-heap order**.
 2. **Sortdown** — repeatedly **remove the maximum** by swapping root with the end and **sinking** the new root into the smaller heap.
 
 #### **Heap construction (bottom-up)**
 
-**Key trick:** In a complete tree, nodes with indices **`⌊N/2⌋+1 .. N`** are **leaves** and already trivial heaps. For **`k`** from **`⌊N/2⌋`** **down to** **`1`**, run **`sink(k)`**.
+**Key trick:** In a complete tree, nodes with indices **`⌊N/2⌋ .. N-1`** are **leaves** and already trivial heaps. For **`k`** from **`⌊N/2⌋ - 1`** **down to** **`0`**, run **`_sift_down(k)`**.
 
-```text
-for (k = N/2; k >= 1; k--):
-    sink(k)
+```python
+for k in range(self.size // 2 - 1, -1, -1):
+    self._sift_down(k)
 ```
 
 **Analysis surprise:** Total time is **\(O(N)\)** **compares/exchanges** (not **\(N \log N\)**). **Intuition:** Most nodes are near the bottom and only sink a **short** distance; a careful summation over levels gives **linear** total cost.
@@ -160,11 +181,11 @@ for (k = N/2; k >= 1; k--):
 
 Repeatedly move the current maximum to its final position at the end of the array:
 
-```text
-while (N > 1):
-    swap(a[1], a[N])
-    N--
-    sink(1)
+```python
+while self.size > 1:
+    self._swap(0, self.size - 1)
+    self.size -= 1
+    self._sift_down(0)
 ```
 
 After the loop, the array is sorted **in ascending order** (if using a max-heap and this “largest to the back” strategy).
@@ -198,17 +219,17 @@ After the loop, the array is sorted **in ascending order** (if using a max-heap 
 
 ### Q1 — Parent/child indices
 
-**Question.** In a 1-based heap array, what are the indices of the **parent**, **left child**, and **right child** of node **`i`**? What is the height of a **complete** binary tree with **\(N\)** nodes?
+**Question.** In a 0-based heap array, what are the indices of the **parent**, **left child**, and **right child** of node **`i`**? What is the height of a **complete** binary tree with **\(N\)** nodes?
 
-**Model answer.** **Parent:** **`⌊i/2⌋`** (for **`i ≥ 2`**). **Left child:** **`2i`**. **Right child:** **`2i+1`** (children exist only if their index **≤** heap size **\(N\)**). Height is **\(\lfloor \log_2 N \rfloor\)**.
+**Model answer.** **Parent:** **`⌊(i-1)/2⌋`** (for **`i ≥ 1`**). **Left child:** **`2i+1`**. **Right child:** **`2i+2`** (children exist only if their index **<** heap size **\(N\)**). Height is **\(\lfloor \log_2 N \rfloor\)**.
 
 ---
 
 ### Q2 — Trace **swim** or **sink**
 
-**Question.** Starting from a valid max-heap on **`[—, 9, 7, 8, 3, 5, 6]`** (index 0 unused), suppose **`enqueue(10)`** appends **`10`** so the array becomes **`[—, 9, 7, 8, 3, 5, 6, 10]`** with **`N = 7`**. List the **swaps** **`swim(7)`** performs until heap order is restored.
+**Question.** Starting from a valid max-heap on **`[9, 7, 8, 3, 5, 6]`**, suppose **`enqueue(10)`** appends **`10`** so the array becomes **`[9, 7, 8, 3, 5, 6, 10]`** with **`N = 7`**. List the **swaps** **`swim(6)`** performs until heap order is restored.
 
-**Model answer.** **`10`** at index **`7`** has parent **`⌊7/2⌋ = 3`** (**`8`**). **`10 > 8`** → swap → **`[—, 9, 7, 10, 3, 5, 6, 8]`**, **`i = 3`**. Parent of **`3`** is **`1`** (**`9`**). **`10 > 9`** → swap → **`[—, 10, 7, 9, 3, 5, 6, 8]`**, **`i = 1`**. Stop at root. **Swaps:** **(7,3)** then **(3,1)**.
+**Model answer.** **`10`** at index **`6`** has parent **`⌊(6-1)/2⌋ = 2`** (**`8`**). **`10 > 8`** → swap → **`[9, 7, 10, 3, 5, 6, 8]`**, **`i = 2`**. Parent of **`2`** is **`0`** (**`9`**). **`10 > 9`** → swap → **`[10, 7, 9, 3, 5, 6, 8]`**, **`i = 0`**. Stop at root. **Swaps:** **(6,2)** then **(2,0)**.
 
 ---
 
@@ -216,7 +237,7 @@ After the loop, the array is sorted **in ascending order** (if using a max-heap 
 
 **Question.** Explain the two phases of **HeapSort** and state the **asymptotic** cost of **heap construction**, **sortdown**, and **overall**. Why is HeapSort **not stable**?
 
-**Model answer.** **Phase 1 — build-heap:** for **`k`** from **`⌊N/2⌋`** down to **`1`**, **`sink(k)`**; **\(O(N)\)**. **Phase 2 — sortdown:** while **`N > 1`**, swap root with **`a[N]`**, decrement **`N`**, **`sink(1)`**; **\(O(N \log N)\)** because each of **\(N-1\)** extractions costs **\(O(\log N)\)**. **Total:** **\(O(N \log N)\)**. **Not stable** because swapping the root with distant positions reorders **equal** elements relative to each other.
+**Model answer.** **Phase 1 — build-heap:** for **`k`** from **`⌊N/2⌋ - 1`** down to **`0`**, **`sink(k)`**; **\(O(N)\)**. **Phase 2 — sortdown:** while **`N > 1`**, swap root with **`a[N-1]`**, decrement **`N`**, **`sink(0)`**; **\(O(N \log N)\)** because each of **\(N-1\)** extractions costs **\(O(\log N)\)**. **Total:** **\(O(N \log N)\)**. **Not stable** because swapping the root with distant positions reorders **equal** elements relative to each other.
 
 ---
 
@@ -238,10 +259,10 @@ After the loop, the array is sorted **in ascending order** (if using a max-heap 
 
 ## 3. MUST-KNOW KEY POINTS
 
-- **Complete binary tree** → **level-order** array; **1-based** indexing: parent **`⌊i/2⌋`**, children **`2i`**, **`2i+1`**.
-- **Max-heap order:** parent **≥** children ⇒ **maximum at root** **`a[1]`**.
+- **Complete binary tree** → **level-order** array; **0-based** indexing: parent **`⌊(i-1)/2⌋`**, children **`2i+1`**, **`2i+2`**.
+- **Max-heap order:** parent **≥** children ⇒ **maximum at root** **`a[0]`**.
 - **Insert:** append, then **`swim`** — **\(O(\log N)\)** compares (about **height**).
-- **Delete max:** swap root with last, shrink heap, **`sink(1)`** — **\(O(\log N)\)**, up to **two** compares per level when choosing the larger child.
+- **Delete max:** swap root with last active index, shrink heap, **`sink(0)`** — **\(O(\log N)\)**, up to **two** compares per level when choosing the larger child.
 - **PQ costs:** heap achieves **\(O(\log M)\)** insert/delete-max and **\(O(1)\)** find-max.
 - **HeapSort:** **bottom-up build** **\(O(N)\)** + **sortdown** **\(O(N \log N)\)** → **\(O(N \log N)\)** total; **in-place**, **worst-case** **\(N \log N\)**, **not stable**.
 - **Contrast sorts:** HeapSort is **in-place** like Selection/Insertion/QuickSort but **unstable** like Selection/QuickSort; MergeSort is **stable** and **\(N \log N\)** but needs **linear extra space**.
@@ -252,11 +273,11 @@ After the loop, the array is sorted **in ascending order** (if using a max-heap 
 
 ### 🔴 Must Know
 
-- **Array indexing** for complete trees: **parent / left / right** formulas with **1-based** heaps.
-- **Max-heap invariant** and **why** the maximum is at **\(\texttt{a}[1]\)**.
+- **Array indexing** for complete trees: **parent / left / right** formulas with **0-based** heaps.
+- **Max-heap invariant** and **why** the maximum is at **\(\texttt{a}[0]\)**.
 - **`swim`** vs **`sink`** — **when** each runs (insert vs delete-max).
 - **Pseudocode** for **`swim`** and **`sink`** (including **choose larger child** in **`sink`**).
-- **Heap construction** loop **`for k = N/2 downto 1`** and that it is **\(O(N)\)**.
+- **Heap construction** loop **`for k = N/2 - 1 downto 0`** and that it is **\(O(N)\)**.
 - **Sortdown** loop and **\(O(N \log N)\)** **total** HeapSort time.
 - **HeapSort properties:** **in-place**, **not stable**, **\(N \log N\)** worst case; **poor cache** relative to tuned Quicksort (qualitative).
 - **PQ implementation table** (unordered vs ordered array vs heap).
@@ -271,7 +292,7 @@ After the loop, the array is sorted **in ascending order** (if using a max-heap 
 ### 🟢 Useful but Lower Priority
 
 - **Min-heap** variant for **\(k\)** smallest or for **largest \(M\)** on a stream (min-heap of size **\(M\)** to retain the **\(M\)** largest).
-- **0-based** indexing formulas (if your lab code uses them): parent **`⌊(i-1)/2⌋`**, children **`2i+1`**, **`2i+2`** — derive from first principles if asked.
+- **Alternative conventions:** some texts still use 1-based heaps; convert carefully during exams if notation differs.
 - **Why** bottom-up build is linear (layer-sum argument); **d-ary heaps** as generalisation.
 
 ---
@@ -289,7 +310,7 @@ After the loop, the array is sorted **in ascending order** (if using a max-heap 
 ## 6. EXAM STRATEGY TIPS
 
 - **Draw a small tree** (7–15 nodes) alongside the array; trace **`swim`**/**`sink`** on paper — index arithmetic errors are the main failure mode.
-- If asked for **parent of** node **i**, restate **integer division** explicitly (**`⌊i/2⌋`**).
+- If asked for **parent of** node **i**, restate **integer division** explicitly (**`⌊(i-1)/2⌋`**).
 - **`sink`:** always mention **compare both children** and **swap with the larger** (unless ties are specified).
 - **HeapSort:** separate **“build heap **\(O(N)\)**”** from **“**\(N\)** times delete-max **\(O(\log N)\)**”** → **\(O(N \log N)\)**; do **not** claim build-heap is **\(N \log N\)**.
 - **Stability:** link to **long-distance swaps** in sortdown (equal keys can **cross**).
@@ -298,4 +319,4 @@ After the loop, the array is sorted **in ascending order** (if using a max-heap 
 
 ---
 
-*These notes align with standard COMP0005 treatments of binary heaps and HeapSort; follow your lecturer’s conventions for **0-based vs 1-based** heaps, tie-breaking in **`sink`**, and exact compare/exchange counts if they differ.*
+*These notes align with standard COMP0005 treatments of binary heaps and HeapSort; this page uses **0-based indexing**, and you should still follow your lecturer’s conventions for tie-breaking in **`sink`** and exact compare/exchange counts if they differ.*
