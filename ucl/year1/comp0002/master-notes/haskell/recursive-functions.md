@@ -4,7 +4,6 @@
 factorial :: Int -> Int
 factorial n = product[1..n]
 ```
-- expressions are evaluated by a stepwise process of applying functions to their arguments
 
 # recursive functions
 - functions can also be defined in terms of themselves
@@ -31,6 +30,7 @@ qsort (x:xs) = qsort[a | a <- xs, a <= x]
               ++ [x] ++
               qsort[b | b <- xs, b > x]
 ```
+- expressions are evaluated by a stepwise process of applying functions to their arguments
 
 # exercise
 ```hs

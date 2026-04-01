@@ -27,6 +27,8 @@ GHCi> [1, 2, 3, 4] ++ [7, 8, 9]
 GHCi> "Hello" ++ "World!"
 "Hello World!"
 ```
+- `++` takes A PAIR OF LISTS of the same type
+- `:` takes AN ELEMENT AND A LIST
 
 ### cons `:`
 - adds an element to the head of the list
@@ -37,8 +39,7 @@ GHCi> 'A' : " BIG MESS"
 GHCi> 54 : [45, 69, 27]
 [54, 45, 69, 27]
 ```
-- `++` takes A PAIR OF LISTS of the same type
-- `:` takes AN ELEMENT AND A LIST
+- error message for out of range access
 
 ### accessing list elements
 - use the `!!` operator to get a list member by index number
@@ -50,7 +51,6 @@ GHCi> "Claude Shannon" !! 10
 GHCi> [3.4, 7.89, 9.4, 12.0] !! 3
 12.0
 ```
-- error message for out of range access
 
 ### lists inside lists
 ```hs

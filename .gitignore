@@ -73,3 +73,10 @@ Thumbs.db
 
 # Environment files
 .env
+
+# MkDocs build output (deploy via gh-pages branch)
+site/
+
+# Local agent prompt templates (not part of published docs)
+prompt-agent1-notes.txt
+prompt-agent2-images.txt
