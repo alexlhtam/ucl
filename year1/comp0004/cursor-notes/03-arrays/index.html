@@ -1,0 +1,3799 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Year 1 Computer Science notes — UCL">
+      
+      
+        <meta name="author" content="Alex Tam">
+      
+      
+        <link rel="canonical" href="https://alexlhtam.github.io/ucl/year1/comp0004/cursor-notes/03-arrays/">
+      
+      
+        <link rel="prev" href="../02-core-java-language/">
+      
+      
+        <link rel="next" href="../04-classes-objects-references/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Arrays - Alex's UCL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#arrays-comp0004" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Alex's UCL Notes" class="md-header__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex's UCL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Arrays
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../comp0005/cursor-notes/01-union-find/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Year 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Alex's UCL Notes" class="md-nav__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    Alex's UCL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Year 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Year 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms (COMP0005)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms (COMP0005)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/01-union-find/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/02-analysis-of-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis of Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/06-abstract-data-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sorting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sorting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/03-elementary-sorts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementary Sorts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/04-mergesort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MergeSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/05-quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QuickSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/07-heaps-and-heapsort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heaps &amp; HeapSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/08-symbol-tables-and-bst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbol Tables &amp; BST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/09-balanced-trees-and-hash-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balanced Trees &amp; Hash Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/10-undirected-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undirected Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/11-directed-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/12-minimum-spanning-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Spanning Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/13-shortest-paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shortest Paths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_5" id="__nav_2_1_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strings
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Strings
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/14-string-sorting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String Sorting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/15-tries-and-string-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tries &amp; String Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/16-substring-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Substring Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OOP / Java (COMP0004)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OOP / Java (COMP0004)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-intro-to-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-core-java-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Java Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#java-arrays-vs-c-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Java arrays vs C arrays
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#declaration-and-creation-two-conceptual-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Declaration and creation (two conceptual steps)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-values-for-array-elements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default values for array elements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#array-initialisation-literals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Array initialisation literals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indexing-and-arrayindexoutofboundsexception" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Indexing and ArrayIndexOutOfBoundsException
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iteration-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iteration patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intstreamrange-map-and-lambdas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IntStream.range, map, and lambdas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-arrays-are-arrays-of-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2D arrays are arrays of arrays
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ragged-arrays-jagged-rows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ragged arrays (jagged rows)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#n-dimensional-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        N-dimensional arrays
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zero-length-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zero-length arrays
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#javautilarrays-utility-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        java.util.Arrays utility class
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#array-type-special-language-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Array type — special language status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arrays-vs-arraylist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arrays vs ArrayList
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-35-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (3–5 with model answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (3–5 with model answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-java-vs-c-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Java vs C arrays
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-defaults-and-initialisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Defaults and initialisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-2d-arrays-and-ragged-rows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — 2D arrays and ragged rows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-pass-by-value-with-references-arrays-as-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Pass-by-value with references (arrays as objects)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-streams-vs-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Streams vs loops
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Object-Oriented Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-classes-objects-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes, Objects &amp; References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-designing-with-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-interfaces-and-polymorphism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces &amp; Polymorphism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-file-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-json-csv-and-records/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON, CSV &amp; Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-packages-and-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages &amp; Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-lambdas-and-streams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambdas &amp; Streams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-web-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-data-structures-in-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures in Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-design-patterns-and-threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns &amp; Threads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory of Computation (COMP0003)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory of Computation (COMP0003)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formal Logic
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Formal Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/01-overview-and-history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview &amp; History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/03-boolean-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boolean Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/04-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/05-proof-by-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof by Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/06-complete-induction-and-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Induction &amp; Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/07-modal-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modal Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automata
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Automata
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/01-dfas-and-regular-languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFAs &amp; Regular Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/02-nfas-and-dfa-equivalence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFAs &amp; DFA Equivalence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/03-closure-and-regular-expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closure &amp; Regular Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/04-pumping-lemma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/05-pushdown-automata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pushdown Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/06-context-free-grammars/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Free Grammars
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/07-pumping-lemma-for-cfls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma for CFLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/08-turing-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turing Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/09-decidability-and-undecidability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decidability &amp; Undecidability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#java-arrays-vs-c-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Java arrays vs C arrays
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#declaration-and-creation-two-conceptual-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Declaration and creation (two conceptual steps)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-values-for-array-elements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default values for array elements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#array-initialisation-literals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Array initialisation literals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indexing-and-arrayindexoutofboundsexception" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Indexing and ArrayIndexOutOfBoundsException
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iteration-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iteration patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intstreamrange-map-and-lambdas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IntStream.range, map, and lambdas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-arrays-are-arrays-of-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2D arrays are arrays of arrays
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ragged-arrays-jagged-rows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ragged arrays (jagged rows)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#n-dimensional-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        N-dimensional arrays
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zero-length-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zero-length arrays
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#javautilarrays-utility-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        java.util.Arrays utility class
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#array-type-special-language-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Array type — special language status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arrays-vs-arraylist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arrays vs ArrayList
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-35-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (3–5 with model answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (3–5 with model answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-java-vs-c-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Java vs C arrays
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-defaults-and-initialisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Defaults and initialisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-2d-arrays-and-ragged-rows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — 2D arrays and ragged rows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-pass-by-value-with-references-arrays-as-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Pass-by-value with references (arrays as objects)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-streams-vs-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Streams vs loops
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="arrays-comp0004">Arrays — COMP0004<a class="headerlink" href="#arrays-comp0004" title="Permanent link">¶</a></h1>
+<p><em>Lecture-style notes aligned with Slides 4. Arrays are the bridge between </em><em>imperative loops</em><em> and </em><em>collections/APIs</em><em> you will use everywhere in Java.</em></p>
+<hr>
+<h2 id="1-complete-topic-summaries">1. COMPLETE TOPIC SUMMARIES<a class="headerlink" href="#1-complete-topic-summaries" title="Permanent link">¶</a></h2>
+<h3 id="java-arrays-vs-c-arrays">Java arrays vs <strong>C arrays</strong><a class="headerlink" href="#java-arrays-vs-c-arrays" title="Permanent link">¶</a></h3>
+<p>In <strong>C</strong>, an array name often decays to a <strong>pointer</strong> to the first element; you can do <strong>pointer arithmetic</strong> (e.g. <code>p + i</code>) and there is <strong>no guaranteed runtime bounds check</strong> — out-of-range access is <strong>undefined behaviour</strong>.</p>
+<p>In <strong>Java</strong>, an array is a <strong>proper object</strong> on the <strong>heap</strong> (created with <strong><code>new</code></strong>). The language gives you <strong><code>[]</code> syntax</strong>, but under the hood you still have an <strong>object</strong> with a <strong>runtime length</strong> and <strong>bounds checking</strong>:</p>
+<ul>
+<li><strong>No pointer arithmetic</strong> on arrays: you cannot “move” a Java array reference by adding an offset like in C.</li>
+<li><strong>Bounds checking:</strong> every indexed read/write <strong><code>arr[i]</code></strong> is checked; invalid <strong><code>i</code></strong> throws <strong><code>ArrayIndexOutOfBoundsException</code></strong>.</li>
+<li><strong>Length:</strong> use <strong><code>arr.length</code></strong> (a <strong><code>public final</code> field</strong> on array objects — not a method).</li>
+</ul>
+<blockquote>
+<p><strong>Mental model:</strong> A Java array variable holds a <strong>reference</strong> to an array <strong>object</strong>; the object knows its <strong>length</strong> and stores <strong>elements</strong> in a contiguous layout (for each dimension).</p>
+</blockquote>
+<hr>
+<h3 id="declaration-and-creation-two-conceptual-steps"><strong>Declaration</strong> and <strong>creation</strong> (two conceptual steps)<a class="headerlink" href="#declaration-and-creation-two-conceptual-steps" title="Permanent link">¶</a></h3>
+<p>You often write a <strong>single line</strong>, but conceptually there are <strong>two ideas</strong>:</p>
+<ol>
+<li><strong>Declare</strong> a variable whose type is “array of <strong><code>int</code></strong>”: <strong><code>int[] arr;</code></strong></li>
+<li><strong>Create</strong> an array object and assign it: <strong><code>arr = new int[6];</code></strong></li>
+</ol>
+<p>Combined:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">arr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="o">[</span><span class="mi">6</span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="c1">// indexes 0 .. 5 inclusive</span>
+</code></pre></div>
+<ul>
+<li><strong><code>new int[6]</code></strong> allocates an <strong><code>int</code></strong> array of <strong>length 6</strong>; all slots start at <strong>default</strong> values (see below).</li>
+<li>The <strong><code>[]</code></strong> can be written after the type (<strong><code>int[] arr</code></strong>, preferred style in Java) or after the name (<strong><code>int arr[]</code></strong> — C-style, legal but less idiomatic).</li>
+</ul>
+<hr>
+<h3 id="default-values-for-array-elements"><strong>Default values</strong> for array elements<a class="headerlink" href="#default-values-for-array-elements" title="Permanent link">¶</a></h3>
+<p>When you allocate with <strong><code>new</code></strong>, every cell is initialised automatically:</p>
+<table>
+<thead>
+<tr>
+<th>Element type</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>byte</code></strong>, <strong><code>short</code></strong>, <strong><code>int</code></strong>, <strong><code>long</code></strong></td>
+<td><strong><code>0</code></strong></td>
+</tr>
+<tr>
+<td><strong><code>float</code></strong>, <strong><code>double</code></strong></td>
+<td><strong><code>0.0</code></strong></td>
+</tr>
+<tr>
+<td><strong><code>boolean</code></strong></td>
+<td><strong><code>false</code></strong></td>
+</tr>
+<tr>
+<td><strong>Reference types</strong> (<code>String</code>, your own classes, etc.)</td>
+<td><strong><code>null</code></strong></td>
+</tr>
+</tbody>
+</table>
+<p>So <strong><code>new int[100]</code></strong> gives one hundred <strong><code>0</code></strong>s; <strong><code>new String[10]</code></strong> gives ten <strong><code>null</code></strong> references (not empty strings).</p>
+<hr>
+<h3 id="array-initialisation-literals"><strong>Array initialisation</strong> literals<a class="headerlink" href="#array-initialisation-literals" title="Permanent link">¶</a></h3>
+<p>If you already know the elements at compile time, use <strong>brace initialisation</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">};</span><span class="w"> </span><span class="c1">// cannot use this form after a blank declaration line in older patterns;</span>
+</code></pre></div>
+<p>The <strong><code>new</code>-with-anonymous-array</strong> form is handy when you need an expression (e.g. as an argument):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">};</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">foo</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="p">{</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">});</span>
+</code></pre></div>
+<p>Both create a <strong>new array object</strong> with the given length and values.</p>
+<hr>
+<h3 id="indexing-and-arrayindexoutofboundsexception"><strong>Indexing</strong> and <strong><code>ArrayIndexOutOfBoundsException</code></strong><a class="headerlink" href="#indexing-and-arrayindexoutofboundsexception" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Zero-based:</strong> valid indices are <strong><code>0</code></strong> through <strong><code>length - 1</code></strong>.</li>
+<li><strong><code>arr.length</code></strong> is <strong><code>6</code></strong> ⇒ legal indices <strong><code>0..5</code></strong> only.</li>
+<li><strong><code>arr[6]</code></strong> or <strong><code>arr[-1]</code></strong> throws <strong><code>ArrayIndexOutOfBoundsException</code></strong> at <strong>runtime</strong>.</li>
+</ul>
+<blockquote>
+<p><strong>Exam trap:</strong> <strong><code>length</code></strong> is not a method — no parentheses: <strong><code>a.length</code></strong>, not <strong><code>a.length()</code></strong>.</p>
+</blockquote>
+<hr>
+<h3 id="iteration-patterns"><strong>Iteration</strong> patterns<a class="headerlink" href="#iteration-patterns" title="Permanent link">¶</a></h3>
+<p><strong>Traditional <code>for</code> loop</strong> — use when you need the <strong>index</strong> or to <strong>write</strong> into specific positions:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">arr</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">": "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">);</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Enhanced <code>for</code> (“for-each”)</strong> — use when you only need <strong>each value</strong> (read-mostly over the whole array):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">arr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">}</span>
+</code></pre></div>
+<p>You <strong>cannot</strong> resize the array in the loop; for-each also <strong>hides</strong> the index (use indexed <code>for</code> if you need it).</p>
+<p><strong>Streams</strong> — good for <strong>pipelines</strong> of transforms/filters/aggregations:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.Arrays</span><span class="p">;</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">nums</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">};</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kt">int</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arrays</span><span class="p">.</span><span class="na">stream</span><span class="p">(</span><span class="n">nums</span><span class="p">).</span><span class="na">sum</span><span class="p">();</span>
+</code></pre></div>
+<p>Here <strong><code>Arrays.stream(int[])</code></strong> gives an <strong><code>IntStream</code></strong>, avoiding <strong>boxing</strong> to <strong><code>Integer</code></strong>.</p>
+<hr>
+<h3 id="intstreamrange-map-and-lambdas"><strong><code>IntStream.range</code></strong>, <strong><code>map</code></strong>, and <strong>lambdas</strong><a class="headerlink" href="#intstreamrange-map-and-lambdas" title="Permanent link">¶</a></h3>
+<p>When you need <strong>both index and value</strong>, <strong><code>IntStream.range(0, arr.length)</code></strong> is a clean idiom:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.stream.IntStream</span><span class="p">;</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">};</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="kt">int</span><span class="w"> </span><span class="n">weighted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IntStream</span><span class="p">.</span><span class="na">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">length</span><span class="p">)</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="c1">// lambda: i is the index</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="p">.</span><span class="na">sum</span><span class="p">();</span>
+</code></pre></div>
+<ul>
+<li><strong><code>range(start, endExclusive)</code></strong> emits <strong><code>start .. endExclusive-1</code></strong>.</li>
+<li><strong><code>.map(...)</code></strong> transforms each stream element (here: index <strong><code>i</code></strong> → <strong><code>i * a[i]</code></strong>).</li>
+<li><strong><code>.sum()</code></strong> is a <strong>terminal operation</strong> that runs the pipeline.</li>
+</ul>
+<blockquote>
+<p><strong>Beginner note:</strong> <strong>Lambdas</strong> are shorthand for <strong>functional interfaces</strong>; for <strong><code>map</code></strong>, you supply a function <strong><code>int → int</code></strong>.</p>
+</blockquote>
+<hr>
+<h3 id="2d-arrays-are-arrays-of-arrays"><strong>2D arrays</strong> are <strong>arrays of arrays</strong><a class="headerlink" href="#2d-arrays-are-arrays-of-arrays" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kt">int</span><span class="o">[][]</span><span class="w"> </span><span class="n">twoD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="o">[</span><span class="mi">3</span><span class="o">][</span><span class="mi">7</span><span class="o">]</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li><strong><code>twoD</code></strong> references an array of <strong>length 3</strong>.</li>
+<li>Each <strong><code>twoD[r]</code></strong> is itself an <strong><code>int[]</code></strong> of <strong>length 7</strong>.</li>
+<li><strong>Row <em>r</em>, column <em>c</em>:</strong> <strong><code>twoD[r][c]</code></strong>.</li>
+</ul>
+<p><strong>Nested traditional loops:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">twoD</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w"> </span><span class="n">r</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">twoD</span><span class="o">[</span><span class="n">r</span><span class="o">]</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">        </span><span class="c1">// use twoD[r][c]</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="p">}</span>
+</code></pre></div>
+<p>Notice <strong><code>twoD[r].length</code></strong>: rows could differ in <strong>ragged</strong> arrays (next section).</p>
+<p><strong>Nested enhanced for:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">twoD</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">row</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">        </span><span class="c1">// use value</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Streams:</strong> treat each row as an <strong><code>int[]</code></strong>, flatten to one <strong><code>IntStream</code></strong>, aggregate:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arrays</span><span class="p">.</span><span class="na">stream</span><span class="p">(</span><span class="n">twoD</span><span class="p">)</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="p">.</span><span class="na">flatMapToInt</span><span class="p">(</span><span class="n">Arrays</span><span class="p">::</span><span class="n">stream</span><span class="p">)</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="p">.</span><span class="na">sum</span><span class="p">();</span>
+</code></pre></div>
+<hr>
+<h3 id="ragged-arrays-jagged-rows"><strong>Ragged arrays</strong> (jagged rows)<a class="headerlink" href="#ragged-arrays-jagged-rows" title="Permanent link">¶</a></h3>
+<p>Because each row is its own <strong><code>int[]</code></strong>, row lengths may differ:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kt">int</span><span class="o">[][]</span><span class="w"> </span><span class="n">rag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="o">[</span><span class="mi">3</span><span class="o">][]</span><span class="p">;</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">rag</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">};</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="n">rag</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="p">{</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">};</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">rag</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="p">{</span><span class="mi">7</span><span class="p">};</span>
+</code></pre></div>
+<p>This models <strong>triangular tables</strong>, <strong>sparse structures</strong>, or irregular data without wasting a full rectangle.</p>
+<hr>
+<h3 id="n-dimensional-arrays"><strong>N-dimensional arrays</strong><a class="headerlink" href="#n-dimensional-arrays" title="Permanent link">¶</a></h3>
+<p>The idea generalises: <strong><code>double[][][]</code></strong> is an array of <strong><code>double[][]</code></strong>, each of which is an array of <strong><code>double[]</code></strong>, etc. You can allocate partially:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kt">double</span><span class="o">[][][]</span><span class="w"> </span><span class="n">cube</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">double</span><span class="o">[</span><span class="mi">4</span><span class="o">][</span><span class="mi">5</span><span class="o">][</span><span class="mi">6</span><span class="o">]</span><span class="p">;</span>
+</code></pre></div>
+<p>Or build ragged structures at deeper levels — each dimension is “just another array object.”</p>
+<hr>
+<h3 id="zero-length-arrays"><strong>Zero-length arrays</strong><a class="headerlink" href="#zero-length-arrays" title="Permanent link">¶</a></h3>
+<p><strong><code>new int[0]</code></strong> is <strong>legal</strong> and often <strong>preferable to <code>null</code></strong> when representing “no results”:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">;</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">empty</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// runs zero times — safe</span>
+</code></pre></div>
+<p>Returning <strong><code>null</code></strong> forces every caller to <strong>null-check</strong>; returning <strong><code>new T[0]</code></strong> lets callers use uniform loops without branching.</p>
+<hr>
+<h3 id="javautilarrays-utility-class"><strong><code>java.util.Arrays</code> utility class</strong><a class="headerlink" href="#javautilarrays-utility-class" title="Permanent link">¶</a></h3>
+<p><strong><code>Arrays</code></strong> provides <strong>static</strong> helpers — sorting, searching, comparison, parallel operations, and <strong>streaming</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.Arrays</span><span class="p">;</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">};</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="n">Arrays</span><span class="p">.</span><span class="na">sort</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">                    </span><span class="c1">// mutates a</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arrays</span><span class="p">.</span><span class="na">binarySearch</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w"> </span><span class="c1">// array must be sorted for correct binary search semantics</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">};</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="kt">boolean</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arrays</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="kt">int</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arrays</span><span class="p">.</span><span class="na">stream</span><span class="p">(</span><span class="n">a</span><span class="p">).</span><span class="na">sum</span><span class="p">();</span>
+</code></pre></div>
+<p>Common methods to recognise: <strong><code>sort</code></strong>, <strong><code>binarySearch</code></strong>, <strong><code>equals</code></strong>, <strong><code>fill</code></strong>, <strong><code>copyOf</code></strong>, <strong><code>toString</code></strong>, <strong><code>stream</code></strong>.</p>
+<hr>
+<h3 id="array-type-special-language-status"><strong><code>Array</code> type</strong> — special language status<a class="headerlink" href="#array-type-special-language-status" title="Permanent link">¶</a></h3>
+<p>Every Java array type is a <strong>subtype of <code>Object</code></strong> and implements <strong><code>Cloneable</code></strong> and <strong><code>Serializable</code></strong>. You use <strong><code>[]</code></strong> at the language level, but arrays are still <strong>objects</strong> with <strong>identity</strong>, <strong><code>equals</code></strong> behaviour (reference equality by default unless you compare contents via <strong><code>Arrays.equals</code></strong>), and <strong><code>length</code></strong>.</p>
+<hr>
+<h3 id="arrays-vs-arraylist"><strong>Arrays vs <code>ArrayList</code></strong><a class="headerlink" href="#arrays-vs-arraylist" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Arrays:</strong> <strong>fixed size</strong> after allocation; very <strong>lean</strong>; great for <strong>known-size</strong> buffers and <strong>performance-sensitive</strong> numeric code.</li>
+<li><strong><code>ArrayList&lt;E&gt;</code>:</strong> <strong>resizable</strong>; rich <strong>collection</strong> API; <strong>generics</strong> give <strong>type safety</strong>; usually <strong>prefer <code>ArrayList</code></strong> for application logic where size grows/shrinks.</li>
+</ul>
+<blockquote>
+<p><strong>Rule of thumb:</strong> default to <strong><code>ArrayList</code></strong> (or other collections) unless you have a concrete reason for a fixed array.</p>
+</blockquote>
+<hr>
+<h2 id="2-exam-style-questions-35-with-model-answers">2. EXAM-STYLE QUESTIONS (3–5 with model answers)<a class="headerlink" href="#2-exam-style-questions-35-with-model-answers" title="Permanent link">¶</a></h2>
+<h3 id="q1-java-vs-c-arrays">Q1 — Java vs C arrays<a class="headerlink" href="#q1-java-vs-c-arrays" title="Permanent link">¶</a></h3>
+<p><strong>Question:</strong> Explain two <strong>concrete</strong> differences between <strong>Java arrays</strong> and <strong>C-style arrays</strong> (as typically used with pointers), focusing on <strong>memory model</strong> and <strong>safety</strong>.</p>
+<p><strong>Model answer:</strong> (1) A Java array is a <strong>heap object</strong> created with <strong><code>new</code></strong>; a variable of type <strong><code>T[]</code></strong> holds a <strong>reference</strong> to that object, not a raw memory address you may arithmetic-advance. (2) Java performs <strong>runtime bounds checking</strong> on each <strong><code>arr[i]</code></strong> access, throwing <strong><code>ArrayIndexOutOfBoundsException</code></strong> on illegal indices, whereas out-of-range access through pointers in C is <strong>undefined behaviour</strong> with no mandatory check. (Optional third point: Java exposes <strong><code>length</code></strong> on the array object; no pointer decay model.)</p>
+<hr>
+<h3 id="q2-defaults-and-initialisation">Q2 — Defaults and initialisation<a class="headerlink" href="#q2-defaults-and-initialisation" title="Permanent link">¶</a></h3>
+<p><strong>Question:</strong> What values appear in each element after <strong><code>String[] s = new String[5];</code></strong> and <strong><code>double[] x = new double[5];</code></strong>? Why?</p>
+<p><strong>Model answer:</strong> For <strong><code>String[]</code></strong>, each slot is <strong><code>null</code></strong> because <strong>reference</strong> types default to <strong><code>null</code></strong>. For <strong><code>double[]</code></strong>, each slot is <strong><code>0.0</code></strong> because <strong>numeric floating-point</strong> primitives default to <strong>zero</strong>. The <strong><code>new</code>-allocated</strong> array initialises every element to the type’s <strong>default</strong> before any explicit assignment.</p>
+<hr>
+<h3 id="q3-2d-arrays-and-ragged-rows">Q3 — 2D arrays and ragged rows<a class="headerlink" href="#q3-2d-arrays-and-ragged-rows" title="Permanent link">¶</a></h3>
+<p><strong>Question:</strong> Explain why <strong><code>int[][] m = new int[3][];</code></strong> is valid. How does <strong><code>m[1].length</code></strong> differ from <strong><code>m[2].length</code></strong> in a ragged configuration?</p>
+<p><strong>Model answer:</strong> <strong><code>m</code></strong> is an array of <strong>three</strong> references to <strong><code>int[]</code></strong>. The second dimension is not allocated by <strong><code>new int[3][]</code></strong> — each <strong><code>m[i]</code></strong> starts as <strong><code>null</code></strong> until assigned. In a <strong>ragged</strong> array, <strong><code>m[1]</code></strong> and <strong><code>m[2]</code></strong> refer to <strong>different</strong> row arrays, so <strong><code>.length</code></strong> can differ (e.g. row 1 has 4 ints, row 2 has 1). You must <strong>allocate or assign</strong> each row before indexing <strong><code>m[i][j]</code></strong>, otherwise you risk <strong><code>NullPointerException</code></strong>.</p>
+<hr>
+<h3 id="q4-pass-by-value-with-references-arrays-as-objects">Q4 — Pass-by-value with references (arrays as objects)<a class="headerlink" href="#q4-pass-by-value-with-references-arrays-as-objects" title="Permanent link">¶</a></h3>
+<p><strong>Question:</strong> Java is <strong>call-by-value</strong>. Consider:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">bumpFirst</span><span class="p">(</span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="n">a</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="p">}</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">    </span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">};</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">    </span><span class="n">bumpFirst</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">x</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">);</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="p">}</span>
+</code></pre></div>
+<p>What is printed, and why does this not contradict call-by-value?</p>
+<p><strong>Model answer:</strong> Prints <strong><code>11</code></strong>. The parameter <strong><code>a</code></strong> receives a <strong>copy of the reference value</strong> pointing to the <strong>same array object</strong> as <strong><code>x</code></strong>. Mutating <strong><code>a[0]</code></strong> mutates <strong>shared object state</strong>. Call-by-value means the <strong>reference itself</strong> is copied, not the <strong>array contents</strong>; Java never passes objects “by object copy” implicitly.</p>
+<hr>
+<h3 id="q5-streams-vs-loops">Q5 — Streams vs loops<a class="headerlink" href="#q5-streams-vs-loops" title="Permanent link">¶</a></h3>
+<p><strong>Question:</strong> Write a <strong>stream-based</strong> expression that sums <strong>even</strong> numbers in <strong><code>int[] nums</code></strong>. Mention one <strong>advantage</strong> and one <strong>caution</strong> of streams for beginners.</p>
+<p><strong>Model answer:</strong> Example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">evenSum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arrays</span><span class="p">.</span><span class="na">stream</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="p">.</span><span class="na">sum</span><span class="p">();</span>
+</code></pre></div>
+<p><strong>Advantage:</strong> clear <strong>dataflow</strong> (filter → aggregate) for simple pipelines. <strong>Caution:</strong> easy to accidentally <strong>box</strong> primitives if you use <strong><code>Stream&lt;Integer&gt;</code></strong> instead of <strong><code>IntStream</code></strong>; also debugging can feel harder than a plain <strong><code>for</code></strong> loop when logic branches heavily.</p>
+<hr>
+<h2 id="3-must-know-key-points">3. MUST-KNOW KEY POINTS<a class="headerlink" href="#3-must-know-key-points" title="Permanent link">¶</a></h2>
+<ul>
+<li>Java arrays are <strong>objects</strong> with <strong><code>length</code></strong> and <strong>runtime bounds checks</strong> — <strong>no pointer arithmetic</strong>.</li>
+<li><strong>Declaration</strong> vs <strong>creation</strong>: <strong><code>T[] ref;</code></strong> then <strong><code>ref = new T[n];</code></strong> — often written in one line.</li>
+<li><strong>Default values:</strong> <strong><code>0</code> / <code>0.0</code> / <code>false</code> / <code>null</code></strong> depending on element type.</li>
+<li>Initialisation: <strong><code>{...}</code></strong> and <strong><code>new T[] { ... }</code></strong>.</li>
+<li>Indexing is <strong>0 .. length-1</strong>; mistakes throw <strong><code>ArrayIndexOutOfBoundsException</code></strong>.</li>
+<li>Iterate with <strong>indexed <code>for</code></strong>, <strong>for-each</strong>, or <strong><code>Arrays.stream</code></strong> / <strong><code>IntStream.range</code></strong> when indices matter.</li>
+<li><strong><code>int[][]</code></strong> means <strong>array of row arrays</strong>; rows may be <strong>ragged</strong>.</li>
+<li>Flatten 2D numeric arrays with <strong><code>flatMapToInt(Arrays::stream)</code></strong>.</li>
+<li><strong>Zero-length arrays</strong> are valid; often better than <strong><code>null</code></strong> for “empty results.”</li>
+<li>Know <strong><code>Arrays</code></strong>: <strong><code>sort</code></strong>, <strong><code>binarySearch</code></strong>, <strong><code>equals</code></strong>, <strong><code>stream</code></strong>.</li>
+<li>Prefer <strong><code>ArrayList</code></strong> for typical <strong>resizable</strong> sequences; arrays for <strong>fixed</strong> layouts and tight loops.</li>
+</ul>
+<hr>
+<h2 id="4-high-priority-topics">4. HIGH-PRIORITY TOPICS<a class="headerlink" href="#4-high-priority-topics" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Topic</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🔴 <strong>Must know</strong></td>
+<td><strong>Java array = object + <code>length</code> + bounds checks</strong></td>
+<td>Core language semantics; contrasts with C thinking.</td>
+</tr>
+<tr>
+<td>🔴 <strong>Must know</strong></td>
+<td><strong>Default initialisation</strong> after <strong><code>new</code></strong></td>
+<td>Predicts contents before you assign explicitly.</td>
+</tr>
+<tr>
+<td>🔴 <strong>Must know</strong></td>
+<td><strong>Valid index range</strong> and <strong><code>ArrayIndexOutOfBoundsException</code></strong></td>
+<td>Universal bug/edge-case theme.</td>
+</tr>
+<tr>
+<td>🔴 <strong>Must know</strong></td>
+<td><strong>Indexed <code>for</code> vs for-each</strong> — when each is appropriate</td>
+<td>Shows control vs simplicity trade-off.</td>
+</tr>
+<tr>
+<td>🟡 <strong>Important</strong></td>
+<td><strong><code>Arrays.stream</code> / <code>IntStream</code> / <code>IntStream.range</code></strong></td>
+<td>Modern Java style + exam “rewrite as stream” tasks.</td>
+</tr>
+<tr>
+<td>🟡 <strong>Important</strong></td>
+<td><strong>2D = arrays of arrays; ragged rows</strong></td>
+<td>Appears in matrix/grid questions and <strong><code>NullPointerException</code></strong> traps.</td>
+</tr>
+<tr>
+<td>🟡 <strong>Important</strong></td>
+<td><strong><code>Arrays</code> utilities</strong> (<code>sort</code>, <code>binarySearch</code>, <code>equals</code>, <code>stream</code>)</td>
+<td>Practical API literacy.</td>
+</tr>
+<tr>
+<td>🟢 <strong>Useful</strong></td>
+<td><strong>N-dimensional generalisation</strong></td>
+<td>Rare detail questions; builds confidence.</td>
+</tr>
+<tr>
+<td>🟢 <strong>Useful</strong></td>
+<td><strong>Zero-length arrays vs <code>null</code></strong></td>
+<td>Good design hygiene in written answers.</td>
+</tr>
+<tr>
+<td>🟢 <strong>Useful</strong></td>
+<td><strong>Arrays vs <code>ArrayList</code> trade-offs</strong></td>
+<td>Shows you can choose structures deliberately.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="5-topic-interconnections-bigger-picture">5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE<a class="headerlink" href="#5-topic-interconnections-bigger-picture" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>References &amp; objects:</strong> Arrays are the first place many courses make <strong>heap objects</strong> tangible — same <strong>reference copying</strong> rules apply as for any <strong>object</strong> type.</li>
+<li><strong>Loops &amp; complexity:</strong> Traversing <strong><code>n</code></strong> elements is <strong>Θ(n)</strong> time; 2D <strong><code>R×C</code></strong> grids are typically <strong>Θ(R·C)</strong> unless structure is ragged (then sum of row lengths).</li>
+<li><strong>Collections:</strong> <strong><code>ArrayList</code></strong> internally uses arrays; understanding <strong>fixed vs resizable</strong> clarifies <strong>why</strong> lists grow via <strong>reallocation</strong> strategies (amortised cost) later.</li>
+<li><strong>Functional style:</strong> Streams connect to <strong>lambdas</strong> and <strong>method references</strong>, previewing <strong>functional interfaces</strong> and <strong>API design</strong> in later OOP topics.</li>
+<li><strong>Defensive programming:</strong> Bounds checks and <strong>empty arrays</strong> foreshadow <strong>exceptions</strong>, <strong><code>Optional</code></strong>, and API contracts (“never return <strong><code>null</code></strong> arrays”).</li>
+</ul>
+<hr>
+<h2 id="6-exam-strategy-tips">6. EXAM STRATEGY TIPS<a class="headerlink" href="#6-exam-strategy-tips" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Define before you derive:</strong> one sentence — “<strong><code>arr</code> references an array object of length </strong><code>n</code><strong>, indices </strong><code>0..n-1</code>**.”</li>
+<li><strong>Trace memory diagrams:</strong> for reference questions, draw <strong>one array object</strong> and <strong>two arrows</strong> (variables) when explaining aliasing.</li>
+<li><strong>Streams:</strong> if asked for a stream solution, prefer <strong><code>IntStream</code></strong> for <strong><code>int[]</code></strong> to avoid <strong>boxing</strong>.</li>
+<li><strong>2D loops:</strong> always tie inner bound to <strong><code>matrix[r].length</code></strong> when ragged is possible.</li>
+<li><strong>Binary search caveat:</strong> mention <strong><code>Arrays.binarySearch</code> requires sorted data</strong> (or explain the returned insertion-point convention if you’ve been taught it).</li>
+<li><strong>Pick structure deliberately:</strong> end written answers with <strong>when you’d pick array vs <code>ArrayList</code></strong> for maintainability.</li>
+</ul>
+<hr>
+<p><em>End of notes — Arrays (COMP0004, Slides 4).</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

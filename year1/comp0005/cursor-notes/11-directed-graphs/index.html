@@ -1,0 +1,3720 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Year 1 Computer Science notes — UCL">
+      
+      
+        <meta name="author" content="Alex Tam">
+      
+      
+        <link rel="canonical" href="https://alexlhtam.github.io/ucl/year1/comp0005/cursor-notes/11-directed-graphs/">
+      
+      
+        <link rel="prev" href="../10-undirected-graphs/">
+      
+      
+        <link rel="next" href="../12-minimum-spanning-trees/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Directed Graphs - Alex's UCL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#directed-graphs-digraphs-comp0005-algorithms" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Alex's UCL Notes" class="md-header__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex's UCL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Directed Graphs
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../01-union-find/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Year 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Alex's UCL Notes" class="md-nav__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    Alex's UCL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Year 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Year 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms (COMP0005)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms (COMP0005)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-union-find/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-analysis-of-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis of Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-abstract-data-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sorting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sorting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-elementary-sorts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementary Sorts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-mergesort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MergeSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QuickSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-heaps-and-heapsort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heaps &amp; HeapSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-symbol-tables-and-bst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbol Tables &amp; BST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-balanced-trees-and-hash-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balanced Trees &amp; Hash Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-undirected-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undirected Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#digraph-definitions-and-terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digraph definitions and terminology
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digraph-api-and-adjacency-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digraph API and adjacency lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfs-on-digraphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFS on digraphs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bfs-on-digraphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BFS on digraphs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#topological-sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Topological sort
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directed-cycle-detection-is-the-graph-a-dag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Directed cycle detection (is the graph a DAG?)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strongly-connected-components-sccs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strongly connected components (SCCs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kosarajusharir-algorithm-for-sccs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kosaraju–Sharir algorithm for SCCs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-out-degree-in-degree-and-adjacency-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Out-degree, in-degree, and adjacency lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-topological-order-vs-cycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Topological order vs cycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-directed-cycle-detection-with-oncallstack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Directed cycle detection with onCallStack
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-bfs-vs-dfs-reachability-on-a-digraph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — BFS vs DFS reachability on a digraph
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-kosarajusharir-phases-and-complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Kosaraju–Sharir: phases and complexity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-minimum-spanning-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Spanning Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-shortest-paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shortest Paths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_5" id="__nav_2_1_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strings
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Strings
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-string-sorting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String Sorting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-tries-and-string-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tries &amp; String Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-substring-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Substring Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OOP / Java (COMP0004)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OOP / Java (COMP0004)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/01-intro-to-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/02-core-java-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Java Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/03-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Object-Oriented Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/04-classes-objects-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes, Objects &amp; References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/05-designing-with-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/06-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/07-interfaces-and-polymorphism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces &amp; Polymorphism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/08-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/09-file-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/10-json-csv-and-records/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON, CSV &amp; Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/11-packages-and-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages &amp; Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/12-lambdas-and-streams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambdas &amp; Streams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/13-web-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/14-data-structures-in-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures in Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/15-design-patterns-and-threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns &amp; Threads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory of Computation (COMP0003)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory of Computation (COMP0003)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formal Logic
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Formal Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/01-overview-and-history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview &amp; History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/03-boolean-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boolean Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/04-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/05-proof-by-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof by Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/06-complete-induction-and-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Induction &amp; Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/07-modal-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modal Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automata
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Automata
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/01-dfas-and-regular-languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFAs &amp; Regular Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/02-nfas-and-dfa-equivalence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFAs &amp; DFA Equivalence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/03-closure-and-regular-expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closure &amp; Regular Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/04-pumping-lemma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/05-pushdown-automata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pushdown Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/06-context-free-grammars/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Free Grammars
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/07-pumping-lemma-for-cfls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma for CFLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/08-turing-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turing Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/09-decidability-and-undecidability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decidability &amp; Undecidability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#digraph-definitions-and-terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digraph definitions and terminology
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digraph-api-and-adjacency-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digraph API and adjacency lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfs-on-digraphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFS on digraphs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bfs-on-digraphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BFS on digraphs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#topological-sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Topological sort
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directed-cycle-detection-is-the-graph-a-dag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Directed cycle detection (is the graph a DAG?)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strongly-connected-components-sccs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strongly connected components (SCCs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kosarajusharir-algorithm-for-sccs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kosaraju–Sharir algorithm for SCCs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-out-degree-in-degree-and-adjacency-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Out-degree, in-degree, and adjacency lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-topological-order-vs-cycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Topological order vs cycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-directed-cycle-detection-with-oncallstack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Directed cycle detection with onCallStack
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-bfs-vs-dfs-reachability-on-a-digraph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — BFS vs DFS reachability on a digraph
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-kosarajusharir-phases-and-complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Kosaraju–Sharir: phases and complexity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="directed-graphs-digraphs-comp0005-algorithms">Directed Graphs (Digraphs) — COMP0005 Algorithms<a class="headerlink" href="#directed-graphs-digraphs-comp0005-algorithms" title="Permanent link">¶</a></h1>
+<p><em>Lecture-style notes. A </em><em>directed graph</em><em> (</em><em>digraph</em><em>) is the natural model when relationships are </em><em>asymmetric</em><em>: “</em><em>A points to B</em><em>” is </em><em>not</em><em> the same as “</em><em>B points to A</em><em>.” The same </em><em>DFS/BFS</em><em> skeletons as for undirected graphs still apply, but </em><em>reachability</em><em>, </em><em>shortest paths</em><em>, and </em><em>connectivity</em><em> all respect </em><em>edge direction</em><em>. </em><em>Topological sort</em><em> and </em><em>strongly connected components</em><em> are the two flagship digraph problems.</em></p>
+<hr>
+<h2 id="1-complete-topic-summaries">1. COMPLETE TOPIC SUMMARIES<a class="headerlink" href="#1-complete-topic-summaries" title="Permanent link">¶</a></h2>
+<h3 id="digraph-definitions-and-terminology">Digraph definitions and terminology<a class="headerlink" href="#digraph-definitions-and-terminology" title="Permanent link">¶</a></h3>
+<p><strong>Digraph.</strong> A digraph <strong><span class="arithmatex">\(G = (V, E)\)</span></strong> consists of:</p>
+<ul>
+<li>a set of <strong>vertices</strong> (<strong>nodes</strong>) <strong><span class="arithmatex">\(V\)</span></strong> with <strong><span class="arithmatex">\(|V| = V\)</span></strong> (notation overload: <strong><span class="arithmatex">\(V\)</span></strong> as set and <strong><span class="arithmatex">\(V\)</span></strong> as count — your lecturer/textbook will fix one convention), and  </li>
+<li>a set of <strong>directed edges</strong> <strong><span class="arithmatex">\(E \subseteq V \times V\)</span></strong>.</li>
+</ul>
+<p>Each edge is an <strong>ordered pair</strong> <strong><span class="arithmatex">\((v, w)\)</span></strong>, read <strong>“<span class="arithmatex">\(v\)</span> to <span class="arithmatex">\(w\)</span>”</strong> or <strong><span class="arithmatex">\(v \to w\)</span></strong>. Unlike an <strong>undirected</strong> edge <strong><span class="arithmatex">\(\{v,w\}\)</span></strong>, <strong><span class="arithmatex">\((v,w)\)</span></strong> and <strong><span class="arithmatex">\((w,v)\)</span></strong> are <strong>different</strong> edges unless both are present.</p>
+<p><strong>Directed path.</strong> A sequence of vertices <strong><span class="arithmatex">\(v_0, v_1, \ldots, v_k\)</span></strong> such that <strong><span class="arithmatex">\((v_{i-1}, v_i) \in E\)</span></strong> for each <strong><span class="arithmatex">\(i = 1,\ldots,k\)</span></strong>. The <strong>length</strong> is <strong><span class="arithmatex">\(k\)</span></strong> (number of edges).</p>
+<p><strong>Directed cycle.</strong> A directed path with <strong><span class="arithmatex">\(k \geq 1\)</span></strong> where <strong><span class="arithmatex">\(v_0 = v_k\)</span></strong> (a closed walk that follows edge directions). A <strong>self-loop</strong> <strong><span class="arithmatex">\((v,v)\)</span></strong> is a directed cycle of length <strong><span class="arithmatex">\(1\)</span></strong>.</p>
+<p><strong>In-degree</strong> and <strong>out-degree</strong> (for vertex <strong><span class="arithmatex">\(v\)</span></strong>):</p>
+<ul>
+<li><strong><span class="arithmatex">\(\mathrm{outdeg}(v)\)</span></strong> = number of edges <strong><span class="arithmatex">\(v \to \cdot\)</span></strong> (edges <strong>leaving</strong> <strong><span class="arithmatex">\(v\)</span></strong>).</li>
+<li><strong><span class="arithmatex">\(\mathrm{indeg}(v)\)</span></strong> = number of edges <strong><span class="arithmatex">\(\cdot \to v\)</span></strong> (edges <strong>entering</strong> <strong><span class="arithmatex">\(v\)</span></strong>).</li>
+</ul>
+<p><strong>Handshaking for digraphs.</strong><br>
+[
+\sum_{v \in V} \mathrm{indeg}(v) = \sum_{v \in V} \mathrm{outdeg}(v) = |E|.
+]</p>
+<p><strong>Applications (direction matters):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Vertices</th>
+<th>Directed edge <span class="arithmatex">\(v \to w\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Road networks</td>
+<td>intersections</td>
+<td>one-way street from <span class="arithmatex">\(v\)</span> to <span class="arithmatex">\(w\)</span></td>
+</tr>
+<tr>
+<td>Web</td>
+<td>pages</td>
+<td>hyperlink from <span class="arithmatex">\(v\)</span> to <span class="arithmatex">\(w\)</span></td>
+</tr>
+<tr>
+<td>Social “follow”</td>
+<td>users</td>
+<td><span class="arithmatex">\(v\)</span> follows <span class="arithmatex">\(w\)</span></td>
+</tr>
+<tr>
+<td>Software / OOP</td>
+<td>classes / modules</td>
+<td><span class="arithmatex">\(v\)</span> inherits or imports <span class="arithmatex">\(w\)</span></td>
+</tr>
+<tr>
+<td>Scholarly graphs</td>
+<td>papers</td>
+<td><span class="arithmatex">\(v\)</span> cites <span class="arithmatex">\(w\)</span></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="digraph-api-and-adjacency-lists">Digraph API and adjacency lists<a class="headerlink" href="#digraph-api-and-adjacency-lists" title="Permanent link">¶</a></h3>
+<p><strong>Core operations</strong> (typical textbook API):</p>
+<ul>
+<li><strong><code>addEdge(v, w)</code></strong> — add <strong>only</strong> <strong><span class="arithmatex">\(v \to w\)</span></strong> (not <strong><span class="arithmatex">\(w \to v\)</span></strong> unless you add it separately).</li>
+<li><strong><code>adj(v)</code></strong> — iterable of vertices <strong><span class="arithmatex">\(w\)</span></strong> such that <strong><span class="arithmatex">\(v \to w\)</span></strong> exists (vertices that <strong><span class="arithmatex">\(v\)</span></strong> <strong>points to</strong> — <strong>out-neighbours</strong>).</li>
+</ul>
+<p><strong>Adjacency-list representation.</strong> For each <strong><span class="arithmatex">\(v\)</span></strong>, store a list (or bag) of <strong>out-neighbours</strong> in <strong><code>adj[v]</code></strong>. If <strong><span class="arithmatex">\(v \to w\)</span></strong> exists, <strong><span class="arithmatex">\(w\)</span></strong> appears in <strong><code>adj[v]</code></strong>. You do <strong>not</strong> automatically add <strong><span class="arithmatex">\(v\)</span></strong> to <strong><code>adj[w]</code></strong> (that would be the undirected convention).</p>
+<p><strong>Complexity (standard counting):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Cost (typical adjacency list)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Space</strong></td>
+<td><strong><span class="arithmatex">\(\Theta(V + E)\)</span></strong> (array of <strong><span class="arithmatex">\(V\)</span></strong> lists + <strong><span class="arithmatex">\(E\)</span></strong> list entries)</td>
+</tr>
+<tr>
+<td><strong><code>addEdge(v,w)</code></strong></td>
+<td><strong><span class="arithmatex">\(O(1)\)</span></strong> amortised if lists append in constant time</td>
+</tr>
+<tr>
+<td><strong>Iterate <code>adj(v)</code></strong></td>
+<td><strong><span class="arithmatex">\(\Theta(\mathrm{outdeg}(v))\)</span></strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Beginner trap.</strong> Treating <strong><code>adj(v)</code></strong> as “neighbours in an undirected sense” breaks algorithms: <strong>reachability from <span class="arithmatex">\(s\)</span></strong> follows <strong>out-edges only</strong>.</p>
+<hr>
+<h3 id="dfs-on-digraphs">DFS on digraphs<a class="headerlink" href="#dfs-on-digraphs" title="Permanent link">¶</a></h3>
+<p><strong>Algorithm.</strong> The <strong>same</strong> recursive (or explicit-stack) DFS as on undirected graphs: mark <strong><span class="arithmatex">\(v\)</span></strong>, then for each <strong><span class="arithmatex">\(w \in \texttt{adj}(v)\)</span></strong>, if <strong><span class="arithmatex">\(w\)</span></strong> not marked, <strong><code>dfs(w)</code></strong>.</p>
+<p><strong>What it computes.</strong> From a <strong>source</strong> <strong><span class="arithmatex">\(s\)</span></strong>, DFS marks exactly the vertices <strong>reachable from <span class="arithmatex">\(s\)</span></strong> along <strong>directed</strong> paths (not necessarily reachable <strong>to</strong> <strong><span class="arithmatex">\(s\)</span></strong>).</p>
+<p><strong>Applications:</strong></p>
+<ul>
+<li><strong>Dead-code elimination:</strong> functions/modules as vertices; call edges <strong><span class="arithmatex">\(v \to w\)</span></strong> if <strong><span class="arithmatex">\(v\)</span></strong> may invoke <strong><span class="arithmatex">\(w\)</span></strong>; DFS from <strong>entry</strong> marks live code.</li>
+<li><strong>Garbage collection (mark-and-sweep):</strong> objects as vertices; references <strong><span class="arithmatex">\(v \to w\)</span></strong>; mark phase = DFS from <strong>roots</strong>.</li>
+<li><strong>Web crawling:</strong> pages and links; crawl follows <strong>out-links</strong>.</li>
+</ul>
+<p><strong>Edge classification (optional but useful).</strong> During DFS from <strong><span class="arithmatex">\(s\)</span></strong>, for an edge <strong><span class="arithmatex">\(v \to w\)</span></strong>:</p>
+<ul>
+<li><strong>Tree edge</strong> — first discovery <strong><span class="arithmatex">\(v \to w\)</span></strong>.</li>
+<li><strong>Forward / back / cross</strong> edges appear depending on whether <strong><span class="arithmatex">\(w\)</span></strong> was already known and <strong>stack</strong> structure; exams often focus on <strong>back edges ⇔ cycle</strong> in <strong>DFS trees</strong> for DAG testing.</li>
+</ul>
+<hr>
+<h3 id="bfs-on-digraphs">BFS on digraphs<a class="headerlink" href="#bfs-on-digraphs" title="Permanent link">¶</a></h3>
+<p><strong>Algorithm.</strong> Same as undirected BFS: FIFO queue, distance (or level) from <strong><span class="arithmatex">\(s\)</span></strong>, relax <strong>out-neighbours</strong>.</p>
+<p><strong>What it computes.</strong> <strong>Shortest directed path</strong> from <strong><span class="arithmatex">\(s\)</span></strong> in the <strong>unweighted</strong> sense: minimum number of <strong>directed</strong> edges to each reachable vertex. Each edge has <strong>weight 1</strong>; BFS is <strong>not</strong> Dijkstra for arbitrary non-negative weights.</p>
+<p><strong>Contrast with undirected BFS.</strong> “Shortest path” is defined on <strong>directed</strong> reachability; some vertices may be unreachable even if the <strong>underlying undirected</strong> graph would connect them.</p>
+<hr>
+<h3 id="topological-sort">Topological sort<a class="headerlink" href="#topological-sort" title="Permanent link">¶</a></h3>
+<p><strong>Problem.</strong> Given a <strong>DAG</strong> (<strong>directed acyclic graph</strong> — a digraph with <strong>no</strong> directed cycles), produce a linear order <strong><span class="arithmatex">\(\prec\)</span></strong> on <strong><span class="arithmatex">\(V\)</span></strong> such that <strong>every</strong> edge goes <strong>forward</strong> in the order:</p>
+<div class="arithmatex">\[
+\text{for every edge } v \to w,\quad v \text{ appears before } w \text{ in the order.}
+\]</div>
+<p>Equivalently: if you draw vertices on a line in that order, all arrows point <strong>right</strong> (or “upward” on the board).</p>
+<p><strong>Applications.</strong></p>
+<ul>
+<li><strong>Task scheduling</strong> with <strong>precedence constraints:</strong> <strong><span class="arithmatex">\(v \to w\)</span></strong> means “<strong><span class="arithmatex">\(v\)</span></strong> must finish before <strong><span class="arithmatex">\(w\)</span></strong> can start.”</li>
+<li><strong>Build systems</strong> (module <strong>A</strong> before <strong>B</strong>), <strong>course prerequisites</strong>, <strong>instruction scheduling</strong> dependencies.</li>
+</ul>
+<p><strong>Existence.</strong> A digraph has a <strong>topological ordering</strong> <strong>if and only if</strong> it is a <strong>DAG</strong> (acyclic). If there is a directed cycle, no total order can respect all edges — you cannot put every vertex on a line with all edges forward around a cycle.</p>
+<p><strong>Algorithm (DFS reverse post-order).</strong></p>
+<ol>
+<li><strong>Verify acyclicity</strong> (or run cycle detection first). Topological order is <strong>only</strong> defined for a DAG.</li>
+<li>Run <strong>DFS</strong> from every unmarked vertex (standard “forest” DFS).</li>
+<li><strong>After</strong> fully exploring <strong>all</strong> descendants reachable along <strong>out-edges</strong> from <strong><span class="arithmatex">\(v\)</span></strong>, record <strong><span class="arithmatex">\(v\)</span></strong> (e.g. <strong>push</strong> onto a <strong>stack</strong> — <strong>post-order</strong> processing).</li>
+<li><strong>Pop</strong> the stack (or read the list <strong>backwards</strong>) → <strong>topological order</strong>.</li>
+</ol>
+<p><strong>Why it works (intuition).</strong> When <strong><span class="arithmatex">\(v\)</span></strong> is pushed <strong>after</strong> its DFS subtree, every <strong><span class="arithmatex">\(w\)</span></strong> reachable <strong>from <span class="arithmatex">\(v\)</span></strong> by a <strong>non-trivial</strong> path was already processed and pushed <strong>before</strong> <strong><span class="arithmatex">\(v\)</span></strong> in the stack’s final order — so <strong><span class="arithmatex">\(w\)</span></strong> appears <strong>after</strong> <strong><span class="arithmatex">\(v\)</span></strong> when you pop. Thus <strong><span class="arithmatex">\(v\)</span></strong> comes <strong>before</strong> <strong><span class="arithmatex">\(w\)</span></strong> in the popped order for every tree/descendant edge; a rigorous proof handles <strong>cross edges</strong> in a DAG by <strong>acyclicity</strong> (no back edges).</p>
+<p><strong>Reference pattern (DepthFirstOrder + stack):</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">DepthFirstOrder</span><span class="p">:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">marked</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="n">G</span><span class="o">.</span><span class="n">V</span><span class="p">()</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">reversePost</span> <span class="o">=</span> <span class="n">Stack</span><span class="p">()</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">V</span><span class="p">()):</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">marked</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">dfs</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">dfs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">marked</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">adj</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">marked</span><span class="p">[</span><span class="n">w</span><span class="p">]:</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">dfs</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">reversePost</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Note.</strong> Some APIs expose <strong><code>reversePost()</code></strong> as the stack or list; popping until empty yields one valid topological order (not necessarily unique — a DAG can have many topological orderings).</p>
+<hr>
+<h3 id="directed-cycle-detection-is-the-graph-a-dag">Directed cycle detection (is the graph a DAG?)<a class="headerlink" href="#directed-cycle-detection-is-the-graph-a-dag" title="Permanent link">¶</a></h3>
+<p><strong>Problem.</strong> Decide whether <strong><span class="arithmatex">\(G\)</span></strong> contains <strong>any</strong> directed cycle.</p>
+<p><strong>DFS with “recursion stack”.</strong> Maintain:</p>
+<ul>
+<li><strong><code>marked[v]</code></strong> — <strong><span class="arithmatex">\(v\)</span></strong> was ever reached by DFS.</li>
+<li><strong><code>onCallStack[v]</code></strong> — <strong><span class="arithmatex">\(v\)</span></strong> lies on the <strong>current</strong> DFS recursion path (active call chain).</li>
+</ul>
+<p>When exploring <strong><span class="arithmatex">\(v \to w\)</span></strong>:</p>
+<ul>
+<li>If <strong><span class="arithmatex">\(w\)</span></strong> is <strong>not</strong> marked → recurse.</li>
+<li>If <strong><span class="arithmatex">\(w\)</span></strong> is marked <strong>and</strong> <strong><code>onCallStack[w]</code></strong> is <strong>true</strong> → you found a <strong>back edge</strong> to an <strong>ancestor</strong> on the active path → <strong>directed cycle</strong>.</li>
+<li>If <strong><span class="arithmatex">\(w\)</span></strong> is marked but <strong>not</strong> on the call stack, that edge is <strong>not</strong> (by itself) proof of a cycle through the current path.</li>
+</ul>
+<p><strong>On retreat</strong> from <strong><code>dfs(v)</code></strong>, set <strong><code>onCallStack[v] = False</code></strong> so other branches do not false-positive.</p>
+<p><strong>Reference pattern:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">DirectedCycle</span><span class="p">:</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">marked</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="n">G</span><span class="o">.</span><span class="n">V</span><span class="p">()</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">onCallStack</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="n">G</span><span class="o">.</span><span class="n">V</span><span class="p">()</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">cycleDetected</span> <span class="o">=</span> <span class="kc">False</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">V</span><span class="p">()):</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">marked</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">dfs</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">dfs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">marked</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">onCallStack</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">adj</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cycleDetected</span><span class="p">:</span> <span class="k">return</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>            <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">marked</span><span class="p">[</span><span class="n">w</span><span class="p">]:</span> <span class="bp">self</span><span class="o">.</span><span class="n">dfs</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">onCallStack</span><span class="p">[</span><span class="n">w</span><span class="p">]:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cycleDetected</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">onCallStack</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+</code></pre></div>
+<p><strong>Applications:</strong> <strong>cyclic inheritance</strong> in type systems, <strong>circular references</strong> in spreadsheets or formula graphs, <strong>sanity checks</strong> before topological sort.</p>
+<hr>
+<h3 id="strongly-connected-components-sccs">Strongly connected components (SCCs)<a class="headerlink" href="#strongly-connected-components-sccs" title="Permanent link">¶</a></h3>
+<p><strong>Strongly connected.</strong> Vertices <strong><span class="arithmatex">\(v\)</span></strong> and <strong><span class="arithmatex">\(w\)</span></strong> are <strong>strongly connected</strong> if there is a directed path <strong><span class="arithmatex">\(v \leadsto w\)</span></strong> <strong>and</strong> a directed path <strong><span class="arithmatex">\(w \leadsto v\)</span></strong>.</p>
+<p><strong>Properties.</strong></p>
+<ul>
+<li>Strong connectivity is an <strong>equivalence relation</strong> (reflexive, symmetric, transitive on the “mutually reachable” relation).</li>
+<li>A <strong>strongly connected component</strong> (<strong>SCC</strong>) is a <strong>maximal</strong> set <strong><span class="arithmatex">\(C \subseteq V\)</span></strong> such that every pair in <strong><span class="arithmatex">\(C\)</span></strong> is strongly connected. <strong>Maximal</strong> means you cannot add another vertex from <strong><span class="arithmatex">\(V \setminus C\)</span></strong> while preserving mutual reachability <strong>inside</strong> the enlarged set.</li>
+</ul>
+<p><strong>Contrast with undirected “components”.</strong> In an undirected graph, <strong>connected components</strong> partition <strong><span class="arithmatex">\(V\)</span></strong>. In a digraph, <strong>weakly connected</strong> components ignore direction; <strong>SCCs</strong> respect direction and can <strong>overlap</strong> in a set-theoretic sense only at boundaries — actually they <strong>partition</strong> <strong><span class="arithmatex">\(V\)</span></strong> as well: every vertex belongs to <strong>exactly one</strong> SCC.</p>
+<hr>
+<h3 id="kosarajusharir-algorithm-for-sccs">Kosaraju–Sharir algorithm for SCCs<a class="headerlink" href="#kosarajusharir-algorithm-for-sccs" title="Permanent link">¶</a></h3>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../resources/11-topological-sort-and-scc.png" data-desc-position="bottom"><img alt="Directed Graphs: Topological Sort and SCCs" src="../../resources/11-topological-sort-and-scc.png"></a>
+<em>Top: A DAG redrawn in topological order (all edges point downward), found via reverse DFS post-order. Bottom: Strongly connected components identified by the Kosaraju-Sharir algorithm (Phase 1: DFS on reversed graph; Phase 2: DFS on original in reverse post-order).</em></p>
+<p><strong>Reverse graph</strong> <strong><span class="arithmatex">\(G^R\)</span></strong>. Same vertices; reverse every edge: <strong><span class="arithmatex">\(w \to v\)</span></strong> is in <strong><span class="arithmatex">\(G^R\)</span></strong> iff <strong><span class="arithmatex">\(v \to w\)</span></strong> is in <strong><span class="arithmatex">\(G\)</span></strong>. Building <strong><span class="arithmatex">\(G^R\)</span></strong> as an adjacency list costs <strong><span class="arithmatex">\(\Theta(V + E)\)</span></strong>.</p>
+<p><strong>Key idea.</strong> The <strong>SCC partition of <span class="arithmatex">\(G\)</span></strong> equals the <strong>SCC partition of <span class="arithmatex">\(G^R\)</span></strong> (reversing edges preserves “mutual reachability”).</p>
+<p><strong>Two-phase algorithm:</strong></p>
+<ol>
+<li><strong>Phase 1 — DFS post-order on</strong> <strong><span class="arithmatex">\(G^R\)</span></strong>. Run DFS on <strong><span class="arithmatex">\(G^R\)</span></strong> (from each unmarked vertex) and record vertices in <strong>reverse post-order</strong> (same stack trick as <strong>DepthFirstOrder</strong>).</li>
+<li><strong>Phase 2 — DFS on</strong> <strong><span class="arithmatex">\(G\)</span></strong> <strong>in that order.</strong> Initialise <strong><span class="arithmatex">\(\texttt{count} = 0\)</span></strong>. Pop vertices from the Phase-1 order; each time you pop an <strong>unmarked</strong> <strong><span class="arithmatex">\(v\)</span></strong>, start <strong><code>dfs(G, v)</code></strong> and assign <strong>current</strong> <strong><code>count</code></strong> as the <strong>SCC id</strong> for everything reached; then increment <strong><code>count</code></strong>.</li>
+</ol>
+<p>Each <strong>DFS</strong> launch in Phase 2 discovers <strong>exactly one</strong> SCC.</p>
+<p><strong>Running time.</strong> <strong><span class="arithmatex">\(\Theta(V + E)\)</span></strong> — linear in the size of the graph (two DFS passes + linear-time reverse build).</p>
+<p><strong>Reference pattern:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">StronglyConnectedComponents</span><span class="p">:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">marked</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="n">G</span><span class="o">.</span><span class="n">V</span><span class="p">()</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">scc</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">G</span><span class="o">.</span><span class="n">V</span><span class="p">()</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="n">dfsOrder</span> <span class="o">=</span> <span class="n">DepthFirstOrder</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">reverse</span><span class="p">())</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="n">reverseOrder</span> <span class="o">=</span> <span class="n">dfsOrder</span><span class="o">.</span><span class="n">reversePost</span><span class="p">()</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        <span class="k">while</span> <span class="ow">not</span> <span class="n">reverseOrder</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">():</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>            <span class="n">v</span> <span class="o">=</span> <span class="n">reverseOrder</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">marked</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">dfs</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">dfs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">marked</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">scc</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">adj</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">marked</span><span class="p">[</span><span class="n">w</span><span class="p">]:</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">dfs</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Intuition (high level).</strong> The order from <strong><span class="arithmatex">\(G^R\)</span></strong> ensures you <strong>finish</strong> “<strong>sink-like</strong>” components (in the <strong>condensation DAG</strong> of SCCs) before <strong>source-like</strong> ones; when you then DFS on <strong><span class="arithmatex">\(G\)</span></strong>, you do not “leak” into another SCC before finishing the current one.</p>
+<hr>
+<h2 id="2-exam-style-questions-with-model-answers">2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)<a class="headerlink" href="#2-exam-style-questions-with-model-answers" title="Permanent link">¶</a></h2>
+<h3 id="q1-out-degree-in-degree-and-adjacency-lists">Q1 — Out-degree, in-degree, and adjacency lists<a class="headerlink" href="#q1-out-degree-in-degree-and-adjacency-lists" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> For a digraph with <strong><span class="arithmatex">\(V\)</span></strong> vertices and <strong><span class="arithmatex">\(E\)</span></strong> edges stored as <strong>adjacency lists</strong> (<code>adj(v)</code> lists <strong>out-neighbours</strong>), state the <strong>space</strong> used and the time to <strong>iterate all edges leaving</strong> <strong><span class="arithmatex">\(v\)</span></strong>. If <strong><code>addEdge(v, w)</code></strong> only appends <strong><span class="arithmatex">\(w\)</span></strong> to <strong><code>adj[v]</code></strong>, why is <strong><code>adj[w]</code></strong> <strong>not</strong> updated automatically?</p>
+<p><strong>Model answer.</strong> <strong>Space</strong> is <strong><span class="arithmatex">\(\Theta(V + E)\)</span></strong> — <strong><span class="arithmatex">\(V\)</span></strong> lists plus <strong><span class="arithmatex">\(E\)</span></strong> total list entries (each directed edge stored once at its tail). Iterating <strong><code>adj(v)</code></strong> costs <strong><span class="arithmatex">\(\Theta(\mathrm{outdeg}(v))\)</span></strong>. <strong><code>adj[w]</code></strong> is <strong>not</strong> updated because the API represents <strong><span class="arithmatex">\(v \to w\)</span></strong> only as an <strong>out-edge from <span class="arithmatex">\(v\)</span></strong>; <strong><span class="arithmatex">\(w\)</span></strong>’s <strong>in-neighbours</strong> are not duplicated unless you maintain a separate <strong>reverse adjacency</strong> structure.</p>
+<hr>
+<h3 id="q2-topological-order-vs-cycle">Q2 — Topological order vs cycle<a class="headerlink" href="#q2-topological-order-vs-cycle" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Explain why a digraph <strong>with a directed cycle</strong> cannot have a <strong>topological ordering</strong>. Then state the <strong>three-step</strong> DFS-based method to produce a topological order for a <strong>DAG</strong>, and name the <strong>vertex ordering</strong> (e.g. <strong>reverse post-order</strong>) you output.</p>
+<p><strong>Model answer.</strong> Suppose a cycle <strong><span class="arithmatex">\(v_0 \to v_1 \to \cdots \to v_k = v_0\)</span></strong>. In any linear order, some <strong><span class="arithmatex">\(v_i\)</span></strong> is <strong>first</strong> among the cycle vertices. Its predecessor <strong><span class="arithmatex">\(v_{i-1}\)</span></strong> on the cycle must appear <strong>before</strong> <strong><span class="arithmatex">\(v_i\)</span></strong> (edge <strong><span class="arithmatex">\(v_{i-1} \to v_i\)</span></strong>), contradicting <strong><span class="arithmatex">\(v_i\)</span></strong> being first. Hence <strong>no</strong> topological order. For a <strong>DAG</strong>: (1) <strong>confirm acyclicity</strong> (cycle detection); (2) run <strong>DFS</strong> from all unmarked vertices; (3) output vertices in <strong>reverse post-order</strong> (push <strong><span class="arithmatex">\(v\)</span></strong> onto a stack <strong>after</strong> recursive DFS to all <strong><span class="arithmatex">\(w \in \texttt{adj}(v)\)</span></strong>; popping yields a valid order).</p>
+<hr>
+<h3 id="q3-directed-cycle-detection-with-oncallstack">Q3 — Directed cycle detection with <code>onCallStack</code><a class="headerlink" href="#q3-directed-cycle-detection-with-oncallstack" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> In DFS-based <strong>directed cycle detection</strong>, what do <strong><code>marked</code></strong> and <strong><code>onCallStack</code></strong> mean? <strong>Exactly</strong> when do you conclude a <strong>cycle</strong> exists? Why must you clear <strong><code>onCallStack[v]</code></strong> when <strong><code>dfs(v)</code></strong> returns?</p>
+<p><strong>Model answer.</strong> <strong><code>marked[u]</code></strong> = <strong><span class="arithmatex">\(u\)</span></strong> was ever discovered by DFS. <strong><code>onCallStack[u]</code></strong> = <strong><span class="arithmatex">\(u\)</span></strong> is on the <strong>current</strong> recursion path (an <strong>ancestor</strong> of the active call). A <strong>cycle</strong> is detected when traversing <strong><span class="arithmatex">\(v \to w\)</span></strong> with <strong><span class="arithmatex">\(w\)</span></strong> already <strong>marked</strong> <strong>and</strong> <strong><code>onCallStack[w] == \text{true}</code></strong> — a <strong>back edge</strong> to an active ancestor closes a directed cycle following tree edges down and this edge back. Clearing <strong><code>onCallStack[v]</code></strong> on return removes <strong><span class="arithmatex">\(v\)</span></strong> from the active path so <strong>cross edges</strong> to <strong><span class="arithmatex">\(v\)</span></strong> from other branches are <strong>not</strong> mistaken for cycles on a <strong>different</strong> DFS path.</p>
+<hr>
+<h3 id="q4-bfs-vs-dfs-reachability-on-a-digraph">Q4 — BFS vs DFS reachability on a digraph<a class="headerlink" href="#q4-bfs-vs-dfs-reachability-on-a-digraph" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> From source <strong><span class="arithmatex">\(s\)</span></strong>, what set of vertices does <strong>DFS</strong> mark? What does <strong>BFS</strong> compute in addition when edges are <strong>unweighted</strong>? Give a <strong>small</strong> example (sketch or describe) where <strong><span class="arithmatex">\(t\)</span></strong> is <strong>reachable from <span class="arithmatex">\(s\)</span></strong> but <strong><span class="arithmatex">\(s\)</span></strong> is <strong>not</strong> reachable from <strong><span class="arithmatex">\(t\)</span></strong>.</p>
+<p><strong>Model answer.</strong> <strong>DFS</strong> marks all <strong><span class="arithmatex">\(u\)</span></strong> with a <strong>directed</strong> path <strong><span class="arithmatex">\(s \leadsto u\)</span></strong>. <strong>BFS</strong> finds <strong>shortest</strong> <strong>directed</strong> paths in <strong>edge count</strong> from <strong><span class="arithmatex">\(s\)</span></strong> to each reachable vertex (levels = distance). Example: vertices <strong><span class="arithmatex">\(\{s, t\}\)</span></strong> with <strong>only</strong> edge <strong><span class="arithmatex">\(s \to t\)</span></strong>. Then <strong><span class="arithmatex">\(t\)</span></strong> is reachable from <strong><span class="arithmatex">\(s\)</span></strong>, but there is <strong>no</strong> path <strong><span class="arithmatex">\(t \leadsto s\)</span></strong>.</p>
+<hr>
+<h3 id="q5-kosarajusharir-phases-and-complexity">Q5 — Kosaraju–Sharir: phases and complexity<a class="headerlink" href="#q5-kosarajusharir-phases-and-complexity" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Describe <strong>Phase 1</strong> and <strong>Phase 2</strong> of <strong>Kosaraju–Sharir</strong> for SCCs. Why use <strong><span class="arithmatex">\(G^R\)</span></strong> in Phase 1? What is the <strong>total</strong> running time?</p>
+<p><strong>Model answer.</strong> <strong>Phase 1:</strong> Build <strong><span class="arithmatex">\(G^R\)</span></strong>; run DFS on <strong><span class="arithmatex">\(G^R\)</span></strong> and record <strong>reverse post-order</strong>. <strong>Phase 2:</strong> Run DFS on <strong><span class="arithmatex">\(G\)</span></strong>, considering vertices in that <strong>reverse post-order</strong>; each <strong>new</strong> DFS tree (started at the next unmarked vertex in that order) is <strong>one</strong> SCC. <strong><span class="arithmatex">\(G^R\)</span></strong> reorders processing so that DFS on <strong><span class="arithmatex">\(G\)</span></strong> does not escape from one SCC into another before finishing the component. <strong>Time</strong> is <strong><span class="arithmatex">\(\Theta(V + E)\)</span></strong> for reverse construction plus two DFS traversals — <strong>linear</strong> overall.</p>
+<hr>
+<h2 id="3-must-know-key-points">3. MUST-KNOW KEY POINTS<a class="headerlink" href="#3-must-know-key-points" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Digraph:</strong> edges <strong>ordered</strong> <strong><span class="arithmatex">\((v,w)\)</span></strong> = <strong><span class="arithmatex">\(v \to w\)</span></strong>; <strong>not</strong> symmetric by default.</li>
+<li><strong><code>adj(v)</code></strong> = <strong>out-neighbours</strong>; <strong>adjacency list</strong> stores <strong><span class="arithmatex">\(E\)</span></strong> entries total → <strong><span class="arithmatex">\(\Theta(V+E)\)</span></strong> space; <strong><code>addEdge</code></strong> <strong><span class="arithmatex">\(O(1)\)</span></strong>; scan <strong><code>adj(v)</code></strong> in <strong><span class="arithmatex">\(\Theta(\mathrm{outdeg}(v))\)</span></strong>.</li>
+<li><strong>DFS/BFS</strong> code matches undirected graphs; <strong>reachability</strong> and <strong>BFS distances</strong> are <strong>directed</strong>.</li>
+<li><strong>Topological order</strong> exists <strong>iff</strong> <strong>DAG</strong>; algorithm = <strong>DFS</strong> then <strong>reverse post-order</strong> (push <strong><span class="arithmatex">\(v\)</span></strong> after finishing children in DFS tree).</li>
+<li><strong>Directed cycle:</strong> DFS + <strong><code>onCallStack</code></strong>; <strong>back edge to vertex on current stack</strong> ⇒ cycle.</li>
+<li><strong>Strong connectivity:</strong> mutual <strong>directed</strong> reachability; <strong>SCCs partition</strong> <strong><span class="arithmatex">\(V\)</span></strong>.</li>
+<li><strong>Kosaraju–Sharir:</strong> <strong>reverse post-order on</strong> <strong><span class="arithmatex">\(G^R\)</span></strong>, then <strong>DFS on</strong> <strong><span class="arithmatex">\(G\)</span></strong> in that order; <strong><span class="arithmatex">\(\Theta(V+E)\)</span></strong>.</li>
+</ul>
+<hr>
+<h2 id="4-high-priority-topics">4. HIGH-PRIORITY TOPICS<a class="headerlink" href="#4-high-priority-topics" title="Permanent link">¶</a></h2>
+<h3 id="must-know">🔴 Must Know<a class="headerlink" href="#must-know" title="Permanent link">¶</a></h3>
+<ul>
+<li>Definitions: <strong>directed path</strong>, <strong>directed cycle</strong>, <strong>in-degree</strong> / <strong>out-degree</strong>, <strong>DAG</strong>.</li>
+<li><strong>Adjacency-list</strong> convention for digraphs: <strong>only</strong> <strong><code>adj[v]</code></strong> gets <strong><span class="arithmatex">\(w\)</span></strong> for <strong><span class="arithmatex">\(v \to w\)</span></strong>.</li>
+<li><strong>Space</strong> <strong><span class="arithmatex">\(\Theta(V+E)\)</span></strong> and <strong>iterate <code>adj(v)</code></strong> = <strong>out-degree</strong> work.</li>
+<li><strong>DFS</strong> from <strong><span class="arithmatex">\(s\)</span></strong> = vertices <strong>reachable from <span class="arithmatex">\(s\)</span></strong> along <strong>directed</strong> paths.</li>
+<li><strong>BFS</strong> on unweighted digraph = <strong>shortest directed path</strong> in <strong>edge count</strong>.</li>
+<li><strong>Topological sort:</strong> <strong>iff DAG</strong>; <strong>reverse DFS post-order</strong>; tie to <strong>precedence</strong> scheduling.</li>
+<li><strong>Cycle detection:</strong> <strong><code>marked</code></strong> vs <strong><code>onCallStack</code></strong>; <strong>why</strong> unmark stack on return.</li>
+<li><strong>SCC</strong> definition and <strong>Kosaraju–Sharir</strong> <strong>two phases</strong>, <strong><span class="arithmatex">\(G^R\)</span></strong>, <strong>linear</strong> time.</li>
+</ul>
+<h3 id="important">🟡 Important<a class="headerlink" href="#important" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Applications:</strong> web crawl, GC, dead code, prerequisites, spreadsheet cycles, inheritance cycles.</li>
+<li><strong>Non-uniqueness</strong> of topological order; <strong>every</strong> edge <strong><span class="arithmatex">\(v \to w\)</span></strong> has <strong><span class="arithmatex">\(v\)</span></strong> before <strong><span class="arithmatex">\(w\)</span></strong> in output.</li>
+<li><strong>Condensation graph</strong> (DAG of SCCs) as <strong>conceptual</strong> support for <strong>why</strong> Kosaraju works — not always required to reproduce proofs.</li>
+<li><strong>Difference</strong> between <strong>weakly connected</strong> (ignore direction) and <strong>strongly connected</strong>.</li>
+</ul>
+<h3 id="useful-but-lower-priority">🟢 Useful but Lower Priority<a class="headerlink" href="#useful-but-lower-priority" title="Permanent link">¶</a></h3>
+<ul>
+<li>DFS <strong>edge classification</strong> (tree / forward / back / cross) on digraphs.</li>
+<li><strong>Tarjan’s</strong> or <strong>Gabow’s</strong> single-pass SCC algorithms (if mentioned in advanced reading).</li>
+<li>Building <strong>explicit</strong> <strong><span class="arithmatex">\(G^R\)</span></strong> vs streaming reverse edges on the fly (implementation detail).</li>
+<li><strong>Topological sort via Kahn’s algorithm</strong> (in-degree peeling, BFS-style) as an alternative.</li>
+</ul>
+<hr>
+<h2 id="5-topic-interconnections-bigger-picture">5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE<a class="headerlink" href="#5-topic-interconnections-bigger-picture" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Graph representation</strong> (Session on ADTs / graph APIs) feeds directly into digraphs: same <strong>list vs matrix</strong> tradeoffs, but <strong>direction</strong> changes <strong>interpretation</strong> of <strong><code>adj</code></strong>.</li>
+<li><strong>DFS and BFS</strong> are the <strong>same</strong> traversal templates as undirected graphs; <strong>directed</strong> graphs clarify <strong>what</strong> “neighbour” means (<strong>out-neighbour</strong>).</li>
+<li><strong>Topological sort</strong> is the digraph analogue of <strong>ordering constraints</strong>; it connects to <strong>shortest paths in DAGs</strong> (relax vertices in topological order — often a later algorithms topic).</li>
+<li><strong>Cycle detection</strong> is a <strong>prerequisite check</strong> for topological sort and for <strong>safe</strong> dependency resolution in tools (build systems, package managers).</li>
+<li><strong>SCCs</strong> reduce complex cyclic digraphs to a <strong>DAG of components</strong> — the <strong>condensation graph</strong> — which is the right level for <strong>high-level</strong> reasoning about <strong>feedbacks</strong> vs <strong>layers</strong>.</li>
+<li><strong>Kosaraju–Sharir</strong> showcases <strong>two linear passes</strong> and <strong>graph reversal</strong> — a pattern that appears elsewhere (e.g. <strong>reverse</strong> graphs for <strong>some</strong> reachability games).</li>
+</ul>
+<hr>
+<h2 id="6-exam-strategy-tips">6. EXAM STRATEGY TIPS<a class="headerlink" href="#6-exam-strategy-tips" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Draw arrows</strong> on every small example; students often apply <strong>undirected</strong> intuition and <strong>wrong</strong> reachability.</li>
+<li>When asked <strong>“shortest path”</strong> on an <strong>unweighted</strong> digraph, default answer is <strong>BFS</strong> along <strong>out-edges</strong>, not “shortest in the underlying undirected graph.”</li>
+<li><strong>Topological sort:</strong> state <strong>push vertex after DFS finishes its outgoing subtree</strong> → <strong>reverse post-order</strong>; do <strong>not</strong> confuse with <strong>pre-order</strong>.</li>
+<li><strong>Cycle detection:</strong> articulate <strong>back edge to vertex still on recursion stack</strong>; distinguish <strong><code>marked</code> only</strong> (would false-positive <strong>cross edges</strong>).</li>
+<li><strong>Kosaraju:</strong> <strong>Phase 1 on</strong> <strong><span class="arithmatex">\(G^R\)</span></strong>, <strong>Phase 2 on</strong> <strong><span class="arithmatex">\(G\)</span></strong> — reversing <strong>either</strong> phase breaks the algorithm; memorise <strong><span class="arithmatex">\(G^R\)</span></strong> <strong>first</strong>.</li>
+<li><strong>Complexity:</strong> commit <strong><span class="arithmatex">\(\Theta(V+E)\)</span></strong> for DFS/BFS, topo sort, cycle find, and Kosaraju (with <strong>linear</strong> reverse build).</li>
+<li>If a question says <strong>“is this a DAG?”</strong>, offer <strong>directed cycle</strong> as witness <strong>or</strong> <strong>topological order</strong> as certificate — match the tool to the proof style asked.</li>
+</ul>
+<hr>
+<p><em>These notes align with standard COMP0005 treatments of digraphs (Sedgewick/Wayne-style APIs). Match your lecturer’s exact </em><em><code>reversePost</code></em><em> API and whether </em><em><span class="arithmatex">\(V\)</span></em><em> denotes count or vertex set in complexity statements.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

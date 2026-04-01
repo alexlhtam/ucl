@@ -1,0 +1,3983 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Year 1 Computer Science notes — UCL">
+      
+      
+        <meta name="author" content="Alex Tam">
+      
+      
+        <link rel="canonical" href="https://alexlhtam.github.io/ucl/year1/comp0003/cursor-notes/automata/02-nfas-and-dfa-equivalence/">
+      
+      
+        <link rel="prev" href="../01-dfas-and-regular-languages/">
+      
+      
+        <link rel="next" href="../03-closure-and-regular-expressions/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>NFAs &amp; DFA Equivalence - Alex's UCL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#nfas-dfa-equivalence-comp0003-automata" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-header__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex's UCL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              NFAs &amp; DFA Equivalence
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Year 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-nav__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    Alex's UCL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Year 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Year 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms (COMP0005)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms (COMP0005)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/02-analysis-of-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis of Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/06-abstract-data-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sorting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sorting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/03-elementary-sorts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementary Sorts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/04-mergesort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MergeSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/05-quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QuickSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/07-heaps-and-heapsort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heaps &amp; HeapSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/08-symbol-tables-and-bst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbol Tables &amp; BST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/09-balanced-trees-and-hash-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balanced Trees &amp; Hash Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/10-undirected-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undirected Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/11-directed-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/12-minimum-spanning-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Spanning Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/13-shortest-paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shortest Paths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_5" id="__nav_2_1_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strings
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Strings
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/14-string-sorting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String Sorting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/15-tries-and-string-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tries &amp; String Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/16-substring-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Substring Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OOP / Java (COMP0004)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OOP / Java (COMP0004)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/01-intro-to-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/02-core-java-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Java Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/03-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Object-Oriented Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/04-classes-objects-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes, Objects &amp; References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/05-designing-with-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/06-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/07-interfaces-and-polymorphism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces &amp; Polymorphism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/08-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/09-file-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/10-json-csv-and-records/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON, CSV &amp; Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/11-packages-and-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages &amp; Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/12-lambdas-and-streams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambdas &amp; Streams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/13-web-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/14-data-structures-in-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures in Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/15-design-patterns-and-threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns &amp; Threads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory of Computation (COMP0003)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory of Computation (COMP0003)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formal Logic
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Formal Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/01-overview-and-history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview &amp; History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/03-boolean-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boolean Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/04-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/05-proof-by-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof by Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/06-complete-induction-and-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Induction &amp; Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/07-modal-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modal Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automata
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Automata
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-dfas-and-regular-languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFAs &amp; Regular Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFAs &amp; DFA Equivalence
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFAs &amp; DFA Equivalence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfas-convenience-features-over-dfas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFAs — convenience features over DFAs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-1-optional-baba-prefix-even-number-of-bs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1 — optional "baba" prefix + even number of b's
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-substring-hello-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2 — substring "hello" detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nondeterminism-two-equivalent-intuitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nondeterminism — two equivalent intuitions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#formal-definition-of-an-nfa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formal definition of an NFA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfa-acceptance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFA acceptance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equivalent-power-of-nfas-and-dfas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Equivalent power of NFAs and DFAs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfa-nfa-the-easy-direction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFA → NFA (the easy direction)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfa-dfa-conversion-subset-powerset-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFA → DFA conversion (subset / powerset construction)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NFA → DFA conversion (subset / powerset construction)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-closure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ε-closure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Construction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why it works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#size-blow-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Size blow-up
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-step-by-step-nfa-dfa-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example — step-by-step NFA → DFA conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-nfa-formal-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — NFA formal definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-tracing-nfa-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Tracing NFA execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-nfa-to-dfa-conversion-with-closure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — NFA to DFA conversion with ε-closure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-constructing-an-nfa-for-a-given-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Constructing an NFA for a given language
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-proving-nfadfa-equivalence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Proving NFA/DFA equivalence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-closure-and-regular-expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closure &amp; Regular Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-pumping-lemma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-pushdown-automata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pushdown Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-context-free-grammars/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Free Grammars
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-pumping-lemma-for-cfls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma for CFLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-turing-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turing Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-decidability-and-undecidability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decidability &amp; Undecidability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfas-convenience-features-over-dfas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFAs — convenience features over DFAs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-1-optional-baba-prefix-even-number-of-bs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1 — optional "baba" prefix + even number of b's
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-substring-hello-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2 — substring "hello" detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nondeterminism-two-equivalent-intuitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nondeterminism — two equivalent intuitions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#formal-definition-of-an-nfa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formal definition of an NFA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfa-acceptance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFA acceptance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equivalent-power-of-nfas-and-dfas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Equivalent power of NFAs and DFAs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfa-nfa-the-easy-direction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFA → NFA (the easy direction)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfa-dfa-conversion-subset-powerset-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NFA → DFA conversion (subset / powerset construction)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NFA → DFA conversion (subset / powerset construction)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-closure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ε-closure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Construction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why it works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#size-blow-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Size blow-up
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-step-by-step-nfa-dfa-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example — step-by-step NFA → DFA conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-nfa-formal-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — NFA formal definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-tracing-nfa-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Tracing NFA execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-nfa-to-dfa-conversion-with-closure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — NFA to DFA conversion with ε-closure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-constructing-an-nfa-for-a-given-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Constructing an NFA for a given language
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-proving-nfadfa-equivalence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Proving NFA/DFA equivalence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="nfas-dfa-equivalence-comp0003-automata">NFAs &amp; DFA Equivalence — COMP0003 Automata<a class="headerlink" href="#nfas-dfa-equivalence-comp0003-automata" title="Permanent link">¶</a></h1>
+<p><em>Lecture-style notes. A </em><em>nondeterministic finite automaton (NFA)</em><em> relaxes the DFA model by allowing </em><em>ε-transitions</em><em>, </em><em>multiple transitions</em><em> on the same symbol, and </em><em>missing transitions</em><em> — yet NFAs recognise </em><em>exactly the same</em><em> class of languages as DFAs. The </em><em>subset (powerset) construction</em><em> that converts any NFA to an equivalent DFA is one of the most important algorithms in the theory of computation.</em></p>
+<hr>
+<h2 id="1-complete-topic-summaries">1. COMPLETE TOPIC SUMMARIES<a class="headerlink" href="#1-complete-topic-summaries" title="Permanent link">¶</a></h2>
+<h3 id="nfas-convenience-features-over-dfas">NFAs — convenience features over DFAs<a class="headerlink" href="#nfas-convenience-features-over-dfas" title="Permanent link">¶</a></h3>
+<p>A <strong>nondeterministic finite automaton</strong> is like a DFA with three relaxations:</p>
+<ol>
+<li><strong>ε-transitions:</strong> the machine may change state <strong>without consuming</strong> any input symbol.</li>
+<li><strong>Multiple arrows on the same symbol:</strong> from a single state, reading one symbol may lead to <strong>several</strong> different states simultaneously.</li>
+<li><strong>Missing arrows:</strong> a state need <strong>not</strong> have a transition for every symbol in <strong><span class="arithmatex">\(\Sigma\)</span></strong>. If no arrow exists, that branch of computation simply <strong>dies</strong> (no crash — the branch is silently abandoned).</li>
+</ol>
+<p>These features make NFAs <strong>much easier to design</strong> for many languages, while — as we prove below — adding <strong>no extra recognition power</strong> over DFAs.</p>
+<hr>
+<h3 id="example-1-optional-baba-prefix-even-number-of-bs">Example 1 — optional "baba" prefix + even number of b's<a class="headerlink" href="#example-1-optional-baba-prefix-even-number-of-bs" title="Permanent link">¶</a></h3>
+<p><strong>Language.</strong> <span class="arithmatex">\(\Sigma = \{a, b\}\)</span>. Accept strings that <strong>optionally</strong> begin with "baba" and then contain an <strong>even number</strong> of <strong>b</strong>'s (in the remainder).</p>
+<p><strong>NFA idea.</strong> Use an <strong>ε-transition</strong> from the start state to branch:</p>
+<ul>
+<li>One path reads the prefix "baba" (states <span class="arithmatex">\(q_0 \to q_1 \to q_2 \to q_3 \to q_4\)</span> on inputs <span class="arithmatex">\(b, a, b, a\)</span>) and then ε-transitions into the "even-b" counter.</li>
+<li>The other path goes directly (via ε) to the "even-b" counter (two states toggling on <strong>b</strong>, self-looping on <strong>a</strong>).</li>
+</ul>
+<p>The ε-arrow lets the machine <strong>choose</strong> without seeing any input whether the prefix is present — nondeterminism handles both cases at once.</p>
+<hr>
+<h3 id="example-2-substring-hello-detection">Example 2 — substring "hello" detection<a class="headerlink" href="#example-2-substring-hello-detection" title="Permanent link">¶</a></h3>
+<p><strong>Language.</strong> <span class="arithmatex">\(\Sigma = \{A, \ldots, Z, a, \ldots, z, 0, \ldots, 9\}\)</span>. Accept any string containing <strong>"hello"</strong> as a substring.</p>
+<p><strong>NFA idea.</strong> A start state <span class="arithmatex">\(q_0\)</span> has a <strong>self-loop</strong> on every symbol in <span class="arithmatex">\(\Sigma\)</span> <strong>and</strong> an arrow on <strong>h</strong> to <span class="arithmatex">\(q_1\)</span>. Then a deterministic chain: <span class="arithmatex">\(q_1 \xrightarrow{e} q_2 \xrightarrow{l} q_3 \xrightarrow{l} q_4 \xrightarrow{o} q_5\)</span>, with <span class="arithmatex">\(q_5\)</span> accepting and self-looping on every symbol.</p>
+<p>This is <strong>not</strong> a valid DFA because <span class="arithmatex">\(q_0\)</span> has <strong>two</strong> transitions on <strong>h</strong> (the self-loop and the arrow to <span class="arithmatex">\(q_1\)</span>). As an NFA it works perfectly: the machine nondeterministically "guesses" when the substring begins. No backtracking is needed.</p>
+<hr>
+<h3 id="nondeterminism-two-equivalent-intuitions">Nondeterminism — two equivalent intuitions<a class="headerlink" href="#nondeterminism-two-equivalent-intuitions" title="Permanent link">¶</a></h3>
+<ol>
+<li><strong>Parallel-paths view:</strong> the machine explores <strong>all</strong> possible branches simultaneously; it accepts if <strong>any</strong> branch reaches an accept state.</li>
+<li><strong>"Somehow knows" view:</strong> at each nondeterministic choice, the machine <strong>magically picks</strong> the right option — it accepts if there <strong>exists</strong> a sequence of choices that leads to acceptance.</li>
+</ol>
+<p>Both views are equivalent. Neither requires physically trying all paths one by one; the definition of acceptance handles it existentially.</p>
+<hr>
+<h3 id="formal-definition-of-an-nfa">Formal definition of an NFA<a class="headerlink" href="#formal-definition-of-an-nfa" title="Permanent link">¶</a></h3>
+<p>An NFA is a <strong>5-tuple</strong> <span class="arithmatex">\(N = (Q,\; \Sigma,\; \delta,\; q_0,\; F)\)</span>, where:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(Q\)</span></td>
+<td>Finite set of <strong>states</strong></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\Sigma\)</span></td>
+<td>Finite <strong>alphabet</strong> (input symbols)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\delta : Q \times \Sigma_\varepsilon \to \mathcal{P}(Q)\)</span></td>
+<td><strong>Transition function</strong> — returns a <strong>set</strong> of states</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(q_0 \in Q\)</span></td>
+<td><strong>Start state</strong></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(F \subseteq Q\)</span></td>
+<td>Set of <strong>accept (final) states</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Here <span class="arithmatex">\(\Sigma_\varepsilon = \Sigma \cup \{\varepsilon\}\)</span>, and <span class="arithmatex">\(\mathcal{P}(Q)\)</span> is the <strong>power set</strong> of <span class="arithmatex">\(Q\)</span> (the set of all subsets of <span class="arithmatex">\(Q\)</span>).</p>
+<p><strong>Key difference from a DFA:</strong> the DFA transition function is <span class="arithmatex">\(\delta : Q \times \Sigma \to Q\)</span> (exactly <strong>one</strong> next state, no ε). The NFA transition function maps to a <strong>subset</strong> of <span class="arithmatex">\(Q\)</span> and also accepts <strong>ε</strong> as input.</p>
+<hr>
+<h3 id="nfa-acceptance">NFA acceptance<a class="headerlink" href="#nfa-acceptance" title="Permanent link">¶</a></h3>
+<p>NFA <span class="arithmatex">\(N = (Q, \Sigma, \delta, q_0, F)\)</span> <strong>accepts</strong> input string <span class="arithmatex">\(w = w_1 w_2 \cdots w_n\)</span> (where each <span class="arithmatex">\(w_i \in \Sigma_\varepsilon\)</span>) if <strong>there exists</strong> a sequence of states <span class="arithmatex">\(r_0, r_1, \ldots, r_n\)</span> such that:</p>
+<ol>
+<li><span class="arithmatex">\(r_0 = q_0\)</span> — start in the start state.</li>
+<li><span class="arithmatex">\(r_{i+1} \in \delta(r_i,\; w_{i+1})\)</span> for <span class="arithmatex">\(i = 0, \ldots, n-1\)</span> — each transition is valid.</li>
+<li><span class="arithmatex">\(r_n \in F\)</span> — end in an accept state.</li>
+</ol>
+<p>The word <strong>"exists"</strong> is critical: it suffices that <strong>one</strong> valid path through the NFA leads to acceptance. Other paths may die or reject — that does not matter.</p>
+<blockquote>
+<p><strong>Note on ε in strings:</strong> the strings <span class="arithmatex">\(abb\)</span>, <span class="arithmatex">\(\varepsilon abb\)</span>, and <span class="arithmatex">\(a\varepsilon b\varepsilon b\varepsilon\varepsilon\)</span> all represent the <strong>same</strong> input because ε contributes nothing.</p>
+</blockquote>
+<hr>
+<h3 id="equivalent-power-of-nfas-and-dfas">Equivalent power of NFAs and DFAs<a class="headerlink" href="#equivalent-power-of-nfas-and-dfas" title="Permanent link">¶</a></h3>
+<p><strong>Theorem.</strong> A language <span class="arithmatex">\(L\)</span> is recognised by some NFA <strong>if and only if</strong> <span class="arithmatex">\(L\)</span> is recognised by some DFA.</p>
+<p>The proof has two directions:</p>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Difficulty</th>
+<th>Idea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DFA → NFA</strong></td>
+<td>Trivial</td>
+<td>Every DFA is already a valid NFA (syntactically)</td>
+</tr>
+<tr>
+<td><strong>NFA → DFA</strong></td>
+<td>Non-trivial</td>
+<td><strong>Subset / powerset construction</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="dfa-nfa-the-easy-direction">DFA → NFA (the easy direction)<a class="headerlink" href="#dfa-nfa-the-easy-direction" title="Permanent link">¶</a></h3>
+<p>Given a DFA <span class="arithmatex">\(M = (Q, \Sigma, \delta, q_0, F)\)</span>, define NFA <span class="arithmatex">\(N = (Q, \Sigma, \delta', q_0, F)\)</span> where:</p>
+<p>[
+\delta'(q, a) = {\delta(q, a)} \quad \text{for each } q \in Q,\; a \in \Sigma
+]
+[
+\delta'(q, \varepsilon) = \emptyset \quad \text{for each } q \in Q
+]</p>
+<p>That is, <strong>wrap each DFA output in a singleton set</strong> and add empty ε-transitions. The resulting NFA accepts exactly the same language.</p>
+<hr>
+<h3 id="nfa-dfa-conversion-subset-powerset-construction">NFA → DFA conversion (subset / powerset construction)<a class="headerlink" href="#nfa-dfa-conversion-subset-powerset-construction" title="Permanent link">¶</a></h3>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../resources/nfa-to-dfa-construction.png" data-desc-position="bottom"><img alt="NFA to DFA — Subset Construction" src="../../../resources/nfa-to-dfa-construction.png"></a>
+<em>An NFA recognizing strings ending in "ab" (left) and the equivalent DFA produced by the subset construction (right). Each DFA state is a set of NFA states that the machine could be in simultaneously.</em></p>
+<p>This is the core construction. Given NFA <span class="arithmatex">\(N = (Q, \Sigma, \delta, q_0, F)\)</span>, we build an equivalent DFA <span class="arithmatex">\(M' = (Q', \Sigma, \delta', q_0', F')\)</span>.</p>
+<h4 id="-closure">ε-closure<a class="headerlink" href="#-closure" title="Permanent link">¶</a></h4>
+<p>For a set of NFA states <span class="arithmatex">\(S \subseteq Q\)</span>, the <strong>ε-closure</strong> is:</p>
+<div class="arithmatex">\[
+E(S) = S \;\cup\; \{q \in Q \mid q \text{ is reachable from some state in } S \text{ by following one or more } \varepsilon\text{-transitions}\}
+\]</div>
+<p>Computed by repeatedly expanding: start with <span class="arithmatex">\(E(S) = S\)</span>, then add any state reachable via ε from a state already in <span class="arithmatex">\(E(S)\)</span>, until no new states appear (fixed point).</p>
+<h4 id="construction">Construction<a class="headerlink" href="#construction" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>DFA component</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(Q' = \mathcal{P}(Q)\)</span></td>
+<td>Each DFA state is a <strong>subset</strong> of NFA states</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\Sigma' = \Sigma\)</span></td>
+<td>Alphabet unchanged</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(q_0' = E(\{q_0\})\)</span></td>
+<td>Start state is the ε-closure of the NFA start state</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(F' = \{R \in Q' \mid R \cap F \neq \emptyset\}\)</span></td>
+<td>Accept if the subset contains <strong>any</strong> NFA accept state</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\delta'(R, a) = \displaystyle\bigcup_{r \in R} E\big(\delta(r, a)\big)\)</span></td>
+<td>For each NFA state in the current set, follow <strong>a</strong>, then take ε-closure; union the results</td>
+</tr>
+</tbody>
+</table>
+<p>Equivalently:</p>
+<div class="arithmatex">\[
+\delta'(R,\, a) = \{q \in Q \mid q \in E(\delta(r, a)) \text{ for some } r \in R\}
+\]</div>
+<h4 id="why-it-works">Why it works<a class="headerlink" href="#why-it-works" title="Permanent link">¶</a></h4>
+<p>The DFA state <span class="arithmatex">\(R \subseteq Q\)</span> tracks <strong>exactly</strong> which NFA states the NFA could be in after reading the input so far. On each new symbol <strong>a</strong>, we update <span class="arithmatex">\(R\)</span> to all states reachable from <span class="arithmatex">\(R\)</span> via <strong>a</strong> and then any number of ε-transitions. The DFA accepts iff <span class="arithmatex">\(R\)</span> contains an NFA accept state — matching the NFA's existential acceptance condition.</p>
+<h4 id="size-blow-up">Size blow-up<a class="headerlink" href="#size-blow-up" title="Permanent link">¶</a></h4>
+<p><span class="arithmatex">\(|Q'| = |\mathcal{P}(Q)| = 2^{|Q|}\)</span>. In the <strong>worst case</strong> the DFA can be <strong>exponentially</strong> larger than the NFA. In practice, many subsets are unreachable and can be pruned; the <strong>lazy</strong> construction only builds reachable states.</p>
+<hr>
+<h3 id="worked-example-step-by-step-nfa-dfa-conversion">Worked example — step-by-step NFA → DFA conversion<a class="headerlink" href="#worked-example-step-by-step-nfa-dfa-conversion" title="Permanent link">¶</a></h3>
+<p>Consider the NFA for <strong>"optionally starts with baba, then even number of b's"</strong> with states <span class="arithmatex">\(\{q_0, q_1, q_2, q_3, q_4, q_5\}\)</span>:</p>
+<ul>
+<li><span class="arithmatex">\(q_0\)</span> is the start state, with ε-transitions to both <span class="arithmatex">\(q_1\)</span> (prefix path) and <span class="arithmatex">\(q_4\)</span> (skip-prefix path).</li>
+<li><span class="arithmatex">\(q_1 \xrightarrow{b} q_2 \xrightarrow{a} q_3 \xrightarrow{b} q_4'\xrightarrow{a} q_4\)</span> reads "baba" then ε to <span class="arithmatex">\(q_4\)</span>.</li>
+<li><span class="arithmatex">\(q_4\)</span> (even-b, <strong>accept</strong>) loops on <strong>a</strong>, goes to <span class="arithmatex">\(q_5\)</span> on <strong>b</strong>.</li>
+<li><span class="arithmatex">\(q_5\)</span> (odd-b) loops on <strong>a</strong>, goes to <span class="arithmatex">\(q_4\)</span> on <strong>b</strong>.</li>
+</ul>
+<p><strong>Step 1 — Start state.</strong> Compute <span class="arithmatex">\(E(\{q_0\})\)</span>. From <span class="arithmatex">\(q_0\)</span>, ε-transitions reach <span class="arithmatex">\(q_1\)</span> and <span class="arithmatex">\(q_4\)</span>. So <span class="arithmatex">\(q_0' = \{q_0, q_1, q_4\}\)</span>. This set contains <span class="arithmatex">\(q_4 \in F\)</span>, so it is an <strong>accept</strong> state.</p>
+<p><strong>Step 2 — Transitions from <span class="arithmatex">\(\{q_0, q_1, q_4\}\)</span>.</strong></p>
+<ul>
+<li><strong>On a:</strong> <span class="arithmatex">\(\delta(q_0, a) = \emptyset\)</span>, <span class="arithmatex">\(\delta(q_1, a) = \emptyset\)</span>, <span class="arithmatex">\(\delta(q_4, a) = \{q_4\}\)</span>. Union: <span class="arithmatex">\(\{q_4\}\)</span>. ε-closure: <span class="arithmatex">\(E(\{q_4\}) = \{q_4\}\)</span>. New DFA state: <strong><span class="arithmatex">\(\{q_4\}\)</span></strong> (accept).</li>
+<li><strong>On b:</strong> <span class="arithmatex">\(\delta(q_0, b) = \emptyset\)</span>, <span class="arithmatex">\(\delta(q_1, b) = \{q_2\}\)</span>, <span class="arithmatex">\(\delta(q_4, b) = \{q_5\}\)</span>. Union: <span class="arithmatex">\(\{q_2, q_5\}\)</span>. ε-closure: <span class="arithmatex">\(E(\{q_2, q_5\}) = \{q_2, q_5\}\)</span>. New DFA state: <strong><span class="arithmatex">\(\{q_2, q_5\}\)</span></strong> (not accept).</li>
+</ul>
+<p><strong>Step 3 — Transitions from <span class="arithmatex">\(\{q_4\}\)</span>.</strong></p>
+<ul>
+<li><strong>On a:</strong> <span class="arithmatex">\(\{q_4\}\)</span> (accept, self-loop).</li>
+<li><strong>On b:</strong> <span class="arithmatex">\(\{q_5\}\)</span> (not accept).</li>
+</ul>
+<p><strong>Step 4 — Transitions from <span class="arithmatex">\(\{q_2, q_5\}\)</span>.</strong></p>
+<ul>
+<li><strong>On a:</strong> <span class="arithmatex">\(\delta(q_2, a) = \{q_3\}\)</span>, <span class="arithmatex">\(\delta(q_5, a) = \{q_5\}\)</span>. Result: <span class="arithmatex">\(E(\{q_3, q_5\}) = \{q_3, q_5\}\)</span> (not accept).</li>
+<li><strong>On b:</strong> <span class="arithmatex">\(\delta(q_2, b) = \emptyset\)</span>, <span class="arithmatex">\(\delta(q_5, b) = \{q_4\}\)</span>. Result: <span class="arithmatex">\(E(\{q_4\}) = \{q_4\}\)</span> (accept, already seen).</li>
+</ul>
+<p>Continue until all reachable DFA states have complete transition tables. The result is a valid DFA that accepts exactly the same language as the original NFA. Unreachable subsets of <span class="arithmatex">\(\mathcal{P}(Q)\)</span> are never generated.</p>
+<hr>
+<h2 id="2-exam-style-questions-with-model-answers">2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)<a class="headerlink" href="#2-exam-style-questions-with-model-answers" title="Permanent link">¶</a></h2>
+<h3 id="q1-nfa-formal-definition">Q1 — NFA formal definition<a class="headerlink" href="#q1-nfa-formal-definition" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Write down the formal definition of an NFA. Explain precisely how the transition function <span class="arithmatex">\(\delta\)</span> differs from that of a DFA, and state what <span class="arithmatex">\(\Sigma_\varepsilon\)</span> means.</p>
+<p><strong>Model answer.</strong> An NFA is a 5-tuple <span class="arithmatex">\((Q, \Sigma, \delta, q_0, F)\)</span> where <span class="arithmatex">\(Q\)</span> is a finite set of states, <span class="arithmatex">\(\Sigma\)</span> is a finite alphabet, <span class="arithmatex">\(q_0 \in Q\)</span> is the start state, <span class="arithmatex">\(F \subseteq Q\)</span> is the set of accept states, and <span class="arithmatex">\(\delta : Q \times \Sigma_\varepsilon \to \mathcal{P}(Q)\)</span> is the transition function. Here <span class="arithmatex">\(\Sigma_\varepsilon = \Sigma \cup \{\varepsilon\}\)</span>, so <span class="arithmatex">\(\delta\)</span> also takes the empty string as input. Unlike a DFA's <span class="arithmatex">\(\delta : Q \times \Sigma \to Q\)</span>, which returns a <strong>single</strong> state and is defined for every symbol, the NFA's <span class="arithmatex">\(\delta\)</span> returns a <strong>set</strong> of states (possibly empty), allowing nondeterministic branching and ε-moves.</p>
+<hr>
+<h3 id="q2-tracing-nfa-execution">Q2 — Tracing NFA execution<a class="headerlink" href="#q2-tracing-nfa-execution" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Consider an NFA over <span class="arithmatex">\(\Sigma = \{0, 1\}\)</span> with states <span class="arithmatex">\(\{q_0, q_1, q_2\}\)</span>, start state <span class="arithmatex">\(q_0\)</span>, accept state <span class="arithmatex">\(q_2\)</span>, and transitions:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>0</th>
+<th>1</th>
+<th>ε</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(q_0\)</span></td>
+<td><span class="arithmatex">\(\{q_0\}\)</span></td>
+<td><span class="arithmatex">\(\{q_0, q_1\}\)</span></td>
+<td><span class="arithmatex">\(\emptyset\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(q_1\)</span></td>
+<td><span class="arithmatex">\(\emptyset\)</span></td>
+<td><span class="arithmatex">\(\{q_2\}\)</span></td>
+<td><span class="arithmatex">\(\emptyset\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(q_2\)</span></td>
+<td><span class="arithmatex">\(\emptyset\)</span></td>
+<td><span class="arithmatex">\(\emptyset\)</span></td>
+<td><span class="arithmatex">\(\emptyset\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Trace the execution of this NFA on input <strong>"0110"</strong>. Does the NFA accept?</p>
+<p><strong>Model answer.</strong> Track the set of states after each symbol:</p>
+<ul>
+<li><strong>Start:</strong> <span class="arithmatex">\(\{q_0\}\)</span>.</li>
+<li><strong>Read 0:</strong> from <span class="arithmatex">\(q_0\)</span> on 0 → <span class="arithmatex">\(\{q_0\}\)</span>. Active: <span class="arithmatex">\(\{q_0\}\)</span>.</li>
+<li><strong>Read 1:</strong> from <span class="arithmatex">\(q_0\)</span> on 1 → <span class="arithmatex">\(\{q_0, q_1\}\)</span>. Active: <span class="arithmatex">\(\{q_0, q_1\}\)</span>.</li>
+<li><strong>Read 1:</strong> from <span class="arithmatex">\(q_0\)</span> on 1 → <span class="arithmatex">\(\{q_0, q_1\}\)</span>; from <span class="arithmatex">\(q_1\)</span> on 1 → <span class="arithmatex">\(\{q_2\}\)</span>. Union: <span class="arithmatex">\(\{q_0, q_1, q_2\}\)</span>.</li>
+<li><strong>Read 0:</strong> from <span class="arithmatex">\(q_0\)</span> on 0 → <span class="arithmatex">\(\{q_0\}\)</span>; from <span class="arithmatex">\(q_1\)</span> on 0 → <span class="arithmatex">\(\emptyset\)</span>; from <span class="arithmatex">\(q_2\)</span> on 0 → <span class="arithmatex">\(\emptyset\)</span>. Active: <span class="arithmatex">\(\{q_0\}\)</span>.</li>
+</ul>
+<p>Final set <span class="arithmatex">\(\{q_0\}\)</span> does not contain <span class="arithmatex">\(q_2\)</span>, so the NFA <strong>rejects</strong> "0110". The string is not accepted because the accepting branch (reaching <span class="arithmatex">\(q_2\)</span> after the second 1) dies on the trailing 0. This NFA recognises strings whose <strong>second-to-last</strong> symbol is 1.</p>
+<hr>
+<h3 id="q3-nfa-to-dfa-conversion-with-closure">Q3 — NFA to DFA conversion with ε-closure<a class="headerlink" href="#q3-nfa-to-dfa-conversion-with-closure" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Convert the following NFA to an equivalent DFA using the subset construction. The NFA has <span class="arithmatex">\(Q = \{q_0, q_1, q_2\}\)</span>, <span class="arithmatex">\(\Sigma = \{a, b\}\)</span>, start state <span class="arithmatex">\(q_0\)</span>, accept state <span class="arithmatex">\(q_2\)</span>, and transitions:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>a</th>
+<th>b</th>
+<th>ε</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(q_0\)</span></td>
+<td><span class="arithmatex">\(\{q_0\}\)</span></td>
+<td><span class="arithmatex">\(\emptyset\)</span></td>
+<td><span class="arithmatex">\(\{q_1\}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(q_1\)</span></td>
+<td><span class="arithmatex">\(\emptyset\)</span></td>
+<td><span class="arithmatex">\(\{q_2\}\)</span></td>
+<td><span class="arithmatex">\(\emptyset\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(q_2\)</span></td>
+<td><span class="arithmatex">\(\emptyset\)</span></td>
+<td><span class="arithmatex">\(\emptyset\)</span></td>
+<td><span class="arithmatex">\(\emptyset\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Model answer.</strong></p>
+<p><strong>ε-closures:</strong> <span class="arithmatex">\(E(\{q_0\}) = \{q_0, q_1\}\)</span>, <span class="arithmatex">\(E(\{q_1\}) = \{q_1\}\)</span>, <span class="arithmatex">\(E(\{q_2\}) = \{q_2\}\)</span>.</p>
+<p><strong>DFA start state:</strong> <span class="arithmatex">\(q_0' = E(\{q_0\}) = \{q_0, q_1\}\)</span>.</p>
+<p><strong>Build reachable states:</strong></p>
+<table>
+<thead>
+<tr>
+<th>DFA state</th>
+<th>On <strong>a</strong></th>
+<th>On <strong>b</strong></th>
+<th>Accept?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\{q_0, q_1\}\)</span></td>
+<td><span class="arithmatex">\(E(\{q_0\}) = \{q_0, q_1\}\)</span></td>
+<td><span class="arithmatex">\(E(\{q_2\}) = \{q_2\}\)</span></td>
+<td>No</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\{q_2\}\)</span></td>
+<td><span class="arithmatex">\(E(\emptyset) = \emptyset\)</span></td>
+<td><span class="arithmatex">\(E(\emptyset) = \emptyset\)</span></td>
+<td><strong>Yes</strong> (<span class="arithmatex">\(q_2 \in F\)</span>)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\emptyset\)</span></td>
+<td><span class="arithmatex">\(\emptyset\)</span></td>
+<td><span class="arithmatex">\(\emptyset\)</span></td>
+<td>No (dead/trap state)</td>
+</tr>
+</tbody>
+</table>
+<p>Working for <span class="arithmatex">\(\{q_0, q_1\}\)</span> on <strong>a</strong>: <span class="arithmatex">\(\delta(q_0, a) = \{q_0\}\)</span>, <span class="arithmatex">\(\delta(q_1, a) = \emptyset\)</span>. Union: <span class="arithmatex">\(\{q_0\}\)</span>. ε-closure: <span class="arithmatex">\(E(\{q_0\}) = \{q_0, q_1\}\)</span>.</p>
+<p>Working for <span class="arithmatex">\(\{q_0, q_1\}\)</span> on <strong>b</strong>: <span class="arithmatex">\(\delta(q_0, b) = \emptyset\)</span>, <span class="arithmatex">\(\delta(q_1, b) = \{q_2\}\)</span>. Union: <span class="arithmatex">\(\{q_2\}\)</span>. ε-closure: <span class="arithmatex">\(E(\{q_2\}) = \{q_2\}\)</span>.</p>
+<p><strong>Result DFA:</strong> 3 states <span class="arithmatex">\(\{\{q_0, q_1\}, \{q_2\}, \emptyset\}\)</span>; start <span class="arithmatex">\(\{q_0, q_1\}\)</span>; accept <span class="arithmatex">\(\{q_2\}\)</span>. It accepts strings of the form <span class="arithmatex">\(a^*b\)</span> (any number of a's followed by exactly one b).</p>
+<hr>
+<h3 id="q4-constructing-an-nfa-for-a-given-language">Q4 — Constructing an NFA for a given language<a class="headerlink" href="#q4-constructing-an-nfa-for-a-given-language" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Construct an NFA over <span class="arithmatex">\(\Sigma = \{0, 1\}\)</span> that recognises the language <span class="arithmatex">\(L = \{w \mid w \text{ contains the substring } 101\}\)</span>. Your NFA should have at most 5 states.</p>
+<p><strong>Model answer.</strong> Use 4 states <span class="arithmatex">\(\{q_0, q_1, q_2, q_3\}\)</span> with start state <span class="arithmatex">\(q_0\)</span> and accept state <span class="arithmatex">\(q_3\)</span>:</p>
+<ul>
+<li><span class="arithmatex">\(q_0\)</span>: self-loop on <strong>0</strong> and <strong>1</strong> (wait for the substring to begin). Transition to <span class="arithmatex">\(q_1\)</span> on <strong>1</strong>.</li>
+<li><span class="arithmatex">\(q_1\)</span>: transition to <span class="arithmatex">\(q_2\)</span> on <strong>0</strong>.</li>
+<li><span class="arithmatex">\(q_2\)</span>: transition to <span class="arithmatex">\(q_3\)</span> on <strong>1</strong>.</li>
+<li><span class="arithmatex">\(q_3\)</span>: accept; self-loop on <strong>0</strong> and <strong>1</strong> (once substring found, accept everything).</li>
+</ul>
+<p><strong>Transition table:</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(q_0\)</span></td>
+<td><span class="arithmatex">\(\{q_0\}\)</span></td>
+<td><span class="arithmatex">\(\{q_0, q_1\}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(q_1\)</span></td>
+<td><span class="arithmatex">\(\{q_2\}\)</span></td>
+<td><span class="arithmatex">\(\emptyset\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(q_2\)</span></td>
+<td><span class="arithmatex">\(\emptyset\)</span></td>
+<td><span class="arithmatex">\(\{q_3\}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(q_3\)</span></td>
+<td><span class="arithmatex">\(\{q_3\}\)</span></td>
+<td><span class="arithmatex">\(\{q_3\}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The nondeterminism at <span class="arithmatex">\(q_0\)</span> on <strong>1</strong> is the key: the NFA guesses whether this particular 1 is the start of "101". If the guess is wrong, that branch dies; if correct, it reaches <span class="arithmatex">\(q_3\)</span> and accepts.</p>
+<hr>
+<h3 id="q5-proving-nfadfa-equivalence">Q5 — Proving NFA/DFA equivalence<a class="headerlink" href="#q5-proving-nfadfa-equivalence" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Outline the proof that every language recognised by an NFA is also recognised by some DFA. State the key idea and explain why the constructed DFA accepts a string if and only if the original NFA does.</p>
+<p><strong>Model answer.</strong> Given NFA <span class="arithmatex">\(N = (Q, \Sigma, \delta, q_0, F)\)</span>, construct DFA <span class="arithmatex">\(M' = (Q', \Sigma, \delta', q_0', F')\)</span> via the subset construction: <span class="arithmatex">\(Q' = \mathcal{P}(Q)\)</span>, <span class="arithmatex">\(q_0' = E(\{q_0\})\)</span>, <span class="arithmatex">\(F' = \{R \in Q' \mid R \cap F \neq \emptyset\}\)</span>, and <span class="arithmatex">\(\delta'(R, a) = \bigcup_{r \in R} E(\delta(r, a))\)</span>.</p>
+<p><strong>Correctness (sketch).</strong> By induction on the length of the input string <span class="arithmatex">\(w = w_1 \cdots w_n\)</span>, we prove that after reading <span class="arithmatex">\(w_1 \cdots w_k\)</span>, the DFA is in state <span class="arithmatex">\(R_k\)</span> where <span class="arithmatex">\(R_k\)</span> is <strong>exactly</strong> the set of NFA states reachable from <span class="arithmatex">\(q_0\)</span> after reading <span class="arithmatex">\(w_1 \cdots w_k\)</span> (including ε-moves).</p>
+<ul>
+<li><strong>Base case (<span class="arithmatex">\(k = 0\)</span>):</strong> DFA starts in <span class="arithmatex">\(E(\{q_0\})\)</span>, which is exactly the set of NFA states reachable from <span class="arithmatex">\(q_0\)</span> via ε-transitions before any input.</li>
+<li><strong>Inductive step:</strong> Assume <span class="arithmatex">\(R_k\)</span> is correct after reading <span class="arithmatex">\(w_1 \cdots w_k\)</span>. On symbol <span class="arithmatex">\(w_{k+1}\)</span>, the DFA moves to <span class="arithmatex">\(\delta'(R_k, w_{k+1}) = \bigcup_{r \in R_k} E(\delta(r, w_{k+1}))\)</span>, which is exactly the set of NFA states reachable after reading <span class="arithmatex">\(w_1 \cdots w_{k+1}\)</span>.</li>
+<li><strong>Acceptance:</strong> The DFA accepts iff <span class="arithmatex">\(R_n \in F'\)</span>, i.e. <span class="arithmatex">\(R_n \cap F \neq \emptyset\)</span>, which holds iff <strong>some</strong> NFA state reachable after reading <span class="arithmatex">\(w\)</span> is an accept state — precisely the NFA's acceptance condition.</li>
+</ul>
+<p>Hence <span class="arithmatex">\(L(M') = L(N)\)</span>.</p>
+<hr>
+<h2 id="3-must-know-key-points">3. MUST-KNOW KEY POINTS<a class="headerlink" href="#3-must-know-key-points" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>NFA relaxations:</strong> ε-transitions, multiple arrows on same symbol, missing arrows allowed — all absent in DFAs.</li>
+<li><strong>Formal definition:</strong> <span class="arithmatex">\(\delta : Q \times \Sigma_\varepsilon \to \mathcal{P}(Q)\)</span>; DFA has <span class="arithmatex">\(\delta : Q \times \Sigma \to Q\)</span>.</li>
+<li><strong>Acceptance is existential:</strong> NFA accepts if <strong>there exists</strong> a valid path to an accept state; DFA accepts if <strong>the</strong> (unique) path ends in an accept state.</li>
+<li><strong>NFAs = DFAs in power:</strong> every NFA has an equivalent DFA and vice versa.</li>
+<li><strong>DFA → NFA:</strong> trivial — wrap δ outputs in singleton sets, add empty ε-transitions.</li>
+<li><strong>NFA → DFA (subset construction):</strong> DFA states are <strong>subsets</strong> of NFA states; <span class="arithmatex">\(q_0' = E(\{q_0\})\)</span>; <span class="arithmatex">\(\delta'(R, a) = \bigcup_{r \in R} E(\delta(r, a))\)</span>; accept if subset intersects <span class="arithmatex">\(F\)</span>.</li>
+<li><strong>ε-closure <span class="arithmatex">\(E(S)\)</span>:</strong> all states reachable from <span class="arithmatex">\(S\)</span> by zero or more ε-transitions; must be applied <strong>after every move</strong>.</li>
+<li><strong>Worst-case blow-up:</strong> <span class="arithmatex">\(|Q'| = 2^{|Q|}\)</span> — exponential, but often many states are unreachable.</li>
+<li><strong>"Syntactic sugar":</strong> NFAs make design <strong>easier</strong> and <strong>cleaner</strong> but add no new expressive power.</li>
+</ul>
+<hr>
+<h2 id="4-high-priority-topics">4. HIGH-PRIORITY TOPICS<a class="headerlink" href="#4-high-priority-topics" title="Permanent link">¶</a></h2>
+<h3 id="must-know">🔴 Must Know<a class="headerlink" href="#must-know" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>NFA formal definition</strong> — 5-tuple with <span class="arithmatex">\(\delta : Q \times \Sigma_\varepsilon \to \mathcal{P}(Q)\)</span>; difference from DFA's δ.</li>
+<li><strong>NFA acceptance definition</strong> — existential: some valid path reaches <span class="arithmatex">\(F\)</span>.</li>
+<li><strong>ε-closure</strong> — definition, how to compute it (fixed-point expansion), when to apply it (start state + after every symbol).</li>
+<li><strong>Subset construction</strong> — full procedure: <span class="arithmatex">\(Q' = \mathcal{P}(Q)\)</span>, <span class="arithmatex">\(q_0' = E(\{q_0\})\)</span>, <span class="arithmatex">\(\delta'(R, a)\)</span> formula, <span class="arithmatex">\(F'\)</span> definition.</li>
+<li><strong>Tracing NFA execution</strong> on a string — tracking the set of active states symbol by symbol.</li>
+<li><strong>Equivalence theorem</strong> — statement and proof sketch (induction on input length).</li>
+<li><strong>Designing NFAs</strong> for substring/pattern matching (nondeterministic "guess" where a pattern starts).</li>
+</ul>
+<h3 id="important">🟡 Important<a class="headerlink" href="#important" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>DFA → NFA direction</strong> — wrapping δ in singletons; why it's trivial.</li>
+<li><strong>Exponential blow-up</strong> — worst case <span class="arithmatex">\(2^{|Q|}\)</span> states; practical pruning of unreachable states (lazy construction).</li>
+<li><strong>Worked conversion examples</strong> — being able to produce the full DFA transition table from a given NFA.</li>
+<li><strong>Closure properties using NFAs</strong> — union, concatenation, Kleene star constructions become much simpler with nondeterminism.</li>
+</ul>
+<h3 id="useful-but-lower-priority">🟢 Useful but Lower Priority<a class="headerlink" href="#useful-but-lower-priority" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Formal induction proof</strong> of subset construction correctness (full base case + inductive step write-up).</li>
+<li><strong>Examples where the exponential blow-up is tight</strong> (e.g. language "the <span class="arithmatex">\(k\)</span>-th symbol from the end is 1" requires <span class="arithmatex">\(2^k\)</span> DFA states from a <span class="arithmatex">\((k+1)\)</span>-state NFA).</li>
+<li><strong>History and terminology:</strong> nondeterminism in complexity theory vs. automata; Rabin &amp; Scott's original 1959 result.</li>
+</ul>
+<hr>
+<h2 id="5-topic-interconnections-bigger-picture">5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE<a class="headerlink" href="#5-topic-interconnections-bigger-picture" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Closure properties become easy.</strong> With NFAs, proving that regular languages are closed under <strong>union</strong>, <strong>concatenation</strong>, and <strong>Kleene star</strong> is elegant: add a new start state with ε-transitions. This is far simpler than the Cartesian-product DFA construction needed for union with DFAs alone.</li>
+<li><strong>Regular expressions ↔ NFAs.</strong> The standard proof that regular expressions and finite automata are equivalent goes through NFAs: every regex is converted to an NFA (Thompson's construction), and every NFA can be converted to a regex (via state elimination or the GNFA method). NFAs are the bridge.</li>
+<li><strong>Subset construction as a general technique.</strong> The idea of tracking a <strong>set of configurations</strong> as a single deterministic state reappears in <strong>LR parser construction</strong> (sets of items), <strong>model checking</strong> (reachability in product automata), and <strong>regex engines</strong> (NFA simulation).</li>
+<li><strong>Minimisation.</strong> After converting NFA → DFA, the resulting DFA may have many unreachable or equivalent states. <strong>DFA minimisation</strong> (Myhill–Nerode, Hopcroft's algorithm) produces the unique minimal DFA — connecting to <strong>Lecture 2's</strong> equivalence-class ideas.</li>
+<li><strong>Beyond regular languages.</strong> NFAs and DFAs both characterise exactly the <strong>regular languages</strong>. Later in the course, <strong>pushdown automata</strong> (PDAs, also nondeterministic) recognise <strong>context-free languages</strong> — strictly more powerful. Interestingly, <strong>deterministic PDAs ≠ nondeterministic PDAs</strong>, unlike the finite automaton case.</li>
+<li><strong>Complexity implications.</strong> The exponential blow-up from NFA to DFA is a concrete example of the <strong>nondeterminism gap</strong> — a theme that resurfaces in <strong>P vs NP</strong> in computational complexity.</li>
+</ul>
+<hr>
+<h2 id="6-exam-strategy-tips">6. EXAM STRATEGY TIPS<a class="headerlink" href="#6-exam-strategy-tips" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Subset construction is the highest-yield exam topic here.</strong> Practise converting small NFAs (3–5 states) to DFAs end-to-end; you must be fast and accurate with ε-closures.</li>
+<li><strong>Always compute <span class="arithmatex">\(E(\{q_0\})\)</span> first</strong> — forgetting the initial ε-closure is the most common error.</li>
+<li><strong>Use a table</strong> for the DFA transition function: rows are reachable subsets, columns are alphabet symbols. This keeps the construction organised and prevents missed states.</li>
+<li><strong>Label DFA states clearly</strong> as sets (e.g. <span class="arithmatex">\(\{q_0, q_2\}\)</span>) so the marker can follow your working.</li>
+<li><strong>When designing an NFA</strong>, exploit nondeterminism to "guess" — e.g. where a substring starts or which branch to follow. State explicitly that the machine nondeterministically branches.</li>
+<li><strong>For the equivalence proof</strong>, the key sentence is: "The DFA state after reading <span class="arithmatex">\(w_1 \cdots w_k\)</span> is exactly the set of NFA states reachable after reading <span class="arithmatex">\(w_1 \cdots w_k\)</span>." If you state and justify this invariant, you have the core of the proof.</li>
+<li><strong>Don't forget the dead state <span class="arithmatex">\(\emptyset\)</span>:</strong> in the DFA, the empty set is a valid (non-accepting, trap) state. All transitions from <span class="arithmatex">\(\emptyset\)</span> go back to <span class="arithmatex">\(\emptyset\)</span>.</li>
+<li><strong>Distinguish "NFA rejects" from "no valid transition":</strong> in an NFA, a missing transition kills that branch but other branches survive. Rejection happens only when <strong>all</strong> branches die or none reaches an accept state.</li>
+<li><strong>Time management:</strong> if asked to convert a large NFA, only build <strong>reachable</strong> states. State that unreachable subsets exist but are omitted — this saves time and is mathematically correct.</li>
+</ul>
+<hr>
+<p><em>These notes align with COMP0003 Automata (Yuzuko Nakamura); follow your lecturer's conventions if they differ.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

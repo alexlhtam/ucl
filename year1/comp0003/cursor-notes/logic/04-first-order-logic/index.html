@@ -1,0 +1,3941 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Year 1 Computer Science notes — UCL">
+      
+      
+        <meta name="author" content="Alex Tam">
+      
+      
+        <link rel="canonical" href="https://alexlhtam.github.io/ucl/year1/comp0003/cursor-notes/logic/04-first-order-logic/">
+      
+      
+        <link rel="prev" href="../03-boolean-algebra/">
+      
+      
+        <link rel="next" href="../05-proof-by-induction/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>First-Order Logic - Alex's UCL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#first-order-logic-comp0003-formal-logic" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-header__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex's UCL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              First-Order Logic
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Year 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-nav__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    Alex's UCL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Year 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Year 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms (COMP0005)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms (COMP0005)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/02-analysis-of-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis of Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/06-abstract-data-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sorting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sorting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/03-elementary-sorts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementary Sorts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/04-mergesort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MergeSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/05-quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QuickSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/07-heaps-and-heapsort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heaps &amp; HeapSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/08-symbol-tables-and-bst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbol Tables &amp; BST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/09-balanced-trees-and-hash-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balanced Trees &amp; Hash Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/10-undirected-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undirected Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/11-directed-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/12-minimum-spanning-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Spanning Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/13-shortest-paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shortest Paths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_5" id="__nav_2_1_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strings
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Strings
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/14-string-sorting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String Sorting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/15-tries-and-string-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tries &amp; String Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/16-substring-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Substring Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OOP / Java (COMP0004)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OOP / Java (COMP0004)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/01-intro-to-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/02-core-java-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Java Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/03-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Object-Oriented Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/04-classes-objects-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes, Objects &amp; References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/05-designing-with-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/06-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/07-interfaces-and-polymorphism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces &amp; Polymorphism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/08-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/09-file-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/10-json-csv-and-records/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON, CSV &amp; Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/11-packages-and-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages &amp; Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/12-lambdas-and-streams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambdas &amp; Streams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/13-web-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/14-data-structures-in-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures in Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/15-design-patterns-and-threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns &amp; Threads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory of Computation (COMP0003)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory of Computation (COMP0003)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formal Logic
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Formal Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-overview-and-history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview &amp; History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-boolean-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boolean Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#motivation-why-propositional-logic-is-not-enough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motivation: why propositional logic is not enough
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first-order-language-signature-f-p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First-order language (signature Σ = (F, P))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#formulas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formulas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#free-and-bound-variables-sentences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Free and bound variables; sentences
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#translating-english-to-fol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Translating English to FOL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semantics-first-order-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semantics: first-order structures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#valuations-and-interpreting-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valuations and interpreting terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-satisfaction-relation-m-_-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The satisfaction relation (M ⊧_ρ A)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#satisfiability-and-validity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Satisfiability and validity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#substitution-and-variable-capture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Substitution and variable capture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-equivalences-for-quantifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key equivalences for quantifiers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prenex-normal-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prenex normal form
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-translating-english-to-fol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Translating English to FOL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-evaluating-satisfaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Evaluating satisfaction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-prenex-normal-form-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Prenex normal form conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-non-equivalence-of-quantifier-orders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Non-equivalence of quantifier orders
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-substitution-and-variable-capture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Substitution and variable capture
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-proof-by-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof by Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-complete-induction-and-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Induction &amp; Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-modal-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modal Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automata
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Automata
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/01-dfas-and-regular-languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFAs &amp; Regular Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/02-nfas-and-dfa-equivalence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFAs &amp; DFA Equivalence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/03-closure-and-regular-expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closure &amp; Regular Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/04-pumping-lemma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/05-pushdown-automata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pushdown Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/06-context-free-grammars/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Free Grammars
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/07-pumping-lemma-for-cfls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma for CFLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/08-turing-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turing Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/09-decidability-and-undecidability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decidability &amp; Undecidability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#motivation-why-propositional-logic-is-not-enough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motivation: why propositional logic is not enough
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first-order-language-signature-f-p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First-order language (signature Σ = (F, P))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#formulas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formulas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#free-and-bound-variables-sentences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Free and bound variables; sentences
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#translating-english-to-fol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Translating English to FOL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semantics-first-order-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semantics: first-order structures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#valuations-and-interpreting-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valuations and interpreting terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-satisfaction-relation-m-_-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The satisfaction relation (M ⊧_ρ A)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#satisfiability-and-validity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Satisfiability and validity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#substitution-and-variable-capture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Substitution and variable capture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-equivalences-for-quantifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key equivalences for quantifiers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prenex-normal-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prenex normal form
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-translating-english-to-fol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Translating English to FOL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-evaluating-satisfaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Evaluating satisfaction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-prenex-normal-form-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Prenex normal form conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-non-equivalence-of-quantifier-orders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Non-equivalence of quantifier orders
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-substitution-and-variable-capture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Substitution and variable capture
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="first-order-logic-comp0003-formal-logic">First-Order Logic — COMP0003 Formal Logic<a class="headerlink" href="#first-order-logic-comp0003-formal-logic" title="Permanent link">¶</a></h1>
+<p><em>Lecture-style notes covering Lectures 5–8b. </em><em>First-order logic (FOL)</em><em> extends propositional logic by letting us talk about </em><em>objects</em><em>, their </em><em>properties</em><em>, and </em><em>relationships</em><em>, and by </em><em>quantifying</em><em> over them. The leap from "propositions as atoms" to "structured formulas with variables and quantifiers" unlocks the expressiveness needed for mathematics, databases, and verification.</em></p>
+<hr>
+<h2 id="1-complete-topic-summaries">1. COMPLETE TOPIC SUMMARIES<a class="headerlink" href="#1-complete-topic-summaries" title="Permanent link">¶</a></h2>
+<h3 id="motivation-why-propositional-logic-is-not-enough">Motivation: why propositional logic is not enough<a class="headerlink" href="#motivation-why-propositional-logic-is-not-enough" title="Permanent link">¶</a></h3>
+<p>Propositional logic treats each proposition as an <strong>opaque atom</strong>. It cannot:</p>
+<ul>
+<li><strong>Access internal structure.</strong> "Alice is tall" and "Bob is tall" are unrelated atoms <span class="arithmatex">\(P\)</span> and <span class="arithmatex">\(Q\)</span> — we cannot express that both share the <strong>predicate</strong> "is tall."</li>
+<li><strong>Quantify.</strong> "Everyone is tall" or "someone is tall" have no propositional representation without listing every individual.</li>
+</ul>
+<p>First-order logic solves both problems by introducing <strong>terms</strong> (naming objects), <strong>predicates</strong> (expressing properties/relations), and <strong>quantifiers</strong> (<span class="arithmatex">\(\forall\)</span>, <span class="arithmatex">\(\exists\)</span>).</p>
+<hr>
+<h3 id="first-order-language-signature-f-p">First-order language (signature Σ = (F, P))<a class="headerlink" href="#first-order-language-signature-f-p" title="Permanent link">¶</a></h3>
+<p>A <strong>first-order language</strong> (or <strong>signature</strong>) specifies the non-logical vocabulary:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Notation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Function symbols</strong></td>
+<td><span class="arithmatex">\(F\)</span></td>
+<td>Each <span class="arithmatex">\(f \in F\)</span> has an <strong>arity</strong> <span class="arithmatex">\(k \geq 0\)</span>. Arity-0 functions are <strong>constants</strong>.</td>
+</tr>
+<tr>
+<td><strong>Predicate symbols</strong></td>
+<td><span class="arithmatex">\(P\)</span></td>
+<td>Each <span class="arithmatex">\(R \in P\)</span> has an <strong>arity</strong> <span class="arithmatex">\(k \geq 0\)</span>. Arity-0 predicates are <strong>propositions</strong>.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example — Peano arithmetic:</strong></p>
+<div class="arithmatex">\[\Sigma_{PA} = (\{0, s, +, \times\},\;\{=, &lt;\})\]</div>
+<ul>
+<li><span class="arithmatex">\(0\)</span> is a constant (arity 0), <span class="arithmatex">\(s\)</span> is unary (arity 1), <span class="arithmatex">\(+\)</span> and <span class="arithmatex">\(\times\)</span> are binary (arity 2).</li>
+<li><span class="arithmatex">\(=\)</span> and <span class="arithmatex">\(&lt;\)</span> are binary predicates.</li>
+</ul>
+<p><strong>Example — Family relations:</strong></p>
+<div class="arithmatex">\[\Sigma_{Fam} = (\{alice, bob\},\;\{Parent, Sibling\})\]</div>
+<ul>
+<li><span class="arithmatex">\(alice\)</span>, <span class="arithmatex">\(bob\)</span> are constants; <span class="arithmatex">\(Parent\)</span> and <span class="arithmatex">\(Sibling\)</span> are binary predicates.</li>
+</ul>
+<hr>
+<h3 id="terms">Terms<a class="headerlink" href="#terms" title="Permanent link">¶</a></h3>
+<p><strong>Terms</strong> name objects. They are built recursively:</p>
+<ol>
+<li>Every <strong>variable</strong> <span class="arithmatex">\(x, y, z, \ldots\)</span> is a term.</li>
+<li>If <span class="arithmatex">\(f\)</span> is a function symbol of arity <span class="arithmatex">\(k\)</span> and <span class="arithmatex">\(t_1, \ldots, t_k\)</span> are terms, then <span class="arithmatex">\(f(t_1, \ldots, t_k)\)</span> is a term.</li>
+</ol>
+<p><strong>Examples</strong> (over <span class="arithmatex">\(\Sigma_{PA}\)</span>): <span class="arithmatex">\(\;x\)</span>, <span class="arithmatex">\(\;0\)</span>, <span class="arithmatex">\(\;s(0)\)</span>, <span class="arithmatex">\(\;s(s(x))\)</span>, <span class="arithmatex">\(\;+(x, s(0))\)</span> (usually written <span class="arithmatex">\(x + s(0)\)</span>).</p>
+<hr>
+<h3 id="formulas">Formulas<a class="headerlink" href="#formulas" title="Permanent link">¶</a></h3>
+<p><strong>Formulas</strong> are built from <strong>atomic formulas</strong> using connectives and quantifiers:</p>
+<ol>
+<li><strong>Atomic formula:</strong> If <span class="arithmatex">\(R\)</span> is a predicate of arity <span class="arithmatex">\(k\)</span> and <span class="arithmatex">\(t_1, \ldots, t_k\)</span> are terms, then <span class="arithmatex">\(R(t_1, \ldots, t_k)\)</span> is a formula.</li>
+<li><strong>Boolean connectives:</strong> If <span class="arithmatex">\(A\)</span>, <span class="arithmatex">\(B\)</span> are formulas, so are <span class="arithmatex">\(\lnot A\)</span>, <span class="arithmatex">\(A \land B\)</span>, <span class="arithmatex">\(A \lor B\)</span>, <span class="arithmatex">\(A \to B\)</span>, <span class="arithmatex">\(A \leftrightarrow B\)</span>.</li>
+<li><strong>Quantifiers:</strong> If <span class="arithmatex">\(A\)</span> is a formula and <span class="arithmatex">\(x\)</span> a variable, then <span class="arithmatex">\(\forall x\, A\)</span> and <span class="arithmatex">\(\exists x\, A\)</span> are formulas.</li>
+</ol>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><span class="arithmatex">\(\forall x\,(P(x) \to Q(x))\)</span> — "for all <span class="arithmatex">\(x\)</span>, if <span class="arithmatex">\(P(x)\)</span> then <span class="arithmatex">\(Q(x)\)</span>."</li>
+<li><span class="arithmatex">\(\exists x\,(P(x) \land R(x, y))\)</span> — "there exists an <span class="arithmatex">\(x\)</span> such that <span class="arithmatex">\(P(x)\)</span> and <span class="arithmatex">\(R(x, y)\)</span>."</li>
+</ul>
+<hr>
+<h3 id="free-and-bound-variables-sentences">Free and bound variables; sentences<a class="headerlink" href="#free-and-bound-variables-sentences" title="Permanent link">¶</a></h3>
+<p>An occurrence of a variable <span class="arithmatex">\(x\)</span> in a formula is <strong>bound</strong> if it falls within the scope of a quantifier <span class="arithmatex">\(\forall x\)</span> or <span class="arithmatex">\(\exists x\)</span>; otherwise it is <strong>free</strong>.</p>
+<ul>
+<li>In <span class="arithmatex">\(\forall x\,(P(x) \to Q(x, y))\)</span>: <span class="arithmatex">\(x\)</span> is <strong>bound</strong>, <span class="arithmatex">\(y\)</span> is <strong>free</strong>.</li>
+<li>In <span class="arithmatex">\(P(x) \land \exists x\, Q(x)\)</span>: the first <span class="arithmatex">\(x\)</span> in <span class="arithmatex">\(P(x)\)</span> is <strong>free</strong>; the <span class="arithmatex">\(x\)</span> in <span class="arithmatex">\(Q(x)\)</span> is <strong>bound</strong> by <span class="arithmatex">\(\exists x\)</span>.</li>
+</ul>
+<p>A formula with <strong>no free variables</strong> is called a <strong>sentence</strong>. Sentences have a definite truth value in any structure (no valuation needed for free variables).</p>
+<hr>
+<h3 id="translating-english-to-fol">Translating English to FOL<a class="headerlink" href="#translating-english-to-fol" title="Permanent link">¶</a></h3>
+<p><strong>Strategy:</strong> identify the <strong>domain</strong>, choose <strong>predicate/function symbols</strong>, then translate quantifier phrases.</p>
+<table>
+<thead>
+<tr>
+<th>English</th>
+<th>FOL (domain: people)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Every student studies"</td>
+<td><span class="arithmatex">\(\forall x\,(Student(x) \to Studies(x))\)</span></td>
+</tr>
+<tr>
+<td>"Some student is happy"</td>
+<td><span class="arithmatex">\(\exists x\,(Student(x) \land Happy(x))\)</span></td>
+</tr>
+<tr>
+<td>"No student is lazy"</td>
+<td><span class="arithmatex">\(\lnot \exists x\,(Student(x) \land Lazy(x))\)</span>, equivalently <span class="arithmatex">\(\forall x\,(Student(x) \to \lnot Lazy(x))\)</span></td>
+</tr>
+<tr>
+<td>"Every number has a successor"</td>
+<td><span class="arithmatex">\(\forall x\, \exists y\,(y = s(x))\)</span></td>
+</tr>
+<tr>
+<td>"There is a smallest element"</td>
+<td><span class="arithmatex">\(\exists x\, \forall y\,(x \leq y)\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Common pitfall:</strong> "Every <span class="arithmatex">\(A\)</span> is <span class="arithmatex">\(B\)</span>" uses <span class="arithmatex">\(\to\)</span> (not <span class="arithmatex">\(\land\)</span>): <span class="arithmatex">\(\forall x\,(A(x) \to B(x))\)</span>. "Some <span class="arithmatex">\(A\)</span> is <span class="arithmatex">\(B\)</span>" uses <span class="arithmatex">\(\land\)</span> (not <span class="arithmatex">\(\to\)</span>): <span class="arithmatex">\(\exists x\,(A(x) \land B(x))\)</span>.</p>
+<hr>
+<h3 id="semantics-first-order-structures">Semantics: first-order structures<a class="headerlink" href="#semantics-first-order-structures" title="Permanent link">¶</a></h3>
+<p>A <strong>first-order structure</strong> (or <strong>model</strong>) for signature <span class="arithmatex">\(\Sigma = (F, P)\)</span> is a triple:</p>
+<div class="arithmatex">\[M = (D,\; F^M,\; P^M)\]</div>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(D\)</span></td>
+<td>The <strong>domain</strong> (a non-empty set of objects)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(F^M\)</span></td>
+<td>For each <span class="arithmatex">\(f \in F\)</span> of arity <span class="arithmatex">\(k\)</span>: a function <span class="arithmatex">\(f^M : D^k \to D\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(P^M\)</span></td>
+<td>For each <span class="arithmatex">\(R \in P\)</span> of arity <span class="arithmatex">\(k\)</span>: a relation <span class="arithmatex">\(R^M \subseteq D^k\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example.</strong> Let <span class="arithmatex">\(\Sigma = (\{0, s\}, \{&lt;\})\)</span> and define <span class="arithmatex">\(M\)</span> with:</p>
+<ul>
+<li><span class="arithmatex">\(D = \{0, 1, 2, 3\}\)</span></li>
+<li><span class="arithmatex">\(0^M = 0\)</span>, <span class="arithmatex">\(\;s^M(n) = \min(n+1, 3)\)</span></li>
+<li><span class="arithmatex">\(&lt;^M = \{(a,b) \in D^2 \mid a &lt; b\}\)</span></li>
+</ul>
+<hr>
+<h3 id="valuations-and-interpreting-terms">Valuations and interpreting terms<a class="headerlink" href="#valuations-and-interpreting-terms" title="Permanent link">¶</a></h3>
+<p>A <strong>valuation</strong> is a function <span class="arithmatex">\(\rho : \text{Vars} \to D\)</span> assigning each variable a domain element.</p>
+<p><strong>Extending <span class="arithmatex">\(\rho\)</span> to terms</strong> (written <span class="arithmatex">\(\llbracket t \rrbracket^M_\rho\)</span> or simply <span class="arithmatex">\(t^{M,\rho}\)</span>):</p>
+<ul>
+<li><span class="arithmatex">\(\llbracket x \rrbracket^M_\rho = \rho(x)\)</span></li>
+<li><span class="arithmatex">\(\llbracket f(t_1, \ldots, t_k) \rrbracket^M_\rho = f^M(\llbracket t_1 \rrbracket^M_\rho, \ldots, \llbracket t_k \rrbracket^M_\rho)\)</span></li>
+</ul>
+<hr>
+<h3 id="the-satisfaction-relation-m-_-a">The satisfaction relation (M ⊧_ρ A)<a class="headerlink" href="#the-satisfaction-relation-m-_-a" title="Permanent link">¶</a></h3>
+<p>The <strong>satisfaction relation</strong> is defined recursively:</p>
+<table>
+<thead>
+<tr>
+<th>Formula <span class="arithmatex">\(A\)</span></th>
+<th><span class="arithmatex">\(M \models_\rho A\)</span> iff</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(R(t_1, \ldots, t_k)\)</span></td>
+<td><span class="arithmatex">\((\llbracket t_1 \rrbracket^M_\rho, \ldots, \llbracket t_k \rrbracket^M_\rho) \in R^M\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\lnot A\)</span></td>
+<td><span class="arithmatex">\(M \not\models_\rho A\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(A \land B\)</span></td>
+<td><span class="arithmatex">\(M \models_\rho A\)</span> and <span class="arithmatex">\(M \models_\rho B\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(A \lor B\)</span></td>
+<td><span class="arithmatex">\(M \models_\rho A\)</span> or <span class="arithmatex">\(M \models_\rho B\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(A \to B\)</span></td>
+<td><span class="arithmatex">\(M \not\models_\rho A\)</span> or <span class="arithmatex">\(M \models_\rho B\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(A \leftrightarrow B\)</span></td>
+<td><span class="arithmatex">\(M \models_\rho A\)</span> iff <span class="arithmatex">\(M \models_\rho B\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\forall x\, A\)</span></td>
+<td>for <strong>every</strong> <span class="arithmatex">\(d \in D\)</span>: <span class="arithmatex">\(M \models_{\rho[x \mapsto d]} A\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\exists x\, A\)</span></td>
+<td>for <strong>some</strong> <span class="arithmatex">\(d \in D\)</span>: <span class="arithmatex">\(M \models_{\rho[x \mapsto d]} A\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Here <span class="arithmatex">\(\rho[x \mapsto d]\)</span> denotes the <strong>updated valuation</strong> that maps <span class="arithmatex">\(x\)</span> to <span class="arithmatex">\(d\)</span> and agrees with <span class="arithmatex">\(\rho\)</span> on all other variables.</p>
+<p><strong>Worked example.</strong> Let <span class="arithmatex">\(M\)</span> have <span class="arithmatex">\(D = \{1, 2, 3\}\)</span>, <span class="arithmatex">\(&lt;^M\)</span> the usual ordering. Is <span class="arithmatex">\(M \models \forall x\, \exists y\,(x &lt; y)\)</span>?</p>
+<ul>
+<li>For <span class="arithmatex">\(x = 1\)</span>: choose <span class="arithmatex">\(y = 2\)</span>, <span class="arithmatex">\(1 &lt; 2\)</span> ✓</li>
+<li>For <span class="arithmatex">\(x = 2\)</span>: choose <span class="arithmatex">\(y = 3\)</span>, <span class="arithmatex">\(2 &lt; 3\)</span> ✓</li>
+<li>For <span class="arithmatex">\(x = 3\)</span>: need <span class="arithmatex">\(y\)</span> with <span class="arithmatex">\(3 &lt; y\)</span>, but max is 3 ✗</li>
+</ul>
+<p>So <span class="arithmatex">\(M \not\models \forall x\, \exists y\,(x &lt; y)\)</span>.</p>
+<hr>
+<h3 id="satisfiability-and-validity">Satisfiability and validity<a class="headerlink" href="#satisfiability-and-validity" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Satisfiable in <span class="arithmatex">\(M\)</span></strong></td>
+<td>There exists a valuation <span class="arithmatex">\(\rho\)</span> such that <span class="arithmatex">\(M \models_\rho A\)</span></td>
+</tr>
+<tr>
+<td><strong>Valid in <span class="arithmatex">\(M\)</span></strong> (written <span class="arithmatex">\(M \models A\)</span>)</td>
+<td>For <strong>every</strong> valuation <span class="arithmatex">\(\rho\)</span>: <span class="arithmatex">\(M \models_\rho A\)</span></td>
+</tr>
+<tr>
+<td><strong>Satisfiable</strong> (generally)</td>
+<td>There exists <strong>some</strong> structure <span class="arithmatex">\(M\)</span> and valuation <span class="arithmatex">\(\rho\)</span> with <span class="arithmatex">\(M \models_\rho A\)</span></td>
+</tr>
+<tr>
+<td><strong>Valid</strong> (logically valid, written <span class="arithmatex">\(\models A\)</span>)</td>
+<td>For <strong>every</strong> structure <span class="arithmatex">\(M\)</span> and <strong>every</strong> valuation <span class="arithmatex">\(\rho\)</span>: <span class="arithmatex">\(M \models_\rho A\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>A formula is <strong>valid</strong> iff its negation is <strong>unsatisfiable</strong>. For sentences (no free variables), satisfiability/validity in <span class="arithmatex">\(M\)</span> does not depend on <span class="arithmatex">\(\rho\)</span>.</p>
+<hr>
+<h3 id="substitution-and-variable-capture">Substitution and variable capture<a class="headerlink" href="#substitution-and-variable-capture" title="Permanent link">¶</a></h3>
+<p><strong>Substitution</strong> <span class="arithmatex">\(A[t/x]\)</span> replaces every <strong>free</strong> occurrence of <span class="arithmatex">\(x\)</span> in <span class="arithmatex">\(A\)</span> with the term <span class="arithmatex">\(t\)</span>.</p>
+<p><strong>Variable capture warning.</strong> If <span class="arithmatex">\(t\)</span> contains a variable <span class="arithmatex">\(y\)</span> and a free occurrence of <span class="arithmatex">\(x\)</span> in <span class="arithmatex">\(A\)</span> lies within the scope of <span class="arithmatex">\(\forall y\)</span> or <span class="arithmatex">\(\exists y\)</span>, then the substitution <strong>captures</strong> <span class="arithmatex">\(y\)</span>, changing the meaning.</p>
+<p><strong>Example of capture:</strong> Let <span class="arithmatex">\(A = \exists y\,(x &lt; y)\)</span> and <span class="arithmatex">\(t = y + 1\)</span>.</p>
+<div class="arithmatex">\[A[t/x] = \exists y\,(y + 1 &lt; y)\]</div>
+<p>The free <span class="arithmatex">\(y\)</span> in <span class="arithmatex">\(t\)</span> has been captured by <span class="arithmatex">\(\exists y\)</span> — the meaning changes from "something is bigger than <span class="arithmatex">\(y+1\)</span>" to the (always false) "<span class="arithmatex">\(y + 1 &lt; y\)</span>." To avoid this, <strong>rename the bound variable</strong> first: <span class="arithmatex">\(\exists z\,(x &lt; z)\)</span>, then substitute: <span class="arithmatex">\(\exists z\,(y + 1 &lt; z)\)</span> ✓.</p>
+<hr>
+<h3 id="key-equivalences-for-quantifiers">Key equivalences for quantifiers<a class="headerlink" href="#key-equivalences-for-quantifiers" title="Permanent link">¶</a></h3>
+<p><strong>Quantifier reordering:</strong></p>
+<div class="arithmatex">\[\forall x\, \forall y\, A \equiv \forall y\, \forall x\, A \qquad\qquad \exists x\, \exists y\, A \equiv \exists y\, \exists x\, A\]</div>
+<p><strong>Quantifier duality (De Morgan for quantifiers):</strong></p>
+<div class="arithmatex">\[\lnot \forall x\, A \equiv \exists x\, \lnot A \qquad\qquad \lnot \exists x\, A \equiv \forall x\, \lnot A\]</div>
+<p><strong>Distribution:</strong></p>
+<div class="arithmatex">\[\forall x\,(A \land B) \equiv \forall x\, A \;\land\; \forall x\, B\]</div>
+<div class="arithmatex">\[\exists x\,(A \lor B) \equiv \exists x\, A \;\lor\; \exists x\, B\]</div>
+<p><strong>Important non-equivalences:</strong></p>
+<div class="arithmatex">\[\forall x\, \exists y\, A \;\not\equiv\; \exists y\, \forall x\, A\]</div>
+<div class="arithmatex">\[\exists x\,(A \land B) \;\not\equiv\; \exists x\, A \;\land\; \exists x\, B\]</div>
+<div class="arithmatex">\[\forall x\,(A \lor B) \;\not\equiv\; \forall x\, A \;\lor\; \forall x\, B\]</div>
+<p><strong>Intuition for <span class="arithmatex">\(\forall x\, \exists y\)</span> vs <span class="arithmatex">\(\exists y\, \forall x\)</span>:</strong> In <span class="arithmatex">\(\forall x\, \exists y\, R(x,y)\)</span> the choice of <span class="arithmatex">\(y\)</span> can <strong>depend</strong> on <span class="arithmatex">\(x\)</span>; in <span class="arithmatex">\(\exists y\, \forall x\, R(x,y)\)</span> a <strong>single</strong> <span class="arithmatex">\(y\)</span> must work for all <span class="arithmatex">\(x\)</span>.</p>
+<hr>
+<h3 id="prenex-normal-form">Prenex normal form<a class="headerlink" href="#prenex-normal-form" title="Permanent link">¶</a></h3>
+<p>A formula is in <strong>prenex normal form (PNF)</strong> if it has the shape:</p>
+<div class="arithmatex">\[Q_1 x_1\, Q_2 x_2 \cdots Q_n x_n\;\; \varphi\]</div>
+<p>where each <span class="arithmatex">\(Q_i \in \{\forall, \exists\}\)</span> (the <strong>prefix</strong>) and <span class="arithmatex">\(\varphi\)</span> is <strong>quantifier-free</strong> (the <strong>matrix</strong>).</p>
+<p><strong>4-step conversion procedure:</strong></p>
+<ol>
+<li>
+<p><strong>Eliminate <span class="arithmatex">\(\to\)</span> and <span class="arithmatex">\(\leftrightarrow\)</span>:</strong></p>
+<ul>
+<li><span class="arithmatex">\(A \to B \;\leadsto\; \lnot A \lor B\)</span></li>
+<li><span class="arithmatex">\(A \leftrightarrow B \;\leadsto\; (\lnot A \lor B) \land (A \lor \lnot B)\)</span></li>
+</ul>
+</li>
+<li>
+<p><strong>Push <span class="arithmatex">\(\lnot\)</span> inward</strong> using De Morgan laws and quantifier duality:</p>
+<ul>
+<li><span class="arithmatex">\(\lnot(A \land B) \;\leadsto\; \lnot A \lor \lnot B\)</span></li>
+<li><span class="arithmatex">\(\lnot(A \lor B) \;\leadsto\; \lnot A \land \lnot B\)</span></li>
+<li><span class="arithmatex">\(\lnot \forall x\, A \;\leadsto\; \exists x\, \lnot A\)</span></li>
+<li><span class="arithmatex">\(\lnot \exists x\, A \;\leadsto\; \forall x\, \lnot A\)</span></li>
+<li><span class="arithmatex">\(\lnot \lnot A \;\leadsto\; A\)</span></li>
+</ul>
+</li>
+<li>
+<p><strong>Rename bound variables</strong> so that every quantifier binds a <strong>distinct</strong> variable (and no bound variable coincides with any free variable). This prevents capture when moving quantifiers.</p>
+</li>
+<li>
+<p><strong>Move quantifiers out</strong> to the front. If <span class="arithmatex">\(x\)</span> is not free in <span class="arithmatex">\(B\)</span>:</p>
+<ul>
+<li><span class="arithmatex">\((\forall x\, A) \land B \;\leadsto\; \forall x\,(A \land B)\)</span></li>
+<li><span class="arithmatex">\((\exists x\, A) \lor B \;\leadsto\; \exists x\,(A \lor B)\)</span></li>
+<li>and symmetric variants.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Worked example.</strong> Convert <span class="arithmatex">\(\forall x\, P(x) \to \exists x\, Q(x)\)</span> to PNF:</p>
+<ol>
+<li>Eliminate <span class="arithmatex">\(\to\)</span>: <span class="arithmatex">\(\;\lnot \forall x\, P(x) \lor \exists x\, Q(x)\)</span></li>
+<li>Push <span class="arithmatex">\(\lnot\)</span>: <span class="arithmatex">\(\;\exists x\, \lnot P(x) \lor \exists x\, Q(x)\)</span></li>
+<li>Rename: <span class="arithmatex">\(\;\exists x\, \lnot P(x) \lor \exists y\, Q(y)\)</span></li>
+<li>Move quantifiers: <span class="arithmatex">\(\;\exists x\, \exists y\,(\lnot P(x) \lor Q(y))\)</span></li>
+</ol>
+<p><strong>Another worked example.</strong> Convert <span class="arithmatex">\(\lnot(\forall x\,(P(x) \to \exists y\, Q(x,y)))\)</span>:</p>
+<ol>
+<li>Eliminate <span class="arithmatex">\(\to\)</span>: <span class="arithmatex">\(\;\lnot(\forall x\,(\lnot P(x) \lor \exists y\, Q(x,y)))\)</span></li>
+<li>Push <span class="arithmatex">\(\lnot\)</span>: <span class="arithmatex">\(\;\exists x\, \lnot(\lnot P(x) \lor \exists y\, Q(x,y))\)</span> then <span class="arithmatex">\(\;\exists x\,(P(x) \land \lnot \exists y\, Q(x,y))\)</span> then <span class="arithmatex">\(\;\exists x\,(P(x) \land \forall y\, \lnot Q(x,y))\)</span></li>
+<li>No renaming needed (distinct bound variables).</li>
+<li>Quantifiers out: <span class="arithmatex">\(\;\exists x\, \forall y\,(P(x) \land \lnot Q(x,y))\)</span></li>
+</ol>
+<hr>
+<h2 id="2-exam-style-questions-with-model-answers">2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)<a class="headerlink" href="#2-exam-style-questions-with-model-answers" title="Permanent link">¶</a></h2>
+<h3 id="q1-translating-english-to-fol">Q1 — Translating English to FOL<a class="headerlink" href="#q1-translating-english-to-fol" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Using a domain of people and predicates <span class="arithmatex">\(Student(x)\)</span>, <span class="arithmatex">\(Takes(x, y)\)</span> (person <span class="arithmatex">\(x\)</span> takes course <span class="arithmatex">\(y\)</span>), and constant <span class="arithmatex">\(logic\)</span>, translate into FOL:</p>
+<p>(a) "Every student takes logic."
+(b) "Some student does not take logic."
+(c) "No one who takes logic is not a student."</p>
+<p><strong>Model answer.</strong></p>
+<p>(a) <span class="arithmatex">\(\forall x\,(Student(x) \to Takes(x, logic))\)</span></p>
+<p>(b) <span class="arithmatex">\(\exists x\,(Student(x) \land \lnot Takes(x, logic))\)</span></p>
+<p>(c) <span class="arithmatex">\(\lnot \exists x\,(Takes(x, logic) \land \lnot Student(x))\)</span>, equivalently <span class="arithmatex">\(\forall x\,(Takes(x, logic) \to Student(x))\)</span></p>
+<p>Key patterns: "every <span class="arithmatex">\(A\)</span> is <span class="arithmatex">\(B\)</span>" → <span class="arithmatex">\(\forall x\,(A(x) \to B(x))\)</span>; "some <span class="arithmatex">\(A\)</span> is <span class="arithmatex">\(B\)</span>" → <span class="arithmatex">\(\exists x\,(A(x) \land B(x))\)</span>; "no <span class="arithmatex">\(A\)</span> is <span class="arithmatex">\(B\)</span>" → <span class="arithmatex">\(\forall x\,(A(x) \to \lnot B(x))\)</span> or <span class="arithmatex">\(\lnot \exists x\,(A(x) \land B(x))\)</span>.</p>
+<hr>
+<h3 id="q2-evaluating-satisfaction">Q2 — Evaluating satisfaction<a class="headerlink" href="#q2-evaluating-satisfaction" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Let <span class="arithmatex">\(M = (D, &lt;^M)\)</span> where <span class="arithmatex">\(D = \{1, 2, 3\}\)</span> and <span class="arithmatex">\(&lt;^M\)</span> is the usual strict ordering on integers. Determine whether:</p>
+<p>(a) <span class="arithmatex">\(M \models \forall x\, \exists y\,(x &lt; y)\)</span>
+(b) <span class="arithmatex">\(M \models \exists x\, \forall y\,(x &lt; y \lor x = y)\)</span></p>
+<p><strong>Model answer.</strong></p>
+<p>(a) Check each <span class="arithmatex">\(d \in D\)</span>:</p>
+<ul>
+<li><span class="arithmatex">\(x = 1\)</span>: <span class="arithmatex">\(y = 2\)</span> works (<span class="arithmatex">\(1 &lt; 2\)</span>) ✓</li>
+<li><span class="arithmatex">\(x = 2\)</span>: <span class="arithmatex">\(y = 3\)</span> works (<span class="arithmatex">\(2 &lt; 3\)</span>) ✓</li>
+<li><span class="arithmatex">\(x = 3\)</span>: no <span class="arithmatex">\(y \in \{1,2,3\}\)</span> satisfies <span class="arithmatex">\(3 &lt; y\)</span> ✗</li>
+</ul>
+<p>So <span class="arithmatex">\(M \not\models \forall x\, \exists y\,(x &lt; y)\)</span>.</p>
+<p>(b) Try <span class="arithmatex">\(x = 1\)</span>: for all <span class="arithmatex">\(y \in \{1,2,3\}\)</span>, is <span class="arithmatex">\(1 &lt; y\)</span> or <span class="arithmatex">\(1 = y\)</span>? <span class="arithmatex">\(y=1\)</span>: <span class="arithmatex">\(1=1\)</span> ✓; <span class="arithmatex">\(y=2\)</span>: <span class="arithmatex">\(1&lt;2\)</span> ✓; <span class="arithmatex">\(y=3\)</span>: <span class="arithmatex">\(1&lt;3\)</span> ✓. Yes.</p>
+<p>So <span class="arithmatex">\(M \models \exists x\, \forall y\,(x &lt; y \lor x = y)\)</span>. (The witness is the minimum element.)</p>
+<hr>
+<h3 id="q3-prenex-normal-form-conversion">Q3 — Prenex normal form conversion<a class="headerlink" href="#q3-prenex-normal-form-conversion" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Convert <span class="arithmatex">\(\exists x\, P(x) \to \forall x\, Q(x)\)</span> to prenex normal form.</p>
+<p><strong>Model answer.</strong></p>
+<ol>
+<li><strong>Eliminate <span class="arithmatex">\(\to\)</span>:</strong> <span class="arithmatex">\(\;\lnot \exists x\, P(x) \lor \forall x\, Q(x)\)</span></li>
+<li><strong>Push <span class="arithmatex">\(\lnot\)</span> in:</strong> <span class="arithmatex">\(\;\forall x\, \lnot P(x) \lor \forall x\, Q(x)\)</span></li>
+<li><strong>Rename variables:</strong> <span class="arithmatex">\(\;\forall x\, \lnot P(x) \lor \forall y\, Q(y)\)</span></li>
+<li><strong>Move quantifiers out:</strong> <span class="arithmatex">\(\;\forall x\, \forall y\,(\lnot P(x) \lor Q(y))\)</span></li>
+</ol>
+<hr>
+<h3 id="q4-non-equivalence-of-quantifier-orders">Q4 — Non-equivalence of quantifier orders<a class="headerlink" href="#q4-non-equivalence-of-quantifier-orders" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Give a structure <span class="arithmatex">\(M\)</span> and formula <span class="arithmatex">\(A(x,y)\)</span> such that <span class="arithmatex">\(M \models \forall x\, \exists y\, A(x,y)\)</span> but <span class="arithmatex">\(M \not\models \exists y\, \forall x\, A(x,y)\)</span>.</p>
+<p><strong>Model answer.</strong> Let <span class="arithmatex">\(D = \{1, 2\}\)</span> and <span class="arithmatex">\(A(x,y)\)</span> be <span class="arithmatex">\(x = y\)</span>.</p>
+<ul>
+<li><span class="arithmatex">\(\forall x\, \exists y\,(x = y)\)</span>: for <span class="arithmatex">\(x=1\)</span> pick <span class="arithmatex">\(y=1\)</span>; for <span class="arithmatex">\(x=2\)</span> pick <span class="arithmatex">\(y=2\)</span>. True ✓</li>
+<li><span class="arithmatex">\(\exists y\, \forall x\,(x = y)\)</span>: <span class="arithmatex">\(y=1\)</span> fails for <span class="arithmatex">\(x=2\)</span>; <span class="arithmatex">\(y=2\)</span> fails for <span class="arithmatex">\(x=1\)</span>. False ✗</li>
+</ul>
+<p>The <span class="arithmatex">\(y\)</span> in <span class="arithmatex">\(\forall x\, \exists y\)</span> can depend on <span class="arithmatex">\(x\)</span>; in <span class="arithmatex">\(\exists y\, \forall x\)</span> one fixed <span class="arithmatex">\(y\)</span> must serve all <span class="arithmatex">\(x\)</span>.</p>
+<hr>
+<h3 id="q5-substitution-and-variable-capture">Q5 — Substitution and variable capture<a class="headerlink" href="#q5-substitution-and-variable-capture" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Let <span class="arithmatex">\(A = \forall y\,(x &lt; y \to P(y))\)</span>. Compute <span class="arithmatex">\(A[y+1/x]\)</span> naively and explain why this is problematic. Give the correct procedure.</p>
+<p><strong>Model answer.</strong></p>
+<p><strong>Naive substitution:</strong> Replace free <span class="arithmatex">\(x\)</span> with <span class="arithmatex">\(y + 1\)</span>:</p>
+<div class="arithmatex">\[\forall y\,((y+1) &lt; y \to P(y))\]</div>
+<p>The free <span class="arithmatex">\(y\)</span> in <span class="arithmatex">\(t = y + 1\)</span> is <strong>captured</strong> by <span class="arithmatex">\(\forall y\)</span>, changing the meaning. The original says "for all <span class="arithmatex">\(y\)</span>, if <span class="arithmatex">\(x &lt; y\)</span> then <span class="arithmatex">\(P(y)\)</span>"; the result says "for all <span class="arithmatex">\(y\)</span>, if <span class="arithmatex">\(y+1 &lt; y\)</span> then <span class="arithmatex">\(P(y)\)</span>" — always vacuously true since <span class="arithmatex">\(y + 1 &lt; y\)</span> is false.</p>
+<p><strong>Correct procedure:</strong> First <strong>rename</strong> the bound variable: <span class="arithmatex">\(A' = \forall z\,(x &lt; z \to P(z))\)</span>. Now substitute:</p>
+<div class="arithmatex">\[A'[y+1/x] = \forall z\,((y+1) &lt; z \to P(z))\]</div>
+<p>No capture. This correctly says "for all <span class="arithmatex">\(z\)</span> greater than <span class="arithmatex">\(y+1\)</span>, <span class="arithmatex">\(P(z)\)</span> holds."</p>
+<hr>
+<h2 id="3-must-know-key-points">3. MUST-KNOW KEY POINTS<a class="headerlink" href="#3-must-know-key-points" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Signature</strong> <span class="arithmatex">\(\Sigma = (F, P)\)</span>: function symbols with arities, predicate symbols with arities; constants are arity-0 functions, propositions are arity-0 predicates.</li>
+<li><strong>Terms</strong> name objects: variables and <span class="arithmatex">\(f(t_1, \ldots, t_k)\)</span>. <strong>Formulas</strong> assert facts: <span class="arithmatex">\(R(t_1, \ldots, t_k)\)</span>, connectives, quantifiers.</li>
+<li><strong>Free vs bound:</strong> <span class="arithmatex">\(\forall x\)</span> and <span class="arithmatex">\(\exists x\)</span> <strong>bind</strong> <span class="arithmatex">\(x\)</span> within their scope. A <strong>sentence</strong> has no free variables.</li>
+<li><strong>Translation patterns:</strong> "Every <span class="arithmatex">\(A\)</span> is <span class="arithmatex">\(B\)</span>" → <span class="arithmatex">\(\forall x\,(A(x) \to B(x))\)</span>; "Some <span class="arithmatex">\(A\)</span> is <span class="arithmatex">\(B\)</span>" → <span class="arithmatex">\(\exists x\,(A(x) \land B(x))\)</span>.</li>
+<li><strong>Structure</strong> <span class="arithmatex">\(M = (D, F^M, P^M)\)</span>: domain, function interpretations, relation interpretations.</li>
+<li><strong>Satisfaction</strong> <span class="arithmatex">\(M \models_\rho A\)</span>: defined recursively; <span class="arithmatex">\(\forall\)</span> checks <strong>all</strong> <span class="arithmatex">\(d \in D\)</span>, <span class="arithmatex">\(\exists\)</span> checks <strong>some</strong> <span class="arithmatex">\(d \in D\)</span>, via valuation update <span class="arithmatex">\(\rho[x \mapsto d]\)</span>.</li>
+<li><strong>Quantifier dualities:</strong> <span class="arithmatex">\(\lnot \forall x\, A \equiv \exists x\, \lnot A\)</span> and <span class="arithmatex">\(\lnot \exists x\, A \equiv \forall x\, \lnot A\)</span>.</li>
+<li><strong>Key non-equivalence:</strong> <span class="arithmatex">\(\forall x\, \exists y\, A \not\equiv \exists y\, \forall x\, A\)</span> — order of mixed quantifiers matters.</li>
+<li><strong>Substitution:</strong> replace free occurrences only; <strong>rename bound variables</strong> to avoid capture before substituting.</li>
+<li><strong>Prenex normal form:</strong> eliminate <span class="arithmatex">\(\to\)</span>/<span class="arithmatex">\(\leftrightarrow\)</span>, push <span class="arithmatex">\(\lnot\)</span> in, rename variables, pull quantifiers to the front.</li>
+</ul>
+<hr>
+<h2 id="4-high-priority-topics">4. HIGH-PRIORITY TOPICS<a class="headerlink" href="#4-high-priority-topics" title="Permanent link">¶</a></h2>
+<h3 id="must-know">🔴 Must Know<a class="headerlink" href="#must-know" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Syntax:</strong> signature, terms, formulas, free/bound variables, sentences.</li>
+<li><strong>Satisfaction relation</strong> <span class="arithmatex">\(M \models_\rho A\)</span>: full recursive definition, especially the <span class="arithmatex">\(\forall\)</span>/<span class="arithmatex">\(\exists\)</span> clauses with <span class="arithmatex">\(\rho[x \mapsto d]\)</span>.</li>
+<li><strong>English-to-FOL translation</strong> with the <span class="arithmatex">\(\to\)</span>-vs-<span class="arithmatex">\(\land\)</span> pattern for <span class="arithmatex">\(\forall\)</span> vs <span class="arithmatex">\(\exists\)</span>.</li>
+<li><strong>Quantifier dualities</strong> <span class="arithmatex">\(\lnot \forall \equiv \exists \lnot\)</span> and <span class="arithmatex">\(\lnot \exists \equiv \forall \lnot\)</span>.</li>
+<li><strong>Prenex normal form</strong> 4-step procedure.</li>
+<li><strong>Substitution</strong> <span class="arithmatex">\(A[t/x]\)</span> and the variable capture problem.</li>
+</ul>
+<h3 id="important">🟡 Important<a class="headerlink" href="#important" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Structure examples:</strong> constructing specific <span class="arithmatex">\(M\)</span> and evaluating truth of sentences in <span class="arithmatex">\(M\)</span>.</li>
+<li><strong>Quantifier distribution:</strong> <span class="arithmatex">\(\forall\)</span> distributes over <span class="arithmatex">\(\land\)</span>; <span class="arithmatex">\(\exists\)</span> distributes over <span class="arithmatex">\(\lor\)</span>; but <strong>not</strong> the other combinations.</li>
+<li><strong>Non-equivalence</strong> <span class="arithmatex">\(\forall x \exists y \not\equiv \exists y \forall x\)</span> — must be able to construct counterexamples.</li>
+<li><strong>Validity vs satisfiability</strong> (general and in a structure).</li>
+</ul>
+<h3 id="useful-but-lower-priority">🟢 Useful but Lower Priority<a class="headerlink" href="#useful-but-lower-priority" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Peano arithmetic</strong> signature as a running example.</li>
+<li><strong>Equivalent reformulations</strong> of English sentences (e.g. "no A is B" two ways).</li>
+<li><strong>Deeper semantic notions:</strong> logical consequence <span class="arithmatex">\(\Gamma \models A\)</span> in FOL (may appear in later lectures).</li>
+</ul>
+<hr>
+<h2 id="5-topic-interconnections-bigger-picture">5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE<a class="headerlink" href="#5-topic-interconnections-bigger-picture" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Propositional logic <span class="arithmatex">\(\to\)</span> FOL:</strong> FOL strictly extends propositional logic; every propositional tautology is a valid FOL schema (replace atoms with formulas). PL is the special case with no quantifiers and no internal term structure.</li>
+<li><strong>Natural deduction / sequent calculus:</strong> FOL natural deduction adds <span class="arithmatex">\(\forall\)</span>-intro, <span class="arithmatex">\(\forall\)</span>-elim, <span class="arithmatex">\(\exists\)</span>-intro, <span class="arithmatex">\(\exists\)</span>-elim rules to the propositional rules — syntactic counterpart of the semantic <span class="arithmatex">\(\forall\)</span>/<span class="arithmatex">\(\exists\)</span> clauses.</li>
+<li><strong>Proof by induction:</strong> FOL formulas are <strong>inductively defined</strong>, so metatheorems about FOL (e.g. "every formula has a prenex form") are proved by <strong>structural induction</strong> on formulas.</li>
+<li><strong>Decidability:</strong> Propositional satisfiability is decidable (truth tables, NP-complete); FOL validity is <strong>undecidable</strong> in general (Church–Turing theorem) — a dramatic jump in expressiveness.</li>
+<li><strong>Applications:</strong> FOL underpins <strong>databases</strong> (SQL WHERE clauses are essentially FOL), <strong>program verification</strong> (Hoare logic preconditions/postconditions), and <strong>mathematical foundations</strong> (ZFC set theory is a first-order theory).</li>
+</ul>
+<hr>
+<h2 id="6-exam-strategy-tips">6. EXAM STRATEGY TIPS<a class="headerlink" href="#6-exam-strategy-tips" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Translation questions</strong> are the most common FOL exam task. Always state your domain and signature explicitly, then apply the <span class="arithmatex">\(\forall\)</span>-uses-<span class="arithmatex">\(\to\)</span> / <span class="arithmatex">\(\exists\)</span>-uses-<span class="arithmatex">\(\land\)</span> rule mechanically.</li>
+<li><strong>Evaluation questions:</strong> write out the domain elements and check <span class="arithmatex">\(\forall\)</span> exhaustively (every <span class="arithmatex">\(d\)</span>) and <span class="arithmatex">\(\exists\)</span> by exhibiting a witness. Show every step — partial credit depends on visible working.</li>
+<li><strong>Prenex conversion:</strong> follow the 4 steps <strong>in order</strong> and <strong>rename before moving quantifiers</strong>. Skipping the rename step is the most common error.</li>
+<li><strong>Capture:</strong> if a substitution question appears, always check whether the substitution term's variables collide with bound variables. If so, rename first and state why.</li>
+<li><strong>Non-equivalences:</strong> for <span class="arithmatex">\(\forall x \exists y \not\equiv \exists y \forall x\)</span>, have a concrete counterexample memorised (e.g. <span class="arithmatex">\(x = y\)</span> over <span class="arithmatex">\(\{1, 2\}\)</span>).</li>
+<li><strong>De Morgan for quantifiers</strong> is high-yield: <span class="arithmatex">\(\lnot \forall \leftrightarrow \exists \lnot\)</span> and <span class="arithmatex">\(\lnot \exists \leftrightarrow \forall \lnot\)</span> appear in prenex conversion, translation, and equivalence proofs.</li>
+<li>For <strong>"is this formula valid?"</strong> questions, try to find a falsifying structure first (small domain, 2–3 elements). If you cannot, argue validity.</li>
+</ul>
+<hr>
+<p><em>These notes synthesise Lectures 5–8b on first-order logic for COMP0003 Formal Logic.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

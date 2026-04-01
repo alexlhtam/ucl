@@ -1,0 +1,4047 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Year 1 Computer Science notes — UCL">
+      
+      
+        <meta name="author" content="Alex Tam">
+      
+      
+        <link rel="canonical" href="https://alexlhtam.github.io/ucl/year1/comp0003/cursor-notes/logic/03-boolean-algebra/">
+      
+      
+        <link rel="prev" href="../02-propositional-logic/">
+      
+      
+        <link rel="next" href="../04-first-order-logic/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Boolean Algebra - Alex's UCL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#boolean-algebra-comp0003-formal-logic" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-header__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex's UCL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Boolean Algebra
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Year 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-nav__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    Alex's UCL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Year 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Year 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms (COMP0005)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms (COMP0005)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/02-analysis-of-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis of Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/06-abstract-data-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sorting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sorting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/03-elementary-sorts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementary Sorts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/04-mergesort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MergeSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/05-quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QuickSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/07-heaps-and-heapsort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heaps &amp; HeapSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/08-symbol-tables-and-bst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbol Tables &amp; BST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/09-balanced-trees-and-hash-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balanced Trees &amp; Hash Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/10-undirected-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undirected Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/11-directed-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/12-minimum-spanning-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Spanning Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/13-shortest-paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shortest Paths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_5" id="__nav_2_1_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strings
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Strings
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/14-string-sorting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String Sorting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/15-tries-and-string-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tries &amp; String Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/16-substring-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Substring Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OOP / Java (COMP0004)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OOP / Java (COMP0004)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/01-intro-to-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/02-core-java-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Java Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/03-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Object-Oriented Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/04-classes-objects-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes, Objects &amp; References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/05-designing-with-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/06-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/07-interfaces-and-polymorphism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces &amp; Polymorphism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/08-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/09-file-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/10-json-csv-and-records/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON, CSV &amp; Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/11-packages-and-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages &amp; Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/12-lambdas-and-streams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambdas &amp; Streams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/13-web-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/14-data-structures-in-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures in Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/15-design-patterns-and-threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns &amp; Threads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory of Computation (COMP0003)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory of Computation (COMP0003)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formal Logic
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Formal Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-overview-and-history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview &amp; History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boolean Algebra
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boolean Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-of-a-boolean-algebra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition of a Boolean algebra
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notation-and-correspondence-with-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notation and correspondence with logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-1-the-two-element-boolean-algebra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1 — the two-element Boolean algebra
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-the-powerset-boolean-algebra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2 — the powerset Boolean algebra
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stones-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stone's theorem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boolean-terms-as-circuits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boolean terms as circuits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#de-morgans-laws-with-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        De Morgan's laws — with proof
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consequences-of-the-axioms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consequences of the axioms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-duality-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The duality theorem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dual-distribution-law-with-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dual distribution law — with proof
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sums-of-products-cf-dnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sums of products (cf. DNF)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sums of products (cf. DNF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading-sums-of-products-from-a-truth-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading sums of products from a truth table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deriving-via-equivalences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deriving via equivalences
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations-of-propositional-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations of propositional logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-verify-axioms-for-the-two-element-boolean-algebra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Verify axioms for the two-element Boolean algebra
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-prove-a-consequence-of-the-axioms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Prove a consequence of the axioms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-duality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Duality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-sum-of-products-from-truth-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Sum of products from truth table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-powerset-boolean-algebra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Powerset Boolean algebra
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-proof-by-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof by Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-complete-induction-and-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Induction &amp; Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-modal-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modal Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automata
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Automata
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/01-dfas-and-regular-languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFAs &amp; Regular Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/02-nfas-and-dfa-equivalence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFAs &amp; DFA Equivalence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/03-closure-and-regular-expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closure &amp; Regular Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/04-pumping-lemma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/05-pushdown-automata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pushdown Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/06-context-free-grammars/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Free Grammars
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/07-pumping-lemma-for-cfls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma for CFLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/08-turing-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turing Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/09-decidability-and-undecidability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decidability &amp; Undecidability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-of-a-boolean-algebra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition of a Boolean algebra
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notation-and-correspondence-with-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notation and correspondence with logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-1-the-two-element-boolean-algebra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1 — the two-element Boolean algebra
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-the-powerset-boolean-algebra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2 — the powerset Boolean algebra
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stones-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stone's theorem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boolean-terms-as-circuits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boolean terms as circuits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#de-morgans-laws-with-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        De Morgan's laws — with proof
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consequences-of-the-axioms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consequences of the axioms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-duality-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The duality theorem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dual-distribution-law-with-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dual distribution law — with proof
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sums-of-products-cf-dnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sums of products (cf. DNF)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sums of products (cf. DNF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading-sums-of-products-from-a-truth-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading sums of products from a truth table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deriving-via-equivalences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deriving via equivalences
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations-of-propositional-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations of propositional logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-verify-axioms-for-the-two-element-boolean-algebra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Verify axioms for the two-element Boolean algebra
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-prove-a-consequence-of-the-axioms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Prove a consequence of the axioms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-duality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Duality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-sum-of-products-from-truth-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Sum of products from truth table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-powerset-boolean-algebra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Powerset Boolean algebra
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="boolean-algebra-comp0003-formal-logic">Boolean Algebra — COMP0003 Formal Logic<a class="headerlink" href="#boolean-algebra-comp0003-formal-logic" title="Permanent link">¶</a></h1>
+<p><em>Lecture-style notes. </em><em>Boolean algebra</em><em> provides the </em><em>algebraic</em><em> foundation for propositional logic: the same truth-functional reasoning expressed through </em><em>axioms</em><em>, </em><em>equational proofs</em><em>, and </em><em>circuit design</em><em> rather than truth tables. Understanding the correspondence <span class="arithmatex">\(+ \leftrightarrow \lor\)</span>, <span class="arithmatex">\(\cdot \leftrightarrow \land\)</span>, <span class="arithmatex">\(\overline{\ } \leftrightarrow \lnot\)</span> and the </em><em>duality</em><em> theorem ties together logic, algebra, and hardware.</em></p>
+<hr>
+<h2 id="1-complete-topic-summaries">1. COMPLETE TOPIC SUMMARIES<a class="headerlink" href="#1-complete-topic-summaries" title="Permanent link">¶</a></h2>
+<h3 id="definition-of-a-boolean-algebra">Definition of a Boolean algebra<a class="headerlink" href="#definition-of-a-boolean-algebra" title="Permanent link">¶</a></h3>
+<p>A <strong>Boolean algebra</strong> is a tuple <span class="arithmatex">\((B,\; 0,\; 1,\; +,\; \overline{\ })\)</span> where</p>
+<ul>
+<li><span class="arithmatex">\(B\)</span> is a <strong>non-empty set</strong>,</li>
+<li><span class="arithmatex">\(0, 1 \in B\)</span> are distinguished <strong>constants</strong> (zero and one),</li>
+<li><span class="arithmatex">\(+ : B \times B \to B\)</span> is a <strong>binary operation</strong> (read "plus" or "join"),</li>
+<li><span class="arithmatex">\(\overline{\ } : B \to B\)</span> is a <strong>unary operation</strong> (read "complement" or "bar"),</li>
+</ul>
+<p>satisfying the following <strong>axioms</strong> for all <span class="arithmatex">\(a, b, c \in B\)</span>:</p>
+<table>
+<thead>
+<tr>
+<th>Axiom</th>
+<th>Statement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Associativity</strong> of <span class="arithmatex">\(+\)</span></td>
+<td><span class="arithmatex">\((a + b) + c = a + (b + c)\)</span></td>
+</tr>
+<tr>
+<td><strong>Commutativity</strong> of <span class="arithmatex">\(+\)</span></td>
+<td><span class="arithmatex">\(a + b = b + a\)</span></td>
+</tr>
+<tr>
+<td><strong>Idempotency</strong> of <span class="arithmatex">\(+\)</span></td>
+<td><span class="arithmatex">\(a + a = a\)</span></td>
+</tr>
+<tr>
+<td><strong>Unit law</strong> for <span class="arithmatex">\(+\)</span></td>
+<td><span class="arithmatex">\(a + 0 = a\)</span></td>
+</tr>
+<tr>
+<td><strong>Double negation</strong></td>
+<td><span class="arithmatex">\(\overline{\overline{a}} = a\)</span></td>
+</tr>
+<tr>
+<td><strong>Complement</strong></td>
+<td><span class="arithmatex">\(a + \overline{a} = 1\)</span></td>
+</tr>
+<tr>
+<td><strong>0/1 law</strong> for complement</td>
+<td><span class="arithmatex">\(\overline{0} = 1\)</span> (equivalently <span class="arithmatex">\(\overline{1} = 0\)</span>)</td>
+</tr>
+<tr>
+<td><strong>Distribution</strong> of <span class="arithmatex">\(+\)</span> over <span class="arithmatex">\(\cdot\)</span></td>
+<td><span class="arithmatex">\(a + (b \cdot c) = (a + b) \cdot (a + c)\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Here the <strong>product</strong> (meet) is a <strong>derived</strong> operation defined by:</p>
+<div class="arithmatex">\[a \cdot b \;=\; \overline{\,\overline{a} + \overline{b}\,}\]</div>
+<p>This mirrors the De Morgan definition: <span class="arithmatex">\(a \land b \equiv \lnot(\lnot a \lor \lnot b)\)</span>.</p>
+<hr>
+<h3 id="notation-and-correspondence-with-logic">Notation and correspondence with logic<a class="headerlink" href="#notation-and-correspondence-with-logic" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Boolean algebra</th>
+<th style="text-align: center;">Propositional logic</th>
+<th style="text-align: center;">Circuit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(\overline{a}\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\lnot A\)</span></td>
+<td style="text-align: center;">NOT gate</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(a + b\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(A \lor B\)</span></td>
+<td style="text-align: center;">OR gate</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(a \cdot b\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(A \land B\)</span></td>
+<td style="text-align: center;">AND gate</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(0\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\bot\)</span> (false)</td>
+<td style="text-align: center;">Low signal</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(1\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\top\)</span> (true)</td>
+<td style="text-align: center;">High signal</td>
+</tr>
+</tbody>
+</table>
+<p>This correspondence means every propositional equivalence has a Boolean-algebraic counterpart and vice versa. Proving an identity in Boolean algebra is the same as proving a propositional equivalence.</p>
+<hr>
+<h3 id="example-1-the-two-element-boolean-algebra">Example 1 — the two-element Boolean algebra<a class="headerlink" href="#example-1-the-two-element-boolean-algebra" title="Permanent link">¶</a></h3>
+<div class="arithmatex">\[(\{0, 1\},\; 0,\; 1,\; +,\; \overline{\ })\]</div>
+<p>where <span class="arithmatex">\(+\)</span> is defined by <span class="arithmatex">\(\max\)</span> (equivalently: <span class="arithmatex">\(0+0=0\)</span>, <span class="arithmatex">\(0+1=1+0=1+1=1\)</span>) and <span class="arithmatex">\(\overline{0} = 1\)</span>, <span class="arithmatex">\(\overline{1} = 0\)</span>. Product becomes <span class="arithmatex">\(\min\)</span>: <span class="arithmatex">\(a \cdot b = \overline{\,\overline{a}+\overline{b}\,}\)</span>.</p>
+<p>This is the <strong>simplest</strong> Boolean algebra — it is exactly the truth-value structure of classical propositional logic. Every axiom is verified by checking the (finitely many) cases.</p>
+<hr>
+<h3 id="example-2-the-powerset-boolean-algebra">Example 2 — the powerset Boolean algebra<a class="headerlink" href="#example-2-the-powerset-boolean-algebra" title="Permanent link">¶</a></h3>
+<p>Let <span class="arithmatex">\(X\)</span> be any set. Define</p>
+<div class="arithmatex">\[(\mathcal{P}(X),\; \emptyset,\; X,\; \cup,\; X \setminus (\cdot))\]</div>
+<p>where</p>
+<ul>
+<li><span class="arithmatex">\(B = \mathcal{P}(X)\)</span> (the power set — all subsets of <span class="arithmatex">\(X\)</span>),</li>
+<li><span class="arithmatex">\(0 = \emptyset\)</span> and <span class="arithmatex">\(1 = X\)</span>,</li>
+<li><span class="arithmatex">\(+ = \cup\)</span> (set union),</li>
+<li><span class="arithmatex">\(\overline{A} = X \setminus A\)</span> (set complement relative to <span class="arithmatex">\(X\)</span>).</li>
+</ul>
+<p>Then the derived product is <span class="arithmatex">\(A \cdot B = \overline{\,\overline{A} \cup \overline{B}\,} = A \cap B\)</span> (set intersection). All axioms hold by standard set identities. This example shows Boolean algebras arise naturally outside pure logic.</p>
+<hr>
+<h3 id="stones-theorem">Stone's theorem<a class="headerlink" href="#stones-theorem" title="Permanent link">¶</a></h3>
+<p><strong>Stone's Representation Theorem</strong> (1936) states: every Boolean algebra is <strong>isomorphic</strong> to a <strong>field of sets</strong> (a subalgebra of some powerset Boolean algebra). In other words, the powerset example is not just one example — it is, up to isomorphism, the <strong>universal</strong> model. For finite Boolean algebras, this means every finite Boolean algebra is isomorphic to <span class="arithmatex">\(\mathcal{P}(X)\)</span> for some finite set <span class="arithmatex">\(X\)</span>, and so has <span class="arithmatex">\(2^n\)</span> elements for some <span class="arithmatex">\(n\)</span>.</p>
+<hr>
+<h3 id="boolean-terms-as-circuits">Boolean terms as circuits<a class="headerlink" href="#boolean-terms-as-circuits" title="Permanent link">¶</a></h3>
+<p>A <strong>Boolean term</strong> (expression built from variables, constants <span class="arithmatex">\(0, 1\)</span>, and operations <span class="arithmatex">\(+, \cdot, \overline{\ }\)</span>) directly translates to a <strong>logic circuit</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Gate</th>
+<th>Symbol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\overline{a}\)</span></td>
+<td><strong>NOT</strong></td>
+<td>Triangle with bubble</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(a + b\)</span></td>
+<td><strong>OR</strong></td>
+<td>Curved-input gate</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(a \cdot b\)</span></td>
+<td><strong>AND</strong></td>
+<td>Flat-input gate</td>
+</tr>
+</tbody>
+</table>
+<p>Variables are <strong>inputs</strong> (wires); the final expression is the <strong>output</strong>. Simplifying a Boolean expression algebraically corresponds to <strong>minimising</strong> the number of gates in the circuit.</p>
+<hr>
+<h3 id="de-morgans-laws-with-proof">De Morgan's laws — with proof<a class="headerlink" href="#de-morgans-laws-with-proof" title="Permanent link">¶</a></h3>
+<p><strong>Theorem.</strong> For all elements <span class="arithmatex">\(a, b\)</span> of a Boolean algebra:</p>
+<div class="arithmatex">\[\overline{a + b} = \overline{a} \cdot \overline{b} \qquad \text{and} \qquad \overline{a \cdot b} = \overline{a} + \overline{b}\]</div>
+<p><strong>Proof of <span class="arithmatex">\(\overline{a \cdot b} = \overline{a} + \overline{b}\)</span>:</strong></p>
+<p>By definition, <span class="arithmatex">\(a \cdot b = \overline{\,\overline{a} + \overline{b}\,}\)</span>. Therefore:</p>
+<div class="arithmatex">\[\overline{a \cdot b} = \overline{\,\overline{\,\overline{a} + \overline{b}\,}\,} = \overline{a} + \overline{b}\]</div>
+<p>using <strong>double negation</strong> (<span class="arithmatex">\(\overline{\overline{x}} = x\)</span>) with <span class="arithmatex">\(x = \overline{a} + \overline{b}\)</span>.</p>
+<p><strong>Proof of <span class="arithmatex">\(\overline{a + b} = \overline{a} \cdot \overline{b}\)</span>:</strong></p>
+<p>By the definition of <span class="arithmatex">\(\cdot\)</span>, we need <span class="arithmatex">\(\overline{a} \cdot \overline{b} = \overline{\,\overline{\,\overline{a}\,} + \overline{\,\overline{b}\,}\,} = \overline{\,a + b\,}\)</span>, where the last step uses double negation on both <span class="arithmatex">\(\overline{a}\)</span> and <span class="arithmatex">\(\overline{b}\)</span>.</p>
+<hr>
+<h3 id="consequences-of-the-axioms">Consequences of the axioms<a class="headerlink" href="#consequences-of-the-axioms" title="Permanent link">¶</a></h3>
+<p>Several useful identities follow from the axioms and De Morgan:</p>
+<table>
+<thead>
+<tr>
+<th>Identity</th>
+<th>Proof sketch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(a \cdot \overline{a} = 0\)</span></td>
+<td><span class="arithmatex">\(a \cdot \overline{a} = \overline{\,\overline{a} + \overline{\,\overline{a}\,}\,} = \overline{\,\overline{a} + a\,} = \overline{1} = 0\)</span> (using complement, double negation, and 0/1 law)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(a \cdot 1 = a\)</span></td>
+<td><span class="arithmatex">\(a \cdot 1 = \overline{\,\overline{a} + \overline{1}\,} = \overline{\,\overline{a} + 0\,} = \overline{\,\overline{a}\,} = a\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(a \cdot 0 = 0\)</span></td>
+<td><span class="arithmatex">\(a \cdot 0 = \overline{\,\overline{a} + \overline{0}\,} = \overline{\,\overline{a} + 1\,} = \overline{1} = 0\)</span> (since <span class="arithmatex">\(x + 1 = 1\)</span> by complement and idempotency: <span class="arithmatex">\(x + 1 = x + (x + \overline{x}) = (x+x) + \overline{x} = x + \overline{x} = 1\)</span>)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(a + 1 = 1\)</span></td>
+<td>From complement: <span class="arithmatex">\(a + \overline{a} = 1\)</span>. Since <span class="arithmatex">\(1 = a + \overline{a} \leq a + 1\)</span> and <span class="arithmatex">\(a + 1 \leq 1 + 1 = 1\)</span>, we get <span class="arithmatex">\(a + 1 = 1\)</span>. Alternatively: <span class="arithmatex">\(a + 1 = a + (a + \overline{a}) = (a + a) + \overline{a} = a + \overline{a} = 1\)</span>.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="the-duality-theorem">The duality theorem<a class="headerlink" href="#the-duality-theorem" title="Permanent link">¶</a></h3>
+<p><strong>Duality principle.</strong> If an equation <span class="arithmatex">\(E\)</span> holds in every Boolean algebra, then the <strong>dual</strong> equation <span class="arithmatex">\(E^d\)</span> (obtained by simultaneously swapping <span class="arithmatex">\(+ \leftrightarrow \cdot\)</span> and <span class="arithmatex">\(0 \leftrightarrow 1\)</span> throughout) also holds in every Boolean algebra.</p>
+<p><strong>Why it works:</strong> The axioms are self-dual as a set — every axiom for <span class="arithmatex">\(+\)</span> has a corresponding derived property for <span class="arithmatex">\(\cdot\)</span> (and vice versa, once the derived identities like <span class="arithmatex">\(a \cdot 1 = a\)</span> are established). So any chain of equational reasoning from the axioms can be "dualised" step by step.</p>
+<p><strong>Example:</strong></p>
+<ul>
+<li><strong>Original:</strong> <span class="arithmatex">\(a + 0 = a\)</span> (unit law for <span class="arithmatex">\(+\)</span>).</li>
+<li>
+<p><strong>Dual:</strong> <span class="arithmatex">\(a \cdot 1 = a\)</span> (unit law for <span class="arithmatex">\(\cdot\)</span>).</p>
+</li>
+<li>
+<p><strong>Original:</strong> <span class="arithmatex">\(a + 1 = 1\)</span>.</p>
+</li>
+<li><strong>Dual:</strong> <span class="arithmatex">\(a \cdot 0 = 0\)</span>.</li>
+</ul>
+<hr>
+<h3 id="dual-distribution-law-with-proof">Dual distribution law — with proof<a class="headerlink" href="#dual-distribution-law-with-proof" title="Permanent link">¶</a></h3>
+<p>The axiom gives distribution of <span class="arithmatex">\(+\)</span> over <span class="arithmatex">\(\cdot\)</span>:</p>
+<div class="arithmatex">\[a + (b \cdot c) = (a + b) \cdot (a + c)\]</div>
+<p>By <strong>duality</strong>, the dual distribution law also holds:</p>
+<div class="arithmatex">\[a \cdot (b + c) = (a \cdot b) + (a \cdot c)\]</div>
+<p><strong>Direct proof</strong> (without invoking duality):</p>
+<div class="arithmatex">\[a \cdot (b + c) = \overline{\,\overline{a} + \overline{b + c}\,} \quad \text{(definition of } \cdot \text{)}\]</div>
+<div class="arithmatex">\[= \overline{\,\overline{a} + (\overline{b} \cdot \overline{c})\,} \quad \text{(De Morgan: } \overline{b+c} = \overline{b} \cdot \overline{c} \text{)}\]</div>
+<div class="arithmatex">\[= \overline{\,(\overline{a} + \overline{b}) \cdot (\overline{a} + \overline{c})\,} \quad \text{(distribution axiom)}\]</div>
+<div class="arithmatex">\[= \overline{\,\overline{a} + \overline{b}\,} + \overline{\,\overline{a} + \overline{c}\,} \quad \text{(De Morgan on the outer complement)}\]</div>
+<div class="arithmatex">\[= (a \cdot b) + (a \cdot c) \quad \text{(definition of } \cdot \text{)}\]</div>
+<hr>
+<h3 id="sums-of-products-cf-dnf">Sums of products (cf. DNF)<a class="headerlink" href="#sums-of-products-cf-dnf" title="Permanent link">¶</a></h3>
+<p>A <strong>sum of products</strong> is a Boolean expression of the form</p>
+<div class="arithmatex">\[(x_1 \cdot x_2 \cdot \overline{x_3}) + (\overline{x_1} \cdot x_3) + \cdots\]</div>
+<p>where each <strong>product term</strong> is a conjunction of literals (variables or their complements), and the overall expression is a disjunction (<span class="arithmatex">\(+\)</span>) of such terms.</p>
+<p>This is exactly the Boolean-algebraic counterpart of <strong>DNF</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Logic</th>
+<th>Algebra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Literal</td>
+<td>Variable or <span class="arithmatex">\(\overline{\text{variable}}\)</span></td>
+</tr>
+<tr>
+<td>Conjunctive clause</td>
+<td>Product term</td>
+</tr>
+<tr>
+<td>DNF formula</td>
+<td>Sum of products</td>
+</tr>
+</tbody>
+</table>
+<h4 id="reading-sums-of-products-from-a-truth-table">Reading sums of products from a truth table<a class="headerlink" href="#reading-sums-of-products-from-a-truth-table" title="Permanent link">¶</a></h4>
+<p>Identical to the DNF procedure:</p>
+<ol>
+<li>For each row with output <span class="arithmatex">\(1\)</span>, form a product term: include <span class="arithmatex">\(x_i\)</span> if the variable is <span class="arithmatex">\(1\)</span> in that row, <span class="arithmatex">\(\overline{x_i}\)</span> if it is <span class="arithmatex">\(0\)</span>.</li>
+<li>Sum (<span class="arithmatex">\(+\)</span>) all product terms.</li>
+</ol>
+<h4 id="deriving-via-equivalences">Deriving via equivalences<a class="headerlink" href="#deriving-via-equivalences" title="Permanent link">¶</a></h4>
+<p>Alternatively, simplify the expression using the axioms (distribution, complement, idempotency, etc.) to reach a sum-of-products form. This may yield a <strong>simpler</strong> expression than the truth-table method (fewer terms, fewer literals).</p>
+<p><strong>Products of sums</strong> (the dual) correspond to <strong>CNF</strong> — conjunction of disjunctive clauses.</p>
+<hr>
+<h3 id="limitations-of-propositional-logic">Limitations of propositional logic<a class="headerlink" href="#limitations-of-propositional-logic" title="Permanent link">¶</a></h3>
+<p>Propositional logic (and equivalently, Boolean algebra) cannot express:</p>
+<ul>
+<li><strong>Quantification</strong> over individuals: "for all <span class="arithmatex">\(x\)</span>, <span class="arithmatex">\(P(x)\)</span>" or "there exists <span class="arithmatex">\(x\)</span> such that <span class="arithmatex">\(Q(x)\)</span>."</li>
+<li><strong>Relations</strong> between objects: "<span class="arithmatex">\(x\)</span> is greater than <span class="arithmatex">\(y\)</span>."</li>
+<li><strong>Functions</strong> and terms: "<span class="arithmatex">\(f(x) = y\)</span>."</li>
+</ul>
+<p>These limitations motivate the move to <strong>first-order logic (FOL)</strong>, where the language includes variables, quantifiers <span class="arithmatex">\(\forall\)</span> and <span class="arithmatex">\(\exists\)</span>, predicates, and function symbols — while retaining all propositional connectives as a sublanguage.</p>
+<hr>
+<h2 id="2-exam-style-questions-with-model-answers">2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)<a class="headerlink" href="#2-exam-style-questions-with-model-answers" title="Permanent link">¶</a></h2>
+<h3 id="q1-verify-axioms-for-the-two-element-boolean-algebra">Q1 — Verify axioms for the two-element Boolean algebra<a class="headerlink" href="#q1-verify-axioms-for-the-two-element-boolean-algebra" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> For the Boolean algebra <span class="arithmatex">\((\{0,1\}, 0, 1, +, \overline{\ })\)</span> with <span class="arithmatex">\(+\)</span> defined as <span class="arithmatex">\(\max\)</span> and <span class="arithmatex">\(\overline{0}=1\)</span>, <span class="arithmatex">\(\overline{1}=0\)</span>, verify the <strong>complement</strong> axiom and the <strong>distribution</strong> axiom.</p>
+<p><strong>Model answer.</strong> <strong>Complement (<span class="arithmatex">\(a + \overline{a} = 1\)</span>):</strong> If <span class="arithmatex">\(a = 0\)</span>: <span class="arithmatex">\(0 + \overline{0} = 0 + 1 = 1\)</span>. If <span class="arithmatex">\(a = 1\)</span>: <span class="arithmatex">\(1 + \overline{1} = 1 + 0 = 1\)</span>. Both cases give <span class="arithmatex">\(1\)</span>. <strong>Distribution (<span class="arithmatex">\(a + (b \cdot c) = (a+b) \cdot (a+c)\)</span>):</strong> The product is <span class="arithmatex">\(\min\)</span>. Check all <span class="arithmatex">\(2^3 = 8\)</span> combinations of <span class="arithmatex">\(a, b, c \in \{0,1\}\)</span>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><span class="arithmatex">\(a\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(b\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(c\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(b \cdot c\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(a + (b \cdot c)\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(a+b\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(a+c\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\((a+b)\cdot(a+c)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+<p>Columns 5 and 8 agree in all rows. Both axioms hold.</p>
+<hr>
+<h3 id="q2-prove-a-consequence-of-the-axioms">Q2 — Prove a consequence of the axioms<a class="headerlink" href="#q2-prove-a-consequence-of-the-axioms" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Prove that <span class="arithmatex">\(a \cdot \overline{a} = 0\)</span> from the axioms of Boolean algebra.</p>
+<p><strong>Model answer.</strong></p>
+<div class="arithmatex">\[a \cdot \overline{a} = \overline{\,\overline{a} + \overline{\,\overline{a}\,}\,} \quad \text{(definition of } \cdot \text{)}$$
+$$= \overline{\,\overline{a} + a\,} \quad \text{(double negation: } \overline{\overline{a}} = a \text{)}$$
+$$= \overline{1} \quad \text{(complement: } \overline{a} + a = a + \overline{a} = 1 \text{, using commutativity)}$$
+$$= 0 \quad \text{(0/1 law: } \overline{1} = 0 \text{)}\]</div>
+<hr>
+<h3 id="q3-duality">Q3 — Duality<a class="headerlink" href="#q3-duality" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> State the <strong>duality principle</strong> for Boolean algebras. Given the identity <span class="arithmatex">\(a + (a \cdot b) = a\)</span> (absorption), write its dual and verify the dual for the two-element Boolean algebra.</p>
+<p><strong>Model answer.</strong> <strong>Duality principle:</strong> swap <span class="arithmatex">\(+ \leftrightarrow \cdot\)</span> and <span class="arithmatex">\(0 \leftrightarrow 1\)</span> throughout any valid identity to obtain another valid identity. <strong>Dual of absorption:</strong> <span class="arithmatex">\(a \cdot (a + b) = a\)</span>. <strong>Verification in <span class="arithmatex">\(\{0,1\}\)</span>:</strong> check all four cases:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><span class="arithmatex">\(a\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(b\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(a + b\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(a \cdot (a+b)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+<p>In every row, <span class="arithmatex">\(a \cdot (a + b) = a\)</span>. The dual identity holds.</p>
+<hr>
+<h3 id="q4-sum-of-products-from-truth-table">Q4 — Sum of products from truth table<a class="headerlink" href="#q4-sum-of-products-from-truth-table" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> A Boolean function <span class="arithmatex">\(f(a, b, c)\)</span> has output <span class="arithmatex">\(1\)</span> exactly when an odd number of its inputs are <span class="arithmatex">\(1\)</span>. Write <span class="arithmatex">\(f\)</span> as a sum of products.</p>
+<p><strong>Model answer.</strong> The rows with an odd number of 1s among <span class="arithmatex">\((a, b, c)\)</span> are: <span class="arithmatex">\((0,0,1)\)</span>, <span class="arithmatex">\((0,1,0)\)</span>, <span class="arithmatex">\((1,0,0)\)</span>, <span class="arithmatex">\((1,1,1)\)</span>. The product terms are:</p>
+<ul>
+<li><span class="arithmatex">\((0,0,1) \to \overline{a} \cdot \overline{b} \cdot c\)</span></li>
+<li><span class="arithmatex">\((0,1,0) \to \overline{a} \cdot b \cdot \overline{c}\)</span></li>
+<li><span class="arithmatex">\((1,0,0) \to a \cdot \overline{b} \cdot \overline{c}\)</span></li>
+<li><span class="arithmatex">\((1,1,1) \to a \cdot b \cdot c\)</span></li>
+</ul>
+<p>Sum of products:</p>
+<div class="arithmatex">\[f(a,b,c) = (\overline{a} \cdot \overline{b} \cdot c) + (\overline{a} \cdot b \cdot \overline{c}) + (a \cdot \overline{b} \cdot \overline{c}) + (a \cdot b \cdot c)\]</div>
+<p>This is the <strong>3-variable XOR</strong> (parity function).</p>
+<hr>
+<h3 id="q5-powerset-boolean-algebra">Q5 — Powerset Boolean algebra<a class="headerlink" href="#q5-powerset-boolean-algebra" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Let <span class="arithmatex">\(X = \{1, 2, 3\}\)</span>. In the powerset Boolean algebra <span class="arithmatex">\((\mathcal{P}(X), \emptyset, X, \cup, X\setminus)\)</span>, compute: (a) <span class="arithmatex">\(\{1,2\} + \{2,3\}\)</span>, (b) <span class="arithmatex">\(\overline{\{1\}}\)</span>, (c) <span class="arithmatex">\(\{1,2\} \cdot \{2,3\}\)</span>, (d) verify that <span class="arithmatex">\(\{1,2\} + \overline{\{1,2\}} = X\)</span>.</p>
+<p><strong>Model answer.</strong> (a) <span class="arithmatex">\(\{1,2\} + \{2,3\} = \{1,2\} \cup \{2,3\} = \{1,2,3\} = X\)</span>. (b) <span class="arithmatex">\(\overline{\{1\}} = X \setminus \{1\} = \{2,3\}\)</span>. (c) <span class="arithmatex">\(\{1,2\} \cdot \{2,3\} = \{1,2\} \cap \{2,3\} = \{2\}\)</span>. (d) <span class="arithmatex">\(\{1,2\} + \overline{\{1,2\}} = \{1,2\} \cup (\{1,2,3\} \setminus \{1,2\}) = \{1,2\} \cup \{3\} = \{1,2,3\} = X\)</span>. The complement axiom is satisfied.</p>
+<hr>
+<h2 id="3-must-know-key-points">3. MUST-KNOW KEY POINTS<a class="headerlink" href="#3-must-know-key-points" title="Permanent link">¶</a></h2>
+<ul>
+<li>A <strong>Boolean algebra</strong> is <span class="arithmatex">\((B, 0, 1, +, \overline{\ })\)</span> satisfying axioms: associativity, commutativity, idempotency, unit law for <span class="arithmatex">\(+\)</span>; double negation, complement, 0/1 law; distribution.</li>
+<li><strong>Product</strong> is derived: <span class="arithmatex">\(a \cdot b = \overline{\,\overline{a} + \overline{b}\,}\)</span> (De Morgan definition of <span class="arithmatex">\(\land\)</span> from <span class="arithmatex">\(\lor\)</span> and <span class="arithmatex">\(\lnot\)</span>).</li>
+<li><strong>Correspondence:</strong> <span class="arithmatex">\(+ \leftrightarrow \lor\)</span>, <span class="arithmatex">\(\cdot \leftrightarrow \land\)</span>, <span class="arithmatex">\(\overline{\ } \leftrightarrow \lnot\)</span>, <span class="arithmatex">\(0 \leftrightarrow \bot\)</span>, <span class="arithmatex">\(1 \leftrightarrow \top\)</span>.</li>
+<li><strong>Two-element algebra</strong> <span class="arithmatex">\(\{0,1\}\)</span> is the truth-value structure of propositional logic.</li>
+<li><strong>Powerset algebra</strong> <span class="arithmatex">\((\mathcal{P}(X), \emptyset, X, \cup, X\setminus)\)</span> is the canonical set-theoretic example.</li>
+<li><strong>Stone's theorem:</strong> every Boolean algebra embeds into a powerset algebra.</li>
+<li><strong>De Morgan laws</strong> in algebraic form: <span class="arithmatex">\(\overline{a + b} = \overline{a} \cdot \overline{b}\)</span> and <span class="arithmatex">\(\overline{a \cdot b} = \overline{a} + \overline{b}\)</span>.</li>
+<li><strong>Key derived identities:</strong> <span class="arithmatex">\(a \cdot \overline{a} = 0\)</span>, <span class="arithmatex">\(a \cdot 1 = a\)</span>, <span class="arithmatex">\(a \cdot 0 = 0\)</span>, <span class="arithmatex">\(a + 1 = 1\)</span>.</li>
+<li><strong>Duality:</strong> swap <span class="arithmatex">\(+/\cdot\)</span> and <span class="arithmatex">\(0/1\)</span> in any valid identity to get another valid identity.</li>
+<li><strong>Sums of products</strong> = DNF; <strong>products of sums</strong> = CNF.</li>
+<li><strong>Propositional logic is limited</strong> — cannot express quantification, relations, or functions → first-order logic needed.</li>
+</ul>
+<hr>
+<h2 id="4-high-priority-topics">4. HIGH-PRIORITY TOPICS<a class="headerlink" href="#4-high-priority-topics" title="Permanent link">¶</a></h2>
+<h3 id="must-know">🔴 Must Know<a class="headerlink" href="#must-know" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Boolean algebra definition:</strong> the tuple, the axioms, and the derived product <span class="arithmatex">\(a \cdot b = \overline{\,\overline{a} + \overline{b}\,}\)</span>.</li>
+<li><strong>Correspondence</strong> between <span class="arithmatex">\(+, \cdot, \overline{\ }\)</span> and <span class="arithmatex">\(\lor, \land, \lnot\)</span> — be able to translate freely.</li>
+<li><strong>Two-element Boolean algebra</strong> — verifying axioms by case analysis.</li>
+<li><strong>De Morgan laws</strong> in algebraic form, with proof from definition of <span class="arithmatex">\(\cdot\)</span> and double negation.</li>
+<li><strong>Key consequences:</strong> <span class="arithmatex">\(a \cdot \overline{a} = 0\)</span>, <span class="arithmatex">\(a \cdot 1 = a\)</span>, <span class="arithmatex">\(a \cdot 0 = 0\)</span>, <span class="arithmatex">\(a + 1 = 1\)</span> — be able to derive each from axioms.</li>
+<li><strong>Sums of products:</strong> reading them from truth tables (identical to DNF extraction).</li>
+</ul>
+<h3 id="important">🟡 Important<a class="headerlink" href="#important" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Duality theorem:</strong> statement, how to form the dual of an identity, and why it works.</li>
+<li><strong>Dual distribution:</strong> <span class="arithmatex">\(a \cdot (b + c) = (a \cdot b) + (a \cdot c)\)</span> — proof via definition and axioms.</li>
+<li><strong>Powerset Boolean algebra</strong> — definition and verifying the operations.</li>
+<li><strong>Boolean terms as circuits:</strong> NOT, OR, AND gates and how expressions map to gate diagrams.</li>
+</ul>
+<h3 id="useful-but-lower-priority">🟢 Useful but Lower Priority<a class="headerlink" href="#useful-but-lower-priority" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Stone's theorem</strong> — statement and significance (isomorphism to powerset algebras); proof not expected.</li>
+<li><strong>Absorption laws</strong> (<span class="arithmatex">\(a + a \cdot b = a\)</span>, <span class="arithmatex">\(a \cdot (a+b) = a\)</span>) — derivable but less frequently examined directly.</li>
+<li><strong>Minimisation</strong> of Boolean expressions (Karnaugh maps, Quine–McCluskey) — beyond this lecture's scope but good awareness.</li>
+<li><strong>Limitations of propositional logic</strong> — motivational awareness for FOL transition.</li>
+</ul>
+<hr>
+<h2 id="5-topic-interconnections-bigger-picture">5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE<a class="headerlink" href="#5-topic-interconnections-bigger-picture" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Propositional logic</strong> (Lectures 2–3) provides the <strong>semantic</strong> (truth-table) approach; Boolean algebra provides the <strong>equational</strong> (axiomatic) approach. They are two views of the same subject — <strong>soundness</strong> and <strong>completeness</strong> of the equational theory ensures they agree.</li>
+<li><strong>DNF/CNF</strong> from Lecture 3 are exactly <strong>sums of products</strong> / <strong>products of sums</strong> in algebraic language. The truth-table extraction procedure is the same; algebraic simplification offers an alternative derivation path.</li>
+<li><strong>Digital hardware</strong> implements Boolean functions as circuits — the algebra of <span class="arithmatex">\(+, \cdot, \overline{\ }\)</span> is literally the algebra of <strong>OR, AND, NOT gates</strong>. Circuit optimisation is Boolean expression minimisation.</li>
+<li><strong>Stone's theorem</strong> connects Boolean algebra to <strong>topology</strong> and <strong>set theory</strong> — it is a deep structural result that explains why the powerset example is "universal."</li>
+<li><strong>First-order logic</strong> (upcoming lectures) extends the language with quantifiers and predicates, overcoming the limitations of propositional logic/Boolean algebra. Every propositional identity remains valid in FOL; FOL adds new expressive power on top.</li>
+<li><strong>Natural deduction</strong> (Lectures 5–6) gives <strong>proof rules</strong> that correspond to the algebraic axioms — the <strong>soundness</strong> theorem says: if you can prove it, the algebra validates it; <strong>completeness</strong> says: if the algebra validates it, you can prove it.</li>
+</ul>
+<hr>
+<h2 id="6-exam-strategy-tips">6. EXAM STRATEGY TIPS<a class="headerlink" href="#6-exam-strategy-tips" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Algebraic proofs:</strong> Always start from the definition <span class="arithmatex">\(a \cdot b = \overline{\,\overline{a} + \overline{b}\,}\)</span> when proving identities involving <span class="arithmatex">\(\cdot\)</span>. Cite each axiom used (double negation, complement, distribution, etc.) — examiners award marks per step.</li>
+<li><strong>Duality shortcut:</strong> If you have already proved an identity, state its dual immediately by citing the duality theorem — you do not need to re-prove the dual from scratch.</li>
+<li><strong>Verifying axioms for specific algebras:</strong> For the two-element algebra, a simple case check (<span class="arithmatex">\(0\)</span> and <span class="arithmatex">\(1\)</span>) suffices. For the powerset algebra, appeal to standard set identities.</li>
+<li><strong>Truth table to sum of products:</strong> This is mechanical — list the 1-rows, write the product terms, sum them. State the correspondence to DNF if asked to connect the two topics.</li>
+<li><strong>Common errors:</strong> Don't confuse the axiom for distribution (which distributes <span class="arithmatex">\(+\)</span> over <span class="arithmatex">\(\cdot\)</span>: <span class="arithmatex">\(a + b \cdot c = (a+b)(a+c)\)</span>) with the dual distribution (<span class="arithmatex">\(a \cdot (b+c) = ab + ac\)</span>). In ordinary arithmetic, only the latter holds — both hold in Boolean algebra.</li>
+<li><strong>Connecting to logic:</strong> If a question asks you to prove a propositional equivalence algebraically, translate connectives to <span class="arithmatex">\(+, \cdot, \overline{\ }\)</span>, prove the algebraic identity, then translate back.</li>
+<li><strong>Circuit questions:</strong> Draw the expression as a tree (leaves = inputs, nodes = gates), then simplify the expression first to reduce gate count.</li>
+</ul>
+<hr>
+<p><em>These notes cover Logic Lecture 4 of COMP0003 Formal Logic — Boolean algebra as the algebraic foundation of propositional reasoning and digital circuit design.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

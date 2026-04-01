@@ -1,0 +1,3777 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Year 1 Computer Science notes — UCL">
+      
+      
+        <meta name="author" content="Alex Tam">
+      
+      
+        <link rel="canonical" href="https://alexlhtam.github.io/ucl/year1/comp0003/cursor-notes/automata/06-context-free-grammars/">
+      
+      
+        <link rel="prev" href="../05-pushdown-automata/">
+      
+      
+        <link rel="next" href="../07-pumping-lemma-for-cfls/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Context-Free Grammars - Alex's UCL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#context-free-grammars-comp0003-automata" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-header__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex's UCL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Context-Free Grammars
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Year 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-nav__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    Alex's UCL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Year 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Year 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms (COMP0005)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms (COMP0005)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/02-analysis-of-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis of Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/06-abstract-data-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sorting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sorting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/03-elementary-sorts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementary Sorts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/04-mergesort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MergeSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/05-quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QuickSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/07-heaps-and-heapsort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heaps &amp; HeapSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/08-symbol-tables-and-bst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbol Tables &amp; BST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/09-balanced-trees-and-hash-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balanced Trees &amp; Hash Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/10-undirected-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undirected Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/11-directed-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/12-minimum-spanning-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Spanning Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/13-shortest-paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shortest Paths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_5" id="__nav_2_1_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strings
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Strings
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/14-string-sorting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String Sorting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/15-tries-and-string-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tries &amp; String Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/16-substring-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Substring Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OOP / Java (COMP0004)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OOP / Java (COMP0004)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/01-intro-to-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/02-core-java-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Java Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/03-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Object-Oriented Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/04-classes-objects-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes, Objects &amp; References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/05-designing-with-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/06-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/07-interfaces-and-polymorphism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces &amp; Polymorphism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/08-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/09-file-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/10-json-csv-and-records/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON, CSV &amp; Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/11-packages-and-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages &amp; Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/12-lambdas-and-streams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambdas &amp; Streams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/13-web-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/14-data-structures-in-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures in Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/15-design-patterns-and-threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns &amp; Threads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory of Computation (COMP0003)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory of Computation (COMP0003)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formal Logic
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Formal Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/01-overview-and-history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview &amp; History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/03-boolean-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boolean Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/04-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/05-proof-by-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof by Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/06-complete-induction-and-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Induction &amp; Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/07-modal-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modal Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automata
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Automata
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-dfas-and-regular-languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFAs &amp; Regular Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-nfas-and-dfa-equivalence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFAs &amp; DFA Equivalence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-closure-and-regular-expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closure &amp; Regular Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-pumping-lemma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-pushdown-automata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pushdown Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Free Grammars
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Free Grammars
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#context-free-grammar-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context-free grammar — definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#derivations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Derivations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-free-languages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context-free languages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-1-0n-1n-n-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1 — 0^n 1^n (n ≥ 0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-equal-number-of-0s-and-1s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2 — equal number of 0s and 1s
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfa-to-cfg-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFA to CFG conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equivalence-proof-dfa-and-constructed-cfg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Equivalence proof — DFA and constructed CFG
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfg-to-pda-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CFG to PDA conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pda-to-cfg-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PDA to CFG conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equivalence-proof-sketch-cfg-pda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Equivalence proof sketch (CFG ↔ PDA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-cfg-formal-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — CFG formal definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-write-a-cfg-for-0n-1n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Write a CFG for 0^n 1^n
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-dfa-to-cfg-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — DFA to CFG conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-cfg-to-pda-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — CFG to PDA construction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-pda-to-cfg-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — PDA to CFG variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-pumping-lemma-for-cfls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma for CFLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-turing-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turing Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-decidability-and-undecidability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decidability &amp; Undecidability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#context-free-grammar-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context-free grammar — definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#derivations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Derivations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-free-languages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context-free languages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-1-0n-1n-n-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1 — 0^n 1^n (n ≥ 0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-equal-number-of-0s-and-1s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2 — equal number of 0s and 1s
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfa-to-cfg-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFA to CFG conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equivalence-proof-dfa-and-constructed-cfg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Equivalence proof — DFA and constructed CFG
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfg-to-pda-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CFG to PDA conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pda-to-cfg-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PDA to CFG conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equivalence-proof-sketch-cfg-pda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Equivalence proof sketch (CFG ↔ PDA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-cfg-formal-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — CFG formal definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-write-a-cfg-for-0n-1n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Write a CFG for 0^n 1^n
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-dfa-to-cfg-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — DFA to CFG conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-cfg-to-pda-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — CFG to PDA construction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-pda-to-cfg-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — PDA to CFG variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="context-free-grammars-comp0003-automata">Context-Free Grammars — COMP0003 Automata<a class="headerlink" href="#context-free-grammars-comp0003-automata" title="Permanent link">¶</a></h1>
+<p><em>Lecture-style notes. A </em><em>context-free grammar</em><em> (CFG) is a set of recursive rewriting rules that </em><em>generates</em><em> strings from a start variable. CFGs are the </em><em>generative</em><em> counterpart to PDAs: both define exactly the </em><em>context-free languages</em><em>. The two-way conversion — CFG to PDA and PDA to CFG — is the central equivalence result, and the DFA-to-CFG conversion shows that every regular language is also context-free.</em></p>
+<hr>
+<h2 id="1-complete-topic-summaries">1. COMPLETE TOPIC SUMMARIES<a class="headerlink" href="#1-complete-topic-summaries" title="Permanent link">¶</a></h2>
+<h3 id="context-free-grammar-definition">Context-free grammar — definition<a class="headerlink" href="#context-free-grammar-definition" title="Permanent link">¶</a></h3>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../resources/cfg-parse-tree.png" data-desc-position="bottom"><img alt="CFG Parse Tree — Derivation of 'aabcc'" src="../../../resources/cfg-parse-tree.png"></a>
+<em>A parse tree for the grammar S → AB, A → aA | ε, B → bBc | bc. Variables (blue circles) expand via grammar rules; terminals (green rectangles) form the derived string "aabcc" when read left-to-right across the leaves.</em></p>
+<p>A <strong>context-free grammar</strong> is a 4-tuple <span class="arithmatex">\(G = (V, \Sigma, R, S)\)</span> where:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(V\)</span></td>
+<td>Finite set of <strong>variables</strong> (also called <strong>nonterminals</strong>)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\Sigma\)</span></td>
+<td>Finite set of <strong>terminals</strong> (the alphabet; <span class="arithmatex">\(V \cap \Sigma = \emptyset\)</span>)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(R\)</span></td>
+<td>Finite set of <strong>rules</strong> (or <strong>productions</strong>), each of the form <span class="arithmatex">\(A \to w\)</span> where <span class="arithmatex">\(A \in V\)</span> and <span class="arithmatex">\(w \in (V \cup \Sigma)^*\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(S \in V\)</span></td>
+<td><strong>Start variable</strong> (by convention, the left-hand side of the first rule)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Convenience notation:</strong> Multiple rules with the same left-hand variable can be merged with <span class="arithmatex">\(\mid\)</span>:</p>
+<div class="arithmatex">\[
+A \to w_1 \mid w_2 \mid \cdots \mid w_k \quad\text{abbreviates}\quad A \to w_1,\; A \to w_2,\; \ldots,\; A \to w_k
+\]</div>
+<hr>
+<h3 id="derivations">Derivations<a class="headerlink" href="#derivations" title="Permanent link">¶</a></h3>
+<p>A grammar <strong>derives</strong> a string by repeatedly replacing variables with the right-hand side of a rule.</p>
+<p><strong>Notation:</strong></p>
+<ul>
+<li><span class="arithmatex">\(uAv \Rightarrow uwv\)</span> if <span class="arithmatex">\(A \to w\)</span> is a rule in <span class="arithmatex">\(R\)</span> (one-step derivation).</li>
+<li><span class="arithmatex">\(u \Rightarrow^* v\)</span> means <span class="arithmatex">\(u\)</span> derives <span class="arithmatex">\(v\)</span> in <strong>zero or more</strong> steps.</li>
+<li>A grammar derives <span class="arithmatex">\(w \in \Sigma^*\)</span> if <span class="arithmatex">\(S \Rightarrow^* w\)</span>.</li>
+</ul>
+<p><strong>Formal definition of a derivation:</strong> A sequence of intermediate strings <span class="arithmatex">\(s_0, s_1, \ldots, s_m\)</span> where:</p>
+<ol>
+<li><span class="arithmatex">\(s_0 = S\)</span> (start with the start variable).</li>
+<li>For each <span class="arithmatex">\(i\)</span>: <span class="arithmatex">\(s_{i-1} = xA_i y\)</span> and <span class="arithmatex">\(s_i = xu_i y\)</span> where <span class="arithmatex">\(A_i \to u_i \in R\)</span> (replace one variable using a rule).</li>
+<li><span class="arithmatex">\(s_m = w\)</span> (final string contains only terminals).</li>
+</ol>
+<hr>
+<h3 id="context-free-languages">Context-free languages<a class="headerlink" href="#context-free-languages" title="Permanent link">¶</a></h3>
+<p>The <strong>language generated by</strong> a CFG <span class="arithmatex">\(G\)</span> is:</p>
+<div class="arithmatex">\[
+L(G) = \{w \in \Sigma^* \mid S \Rightarrow^* w\}
+\]</div>
+<p>A language is <strong>context-free</strong> if it is generated by some CFG. The class of all context-free languages is denoted <strong>CFL</strong>.</p>
+<hr>
+<h3 id="example-1-0n-1n-n-0">Example 1 — 0^n 1^n (n ≥ 0)<a class="headerlink" href="#example-1-0n-1n-n-0" title="Permanent link">¶</a></h3>
+<p><strong>Grammar:</strong></p>
+<div class="arithmatex">\[
+S \to 0S1 \mid \varepsilon
+\]</div>
+<p><strong>Derivation of <span class="arithmatex">\(0011\)</span>:</strong></p>
+<div class="arithmatex">\[
+S \Rightarrow 0S1 \Rightarrow 00S11 \Rightarrow 00\varepsilon11 = 0011
+\]</div>
+<p>Each application of <span class="arithmatex">\(S \to 0S1\)</span> wraps the current string with a <span class="arithmatex">\(0\)</span>-<span class="arithmatex">\(1\)</span> pair. Applying <span class="arithmatex">\(S \to \varepsilon\)</span> terminates the derivation.</p>
+<hr>
+<h3 id="example-2-equal-number-of-0s-and-1s">Example 2 — equal number of 0s and 1s<a class="headerlink" href="#example-2-equal-number-of-0s-and-1s" title="Permanent link">¶</a></h3>
+<p><strong>Grammar:</strong></p>
+<div class="arithmatex">\[
+S \to S0S1S \mid S1S0S \mid SS \mid \varepsilon
+\]</div>
+<p><strong>Why this works:</strong> The rule <span class="arithmatex">\(S0S1S\)</span> generates a <span class="arithmatex">\(0\)</span> before a <span class="arithmatex">\(1\)</span> with arbitrary balanced strings in between; <span class="arithmatex">\(S1S0S\)</span> does the reverse. The rule <span class="arithmatex">\(SS\)</span> allows concatenation of balanced strings. Every string with equal <span class="arithmatex">\(0\)</span>s and <span class="arithmatex">\(1\)</span>s can be decomposed this way.</p>
+<hr>
+<h3 id="dfa-to-cfg-conversion">DFA to CFG conversion<a class="headerlink" href="#dfa-to-cfg-conversion" title="Permanent link">¶</a></h3>
+<p>Every regular language is context-free. The conversion procedure from a DFA <span class="arithmatex">\(M = (Q, \Sigma, \delta, q_0, F)\)</span> to a CFG <span class="arithmatex">\(G = (V, \Sigma, R, S)\)</span> is:</p>
+<table>
+<thead>
+<tr>
+<th>CFG component</th>
+<th>Constructed from DFA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Variables <span class="arithmatex">\(V\)</span></strong></td>
+<td>One variable <span class="arithmatex">\(Q_i\)</span> for each state <span class="arithmatex">\(q_i \in Q\)</span></td>
+</tr>
+<tr>
+<td><strong>Terminals <span class="arithmatex">\(\Sigma\)</span></strong></td>
+<td>Same as DFA input alphabet</td>
+</tr>
+<tr>
+<td><strong>Start variable <span class="arithmatex">\(S\)</span></strong></td>
+<td><span class="arithmatex">\(Q_0\)</span> (variable for the start state <span class="arithmatex">\(q_0\)</span>)</td>
+</tr>
+<tr>
+<td><strong>Rules <span class="arithmatex">\(R\)</span></strong></td>
+<td>(1) For each transition <span class="arithmatex">\(\delta(q_i, a) = q_j\)</span>, add <span class="arithmatex">\(Q_i \to aQ_j\)</span>. (2) For each accept state <span class="arithmatex">\(q_i \in F\)</span>, add <span class="arithmatex">\(Q_i \to \varepsilon\)</span>.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example — DFA for "even number of 1s"</strong> (states <span class="arithmatex">\(q_\text{even}\)</span>, <span class="arithmatex">\(q_\text{odd}\)</span>; start = <span class="arithmatex">\(q_\text{even}\)</span>; accept = <span class="arithmatex">\(\{q_\text{even}\}\)</span>):</p>
+<div class="arithmatex">\[
+Q_\text{even} \to 0Q_\text{even} \mid 1Q_\text{odd} \mid \varepsilon
+$$
+$$
+Q_\text{odd} \to 0Q_\text{odd} \mid 1Q_\text{even}
+\]</div>
+<hr>
+<h3 id="equivalence-proof-dfa-and-constructed-cfg">Equivalence proof — DFA and constructed CFG<a class="headerlink" href="#equivalence-proof-dfa-and-constructed-cfg" title="Permanent link">¶</a></h3>
+<p><strong>Direction 1: <span class="arithmatex">\(w \in L(M) \Rightarrow w \in L(G)\)</span>.</strong></p>
+<p>If <span class="arithmatex">\(w = w_1 \cdots w_n\)</span> is accepted by the DFA, there exist states <span class="arithmatex">\(r_0, r_1, \ldots, r_n\)</span> with <span class="arithmatex">\(r_0 = q_0\)</span>, <span class="arithmatex">\(\delta(r_i, w_{i+1}) = r_{i+1}\)</span>, and <span class="arithmatex">\(r_n \in F\)</span>. Build the derivation:</p>
+<div class="arithmatex">\[
+Q_0 \Rightarrow w_1 Q_1 \Rightarrow w_1 w_2 Q_2 \Rightarrow \cdots \Rightarrow w_1 \cdots w_n Q_n \Rightarrow w_1 \cdots w_n
+\]</div>
+<p>Each step uses the transition rule <span class="arithmatex">\(Q_i \to w_{i+1} Q_{i+1}\)</span>; the final step uses <span class="arithmatex">\(Q_n \to \varepsilon\)</span> (since <span class="arithmatex">\(r_n \in F\)</span>).</p>
+<p><strong>Direction 2: <span class="arithmatex">\(w \in L(G) \Rightarrow w \in L(M)\)</span>.</strong></p>
+<p>Any derivation in <span class="arithmatex">\(G\)</span> consists of transition rules <span class="arithmatex">\(Q_i \to aQ_j\)</span> followed by a final <span class="arithmatex">\(Q_k \to \varepsilon\)</span>. Simulating in the DFA: each <span class="arithmatex">\(Q_i \to aQ_j\)</span> corresponds to <span class="arithmatex">\(\delta(q_i, a) = q_j\)</span>, and the final <span class="arithmatex">\(Q_k \to \varepsilon\)</span> means <span class="arithmatex">\(q_k \in F\)</span>. So the DFA accepts <span class="arithmatex">\(w\)</span>.</p>
+<hr>
+<h3 id="cfg-to-pda-conversion">CFG to PDA conversion<a class="headerlink" href="#cfg-to-pda-conversion" title="Permanent link">¶</a></h3>
+<p><strong>Theorem:</strong> For every CFG <span class="arithmatex">\(G\)</span>, there exists a PDA <span class="arithmatex">\(M\)</span> such that <span class="arithmatex">\(L(M) = L(G)\)</span>.</p>
+<p><strong>Construction:</strong> Build a <strong>3-state PDA</strong> (<span class="arithmatex">\(q_\text{start}\)</span>, <span class="arithmatex">\(q_\text{loop}\)</span>, <span class="arithmatex">\(q_\text{accept}\)</span>):</p>
+<table>
+<thead>
+<tr>
+<th>Transition</th>
+<th>From</th>
+<th>To</th>
+<th>Label</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Initialise</td>
+<td><span class="arithmatex">\(q_\text{start}\)</span></td>
+<td><span class="arithmatex">\(q_\text{loop}\)</span></td>
+<td><span class="arithmatex">\(\varepsilon,\; \varepsilon \to S\$\)</span></td>
+<td>Push start variable and bottom marker</td>
+</tr>
+<tr>
+<td>Rule application</td>
+<td><span class="arithmatex">\(q_\text{loop}\)</span></td>
+<td><span class="arithmatex">\(q_\text{loop}\)</span></td>
+<td><span class="arithmatex">\(\varepsilon,\; A \to w\)</span></td>
+<td>If top is variable <span class="arithmatex">\(A\)</span>, replace with RHS <span class="arithmatex">\(w\)</span></td>
+</tr>
+<tr>
+<td>Terminal match</td>
+<td><span class="arithmatex">\(q_\text{loop}\)</span></td>
+<td><span class="arithmatex">\(q_\text{loop}\)</span></td>
+<td><span class="arithmatex">\(a,\; a \to \varepsilon\)</span></td>
+<td>If top is terminal <span class="arithmatex">\(a\)</span> matching input, pop it</td>
+</tr>
+<tr>
+<td>Accept</td>
+<td><span class="arithmatex">\(q_\text{loop}\)</span></td>
+<td><span class="arithmatex">\(q_\text{accept}\)</span></td>
+<td><span class="arithmatex">\(\varepsilon,\; \$ \to \varepsilon\)</span></td>
+<td>Pop bottom marker, accept</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pushing multi-character strings:</strong> When a rule's RHS <span class="arithmatex">\(w\)</span> has multiple symbols, they are pushed via <strong>intermediate states</strong> in <strong>reverse order</strong> so the leftmost symbol ends up on top.</p>
+<p>For example, the rule <span class="arithmatex">\(S \to 0A1\)</span> means pushing <span class="arithmatex">\(1\)</span>, then <span class="arithmatex">\(A\)</span>, then <span class="arithmatex">\(0\)</span> (three intermediate push transitions).</p>
+<p><strong>Key insight:</strong> The PDA nondeterministically "guesses" which grammar rule to apply. If there exists a derivation in the grammar, some branch of the PDA will find it. The PDA simulates a <strong>leftmost derivation</strong> on the stack.</p>
+<hr>
+<h3 id="pda-to-cfg-conversion">PDA to CFG conversion<a class="headerlink" href="#pda-to-cfg-conversion" title="Permanent link">¶</a></h3>
+<p><strong>Theorem:</strong> For every PDA <span class="arithmatex">\(M\)</span>, there exists a CFG <span class="arithmatex">\(G\)</span> such that <span class="arithmatex">\(L(G) = L(M)\)</span>.</p>
+<p>This is the harder direction. The construction requires first converting the PDA into <strong>special form</strong>.</p>
+<p><strong>Step 1 — Convert to special-form PDA</strong> (three modifications, all without loss of generality):</p>
+<ol>
+<li><strong>Single accept state:</strong> Reroute all accept states to a single fresh accept state <span class="arithmatex">\(q_f\)</span> via <span class="arithmatex">\(\varepsilon, \varepsilon \to \varepsilon\)</span> transitions.</li>
+<li><strong>Empty stack before accepting:</strong> Add states that pop all remaining stack symbols before reaching <span class="arithmatex">\(q_f\)</span>; only accept via <span class="arithmatex">\(\varepsilon, \$ \to \varepsilon\)</span>.</li>
+<li><strong>Each transition is strictly a push or a pop:</strong> Split replacement transitions (<span class="arithmatex">\(a, X \to Y\)</span>) into pop-then-push through an intermediate state. Convert no-ops (<span class="arithmatex">\(\varepsilon, \varepsilon \to \varepsilon\)</span>) into push-then-pop of a dummy symbol.</li>
+</ol>
+<p><strong>Step 2 — Construct the CFG:</strong></p>
+<p>Given the special-form PDA with states <span class="arithmatex">\(Q\)</span>:</p>
+<ul>
+<li><strong>Variables:</strong> <span class="arithmatex">\(A_{q_i q_j}\)</span> for every pair of states <span class="arithmatex">\((q_i, q_j) \in Q \times Q\)</span>.</li>
+<li><strong>Start variable:</strong> <span class="arithmatex">\(S = A_{q_0 q_f}\)</span>.</li>
+<li><strong>Rules (three types):</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Rule</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Base case</strong></td>
+<td><span class="arithmatex">\(A_{q_i q_i} \to \varepsilon\)</span> for every <span class="arithmatex">\(q_i\)</span></td>
+<td>Staying in a state with empty stack consumes nothing</td>
+</tr>
+<tr>
+<td><strong>Stack empties mid-path</strong></td>
+<td><span class="arithmatex">\(A_{q_i q_j} \to A_{q_i q_k} \; A_{q_k q_j}\)</span> for any <span class="arithmatex">\(i, j, k\)</span></td>
+<td>If stack empties at intermediate state <span class="arithmatex">\(q_k\)</span>, split into two sub-paths</td>
+</tr>
+<tr>
+<td><strong>Matched push/pop</strong></td>
+<td><span class="arithmatex">\(A_{q_p q_t} \to a \; A_{q_r q_s} \; b\)</span></td>
+<td>If <span class="arithmatex">\(q_p \xrightarrow{a,\; \varepsilon \to \alpha} q_r\)</span> (push <span class="arithmatex">\(\alpha\)</span>) and <span class="arithmatex">\(q_s \xrightarrow{b,\; \alpha \to \varepsilon} q_t\)</span> (pop <span class="arithmatex">\(\alpha\)</span>), the push and pop "wrap around" whatever happens between <span class="arithmatex">\(q_r\)</span> and <span class="arithmatex">\(q_s\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Intuition for <span class="arithmatex">\(A_{q_i q_j}\)</span>:</strong> The variable generates exactly the set of strings that the PDA can consume when going from state <span class="arithmatex">\(q_i\)</span> to state <span class="arithmatex">\(q_j\)</span> with the stack <strong>empty at both endpoints</strong>.</p>
+<hr>
+<h3 id="equivalence-proof-sketch-cfg-pda">Equivalence proof sketch (CFG ↔ PDA)<a class="headerlink" href="#equivalence-proof-sketch-cfg-pda" title="Permanent link">¶</a></h3>
+<p>The full equivalence <span class="arithmatex">\(\text{CFL} = \text{NPDA languages}\)</span> follows from the two directions above. The proof of correctness for each direction uses <strong>induction on derivation length</strong>:</p>
+<p><strong>CFG → PDA direction:</strong> If the grammar derives <span class="arithmatex">\(w\)</span> in <span class="arithmatex">\(n\)</span> steps, the PDA accepts <span class="arithmatex">\(w\)</span>.</p>
+<ul>
+<li><strong>Base (<span class="arithmatex">\(n = 1\)</span>):</strong> <span class="arithmatex">\(S \to w\)</span> where <span class="arithmatex">\(w \in \Sigma^*\)</span>; the PDA pushes <span class="arithmatex">\(w\)</span>, then matches it against input.</li>
+<li><strong>Inductive step:</strong> The first rule applied determines the stack configuration; by the inductive hypothesis, each sub-derivation is correctly simulated.</li>
+</ul>
+<p><strong>PDA → CFG direction (stronger claim):</strong> If <span class="arithmatex">\(A_{q_i q_j}\)</span> generates <span class="arithmatex">\(w\)</span>, then the PDA can go from <span class="arithmatex">\(q_i\)</span> to <span class="arithmatex">\(q_j\)</span> reading <span class="arithmatex">\(w\)</span> with empty stack at both endpoints.</p>
+<ul>
+<li><strong>Base (<span class="arithmatex">\(n = 1\)</span>):</strong> Only <span class="arithmatex">\(A_{q_i q_i} \to \varepsilon\)</span> applies; reading nothing from <span class="arithmatex">\(q_i\)</span> to <span class="arithmatex">\(q_i\)</span> with empty stack is trivially valid.</li>
+<li><strong>Inductive step (<span class="arithmatex">\(n = k + 1\)</span>):</strong> Two cases based on which rule type was applied first:<ul>
+<li><strong>Type 2</strong> (<span class="arithmatex">\(A_{q_i q_j} \to A_{q_i q_k} A_{q_k q_j}\)</span>): By IH, first part takes PDA from <span class="arithmatex">\(q_i\)</span> to <span class="arithmatex">\(q_k\)</span>, second from <span class="arithmatex">\(q_k\)</span> to <span class="arithmatex">\(q_j\)</span>, both with empty stack at endpoints. Chain them.</li>
+<li><strong>Type 3</strong> (<span class="arithmatex">\(A_{q_p q_t} \to a \; A_{q_r q_s} \; b\)</span>): The push of <span class="arithmatex">\(\alpha\)</span> at <span class="arithmatex">\(q_p\)</span> and pop of <span class="arithmatex">\(\alpha\)</span> at <span class="arithmatex">\(q_s\)</span> wrap around the sub-path <span class="arithmatex">\(q_r \to q_s\)</span> (handled by IH). Stack ends empty.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="2-exam-style-questions-with-model-answers">2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)<a class="headerlink" href="#2-exam-style-questions-with-model-answers" title="Permanent link">¶</a></h2>
+<h3 id="q1-cfg-formal-definition">Q1 — CFG formal definition<a class="headerlink" href="#q1-cfg-formal-definition" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Define a context-free grammar formally. What is the language of a CFG?</p>
+<p><strong>Model answer.</strong> A CFG is a 4-tuple <span class="arithmatex">\(G = (V, \Sigma, R, S)\)</span> where <span class="arithmatex">\(V\)</span> is a finite set of variables, <span class="arithmatex">\(\Sigma\)</span> is a finite set of terminals (with <span class="arithmatex">\(V \cap \Sigma = \emptyset\)</span>), <span class="arithmatex">\(R\)</span> is a finite set of rules of the form <span class="arithmatex">\(A \to w\)</span> (<span class="arithmatex">\(A \in V\)</span>, <span class="arithmatex">\(w \in (V \cup \Sigma)^*\)</span>), and <span class="arithmatex">\(S \in V\)</span> is the start variable. The language of <span class="arithmatex">\(G\)</span> is <span class="arithmatex">\(L(G) = \{w \in \Sigma^* \mid S \Rightarrow^* w\}\)</span>, the set of all terminal strings derivable from <span class="arithmatex">\(S\)</span>.</p>
+<hr>
+<h3 id="q2-write-a-cfg-for-0n-1n">Q2 — Write a CFG for 0^n 1^n<a class="headerlink" href="#q2-write-a-cfg-for-0n-1n" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Write a CFG that generates <span class="arithmatex">\(\{0^n 1^n \mid n \geq 0\}\)</span>. Show the derivation of <span class="arithmatex">\(000111\)</span>.</p>
+<p><strong>Model answer.</strong> Grammar: <span class="arithmatex">\(S \to 0S1 \mid \varepsilon\)</span>. Derivation: <span class="arithmatex">\(S \Rightarrow 0S1 \Rightarrow 00S11 \Rightarrow 000S111 \Rightarrow 000\varepsilon111 = 000111\)</span>.</p>
+<hr>
+<h3 id="q3-dfa-to-cfg-conversion">Q3 — DFA to CFG conversion<a class="headerlink" href="#q3-dfa-to-cfg-conversion" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Describe the procedure for converting a DFA into an equivalent CFG. Apply it to a DFA over <span class="arithmatex">\(\{a, b\}\)</span> with two states <span class="arithmatex">\(q_0, q_1\)</span>, start state <span class="arithmatex">\(q_0\)</span>, accept state <span class="arithmatex">\(\{q_1\}\)</span>, and transitions <span class="arithmatex">\(\delta(q_0, a) = q_0\)</span>, <span class="arithmatex">\(\delta(q_0, b) = q_1\)</span>, <span class="arithmatex">\(\delta(q_1, a) = q_1\)</span>, <span class="arithmatex">\(\delta(q_1, b) = q_0\)</span>.</p>
+<p><strong>Model answer.</strong> Create variable <span class="arithmatex">\(Q_i\)</span> for each state <span class="arithmatex">\(q_i\)</span>. For each transition <span class="arithmatex">\(\delta(q_i, c) = q_j\)</span>, add rule <span class="arithmatex">\(Q_i \to cQ_j\)</span>. For each accept state <span class="arithmatex">\(q_i\)</span>, add <span class="arithmatex">\(Q_i \to \varepsilon\)</span>. Start variable is <span class="arithmatex">\(Q_0\)</span>. Applied:</p>
+<div class="arithmatex">\[
+Q_0 \to aQ_0 \mid bQ_1
+$$
+$$
+Q_1 \to aQ_1 \mid bQ_0 \mid \varepsilon
+\]</div>
+<p>This generates exactly the strings accepted by the DFA (those ending in state <span class="arithmatex">\(q_1\)</span>, i.e. strings with an odd number of <span class="arithmatex">\(b\)</span>s).</p>
+<hr>
+<h3 id="q4-cfg-to-pda-construction">Q4 — CFG to PDA construction<a class="headerlink" href="#q4-cfg-to-pda-construction" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Explain how to convert a CFG into a PDA. How many states does the PDA need? Why is nondeterminism essential?</p>
+<p><strong>Model answer.</strong> The PDA has <strong>3 states</strong>: <span class="arithmatex">\(q_\text{start}\)</span>, <span class="arithmatex">\(q_\text{loop}\)</span>, <span class="arithmatex">\(q_\text{accept}\)</span>. From <span class="arithmatex">\(q_\text{start}\)</span>, push the start variable <span class="arithmatex">\(S\)</span> and a bottom marker <span class="arithmatex">\(\$\)</span>, then move to <span class="arithmatex">\(q_\text{loop}\)</span>. In <span class="arithmatex">\(q_\text{loop}\)</span>: if the top of the stack is a variable <span class="arithmatex">\(A\)</span>, nondeterministically choose a rule <span class="arithmatex">\(A \to w\)</span> and replace <span class="arithmatex">\(A\)</span> with <span class="arithmatex">\(w\)</span> (pushing in reverse order via intermediate states); if the top is a terminal matching the next input character, pop it. When <span class="arithmatex">\(\$\)</span> is on top and input is exhausted, move to <span class="arithmatex">\(q_\text{accept}\)</span>. Nondeterminism is essential because at each step the PDA must "guess" which grammar rule to apply — the correct rule depends on the full structure of the input, which is not yet known.</p>
+<hr>
+<h3 id="q5-pda-to-cfg-variables">Q5 — PDA to CFG variables<a class="headerlink" href="#q5-pda-to-cfg-variables" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> In the PDA-to-CFG conversion, what does a variable <span class="arithmatex">\(A_{q_i q_j}\)</span> represent? What are the three types of rules, and what is the intuition behind the matched push/pop rule?</p>
+<p><strong>Model answer.</strong> <span class="arithmatex">\(A_{q_i q_j}\)</span> generates exactly the set of input strings that the (special-form) PDA can consume when transitioning from <span class="arithmatex">\(q_i\)</span> to <span class="arithmatex">\(q_j\)</span> with the stack empty at both endpoints. The three rule types are: (1) <strong>Base:</strong> <span class="arithmatex">\(A_{q_i q_i} \to \varepsilon\)</span> — staying in a state with no stack change. (2) <strong>Split:</strong> <span class="arithmatex">\(A_{q_i q_j} \to A_{q_i q_k} A_{q_k q_j}\)</span> — the stack empties at some intermediate <span class="arithmatex">\(q_k\)</span>, splitting the path. (3) <strong>Matched push/pop:</strong> <span class="arithmatex">\(A_{q_p q_t} \to a \; A_{q_r q_s} \; b\)</span> — a push of <span class="arithmatex">\(\alpha\)</span> on reading <span class="arithmatex">\(a\)</span> at <span class="arithmatex">\(q_p \to q_r\)</span> is matched by a pop of <span class="arithmatex">\(\alpha\)</span> on reading <span class="arithmatex">\(b\)</span> at <span class="arithmatex">\(q_s \to q_t\)</span>. The pushed symbol <span class="arithmatex">\(\alpha\)</span> stays on the stack throughout the sub-path <span class="arithmatex">\(q_r \to q_s\)</span>, and everything generated by <span class="arithmatex">\(A_{q_r q_s}\)</span> is "wrapped" between the input characters <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span>.</p>
+<hr>
+<h2 id="3-must-know-key-points">3. MUST-KNOW KEY POINTS<a class="headerlink" href="#3-must-know-key-points" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>CFG:</strong> 4-tuple <span class="arithmatex">\((V, \Sigma, R, S)\)</span> — variables, terminals, rules (<span class="arithmatex">\(A \to w\)</span>), start variable.</li>
+<li><strong>Derivation:</strong> <span class="arithmatex">\(S \Rightarrow^* w\)</span> via repeated rule applications; <span class="arithmatex">\(L(G) = \{w \in \Sigma^* \mid S \Rightarrow^* w\}\)</span>.</li>
+<li><strong>Example:</strong> <span class="arithmatex">\(S \to 0S1 \mid \varepsilon\)</span> generates <span class="arithmatex">\(\{0^n 1^n\}\)</span>.</li>
+<li><strong>DFA → CFG:</strong> states become variables; <span class="arithmatex">\(\delta(q_i, a) = q_j\)</span> becomes <span class="arithmatex">\(Q_i \to aQ_j\)</span>; accept states get <span class="arithmatex">\(Q_i \to \varepsilon\)</span>; start variable = <span class="arithmatex">\(Q_0\)</span>.</li>
+<li><strong>Every regular language is context-free</strong> (direct corollary of DFA → CFG conversion).</li>
+<li><strong>CFG → PDA:</strong> 3-state PDA; push start variable, nondeterministically apply rules on stack, match terminals with input, accept on empty stack (<span class="arithmatex">\(\$\)</span>).</li>
+<li><strong>PDA → CFG:</strong> Convert PDA to special form (single accept, empty stack, push-or-pop only); variables <span class="arithmatex">\(A_{q_i q_j}\)</span>; three rule types (base, split, matched push/pop).</li>
+<li><strong>CFG <span class="arithmatex">\(\equiv\)</span> PDA:</strong> Both define exactly the class of context-free languages. Proof by induction on derivation length in both directions.</li>
+</ul>
+<hr>
+<h2 id="4-high-priority-topics">4. HIGH-PRIORITY TOPICS<a class="headerlink" href="#4-high-priority-topics" title="Permanent link">¶</a></h2>
+<h3 id="must-know">🔴 Must Know<a class="headerlink" href="#must-know" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>CFG formal definition:</strong> 4-tuple, what each component means, rule format <span class="arithmatex">\(A \to w\)</span>.</li>
+<li><strong>Derivation notation:</strong> <span class="arithmatex">\(\Rightarrow\)</span> (one step), <span class="arithmatex">\(\Rightarrow^*\)</span> (zero or more steps), <span class="arithmatex">\(L(G)\)</span>.</li>
+<li><strong>Canonical example:</strong> <span class="arithmatex">\(S \to 0S1 \mid \varepsilon\)</span> for <span class="arithmatex">\(\{0^n 1^n\}\)</span>, including a traced derivation.</li>
+<li><strong>DFA → CFG procedure:</strong> states → variables, transitions → rules, accept states → <span class="arithmatex">\(\varepsilon\)</span>-rules.</li>
+<li><strong>CFG → PDA construction:</strong> 3-state design, role of nondeterminism, pushing RHS in reverse order via intermediate states.</li>
+<li><strong>The equivalence result:</strong> CFGs and PDAs define the same class (context-free languages).</li>
+</ul>
+<h3 id="important">🟡 Important<a class="headerlink" href="#important" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Equal 0s and 1s grammar:</strong> <span class="arithmatex">\(S \to S0S1S \mid S1S0S \mid SS \mid \varepsilon\)</span>.</li>
+<li><strong>PDA → CFG construction:</strong> special-form PDA requirements (single accept, empty stack, push-or-pop only); variables <span class="arithmatex">\(A_{q_i q_j}\)</span>; three rule types.</li>
+<li><strong>Equivalence proof idea:</strong> induction on derivation length; the stronger claim about <span class="arithmatex">\(A_{q_i q_j}\)</span> generating strings that take PDA from <span class="arithmatex">\(q_i\)</span> to <span class="arithmatex">\(q_j\)</span> with empty stack.</li>
+<li><strong>DFA ↔ CFG equivalence proof</strong> (both directions): DFA transitions map to derivation steps and vice versa.</li>
+</ul>
+<h3 id="useful-but-lower-priority">🟢 Useful but Lower Priority<a class="headerlink" href="#useful-but-lower-priority" title="Permanent link">¶</a></h3>
+<ul>
+<li>Full worked example of PDA → CFG conversion (e.g. equal 0s and 1s PDA to grammar rules).</li>
+<li>Parse trees and ambiguity in CFGs (related but typically a separate topic).</li>
+<li>Chomsky normal form and its role in the CFL pumping lemma proof.</li>
+</ul>
+<hr>
+<h2 id="5-topic-interconnections-bigger-picture">5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE<a class="headerlink" href="#5-topic-interconnections-bigger-picture" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Regular languages <span class="arithmatex">\(\subset\)</span> CFLs:</strong> The DFA → CFG conversion proves strict containment (and <span class="arithmatex">\(\{0^n 1^n\}\)</span> witnesses strictness — it is context-free but not regular by the pumping lemma).</li>
+<li><strong>PDA ↔ CFG equivalence</strong> mirrors the <strong>DFA ↔ NFA ↔ regex</strong> equivalence for regular languages: multiple formalisms, one language class.</li>
+<li><strong>Compiler front-ends:</strong> Context-free grammars define the <strong>syntax</strong> of programming languages. Parsers (LL, LR) are essentially algorithms for testing membership in a CFL, using stack-based techniques directly related to the CFG → PDA construction.</li>
+<li><strong>Pumping lemma for CFLs</strong> (later lectures) uses properties of parse trees (not DFA states) to show languages like <span class="arithmatex">\(\{a^n b^n c^n\}\)</span> are not context-free — extending the regular pumping lemma to the next level of the hierarchy.</li>
+<li><strong>Chomsky hierarchy:</strong> the CFG/PDA level is <strong>Type 2</strong>. Regular languages (Type 3) sit below; context-sensitive (Type 1) and recursively enumerable (Type 0, Turing machines) sit above. Each level corresponds to a more powerful automaton and grammar formalism.</li>
+<li><strong>Stack discipline:</strong> the PDA's LIFO stack naturally handles <strong>nested</strong> and <strong>recursive</strong> structure (parentheses, function calls, XML tags) — this is why context-free grammars are the right tool for syntax.</li>
+</ul>
+<hr>
+<h2 id="6-exam-strategy-tips">6. EXAM STRATEGY TIPS<a class="headerlink" href="#6-exam-strategy-tips" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>CFG design:</strong> start simple — <span class="arithmatex">\(S \to 0S1 \mid \varepsilon\)</span> is enough for <span class="arithmatex">\(\{0^n 1^n\}\)</span>. Don't over-complicate with unnecessary variables.</li>
+<li><strong>Show derivations explicitly:</strong> write out every <span class="arithmatex">\(\Rightarrow\)</span> step. Examiners want to see each rule applied, not just the final string.</li>
+<li><strong>DFA → CFG:</strong> this is a mechanical procedure — practise it until it's automatic. One rule per transition, one <span class="arithmatex">\(\varepsilon\)</span>-rule per accept state, start variable = start state variable.</li>
+<li><strong>CFG → PDA:</strong> remember the 3-state template. The most common mistake is forgetting to push the RHS in <strong>reverse order</strong> or omitting intermediate states for multi-symbol pushes.</li>
+<li><strong>PDA → CFG:</strong> know the three modifications for special form (single accept, empty stack, push-or-pop). For the rules, remember the three types: base (<span class="arithmatex">\(A_{q_i q_i} \to \varepsilon\)</span>), split (<span class="arithmatex">\(A_{q_i q_j} \to A_{q_i q_k} A_{q_k q_j}\)</span>), matched push/pop (<span class="arithmatex">\(A_{q_p q_t} \to a A_{q_r q_s} b\)</span>).</li>
+<li><strong>Proof questions:</strong> state the <strong>induction parameter</strong> explicitly ("by induction on the number of derivation steps <span class="arithmatex">\(n\)</span>"), handle the <strong>base case</strong>, state the <strong>inductive hypothesis</strong>, and show the <strong>inductive step</strong> with clear case analysis.</li>
+<li>When asked "are CFGs and PDAs equivalent?" — answer <strong>yes, they define exactly the context-free languages</strong>, and briefly sketch both conversion directions.</li>
+</ul>
+<hr>
+<p><em>These notes cover Automata Lectures 8–9 material on context-free grammars and their equivalence with pushdown automata. The DFA → CFG conversion shows regular languages are a subset of CFLs; the CFG ↔ PDA equivalence establishes the full characterisation of context-free languages.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

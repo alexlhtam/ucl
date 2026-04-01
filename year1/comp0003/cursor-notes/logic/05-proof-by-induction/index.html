@@ -1,0 +1,4123 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Year 1 Computer Science notes — UCL">
+      
+      
+        <meta name="author" content="Alex Tam">
+      
+      
+        <link rel="canonical" href="https://alexlhtam.github.io/ucl/year1/comp0003/cursor-notes/logic/05-proof-by-induction/">
+      
+      
+        <link rel="prev" href="../04-first-order-logic/">
+      
+      
+        <link rel="next" href="../06-complete-induction-and-descent/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Proof by Induction - Alex's UCL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#proof-by-induction-comp0003-formal-logic" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-header__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex's UCL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Proof by Induction
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Year 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-nav__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    Alex's UCL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Year 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Year 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms (COMP0005)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms (COMP0005)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/02-analysis-of-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis of Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/06-abstract-data-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sorting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sorting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/03-elementary-sorts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementary Sorts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/04-mergesort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MergeSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/05-quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QuickSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/07-heaps-and-heapsort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heaps &amp; HeapSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/08-symbol-tables-and-bst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbol Tables &amp; BST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/09-balanced-trees-and-hash-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balanced Trees &amp; Hash Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/10-undirected-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undirected Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/11-directed-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/12-minimum-spanning-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Spanning Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/13-shortest-paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shortest Paths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_5" id="__nav_2_1_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strings
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Strings
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/14-string-sorting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String Sorting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/15-tries-and-string-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tries &amp; String Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/16-substring-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Substring Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OOP / Java (COMP0004)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OOP / Java (COMP0004)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/01-intro-to-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/02-core-java-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Java Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/03-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Object-Oriented Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/04-classes-objects-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes, Objects &amp; References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/05-designing-with-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/06-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/07-interfaces-and-polymorphism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces &amp; Polymorphism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/08-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/09-file-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/10-json-csv-and-records/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON, CSV &amp; Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/11-packages-and-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages &amp; Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/12-lambdas-and-streams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambdas &amp; Streams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/13-web-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/14-data-structures-in-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures in Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/15-design-patterns-and-threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns &amp; Threads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory of Computation (COMP0003)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory of Computation (COMP0003)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formal Logic
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Formal Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-overview-and-history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview &amp; History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-boolean-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boolean Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof by Induction
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof by Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-why-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview: why induction?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inductive-definition-of-the-natural-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inductive definition of the natural numbers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ordinary-mathematical-induction-on-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordinary (mathematical) induction on ℕ
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ordinary (mathematical) induction on ℕ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-every-natural-number-is-even-or-odd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: every natural number is even or odd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-y-0-y" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: y + 0 = y
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-commutativity-of-addition-x-y-y-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: commutativity of addition (x + y = y + x)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structural-induction-on-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structural induction on lists
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Structural induction on lists">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inductive-definition-of-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inductive definition of lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#induction-principle-for-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Induction principle for lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#standard-recursive-functions-on-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standard recursive functions on lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-1-length-of-append-lenxs-ys-lenxs-lenys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: length of append (len(xs @ ys) = len(xs) + len(ys))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-length-of-reverse-lenrevxs-lenxs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: length of reverse (len(rev(xs)) = len(xs))
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structural-induction-on-binary-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structural induction on binary trees
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Structural induction on binary trees">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inductive-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inductive definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#induction-principle-for-binary-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Induction principle for binary trees
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#standard-recursive-functions-on-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standard recursive functions on trees
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-1-double-reflection-is-the-identity-reflreflt-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: double reflection is the identity (refl(refl(t)) = t)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-size-unchanged-by-reflection-sizereflt-sizet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: size unchanged by reflection (size(refl(t)) = size(t))
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structural-induction-on-formulas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structural induction on formulas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Structural induction on formulas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formulas-built-only-from-and" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formulas built only from ∨ and ¬
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-propositional-letters-exceed-occurrences-by-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: propositional letters exceed ∨ occurrences by one
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-step-strong-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two-step (strong) induction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Two-step (strong) induction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-sum-of-two-evens-is-even" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: sum of two evens is even
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equivalence-of-two-step-and-ordinary-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Equivalence of two-step and ordinary induction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-ordinary-induction-on-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Ordinary induction on ℕ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-structural-induction-on-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Structural induction on lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-structural-induction-on-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Structural induction on trees
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-induction-on-formulas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Induction on formulas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-two-step-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Two-step induction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-complete-induction-and-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Induction &amp; Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-modal-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modal Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automata
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Automata
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/01-dfas-and-regular-languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFAs &amp; Regular Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/02-nfas-and-dfa-equivalence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFAs &amp; DFA Equivalence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/03-closure-and-regular-expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closure &amp; Regular Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/04-pumping-lemma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/05-pushdown-automata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pushdown Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/06-context-free-grammars/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Free Grammars
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/07-pumping-lemma-for-cfls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma for CFLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/08-turing-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turing Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/09-decidability-and-undecidability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decidability &amp; Undecidability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-why-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview: why induction?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inductive-definition-of-the-natural-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inductive definition of the natural numbers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ordinary-mathematical-induction-on-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordinary (mathematical) induction on ℕ
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ordinary (mathematical) induction on ℕ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-every-natural-number-is-even-or-odd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: every natural number is even or odd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-y-0-y" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: y + 0 = y
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-commutativity-of-addition-x-y-y-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: commutativity of addition (x + y = y + x)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structural-induction-on-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structural induction on lists
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Structural induction on lists">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inductive-definition-of-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inductive definition of lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#induction-principle-for-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Induction principle for lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#standard-recursive-functions-on-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standard recursive functions on lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-1-length-of-append-lenxs-ys-lenxs-lenys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: length of append (len(xs @ ys) = len(xs) + len(ys))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-length-of-reverse-lenrevxs-lenxs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: length of reverse (len(rev(xs)) = len(xs))
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structural-induction-on-binary-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structural induction on binary trees
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Structural induction on binary trees">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inductive-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inductive definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#induction-principle-for-binary-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Induction principle for binary trees
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#standard-recursive-functions-on-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standard recursive functions on trees
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-1-double-reflection-is-the-identity-reflreflt-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: double reflection is the identity (refl(refl(t)) = t)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-size-unchanged-by-reflection-sizereflt-sizet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: size unchanged by reflection (size(refl(t)) = size(t))
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structural-induction-on-formulas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structural induction on formulas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Structural induction on formulas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formulas-built-only-from-and" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formulas built only from ∨ and ¬
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-propositional-letters-exceed-occurrences-by-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: propositional letters exceed ∨ occurrences by one
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-step-strong-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two-step (strong) induction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Two-step (strong) induction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-sum-of-two-evens-is-even" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: sum of two evens is even
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equivalence-of-two-step-and-ordinary-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Equivalence of two-step and ordinary induction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-ordinary-induction-on-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Ordinary induction on ℕ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-structural-induction-on-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Structural induction on lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-structural-induction-on-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Structural induction on trees
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-induction-on-formulas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Induction on formulas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-two-step-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Two-step induction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="proof-by-induction-comp0003-formal-logic">Proof by Induction — COMP0003 Formal Logic<a class="headerlink" href="#proof-by-induction-comp0003-formal-logic" title="Permanent link">¶</a></h1>
+<p><em>Lecture-style notes covering Lectures 9–11. </em><em>Induction</em><em> is the canonical method for proving that a property holds for </em><em>every</em><em> element of an inductively defined set — natural numbers, lists, trees, or formulas. The pattern is always the same: prove the </em><em>base case(s)</em><em>, assume the </em><em>induction hypothesis (IH)</em><em> for smaller structures, and prove the </em><em>step case</em><em>.</em></p>
+<hr>
+<h2 id="1-complete-topic-summaries">1. COMPLETE TOPIC SUMMARIES<a class="headerlink" href="#1-complete-topic-summaries" title="Permanent link">¶</a></h2>
+<h3 id="overview-why-induction">Overview: why induction?<a class="headerlink" href="#overview-why-induction" title="Permanent link">¶</a></h3>
+<p>Many mathematical and computational objects are defined <strong>inductively</strong> (recursively): natural numbers, lists, trees, formulas. To prove that <strong>every</strong> such object has a property <span class="arithmatex">\(P\)</span>, we need a proof method that mirrors the inductive definition. <strong>Induction</strong> does exactly this:</p>
+<ul>
+<li>Show <span class="arithmatex">\(P\)</span> holds for the <strong>base elements</strong>.</li>
+<li>Show that if <span class="arithmatex">\(P\)</span> holds for <strong>smaller</strong> structures, it holds for the structure <strong>built from</strong> them.</li>
+</ul>
+<p>Because every element is produced by finitely many applications of the constructors, these two steps suffice to cover all elements.</p>
+<hr>
+<h3 id="inductive-definition-of-the-natural-numbers">Inductive definition of the natural numbers<a class="headerlink" href="#inductive-definition-of-the-natural-numbers" title="Permanent link">¶</a></h3>
+<div class="arithmatex">\[0 \in \mathbb{N} \qquad\qquad \text{if } n \in \mathbb{N} \text{ then } s(n) \in \mathbb{N}\]</div>
+<p>Nothing else is in <span class="arithmatex">\(\mathbb{N}\)</span>. Here <span class="arithmatex">\(s\)</span> is the <strong>successor</strong> function; <span class="arithmatex">\(s(n)\)</span> represents <span class="arithmatex">\(n + 1\)</span>.</p>
+<hr>
+<h3 id="ordinary-mathematical-induction-on-n">Ordinary (mathematical) induction on ℕ<a class="headerlink" href="#ordinary-mathematical-induction-on-n" title="Permanent link">¶</a></h3>
+<p>To prove <span class="arithmatex">\(\forall n \in \mathbb{N}.\; P(n)\)</span>:</p>
+<ol>
+<li><strong>Base case:</strong> Prove <span class="arithmatex">\(P(0)\)</span>.</li>
+<li><strong>Induction step:</strong> Let <span class="arithmatex">\(k \in \mathbb{N}\)</span> be arbitrary. Assume <span class="arithmatex">\(P(k)\)</span> (<strong>induction hypothesis</strong>, IH). Prove <span class="arithmatex">\(P(s(k))\)</span>.</li>
+</ol>
+<p><strong>Inference rule notation:</strong></p>
+<div class="arithmatex">\[\frac{P(0) \qquad \forall k.\; P(k) \to P(s(k))}{\forall n.\; P(n)}\]</div>
+<hr>
+<h4 id="example-1-every-natural-number-is-even-or-odd">Example 1: every natural number is even or odd<a class="headerlink" href="#example-1-every-natural-number-is-even-or-odd" title="Permanent link">¶</a></h4>
+<p><strong>Claim.</strong> <span class="arithmatex">\(\forall n \in \mathbb{N}\)</span>, <span class="arithmatex">\(n\)</span> is even or <span class="arithmatex">\(n\)</span> is odd.</p>
+<p>Define: <span class="arithmatex">\(n\)</span> is <strong>even</strong> iff <span class="arithmatex">\(n = 2m\)</span> for some <span class="arithmatex">\(m\)</span>; <span class="arithmatex">\(n\)</span> is <strong>odd</strong> iff <span class="arithmatex">\(n = 2m + 1\)</span> for some <span class="arithmatex">\(m\)</span>.</p>
+<p><strong>Base case (<span class="arithmatex">\(n = 0\)</span>):</strong> <span class="arithmatex">\(0 = 2 \cdot 0\)</span>, so <span class="arithmatex">\(0\)</span> is even. ✓</p>
+<p><strong>Induction step:</strong> Assume <span class="arithmatex">\(k\)</span> is even or odd (IH).</p>
+<ul>
+<li><strong>Case 1:</strong> <span class="arithmatex">\(k\)</span> is even, so <span class="arithmatex">\(k = 2m\)</span>. Then <span class="arithmatex">\(s(k) = 2m + 1\)</span>, which is odd. ✓</li>
+<li><strong>Case 2:</strong> <span class="arithmatex">\(k\)</span> is odd, so <span class="arithmatex">\(k = 2m + 1\)</span>. Then <span class="arithmatex">\(s(k) = 2m + 2 = 2(m+1)\)</span>, which is even. ✓</li>
+</ul>
+<p>In both cases <span class="arithmatex">\(s(k)\)</span> is even or odd. <span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h4 id="example-2-y-0-y">Example 2: y + 0 = y<a class="headerlink" href="#example-2-y-0-y" title="Permanent link">¶</a></h4>
+<p>Working in Peano-style arithmetic where addition is defined:</p>
+<div class="arithmatex">\[y + 0 = y \qquad\qquad y + s(x) = s(y + x)\]</div>
+<p>Wait — <span class="arithmatex">\(y + 0 = y\)</span> is actually the <strong>first defining equation</strong>, so it holds by definition. The point is that the <strong>other direction</strong> or properties like <strong>commutativity</strong> require induction.</p>
+<hr>
+<h4 id="example-3-commutativity-of-addition-x-y-y-x">Example 3: commutativity of addition (x + y = y + x)<a class="headerlink" href="#example-3-commutativity-of-addition-x-y-y-x" title="Permanent link">¶</a></h4>
+<p><strong>Claim.</strong> <span class="arithmatex">\(\forall x, y \in \mathbb{N}.\; x + y = y + x\)</span>.</p>
+<p>We induct on <span class="arithmatex">\(x\)</span>.</p>
+<p><strong>Auxiliary lemma (needed):</strong> <span class="arithmatex">\(s(y) + k = y + s(k)\)</span> for all <span class="arithmatex">\(y, k\)</span>.</p>
+<p><em>Proof of lemma by induction on <span class="arithmatex">\(k\)</span>:</em></p>
+<p><strong>Base (<span class="arithmatex">\(k = 0\)</span>):</strong> <span class="arithmatex">\(s(y) + 0 = s(y)\)</span> (by definition) and <span class="arithmatex">\(y + s(0) = s(y + 0) = s(y)\)</span>. ✓</p>
+<p><strong>Step:</strong> Assume <span class="arithmatex">\(s(y) + k = y + s(k)\)</span> (IH). Then:</p>
+<div class="arithmatex">\[s(y) + s(k) = s(s(y) + k) = s(y + s(k)) \quad\text{(by IH)}\]</div>
+<div class="arithmatex">\[y + s(s(k)) = s(y + s(k))\]</div>
+<p>Both sides equal <span class="arithmatex">\(s(y + s(k))\)</span>. ✓ <span class="arithmatex">\(\square\)</span></p>
+<p><em>Now prove commutativity by induction on <span class="arithmatex">\(x\)</span>:</em></p>
+<p><strong>Base (<span class="arithmatex">\(x = 0\)</span>):</strong> <span class="arithmatex">\(0 + y = y\)</span> (requires its own small induction or is taken as known) and <span class="arithmatex">\(y + 0 = y\)</span> by definition. ✓</p>
+<p><strong>Step:</strong> Assume <span class="arithmatex">\(x + y = y + x\)</span> for all <span class="arithmatex">\(y\)</span> (IH). Then:</p>
+<div class="arithmatex">\[s(x) + y = s(x + y) \quad\text{(by definition of } +\text{)}\]</div>
+<div class="arithmatex">\[y + s(x) = s(y + x) \quad\text{(by definition of } +\text{)}\]</div>
+<p>By IH, <span class="arithmatex">\(x + y = y + x\)</span>, so <span class="arithmatex">\(s(x + y) = s(y + x)\)</span>. Hence <span class="arithmatex">\(s(x) + y = y + s(x)\)</span>. ✓ <span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h3 id="structural-induction-on-lists">Structural induction on lists<a class="headerlink" href="#structural-induction-on-lists" title="Permanent link">¶</a></h3>
+<h4 id="inductive-definition-of-lists">Inductive definition of lists<a class="headerlink" href="#inductive-definition-of-lists" title="Permanent link">¶</a></h4>
+<div class="arithmatex">\[\ell ::= [\;] \;\mid\; x :: \ell\]</div>
+<p>A list is either <strong>empty</strong> (<span class="arithmatex">\([\;]\)</span>) or a <strong>cons</strong> of a head element <span class="arithmatex">\(x\)</span> and a tail list <span class="arithmatex">\(\ell\)</span>.</p>
+<h4 id="induction-principle-for-lists">Induction principle for lists<a class="headerlink" href="#induction-principle-for-lists" title="Permanent link">¶</a></h4>
+<p>To prove <span class="arithmatex">\(\forall \ell.\; P(\ell)\)</span>:</p>
+<ol>
+<li><strong>Base case:</strong> Prove <span class="arithmatex">\(P([\;])\)</span>.</li>
+<li><strong>Induction step:</strong> For arbitrary <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(xs\)</span>, assume <span class="arithmatex">\(P(xs)\)</span> (IH). Prove <span class="arithmatex">\(P(x :: xs)\)</span>.</li>
+</ol>
+<div class="arithmatex">\[\frac{P([\;]) \qquad \forall x.\;\forall xs.\; P(xs) \to P(x :: xs)}{\forall \ell.\; P(\ell)}\]</div>
+<h4 id="standard-recursive-functions-on-lists">Standard recursive functions on lists<a class="headerlink" href="#standard-recursive-functions-on-lists" title="Permanent link">¶</a></h4>
+<p><strong>Length:</strong></p>
+<div class="arithmatex">\[len([\;]) = 0 \qquad\qquad len(x :: xs) = 1 + len(xs)\]</div>
+<p><strong>Append:</strong></p>
+<div class="arithmatex">\[([\;])\; @\; ys = ys \qquad\qquad (x :: xs)\; @\; ys = x :: (xs\; @\; ys)\]</div>
+<p><strong>Reverse:</strong></p>
+<div class="arithmatex">\[rev([\;]) = [\;] \qquad\qquad rev(x :: xs) = rev(xs)\; @\; [x]\]</div>
+<hr>
+<h4 id="example-1-length-of-append-lenxs-ys-lenxs-lenys">Example 1: length of append (len(xs @ ys) = len(xs) + len(ys))<a class="headerlink" href="#example-1-length-of-append-lenxs-ys-lenxs-lenys" title="Permanent link">¶</a></h4>
+<p><strong>Proof</strong> by structural induction on <span class="arithmatex">\(xs\)</span>.</p>
+<p><strong>Base case (<span class="arithmatex">\(xs = [\;]\)</span>):</strong></p>
+<div class="arithmatex">\[len([\;]\;@\;ys) = len(ys) \qquad\text{and}\qquad len([\;]) + len(ys) = 0 + len(ys) = len(ys) \quad\checkmark\]</div>
+<p><strong>Induction step (<span class="arithmatex">\(xs = a :: as\)</span>).</strong> Assume <span class="arithmatex">\(len(as\;@\;ys) = len(as) + len(ys)\)</span> (IH).</p>
+<div class="arithmatex">\[len((a :: as)\;@\;ys) = len(a :: (as\;@\;ys)) = 1 + len(as\;@\;ys)\]</div>
+<div class="arithmatex">\[= 1 + len(as) + len(ys) \quad\text{(by IH)} = len(a :: as) + len(ys) \quad\checkmark\]</div>
+<p><span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h4 id="example-2-length-of-reverse-lenrevxs-lenxs">Example 2: length of reverse (len(rev(xs)) = len(xs))<a class="headerlink" href="#example-2-length-of-reverse-lenrevxs-lenxs" title="Permanent link">¶</a></h4>
+<p><strong>Proof</strong> by structural induction on <span class="arithmatex">\(xs\)</span>, using the result above as a lemma.</p>
+<p><strong>Base case (<span class="arithmatex">\(xs = [\;]\)</span>):</strong></p>
+<div class="arithmatex">\[len(rev([\;])) = len([\;]) = 0 \quad\checkmark\]</div>
+<p><strong>Induction step (<span class="arithmatex">\(xs = a :: as\)</span>).</strong> Assume <span class="arithmatex">\(len(rev(as)) = len(as)\)</span> (IH).</p>
+<div class="arithmatex">\[len(rev(a :: as)) = len(rev(as)\;@\;[a]) = len(rev(as)) + len([a])\]</div>
+<div class="arithmatex">\[= len(as) + 1 \quad\text{(by IH)} = 1 + len(as) = len(a :: as) \quad\checkmark\]</div>
+<p><span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h3 id="structural-induction-on-binary-trees">Structural induction on binary trees<a class="headerlink" href="#structural-induction-on-binary-trees" title="Permanent link">¶</a></h3>
+<h4 id="inductive-definition">Inductive definition<a class="headerlink" href="#inductive-definition" title="Permanent link">¶</a></h4>
+<div class="arithmatex">\[t ::= Lf \;\mid\; Br(x, t_1, t_2)\]</div>
+<p>A tree is either a <strong>leaf</strong> (<span class="arithmatex">\(Lf\)</span>) or a <strong>branch</strong> node with a value <span class="arithmatex">\(x\)</span> and two subtrees <span class="arithmatex">\(t_1\)</span>, <span class="arithmatex">\(t_2\)</span>.</p>
+<h4 id="induction-principle-for-binary-trees">Induction principle for binary trees<a class="headerlink" href="#induction-principle-for-binary-trees" title="Permanent link">¶</a></h4>
+<p>To prove <span class="arithmatex">\(\forall t.\; P(t)\)</span>:</p>
+<ol>
+<li><strong>Base case:</strong> Prove <span class="arithmatex">\(P(Lf)\)</span>.</li>
+<li><strong>Induction step:</strong> For arbitrary <span class="arithmatex">\(x\)</span>, <span class="arithmatex">\(t_1\)</span>, <span class="arithmatex">\(t_2\)</span>, assume <span class="arithmatex">\(P(t_1)\)</span> and <span class="arithmatex">\(P(t_2)\)</span> (IH). Prove <span class="arithmatex">\(P(Br(x, t_1, t_2))\)</span>.</li>
+</ol>
+<div class="arithmatex">\[\frac{P(Lf) \qquad \forall x, t_1, t_2.\; P(t_1) \land P(t_2) \to P(Br(x, t_1, t_2))}{\forall t.\; P(t)}\]</div>
+<h4 id="standard-recursive-functions-on-trees">Standard recursive functions on trees<a class="headerlink" href="#standard-recursive-functions-on-trees" title="Permanent link">¶</a></h4>
+<p><strong>Size</strong> (number of branch nodes):</p>
+<div class="arithmatex">\[size(Lf) = 0 \qquad\qquad size(Br(x, t_1, t_2)) = 1 + size(t_1) + size(t_2)\]</div>
+<p><strong>Reflect</strong> (mirror image):</p>
+<div class="arithmatex">\[refl(Lf) = Lf \qquad\qquad refl(Br(x, t_1, t_2)) = Br(x, refl(t_2), refl(t_1))\]</div>
+<hr>
+<h4 id="example-1-double-reflection-is-the-identity-reflreflt-t">Example 1: double reflection is the identity (refl(refl(t)) = t)<a class="headerlink" href="#example-1-double-reflection-is-the-identity-reflreflt-t" title="Permanent link">¶</a></h4>
+<p><strong>Proof</strong> by structural induction on <span class="arithmatex">\(t\)</span>.</p>
+<p><strong>Base case (<span class="arithmatex">\(t = Lf\)</span>):</strong></p>
+<div class="arithmatex">\[refl(refl(Lf)) = refl(Lf) = Lf \quad\checkmark\]</div>
+<p><strong>Induction step (<span class="arithmatex">\(t = Br(x, t_1, t_2)\)</span>).</strong> Assume <span class="arithmatex">\(refl(refl(t_1)) = t_1\)</span> and <span class="arithmatex">\(refl(refl(t_2)) = t_2\)</span> (IH).</p>
+<div class="arithmatex">\[refl(refl(Br(x, t_1, t_2))) = refl(Br(x, refl(t_2), refl(t_1)))\]</div>
+<div class="arithmatex">\[= Br(x, refl(refl(t_1)), refl(refl(t_2))) = Br(x, t_1, t_2) \quad\text{(by IH)} \quad\checkmark\]</div>
+<p><span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h4 id="example-2-size-unchanged-by-reflection-sizereflt-sizet">Example 2: size unchanged by reflection (size(refl(t)) = size(t))<a class="headerlink" href="#example-2-size-unchanged-by-reflection-sizereflt-sizet" title="Permanent link">¶</a></h4>
+<p><strong>Proof</strong> by structural induction on <span class="arithmatex">\(t\)</span>.</p>
+<p><strong>Base case (<span class="arithmatex">\(t = Lf\)</span>):</strong></p>
+<div class="arithmatex">\[size(refl(Lf)) = size(Lf) = 0 \quad\checkmark\]</div>
+<p><strong>Induction step (<span class="arithmatex">\(t = Br(x, t_1, t_2)\)</span>).</strong> Assume <span class="arithmatex">\(size(refl(t_1)) = size(t_1)\)</span> and <span class="arithmatex">\(size(refl(t_2)) = size(t_2)\)</span> (IH).</p>
+<div class="arithmatex">\[size(refl(Br(x, t_1, t_2))) = size(Br(x, refl(t_2), refl(t_1)))\]</div>
+<div class="arithmatex">\[= 1 + size(refl(t_2)) + size(refl(t_1)) = 1 + size(t_2) + size(t_1) \quad\text{(by IH)}\]</div>
+<div class="arithmatex">\[= 1 + size(t_1) + size(t_2) = size(Br(x, t_1, t_2)) \quad\checkmark\]</div>
+<p><span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h3 id="structural-induction-on-formulas">Structural induction on formulas<a class="headerlink" href="#structural-induction-on-formulas" title="Permanent link">¶</a></h3>
+<p>Formulas themselves are inductively defined, so we can induct on them.</p>
+<h4 id="formulas-built-only-from-and">Formulas built only from ∨ and ¬<a class="headerlink" href="#formulas-built-only-from-and" title="Permanent link">¶</a></h4>
+<div class="arithmatex">\[F ::= Q \;\mid\; \lnot F \;\mid\; F_1 \lor F_2\]</div>
+<p>where <span class="arithmatex">\(Q\)</span> ranges over propositional variables.</p>
+<h4 id="example-propositional-letters-exceed-occurrences-by-one">Example: propositional letters exceed ∨ occurrences by one<a class="headerlink" href="#example-propositional-letters-exceed-occurrences-by-one" title="Permanent link">¶</a></h4>
+<p><strong>Claim.</strong> For every <span class="arithmatex">\((\lor, \lnot)\)</span>-formula <span class="arithmatex">\(F\)</span>: <span class="arithmatex">\(\text{letters}(F) = \text{ors}(F) + 1\)</span>.</p>
+<p>Define:</p>
+<div class="arithmatex">\[\text{letters}(Q) = 1 \qquad \text{letters}(\lnot F) = \text{letters}(F) \qquad \text{letters}(F_1 \lor F_2) = \text{letters}(F_1) + \text{letters}(F_2)\]</div>
+<div class="arithmatex">\[\text{ors}(Q) = 0 \qquad \text{ors}(\lnot F) = \text{ors}(F) \qquad \text{ors}(F_1 \lor F_2) = 1 + \text{ors}(F_1) + \text{ors}(F_2)\]</div>
+<p><strong>Proof</strong> by structural induction on <span class="arithmatex">\(F\)</span>.</p>
+<p><strong>Base case (<span class="arithmatex">\(F = Q\)</span>):</strong> <span class="arithmatex">\(\text{letters}(Q) = 1 = 0 + 1 = \text{ors}(Q) + 1\)</span>. ✓</p>
+<p><strong>Case <span class="arithmatex">\(F = \lnot G\)</span>.</strong> Assume <span class="arithmatex">\(\text{letters}(G) = \text{ors}(G) + 1\)</span> (IH).</p>
+<div class="arithmatex">\[\text{letters}(\lnot G) = \text{letters}(G) = \text{ors}(G) + 1 = \text{ors}(\lnot G) + 1 \quad\checkmark\]</div>
+<p><strong>Case <span class="arithmatex">\(F = F_1 \lor F_2\)</span>.</strong> Assume <span class="arithmatex">\(\text{letters}(F_i) = \text{ors}(F_i) + 1\)</span> for <span class="arithmatex">\(i = 1, 2\)</span> (IH).</p>
+<div class="arithmatex">\[\text{letters}(F_1 \lor F_2) = \text{letters}(F_1) + \text{letters}(F_2) = (\text{ors}(F_1) + 1) + (\text{ors}(F_2) + 1)\]</div>
+<div class="arithmatex">\[= \text{ors}(F_1) + \text{ors}(F_2) + 2 = (1 + \text{ors}(F_1) + \text{ors}(F_2)) + 1 = \text{ors}(F_1 \lor F_2) + 1 \quad\checkmark\]</div>
+<p><span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h3 id="two-step-strong-induction">Two-step (strong) induction<a class="headerlink" href="#two-step-strong-induction" title="Permanent link">¶</a></h3>
+<p>Sometimes the induction step for <span class="arithmatex">\(P(s(k))\)</span> needs not just <span class="arithmatex">\(P(k)\)</span> but also <span class="arithmatex">\(P(k-1)\)</span> (or, more generally, <span class="arithmatex">\(P\)</span> for all smaller values).</p>
+<p><strong>Two-step induction</strong> has:</p>
+<ol>
+<li><strong>Two base cases:</strong> Prove <span class="arithmatex">\(P(0)\)</span> and <span class="arithmatex">\(P(1)\)</span>.</li>
+<li><strong>Induction step:</strong> Assume <span class="arithmatex">\(P(k)\)</span> and <span class="arithmatex">\(P(s(k))\)</span> (IH). Prove <span class="arithmatex">\(P(s(s(k)))\)</span>.</li>
+</ol>
+<p><strong>Inference rule:</strong></p>
+<div class="arithmatex">\[\frac{P(0) \qquad P(1) \qquad \forall k.\; P(k) \land P(s(k)) \to P(s(s(k)))}{\forall n.\; P(n)}\]</div>
+<hr>
+<h4 id="example-sum-of-two-evens-is-even">Example: sum of two evens is even<a class="headerlink" href="#example-sum-of-two-evens-is-even" title="Permanent link">¶</a></h4>
+<p>Define <span class="arithmatex">\(even\)</span> inductively: <span class="arithmatex">\(even(0)\)</span> holds; if <span class="arithmatex">\(even(n)\)</span> then <span class="arithmatex">\(even(s(s(n)))\)</span>.</p>
+<p><strong>Claim.</strong> <span class="arithmatex">\(\forall x.\; even(x) \to \forall y.\;(even(y) \to even(x + y))\)</span>.</p>
+<p><strong>Proof</strong> by two-step induction on <span class="arithmatex">\(x\)</span> (for fixed <span class="arithmatex">\(y\)</span>, or alternatively induction on the derivation of <span class="arithmatex">\(even(x)\)</span>).</p>
+<p><strong>Base case <span class="arithmatex">\(x = 0\)</span>:</strong> <span class="arithmatex">\(even(0 + y) = even(y)\)</span>, which holds by assumption. ✓</p>
+<p><strong>Base case <span class="arithmatex">\(x = 1\)</span>:</strong> <span class="arithmatex">\(even(1)\)</span> is false, so the implication <span class="arithmatex">\(even(1) \to \ldots\)</span> is vacuously true. ✓</p>
+<p><strong>Induction step.</strong> Assume:</p>
+<ul>
+<li><span class="arithmatex">\(even(k) \to even(k + y)\)</span> (IH<span class="arithmatex">\(_1\)</span>)</li>
+<li><span class="arithmatex">\(even(s(k)) \to even(s(k) + y)\)</span> (IH<span class="arithmatex">\(_2\)</span>)</li>
+</ul>
+<p>We must show <span class="arithmatex">\(even(s(s(k))) \to even(s(s(k)) + y)\)</span>.</p>
+<p>Assume <span class="arithmatex">\(even(s(s(k)))\)</span>. By the definition of <span class="arithmatex">\(even\)</span>, this means <span class="arithmatex">\(even(k)\)</span>. By IH<span class="arithmatex">\(_1\)</span>, <span class="arithmatex">\(even(k + y)\)</span>. Then <span class="arithmatex">\(even(s(s(k + y)))\)</span> by the <span class="arithmatex">\(even\)</span> constructor. Since <span class="arithmatex">\(s(s(k)) + y = s(s(k + y))\)</span> (by the definition of addition), we have <span class="arithmatex">\(even(s(s(k)) + y)\)</span>. ✓ <span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h4 id="equivalence-of-two-step-and-ordinary-induction">Equivalence of two-step and ordinary induction<a class="headerlink" href="#equivalence-of-two-step-and-ordinary-induction" title="Permanent link">¶</a></h4>
+<p><strong>Two-step implies ordinary:</strong> Ordinary induction is the special case where the second base case and the "look back two steps" are not needed (trivially satisfied or absorbed).</p>
+<p><strong>Ordinary implies two-step:</strong> Given a two-step induction proof of <span class="arithmatex">\(P\)</span>, define <span class="arithmatex">\(Q(n) = P(n) \land P(s(n))\)</span>. Then:</p>
+<ul>
+<li><strong>Base:</strong> <span class="arithmatex">\(Q(0) = P(0) \land P(1)\)</span> — both given.</li>
+<li><strong>Step:</strong> Assume <span class="arithmatex">\(Q(k) = P(k) \land P(s(k))\)</span>. The two-step rule gives <span class="arithmatex">\(P(s(s(k)))\)</span>. Combined with <span class="arithmatex">\(P(s(k))\)</span> (from <span class="arithmatex">\(Q(k)\)</span>), we get <span class="arithmatex">\(Q(s(k)) = P(s(k)) \land P(s(s(k)))\)</span>.</li>
+</ul>
+<p>By ordinary induction, <span class="arithmatex">\(\forall n.\; Q(n)\)</span>, hence <span class="arithmatex">\(\forall n.\; P(n)\)</span> (since <span class="arithmatex">\(P(n)\)</span> is a conjunct of <span class="arithmatex">\(Q(n)\)</span>). <span class="arithmatex">\(\square\)</span></p>
+<p>This shows the two principles are <strong>inter-derivable</strong> — two-step induction adds no extra logical strength.</p>
+<hr>
+<h2 id="2-exam-style-questions-with-model-answers">2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)<a class="headerlink" href="#2-exam-style-questions-with-model-answers" title="Permanent link">¶</a></h2>
+<h3 id="q1-ordinary-induction-on-n">Q1 — Ordinary induction on ℕ<a class="headerlink" href="#q1-ordinary-induction-on-n" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Prove by induction: <span class="arithmatex">\(\forall n \geq 0.\; \displaystyle\sum_{i=0}^{n} (2i + 1) = (n+1)^2\)</span>.</p>
+<p><strong>Model answer.</strong></p>
+<p><strong>Base case (<span class="arithmatex">\(n = 0\)</span>):</strong> <span class="arithmatex">\(\displaystyle\sum_{i=0}^{0}(2i+1) = 1 = (0+1)^2 = 1\)</span>. ✓</p>
+<p><strong>Induction step.</strong> Assume <span class="arithmatex">\(\displaystyle\sum_{i=0}^{k}(2i+1) = (k+1)^2\)</span> (IH). Then:</p>
+<div class="arithmatex">\[\sum_{i=0}^{k+1}(2i+1) = \left(\sum_{i=0}^{k}(2i+1)\right) + (2(k+1) + 1)\]</div>
+<div class="arithmatex">\[= (k+1)^2 + 2k + 3 \quad\text{(by IH)}\]</div>
+<div class="arithmatex">\[= k^2 + 2k + 1 + 2k + 3 = k^2 + 4k + 4 = (k+2)^2 = ((k+1)+1)^2 \quad\checkmark\]</div>
+<p><span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h3 id="q2-structural-induction-on-lists">Q2 — Structural induction on lists<a class="headerlink" href="#q2-structural-induction-on-lists" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Given <span class="arithmatex">\(rev\)</span> and <span class="arithmatex">\(@\)</span> as defined above, prove: <span class="arithmatex">\(rev(xs\;@\;ys) = rev(ys)\;@\;rev(xs)\)</span>.</p>
+<p>You may assume as lemmas: (i) <span class="arithmatex">\(xs\;@\;[\;] = xs\)</span>, (ii) <span class="arithmatex">\((xs\;@\;ys)\;@\;zs = xs\;@\;(ys\;@\;zs)\)</span>.</p>
+<p><strong>Model answer.</strong> Induction on <span class="arithmatex">\(xs\)</span>.</p>
+<p><strong>Base case (<span class="arithmatex">\(xs = [\;]\)</span>):</strong></p>
+<div class="arithmatex">\[rev([\;]\;@\;ys) = rev(ys)\]</div>
+<div class="arithmatex">\[rev(ys)\;@\;rev([\;]) = rev(ys)\;@\;[\;] = rev(ys) \quad\text{(by lemma (i))} \quad\checkmark\]</div>
+<p><strong>Induction step (<span class="arithmatex">\(xs = a :: as\)</span>).</strong> Assume <span class="arithmatex">\(rev(as\;@\;ys) = rev(ys)\;@\;rev(as)\)</span> (IH).</p>
+<div class="arithmatex">\[rev((a :: as)\;@\;ys) = rev(a :: (as\;@\;ys)) = rev(as\;@\;ys)\;@\;[a]\]</div>
+<div class="arithmatex">\[= (rev(ys)\;@\;rev(as))\;@\;[a] \quad\text{(by IH)}\]</div>
+<div class="arithmatex">\[= rev(ys)\;@\;(rev(as)\;@\;[a]) \quad\text{(by lemma (ii))}\]</div>
+<div class="arithmatex">\[= rev(ys)\;@\;rev(a :: as) \quad\checkmark\]</div>
+<p><span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h3 id="q3-structural-induction-on-trees">Q3 — Structural induction on trees<a class="headerlink" href="#q3-structural-induction-on-trees" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Let <span class="arithmatex">\(leaves(Lf) = 1\)</span> and <span class="arithmatex">\(leaves(Br(x, t_1, t_2)) = leaves(t_1) + leaves(t_2)\)</span>. Prove: <span class="arithmatex">\(leaves(t) = size(t) + 1\)</span>.</p>
+<p><strong>Model answer.</strong> Induction on <span class="arithmatex">\(t\)</span>.</p>
+<p><strong>Base case (<span class="arithmatex">\(t = Lf\)</span>):</strong> <span class="arithmatex">\(leaves(Lf) = 1 = 0 + 1 = size(Lf) + 1\)</span>. ✓</p>
+<p><strong>Induction step (<span class="arithmatex">\(t = Br(x, t_1, t_2)\)</span>).</strong> Assume <span class="arithmatex">\(leaves(t_i) = size(t_i) + 1\)</span> for <span class="arithmatex">\(i = 1, 2\)</span> (IH).</p>
+<div class="arithmatex">\[leaves(Br(x, t_1, t_2)) = leaves(t_1) + leaves(t_2)\]</div>
+<div class="arithmatex">\[= (size(t_1) + 1) + (size(t_2) + 1) \quad\text{(by IH)}\]</div>
+<div class="arithmatex">\[= size(t_1) + size(t_2) + 2 = (1 + size(t_1) + size(t_2)) + 1\]</div>
+<div class="arithmatex">\[= size(Br(x, t_1, t_2)) + 1 \quad\checkmark\]</div>
+<p><span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h3 id="q4-induction-on-formulas">Q4 — Induction on formulas<a class="headerlink" href="#q4-induction-on-formulas" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> For <span class="arithmatex">\((\lor, \lnot)\)</span>-formulas <span class="arithmatex">\(F\)</span>, let <span class="arithmatex">\(depth(Q) = 0\)</span>, <span class="arithmatex">\(depth(\lnot F) = 1 + depth(F)\)</span>, <span class="arithmatex">\(depth(F_1 \lor F_2) = 1 + \max(depth(F_1), depth(F_2))\)</span>. Prove: <span class="arithmatex">\(\text{letters}(F) \leq 2^{depth(F)}\)</span>.</p>
+<p><strong>Model answer.</strong> Induction on <span class="arithmatex">\(F\)</span>.</p>
+<p><strong>Base (<span class="arithmatex">\(F = Q\)</span>):</strong> <span class="arithmatex">\(\text{letters}(Q) = 1 \leq 1 = 2^0 = 2^{depth(Q)}\)</span>. ✓</p>
+<p><strong>Case <span class="arithmatex">\(F = \lnot G\)</span>.</strong> Assume <span class="arithmatex">\(\text{letters}(G) \leq 2^{depth(G)}\)</span> (IH).</p>
+<div class="arithmatex">\[\text{letters}(\lnot G) = \text{letters}(G) \leq 2^{depth(G)} \leq 2^{1 + depth(G)} = 2^{depth(\lnot G)} \quad\checkmark\]</div>
+<p><strong>Case <span class="arithmatex">\(F = F_1 \lor F_2\)</span>.</strong> Assume <span class="arithmatex">\(\text{letters}(F_i) \leq 2^{depth(F_i)}\)</span> for <span class="arithmatex">\(i = 1, 2\)</span> (IH). Let <span class="arithmatex">\(d = \max(depth(F_1), depth(F_2))\)</span>.</p>
+<div class="arithmatex">\[\text{letters}(F_1 \lor F_2) = \text{letters}(F_1) + \text{letters}(F_2) \leq 2^{depth(F_1)} + 2^{depth(F_2)}\]</div>
+<div class="arithmatex">\[\leq 2^d + 2^d = 2 \cdot 2^d = 2^{d+1} = 2^{depth(F_1 \lor F_2)} \quad\checkmark\]</div>
+<p><span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h3 id="q5-two-step-induction">Q5 — Two-step induction<a class="headerlink" href="#q5-two-step-induction" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Define the Fibonacci sequence: <span class="arithmatex">\(F_0 = 0\)</span>, <span class="arithmatex">\(F_1 = 1\)</span>, <span class="arithmatex">\(F_{n+2} = F_{n+1} + F_n\)</span>. Prove by two-step induction: <span class="arithmatex">\(\forall n \geq 0.\; F_n \leq 2^n\)</span>.</p>
+<p><strong>Model answer.</strong></p>
+<p><strong>Base <span class="arithmatex">\(n = 0\)</span>:</strong> <span class="arithmatex">\(F_0 = 0 \leq 1 = 2^0\)</span>. ✓</p>
+<p><strong>Base <span class="arithmatex">\(n = 1\)</span>:</strong> <span class="arithmatex">\(F_1 = 1 \leq 2 = 2^1\)</span>. ✓</p>
+<p><strong>Induction step.</strong> Assume <span class="arithmatex">\(F_k \leq 2^k\)</span> and <span class="arithmatex">\(F_{k+1} \leq 2^{k+1}\)</span> (IH). Then:</p>
+<div class="arithmatex">\[F_{k+2} = F_{k+1} + F_k \leq 2^{k+1} + 2^k \quad\text{(by IH)}\]</div>
+<div class="arithmatex">\[\leq 2^{k+1} + 2^{k+1} = 2 \cdot 2^{k+1} = 2^{k+2} \quad\checkmark\]</div>
+<p><span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h2 id="3-must-know-key-points">3. MUST-KNOW KEY POINTS<a class="headerlink" href="#3-must-know-key-points" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Ordinary induction on <span class="arithmatex">\(\mathbb{N}\)</span>:</strong> base <span class="arithmatex">\(P(0)\)</span>, step <span class="arithmatex">\(P(k) \to P(s(k))\)</span>. Always state the IH explicitly.</li>
+<li><strong>Structural induction</strong> generalises to any inductively defined structure: prove <span class="arithmatex">\(P\)</span> for each <strong>constructor</strong>, assuming <span class="arithmatex">\(P\)</span> for the constructor's recursive arguments.</li>
+<li><strong>Lists:</strong> base <span class="arithmatex">\(P([\;])\)</span>, step <span class="arithmatex">\(P(xs) \to P(x :: xs)\)</span>. Key functions: <span class="arithmatex">\(len\)</span>, <span class="arithmatex">\(@\)</span>, <span class="arithmatex">\(rev\)</span>.</li>
+<li><strong>Binary trees:</strong> base <span class="arithmatex">\(P(Lf)\)</span>, step <span class="arithmatex">\(P(t_1) \land P(t_2) \to P(Br(x, t_1, t_2))\)</span>. Key functions: <span class="arithmatex">\(size\)</span>, <span class="arithmatex">\(refl\)</span>.</li>
+<li><strong>Formulas:</strong> induction follows the grammar. Each case in the grammar gives one case in the proof.</li>
+<li><strong>Two-step induction:</strong> two base cases (<span class="arithmatex">\(P(0)\)</span>, <span class="arithmatex">\(P(1)\)</span>), step assumes <span class="arithmatex">\(P(k) \land P(s(k))\)</span> to prove <span class="arithmatex">\(P(s(s(k)))\)</span>. Equivalent in strength to ordinary induction.</li>
+<li><strong>Auxiliary lemmas</strong> are often needed (e.g. associativity of <span class="arithmatex">\(@\)</span>, <span class="arithmatex">\(xs\;@\;[\;] = xs\)</span>). State and prove them separately before the main proof.</li>
+<li><strong>Every step must cite a definition or the IH</strong> — no unjustified leaps.</li>
+</ul>
+<hr>
+<h2 id="4-high-priority-topics">4. HIGH-PRIORITY TOPICS<a class="headerlink" href="#4-high-priority-topics" title="Permanent link">¶</a></h2>
+<h3 id="must-know">🔴 Must Know<a class="headerlink" href="#must-know" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Ordinary induction principle</strong> on <span class="arithmatex">\(\mathbb{N}\)</span>: statement, base case, IH, step case.</li>
+<li><strong>Structural induction on lists:</strong> principle, examples with <span class="arithmatex">\(len\)</span>, <span class="arithmatex">\(@\)</span>, <span class="arithmatex">\(rev\)</span>.</li>
+<li><strong>Structural induction on binary trees:</strong> principle, examples with <span class="arithmatex">\(size\)</span>, <span class="arithmatex">\(refl\)</span>.</li>
+<li><strong>How to write a clean induction proof:</strong> state claim, state what you induct on, label base/step/IH, conclude.</li>
+<li><strong>Recursive function definitions</strong> for lists (<span class="arithmatex">\(len\)</span>, <span class="arithmatex">\(@\)</span>, <span class="arithmatex">\(rev\)</span>) and trees (<span class="arithmatex">\(size\)</span>, <span class="arithmatex">\(refl\)</span>) — you must be able to unfold these by hand.</li>
+</ul>
+<h3 id="important">🟡 Important<a class="headerlink" href="#important" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Two-step induction:</strong> when it's needed (two base cases), how the IH differs, equivalence with ordinary induction.</li>
+<li><strong>Structural induction on formulas:</strong> the grammar defines the cases.</li>
+<li><strong>Auxiliary lemma pattern:</strong> recognising when a subgoal needs a separate lemma (e.g. associativity of <span class="arithmatex">\(@\)</span>).</li>
+<li><strong>The "letters vs ors" counting argument</strong> as a template for formula induction.</li>
+</ul>
+<h3 id="useful-but-lower-priority">🟢 Useful but Lower Priority<a class="headerlink" href="#useful-but-lower-priority" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Strong induction</strong> (assume <span class="arithmatex">\(P(j)\)</span> for all <span class="arithmatex">\(j &lt; k\)</span>) — strictly more convenient but equivalent to ordinary induction.</li>
+<li><strong>Well-founded induction</strong> as the general principle unifying all variants.</li>
+<li>Detailed proof that two-step and ordinary induction are inter-derivable (the <span class="arithmatex">\(Q(n) = P(n) \land P(n+1)\)</span> trick).</li>
+</ul>
+<hr>
+<h2 id="5-topic-interconnections-bigger-picture">5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE<a class="headerlink" href="#5-topic-interconnections-bigger-picture" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>FOL and induction:</strong> FOL formulas are inductively defined structures, so <strong>metatheorems</strong> about FOL (e.g. every formula has a prenex form, substitution lemma, soundness) are proved by structural induction on formulas.</li>
+<li><strong>Data structures in algorithms:</strong> Lists and trees appear throughout algorithms courses. Correctness proofs for recursive algorithms on these structures use exactly the structural induction principles here.</li>
+<li><strong>Recursion = induction, computationally:</strong> A recursive function over an inductive type mirrors an induction proof. The base case handles constructors with no recursive arguments; the recursive call uses the "induction hypothesis" on substructures.</li>
+<li><strong>Program verification:</strong> Proving loop invariants often uses ordinary induction on iteration count. Proving properties of recursive programs uses structural induction.</li>
+<li><strong>Type theory and functional programming:</strong> Languages like Haskell, OCaml, and Coq have inductive types with built-in structural recursion/induction principles — the same ideas formalised in a programming language.</li>
+</ul>
+<hr>
+<h2 id="6-exam-strategy-tips">6. EXAM STRATEGY TIPS<a class="headerlink" href="#6-exam-strategy-tips" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Always state:</strong> (1) what property <span class="arithmatex">\(P\)</span> you are proving, (2) what you are inducting on, (3) the base case(s), (4) the IH (written out explicitly), (5) the step case. Missing any of these loses marks.</li>
+<li><strong>Unfold definitions mechanically.</strong> Each equality step should cite either a definition (e.g. "by def. of <span class="arithmatex">\(rev\)</span>") or the IH. Examiners look for this discipline.</li>
+<li><strong>Auxiliary lemmas:</strong> If your step case gets stuck, it almost certainly needs a lemma. Common ones: <span class="arithmatex">\(xs\;@\;[\;] = xs\)</span>, associativity of <span class="arithmatex">\(@\)</span>, <span class="arithmatex">\(0 + y = y\)</span>. State them, prove them (by induction), then use them.</li>
+<li><strong>Two-step induction cue:</strong> if the recursive definition refers to <span class="arithmatex">\(n - 2\)</span> or the function is defined by <span class="arithmatex">\(F(n) = \ldots F(n-1) \ldots F(n-2) \ldots\)</span>, two-step induction is the natural choice.</li>
+<li><strong>Tree proofs have two IHs.</strong> Don't forget: in the branch case, you assume <span class="arithmatex">\(P(t_1)\)</span> <strong>and</strong> <span class="arithmatex">\(P(t_2)\)</span>.</li>
+<li><strong>Formula induction:</strong> one case per grammar rule. <span class="arithmatex">\(\lnot\)</span> case has one IH, binary connective case has two.</li>
+<li><strong>Sanity check:</strong> after the proof, verify the base case with a tiny example (e.g. <span class="arithmatex">\(n=0\)</span> or <span class="arithmatex">\(xs = [\;]\)</span>). If it doesn't typecheck, something went wrong.</li>
+<li><strong>Presentation:</strong> use clear formatting with labelled cases. A proof that is correct but unreadable will lose marks.</li>
+</ul>
+<hr>
+<p><em>These notes synthesise Lectures 9–11 on proof by induction for COMP0003 Formal Logic.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

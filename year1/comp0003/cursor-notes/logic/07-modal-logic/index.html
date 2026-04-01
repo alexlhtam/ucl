@@ -1,0 +1,4071 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Year 1 Computer Science notes — UCL">
+      
+      
+        <meta name="author" content="Alex Tam">
+      
+      
+        <link rel="canonical" href="https://alexlhtam.github.io/ucl/year1/comp0003/cursor-notes/logic/07-modal-logic/">
+      
+      
+        <link rel="prev" href="../06-complete-induction-and-descent/">
+      
+      
+        <link rel="next" href="../../automata/01-dfas-and-regular-languages/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Modal Logic - Alex's UCL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#modal-logic-comp0003-formal-logic" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-header__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex's UCL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Modal Logic
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Year 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-nav__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    Alex's UCL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Year 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Year 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms (COMP0005)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms (COMP0005)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/02-analysis-of-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis of Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/06-abstract-data-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sorting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sorting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/03-elementary-sorts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementary Sorts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/04-mergesort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MergeSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/05-quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QuickSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/07-heaps-and-heapsort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heaps &amp; HeapSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/08-symbol-tables-and-bst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbol Tables &amp; BST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/09-balanced-trees-and-hash-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balanced Trees &amp; Hash Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/10-undirected-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undirected Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/11-directed-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/12-minimum-spanning-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Spanning Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/13-shortest-paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shortest Paths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_5" id="__nav_2_1_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strings
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Strings
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/14-string-sorting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String Sorting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/15-tries-and-string-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tries &amp; String Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/16-substring-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Substring Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OOP / Java (COMP0004)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OOP / Java (COMP0004)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/01-intro-to-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/02-core-java-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Java Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/03-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Object-Oriented Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/04-classes-objects-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes, Objects &amp; References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/05-designing-with-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/06-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/07-interfaces-and-polymorphism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces &amp; Polymorphism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/08-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/09-file-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/10-json-csv-and-records/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON, CSV &amp; Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/11-packages-and-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages &amp; Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/12-lambdas-and-streams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambdas &amp; Streams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/13-web-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/14-data-structures-in-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures in Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/15-design-patterns-and-threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns &amp; Threads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory of Computation (COMP0003)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory of Computation (COMP0003)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formal Logic
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Formal Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-overview-and-history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview &amp; History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-boolean-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boolean Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-proof-by-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof by Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-complete-induction-and-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Induction &amp; Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modal Logic
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modal Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARY
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARY">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-modal-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why modal logic?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syntax-of-modal-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Syntax of modal logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#translating-english-to-modal-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Translating English to modal logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semantics-kripke-frames-and-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semantics — Kripke frames and models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semantics — Kripke frames and models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#frames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frames
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#valuations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valuations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-kripke-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A Kripke model
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-satisfaction-relation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The satisfaction relation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validity-and-satisfiability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validity and satisfiability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-results-on-validity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key results on validity
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key results on validity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#k-combined-with-necessity-of-conjunction-implies-necessity-of-b-valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        K combined with necessity of conjunction implies necessity of B — valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#duality-not-necessarily-a-iff-possibly-not-a-valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Duality: not-necessarily-A iff possibly-not-A — valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#necessarily-a-implies-possibly-a-not-generally-valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Necessarily A implies possibly A — NOT generally valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#necessarily-a-implies-a-not-generally-valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Necessarily A implies A — NOT generally valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reflexive-frames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reflexive frames
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reflexive frames">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#necessarily-a-implies-a-valid-iff-the-frame-is-reflexive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Necessarily A implies A — valid iff the frame is reflexive
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transitive-frames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transitive frames
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transitive frames">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#necessarily-a-implies-necessarily-necessarily-a-valid-iff-the-frame-is-transitive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Necessarily A implies necessarily necessarily A — valid iff the frame is transitive
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modal-logic-s4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modal logic S4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exam-revision-summary-four-subtopics-of-comp0003" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exam revision summary — four subtopics of COMP0003
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-satisfaction-at-a-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Satisfaction at a world
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-counterexample-to-general-validity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Counterexample to general validity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-prove-validity-of-the-duality-not-a-iff-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Prove validity of the □/◇ duality (not-□A iff ◇¬A)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-prove-a-a-is-valid-iff-the-frame-is-reflexive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Prove □A → A is valid iff the frame is reflexive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-s4-and-frame-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — S4 and frame conditions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automata
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Automata
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/01-dfas-and-regular-languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFAs &amp; Regular Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/02-nfas-and-dfa-equivalence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFAs &amp; DFA Equivalence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/03-closure-and-regular-expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closure &amp; Regular Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/04-pumping-lemma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/05-pushdown-automata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pushdown Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/06-context-free-grammars/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Free Grammars
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/07-pumping-lemma-for-cfls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma for CFLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/08-turing-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turing Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/09-decidability-and-undecidability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decidability &amp; Undecidability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARY
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARY">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-modal-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why modal logic?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syntax-of-modal-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Syntax of modal logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#translating-english-to-modal-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Translating English to modal logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semantics-kripke-frames-and-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semantics — Kripke frames and models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semantics — Kripke frames and models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#frames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frames
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#valuations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valuations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-kripke-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A Kripke model
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-satisfaction-relation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The satisfaction relation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validity-and-satisfiability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validity and satisfiability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-results-on-validity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key results on validity
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key results on validity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#k-combined-with-necessity-of-conjunction-implies-necessity-of-b-valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        K combined with necessity of conjunction implies necessity of B — valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#duality-not-necessarily-a-iff-possibly-not-a-valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Duality: not-necessarily-A iff possibly-not-A — valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#necessarily-a-implies-possibly-a-not-generally-valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Necessarily A implies possibly A — NOT generally valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#necessarily-a-implies-a-not-generally-valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Necessarily A implies A — NOT generally valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reflexive-frames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reflexive frames
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reflexive frames">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#necessarily-a-implies-a-valid-iff-the-frame-is-reflexive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Necessarily A implies A — valid iff the frame is reflexive
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transitive-frames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transitive frames
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transitive frames">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#necessarily-a-implies-necessarily-necessarily-a-valid-iff-the-frame-is-transitive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Necessarily A implies necessarily necessarily A — valid iff the frame is transitive
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modal-logic-s4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modal logic S4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exam-revision-summary-four-subtopics-of-comp0003" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exam revision summary — four subtopics of COMP0003
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-satisfaction-at-a-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Satisfaction at a world
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-counterexample-to-general-validity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Counterexample to general validity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-prove-validity-of-the-duality-not-a-iff-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Prove validity of the □/◇ duality (not-□A iff ◇¬A)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-prove-a-a-is-valid-iff-the-frame-is-reflexive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Prove □A → A is valid iff the frame is reflexive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-s4-and-frame-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — S4 and frame conditions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="modal-logic-comp0003-formal-logic">Modal Logic — COMP0003 Formal Logic<a class="headerlink" href="#modal-logic-comp0003-formal-logic" title="Permanent link">¶</a></h1>
+<p><em>Lecture-style notes covering Logic Lectures 13–15. </em><em>Modal logic</em><em> extends propositional logic with operators for </em><em>possibility</em><em> (<span class="arithmatex">\(\Diamond\)</span>) and </em><em>necessity</em><em> (<span class="arithmatex">\(\Box\)</span>), interpreted over </em><em>Kripke frames</em><em> — directed graphs of "possible worlds." The semantics hinge on an </em><em>accessibility relation</em><em> <span class="arithmatex">\(R\)</span>: <span class="arithmatex">\(\Box A\)</span> means <span class="arithmatex">\(A\)</span> holds in every accessible world, <span class="arithmatex">\(\Diamond A\)</span> means <span class="arithmatex">\(A\)</span> holds in some accessible world. Restricting <span class="arithmatex">\(R\)</span> to be </em><em>reflexive</em><em> or </em><em>transitive</em><em> yields different modal systems with distinct valid formulas — culminating in the system </em><em>S4</em><em>.</em></p>
+<hr>
+<h2 id="1-complete-topic-summary">1. COMPLETE TOPIC SUMMARY<a class="headerlink" href="#1-complete-topic-summary" title="Permanent link">¶</a></h2>
+<h3 id="why-modal-logic">Why modal logic?<a class="headerlink" href="#why-modal-logic" title="Permanent link">¶</a></h3>
+<p>Classical propositional logic deals with statements that are <strong>true or false</strong>, period. But natural language distinguishes between what <strong>is</strong> true, what <strong>must be</strong> true, and what <strong>could be</strong> true:</p>
+<ul>
+<li>"It is raining." (fact)</li>
+<li>"It must be raining." (necessary truth)</li>
+<li>"It might be raining." (possible truth)</li>
+</ul>
+<p>Modal logic formalises these distinctions by adding two operators — <span class="arithmatex">\(\Box\)</span> ("necessarily") and <span class="arithmatex">\(\Diamond\)</span> ("possibly") — to propositional logic. The resulting system has applications in philosophy, computer science (program verification, knowledge representation), and linguistics.</p>
+<hr>
+<h3 id="syntax-of-modal-logic">Syntax of modal logic<a class="headerlink" href="#syntax-of-modal-logic" title="Permanent link">¶</a></h3>
+<p>Modal logic formulas are built from:</p>
+<ul>
+<li><strong>Proposition letters:</strong> <span class="arithmatex">\(P, Q, R, \ldots\)</span> (as in propositional logic)</li>
+<li><strong>Propositional connectives:</strong> <span class="arithmatex">\(\neg, \wedge, \vee, \to, \leftrightarrow\)</span> (as usual)</li>
+<li><strong>Modal operators:</strong> <span class="arithmatex">\(\Box A\)</span> ("necessarily <span class="arithmatex">\(A\)</span>" / "it must be that <span class="arithmatex">\(A\)</span>") and <span class="arithmatex">\(\Diamond A\)</span> ("possibly <span class="arithmatex">\(A\)</span>" / "it might be that <span class="arithmatex">\(A\)</span>")</li>
+</ul>
+<p><strong>Precedence.</strong> <span class="arithmatex">\(\Box\)</span> and <span class="arithmatex">\(\Diamond\)</span> bind <strong>tighter</strong> than binary connectives (like <span class="arithmatex">\(\neg\)</span> does). So <span class="arithmatex">\(\Box P \to Q\)</span> means <span class="arithmatex">\((\Box P) \to Q\)</span>, <strong>not</strong> <span class="arithmatex">\(\Box(P \to Q)\)</span>.</p>
+<p><strong>Grammar (BNF-style):</strong></p>
+<div class="arithmatex">\[A \;::=\; P \;\mid\; \neg A \;\mid\; A \wedge A \;\mid\; A \vee A \;\mid\; A \to A \;\mid\; \Box A \;\mid\; \Diamond A\]</div>
+<hr>
+<h3 id="translating-english-to-modal-logic">Translating English to modal logic<a class="headerlink" href="#translating-english-to-modal-logic" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>English</th>
+<th>Modal formula</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"It is necessarily the case that <span class="arithmatex">\(P\)</span>"</td>
+<td><span class="arithmatex">\(\Box P\)</span></td>
+</tr>
+<tr>
+<td>"It is possible that <span class="arithmatex">\(P\)</span>"</td>
+<td><span class="arithmatex">\(\Diamond P\)</span></td>
+</tr>
+<tr>
+<td>"If <span class="arithmatex">\(P\)</span> then necessarily <span class="arithmatex">\(Q\)</span>"</td>
+<td><span class="arithmatex">\(P \to \Box Q\)</span></td>
+</tr>
+<tr>
+<td>"It is necessary that if <span class="arithmatex">\(P\)</span> then <span class="arithmatex">\(Q\)</span>"</td>
+<td><span class="arithmatex">\(\Box(P \to Q)\)</span></td>
+</tr>
+<tr>
+<td>"It is not possible that <span class="arithmatex">\(P\)</span> and <span class="arithmatex">\(Q\)</span>"</td>
+<td><span class="arithmatex">\(\neg \Diamond(P \wedge Q)\)</span></td>
+</tr>
+<tr>
+<td>"Possibly <span class="arithmatex">\(P\)</span> and possibly <span class="arithmatex">\(Q\)</span>"</td>
+<td><span class="arithmatex">\(\Diamond P \wedge \Diamond Q\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The difference between <span class="arithmatex">\(P \to \Box Q\)</span> and <span class="arithmatex">\(\Box(P \to Q)\)</span> is a common exam trap — the scope of <span class="arithmatex">\(\Box\)</span> matters.</p>
+<hr>
+<h3 id="semantics-kripke-frames-and-models">Semantics — Kripke frames and models<a class="headerlink" href="#semantics-kripke-frames-and-models" title="Permanent link">¶</a></h3>
+<p>The semantics of modal logic uses <strong>Kripke structures</strong> (also called <strong>Kripke models</strong>).</p>
+<h4 id="frames">Frames<a class="headerlink" href="#frames" title="Permanent link">¶</a></h4>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../resources/kripke-frame-example.png" data-desc-position="bottom"><img alt="Kripke Frame Example — Modal Logic" src="../../../resources/kripke-frame-example.png"></a>
+<em>A sample Kripke frame with four worlds, directed accessibility edges, and proposition assignments. Evaluation examples show how the satisfaction of modal formulas depends on what is true at accessible worlds.</em></p>
+<p>A <strong>Kripke frame</strong> is a pair <span class="arithmatex">\(\mathcal{M} = (W, R)\)</span> where:</p>
+<ul>
+<li><span class="arithmatex">\(W\)</span> is a <strong>nonempty</strong> set of <strong>worlds</strong> (also called states or points).</li>
+<li><span class="arithmatex">\(R \subseteq W \times W\)</span> is the <strong>accessibility relation</strong>. If <span class="arithmatex">\(Rww'\)</span>, we say world <span class="arithmatex">\(w'\)</span> is <strong>accessible from</strong> <span class="arithmatex">\(w\)</span>.</li>
+</ul>
+<p><strong>Frames as directed graphs.</strong> Each world is a node; there is a directed edge from <span class="arithmatex">\(w\)</span> to <span class="arithmatex">\(w'\)</span> iff <span class="arithmatex">\(Rww'\)</span>. The graph can have self-loops (if <span class="arithmatex">\(Rww\)</span>), cycles, or disconnected components.</p>
+<h4 id="valuations">Valuations<a class="headerlink" href="#valuations" title="Permanent link">¶</a></h4>
+<p>A <strong>valuation</strong> is a function <span class="arithmatex">\(\rho : \mathcal{L} \to \mathcal{P}(W)\)</span> that assigns to each proposition letter the set of worlds where that letter is <strong>true</strong>. That is, <span class="arithmatex">\(P\)</span> is true at world <span class="arithmatex">\(w\)</span> iff <span class="arithmatex">\(w \in \rho(P)\)</span>.</p>
+<h4 id="a-kripke-model">A Kripke model<a class="headerlink" href="#a-kripke-model" title="Permanent link">¶</a></h4>
+<p>A <strong>Kripke model</strong> is a triple <span class="arithmatex">\((\mathcal{M}, \rho)\)</span> — equivalently <span class="arithmatex">\((W, R, \rho)\)</span> — a frame together with a valuation.</p>
+<hr>
+<h3 id="the-satisfaction-relation">The satisfaction relation<a class="headerlink" href="#the-satisfaction-relation" title="Permanent link">¶</a></h3>
+<p>The <strong>satisfaction relation</strong> <span class="arithmatex">\(\mathcal{M}, w \models_\rho A\)</span> ("formula <span class="arithmatex">\(A\)</span> is true at world <span class="arithmatex">\(w\)</span> in model <span class="arithmatex">\(\mathcal{M}\)</span> under valuation <span class="arithmatex">\(\rho\)</span>") is defined inductively:</p>
+<table>
+<thead>
+<tr>
+<th>Formula</th>
+<th>Satisfaction condition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\mathcal{M}, w \models_\rho P\)</span></td>
+<td><span class="arithmatex">\(w \in \rho(P)\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{M}, w \models_\rho \neg A\)</span></td>
+<td><span class="arithmatex">\(\mathcal{M}, w \not\models_\rho A\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{M}, w \models_\rho A \wedge B\)</span></td>
+<td><span class="arithmatex">\(\mathcal{M}, w \models_\rho A\)</span> and <span class="arithmatex">\(\mathcal{M}, w \models_\rho B\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{M}, w \models_\rho A \vee B\)</span></td>
+<td><span class="arithmatex">\(\mathcal{M}, w \models_\rho A\)</span> or <span class="arithmatex">\(\mathcal{M}, w \models_\rho B\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{M}, w \models_\rho A \to B\)</span></td>
+<td><span class="arithmatex">\(\mathcal{M}, w \not\models_\rho A\)</span> or <span class="arithmatex">\(\mathcal{M}, w \models_\rho B\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{M}, w \models_\rho \Diamond A\)</span></td>
+<td><span class="arithmatex">\(\exists w' \in W.\; Rww' \;\text{and}\; \mathcal{M}, w' \models_\rho A\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{M}, w \models_\rho \Box A\)</span></td>
+<td><span class="arithmatex">\(\forall w' \in W.\; Rww' \to \mathcal{M}, w' \models_\rho A\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key intuition:</strong></p>
+<ul>
+<li><span class="arithmatex">\(\Box A\)</span> at <span class="arithmatex">\(w\)</span>: "<span class="arithmatex">\(A\)</span> holds in <strong>every</strong> world accessible from <span class="arithmatex">\(w\)</span>."</li>
+<li><span class="arithmatex">\(\Diamond A\)</span> at <span class="arithmatex">\(w\)</span>: "<span class="arithmatex">\(A\)</span> holds in <strong>some</strong> world accessible from <span class="arithmatex">\(w\)</span>."</li>
+</ul>
+<hr>
+<h3 id="validity-and-satisfiability">Validity and satisfiability<a class="headerlink" href="#validity-and-satisfiability" title="Permanent link">¶</a></h3>
+<p><strong>Satisfiability at a world.</strong> A formula <span class="arithmatex">\(A\)</span> is <strong>satisfiable</strong> if there exists a model <span class="arithmatex">\((W, R, \rho)\)</span> and a world <span class="arithmatex">\(w \in W\)</span> such that <span class="arithmatex">\(\mathcal{M}, w \models_\rho A\)</span>.</p>
+<p><strong>Validity in a frame.</strong> <span class="arithmatex">\(A\)</span> is <strong>valid in frame</strong> <span class="arithmatex">\(\mathcal{M} = (W, R)\)</span> if for <strong>every</strong> valuation <span class="arithmatex">\(\rho\)</span> and <strong>every</strong> world <span class="arithmatex">\(w \in W\)</span>, <span class="arithmatex">\(\mathcal{M}, w \models_\rho A\)</span>.</p>
+<p><strong>General validity.</strong> <span class="arithmatex">\(A\)</span> is <strong>(generally) valid</strong> if it is valid in <strong>every</strong> frame — i.e. true at every world in every frame under every valuation.</p>
+<hr>
+<h3 id="key-results-on-validity">Key results on validity<a class="headerlink" href="#key-results-on-validity" title="Permanent link">¶</a></h3>
+<h4 id="k-combined-with-necessity-of-conjunction-implies-necessity-of-b-valid">K combined with necessity of conjunction implies necessity of B — valid<a class="headerlink" href="#k-combined-with-necessity-of-conjunction-implies-necessity-of-b-valid" title="Permanent link">¶</a></h4>
+<p><strong>Proof.</strong> Let <span class="arithmatex">\(\mathcal{M} = (W, R)\)</span> be any frame, <span class="arithmatex">\(\rho\)</span> any valuation, <span class="arithmatex">\(w\)</span> any world. Suppose <span class="arithmatex">\(\mathcal{M}, w \models_\rho \Box(A \wedge (A \to B))\)</span>. Then for every <span class="arithmatex">\(w'\)</span> with <span class="arithmatex">\(Rww'\)</span>:</p>
+<ul>
+<li><span class="arithmatex">\(\mathcal{M}, w' \models_\rho A \wedge (A \to B)\)</span></li>
+<li>So <span class="arithmatex">\(\mathcal{M}, w' \models_\rho A\)</span> and <span class="arithmatex">\(\mathcal{M}, w' \models_\rho A \to B\)</span></li>
+<li>By modus ponens, <span class="arithmatex">\(\mathcal{M}, w' \models_\rho B\)</span></li>
+</ul>
+<p>Since this holds for every accessible <span class="arithmatex">\(w'\)</span>, <span class="arithmatex">\(\mathcal{M}, w \models_\rho \Box B\)</span>. The implication holds at every world in every frame, so the formula is valid. <span class="arithmatex">\(\blacksquare\)</span></p>
+<h4 id="duality-not-necessarily-a-iff-possibly-not-a-valid">Duality: not-necessarily-A iff possibly-not-A — valid<a class="headerlink" href="#duality-not-necessarily-a-iff-possibly-not-a-valid" title="Permanent link">¶</a></h4>
+<p><strong>Proof.</strong> We show both directions at an arbitrary world <span class="arithmatex">\(w\)</span> in any model.</p>
+<p><span class="arithmatex">\((\Rightarrow)\)</span> Suppose <span class="arithmatex">\(\mathcal{M}, w \models_\rho \neg \Box A\)</span>. Then <span class="arithmatex">\(\mathcal{M}, w \not\models_\rho \Box A\)</span>, so there exists <span class="arithmatex">\(w'\)</span> with <span class="arithmatex">\(Rww'\)</span> and <span class="arithmatex">\(\mathcal{M}, w' \not\models_\rho A\)</span>. Thus <span class="arithmatex">\(\mathcal{M}, w' \models_\rho \neg A\)</span>, and since <span class="arithmatex">\(Rww'\)</span>, we have <span class="arithmatex">\(\mathcal{M}, w \models_\rho \Diamond \neg A\)</span>.</p>
+<p><span class="arithmatex">\((\Leftarrow)\)</span> Suppose <span class="arithmatex">\(\mathcal{M}, w \models_\rho \Diamond \neg A\)</span>. Then there exists <span class="arithmatex">\(w'\)</span> with <span class="arithmatex">\(Rww'\)</span> and <span class="arithmatex">\(\mathcal{M}, w' \models_\rho \neg A\)</span>, i.e. <span class="arithmatex">\(\mathcal{M}, w' \not\models_\rho A\)</span>. So <span class="arithmatex">\(\mathcal{M}, w \not\models_\rho \Box A\)</span>, hence <span class="arithmatex">\(\mathcal{M}, w \models_\rho \neg \Box A\)</span>. <span class="arithmatex">\(\blacksquare\)</span></p>
+<p><strong>Duality.</strong> This gives a general principle: <span class="arithmatex">\(\Box\)</span> and <span class="arithmatex">\(\Diamond\)</span> are <strong>duals</strong>, just as <span class="arithmatex">\(\forall\)</span> and <span class="arithmatex">\(\exists\)</span> are duals in first-order logic:</p>
+<div class="arithmatex">\[\neg \Box A \equiv \Diamond \neg A \qquad \neg \Diamond A \equiv \Box \neg A\]</div>
+<h4 id="necessarily-a-implies-possibly-a-not-generally-valid">Necessarily A implies possibly A — NOT generally valid<a class="headerlink" href="#necessarily-a-implies-possibly-a-not-generally-valid" title="Permanent link">¶</a></h4>
+<p><strong>Counterexample.</strong> Take a frame with a single world <span class="arithmatex">\(w\)</span> and <span class="arithmatex">\(R = \emptyset\)</span> (no accessibility edges — <span class="arithmatex">\(w\)</span> is <strong>isolated</strong>). Let <span class="arithmatex">\(\rho(P) = \emptyset\)</span> (so <span class="arithmatex">\(P\)</span> is false at <span class="arithmatex">\(w\)</span>).</p>
+<ul>
+<li><span class="arithmatex">\(\mathcal{M}, w \models_\rho \Box P\)</span>: vacuously true, since there are <strong>no</strong> worlds <span class="arithmatex">\(w'\)</span> with <span class="arithmatex">\(Rww'\)</span> — the universal condition <span class="arithmatex">\(\forall w'.\; Rww' \to \ldots\)</span> is satisfied trivially.</li>
+<li><span class="arithmatex">\(\mathcal{M}, w \not\models_\rho \Diamond P\)</span>: there is <strong>no</strong> <span class="arithmatex">\(w'\)</span> with <span class="arithmatex">\(Rww'\)</span> at all, so the existential condition fails.</li>
+</ul>
+<p>Therefore <span class="arithmatex">\(\mathcal{M}, w \models_\rho \Box P\)</span> but <span class="arithmatex">\(\mathcal{M}, w \not\models_\rho \Diamond P\)</span>, so <span class="arithmatex">\(\Box P \to \Diamond P\)</span> fails at <span class="arithmatex">\(w\)</span>. <span class="arithmatex">\(\blacksquare\)</span></p>
+<p><strong>Insight.</strong> The isolated-world counterexample works because <span class="arithmatex">\(\Box\)</span> is vacuously satisfied when nothing is accessible, while <span class="arithmatex">\(\Diamond\)</span> requires at least one accessible world.</p>
+<h4 id="necessarily-a-implies-a-not-generally-valid">Necessarily A implies A — NOT generally valid<a class="headerlink" href="#necessarily-a-implies-a-not-generally-valid" title="Permanent link">¶</a></h4>
+<p><strong>Counterexample.</strong> Same frame: one world <span class="arithmatex">\(w\)</span>, <span class="arithmatex">\(R = \emptyset\)</span>, <span class="arithmatex">\(\rho(P) = \emptyset\)</span>.</p>
+<ul>
+<li><span class="arithmatex">\(\mathcal{M}, w \models_\rho \Box P\)</span>: vacuously true (no accessible worlds).</li>
+<li><span class="arithmatex">\(\mathcal{M}, w \not\models_\rho P\)</span>: since <span class="arithmatex">\(w \notin \rho(P)\)</span>.</li>
+</ul>
+<p>So <span class="arithmatex">\(\Box P \to P\)</span> fails at <span class="arithmatex">\(w\)</span>. <span class="arithmatex">\(\blacksquare\)</span></p>
+<hr>
+<h3 id="reflexive-frames">Reflexive frames<a class="headerlink" href="#reflexive-frames" title="Permanent link">¶</a></h3>
+<p>A frame <span class="arithmatex">\((W, R)\)</span> is <strong>reflexive</strong> if <span class="arithmatex">\(R\)</span> is reflexive: <span class="arithmatex">\(\forall w \in W.\; Rww\)</span>.</p>
+<p>In graph terms: every world has a <strong>self-loop</strong>.</p>
+<h4 id="necessarily-a-implies-a-valid-iff-the-frame-is-reflexive">Necessarily A implies A — valid iff the frame is reflexive<a class="headerlink" href="#necessarily-a-implies-a-valid-iff-the-frame-is-reflexive" title="Permanent link">¶</a></h4>
+<p><strong>(<span class="arithmatex">\(\Rightarrow\)</span>) If <span class="arithmatex">\(\Box A \to A\)</span> is valid in <span class="arithmatex">\(\mathcal{M}\)</span>, then <span class="arithmatex">\(\mathcal{M}\)</span> is reflexive.</strong></p>
+<p>Suppose <span class="arithmatex">\(\mathcal{M}\)</span> is <strong>not</strong> reflexive: there exists <span class="arithmatex">\(w_0 \in W\)</span> with <span class="arithmatex">\(\neg Rw_0 w_0\)</span>. Define <span class="arithmatex">\(\rho(P) = \{w' \in W \mid Rw_0 w'\}\)</span> — i.e. <span class="arithmatex">\(P\)</span> is true at exactly the worlds accessible from <span class="arithmatex">\(w_0\)</span>.</p>
+<ul>
+<li>For any <span class="arithmatex">\(w'\)</span> with <span class="arithmatex">\(Rw_0 w'\)</span>: <span class="arithmatex">\(w' \in \rho(P)\)</span>, so <span class="arithmatex">\(\mathcal{M}, w' \models_\rho P\)</span>. Thus <span class="arithmatex">\(\mathcal{M}, w_0 \models_\rho \Box P\)</span>.</li>
+<li>But <span class="arithmatex">\(w_0 \notin \rho(P)\)</span> (since <span class="arithmatex">\(\neg Rw_0 w_0\)</span>), so <span class="arithmatex">\(\mathcal{M}, w_0 \not\models_\rho P\)</span>.</li>
+<li>Therefore <span class="arithmatex">\(\mathcal{M}, w_0 \models_\rho \Box P \wedge \neg P\)</span>, making <span class="arithmatex">\(\Box P \to P\)</span> false at <span class="arithmatex">\(w_0\)</span>. Contradiction.</li>
+</ul>
+<p><strong>(<span class="arithmatex">\(\Leftarrow\)</span>) If <span class="arithmatex">\(\mathcal{M}\)</span> is reflexive, then <span class="arithmatex">\(\Box A \to A\)</span> is valid in <span class="arithmatex">\(\mathcal{M}\)</span>.</strong></p>
+<p>Let <span class="arithmatex">\(w \in W\)</span> and suppose <span class="arithmatex">\(\mathcal{M}, w \models_\rho \Box A\)</span>. Then for all <span class="arithmatex">\(w'\)</span> with <span class="arithmatex">\(Rww'\)</span>, <span class="arithmatex">\(\mathcal{M}, w' \models_\rho A\)</span>. Since <span class="arithmatex">\(R\)</span> is reflexive, <span class="arithmatex">\(Rww\)</span>, so taking <span class="arithmatex">\(w' = w\)</span> gives <span class="arithmatex">\(\mathcal{M}, w \models_\rho A\)</span>. <span class="arithmatex">\(\blacksquare\)</span></p>
+<hr>
+<h3 id="transitive-frames">Transitive frames<a class="headerlink" href="#transitive-frames" title="Permanent link">¶</a></h3>
+<p>A frame <span class="arithmatex">\((W, R)\)</span> is <strong>transitive</strong> if <span class="arithmatex">\(R\)</span> is transitive: <span class="arithmatex">\(\forall u, v, w \in W.\; (Ruv \wedge Rvw) \to Ruw\)</span>.</p>
+<h4 id="necessarily-a-implies-necessarily-necessarily-a-valid-iff-the-frame-is-transitive">Necessarily A implies necessarily necessarily A — valid iff the frame is transitive<a class="headerlink" href="#necessarily-a-implies-necessarily-necessarily-a-valid-iff-the-frame-is-transitive" title="Permanent link">¶</a></h4>
+<p><strong>(<span class="arithmatex">\(\Leftarrow\)</span>) If <span class="arithmatex">\(\mathcal{M}\)</span> is transitive, then <span class="arithmatex">\(\Box A \to \Box \Box A\)</span> is valid in <span class="arithmatex">\(\mathcal{M}\)</span>.</strong></p>
+<p>Suppose <span class="arithmatex">\(\mathcal{M}, w \models_\rho \Box A\)</span>. We need <span class="arithmatex">\(\mathcal{M}, w \models_\rho \Box \Box A\)</span>, i.e. for all <span class="arithmatex">\(w'\)</span> with <span class="arithmatex">\(Rww'\)</span>, <span class="arithmatex">\(\mathcal{M}, w' \models_\rho \Box A\)</span>.</p>
+<p>Take any <span class="arithmatex">\(w'\)</span> with <span class="arithmatex">\(Rww'\)</span> and any <span class="arithmatex">\(w''\)</span> with <span class="arithmatex">\(Rw'w''\)</span>. By transitivity, <span class="arithmatex">\(Rww''\)</span>. Since <span class="arithmatex">\(\mathcal{M}, w \models_\rho \Box A\)</span> and <span class="arithmatex">\(Rww''\)</span>, we get <span class="arithmatex">\(\mathcal{M}, w'' \models_\rho A\)</span>. Since <span class="arithmatex">\(w''\)</span> was arbitrary among worlds accessible from <span class="arithmatex">\(w'\)</span>, we have <span class="arithmatex">\(\mathcal{M}, w' \models_\rho \Box A\)</span>. Since <span class="arithmatex">\(w'\)</span> was arbitrary among worlds accessible from <span class="arithmatex">\(w\)</span>, we have <span class="arithmatex">\(\mathcal{M}, w \models_\rho \Box \Box A\)</span>. <span class="arithmatex">\(\blacksquare\)</span></p>
+<p><strong>(<span class="arithmatex">\(\Rightarrow\)</span>) If <span class="arithmatex">\(\Box A \to \Box \Box A\)</span> is valid in <span class="arithmatex">\(\mathcal{M}\)</span>, then <span class="arithmatex">\(\mathcal{M}\)</span> is transitive.</strong></p>
+<p>Suppose <span class="arithmatex">\(\mathcal{M}\)</span> is <strong>not</strong> transitive: there exist <span class="arithmatex">\(u, v, w \in W\)</span> with <span class="arithmatex">\(Ruv\)</span>, <span class="arithmatex">\(Rvw\)</span>, but <span class="arithmatex">\(\neg Ruw\)</span>. Define <span class="arithmatex">\(\rho(P) = \{w' \in W \mid Ruw'\}\)</span>.</p>
+<ul>
+<li>For any <span class="arithmatex">\(w'\)</span> with <span class="arithmatex">\(Ruw'\)</span>: <span class="arithmatex">\(w' \in \rho(P)\)</span>, so <span class="arithmatex">\(\mathcal{M}, w' \models_\rho P\)</span>. Thus <span class="arithmatex">\(\mathcal{M}, u \models_\rho \Box P\)</span>.</li>
+<li>Now consider <span class="arithmatex">\(v\)</span> (with <span class="arithmatex">\(Ruv\)</span>): for <span class="arithmatex">\(\Box P\)</span> at <span class="arithmatex">\(v\)</span>, we need <span class="arithmatex">\(P\)</span> at all <span class="arithmatex">\(w'\)</span> with <span class="arithmatex">\(Rvw'\)</span>. In particular, <span class="arithmatex">\(Rvw\)</span> but <span class="arithmatex">\(w \notin \rho(P)\)</span> (since <span class="arithmatex">\(\neg Ruw\)</span>), so <span class="arithmatex">\(\mathcal{M}, w \not\models_\rho P\)</span>. Therefore <span class="arithmatex">\(\mathcal{M}, v \not\models_\rho \Box P\)</span>.</li>
+<li>Since <span class="arithmatex">\(Ruv\)</span> and <span class="arithmatex">\(\mathcal{M}, v \not\models_\rho \Box P\)</span>, we have <span class="arithmatex">\(\mathcal{M}, u \not\models_\rho \Box \Box P\)</span>.</li>
+<li>So <span class="arithmatex">\(\mathcal{M}, u \models_\rho \Box P \wedge \neg \Box \Box P\)</span>, making <span class="arithmatex">\(\Box P \to \Box \Box P\)</span> false at <span class="arithmatex">\(u\)</span>. Contradiction. <span class="arithmatex">\(\blacksquare\)</span></li>
+</ul>
+<hr>
+<h3 id="modal-logic-s4">Modal logic S4<a class="headerlink" href="#modal-logic-s4" title="Permanent link">¶</a></h3>
+<p><strong>S4</strong> is the modal logic determined by frames that are both <strong>reflexive</strong> and <strong>transitive</strong>.</p>
+<p><strong>Axioms of S4</strong> (in addition to all propositional tautologies and the distribution axiom <span class="arithmatex">\(\Box(A \to B) \to (\Box A \to \Box B)\)</span>):</p>
+<table>
+<thead>
+<tr>
+<th>Axiom name</th>
+<th>Formula</th>
+<th>Frame condition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>T</strong> (reflexivity axiom)</td>
+<td><span class="arithmatex">\(\Box A \to A\)</span></td>
+<td><span class="arithmatex">\(R\)</span> is reflexive</td>
+</tr>
+<tr>
+<td><strong>4</strong> (transitivity axiom)</td>
+<td><span class="arithmatex">\(\Box A \to \Box \Box A\)</span></td>
+<td><span class="arithmatex">\(R\)</span> is transitive</td>
+</tr>
+</tbody>
+</table>
+<p>A formula is <strong>S4-valid</strong> iff it is valid in all reflexive and transitive frames.</p>
+<p><strong>Remarks:</strong></p>
+<ul>
+<li>S4 is one of many modal systems. Others include <strong>K</strong> (no frame conditions), <strong>T</strong> (reflexive only), <strong>S5</strong> (reflexive, symmetric, and transitive — equivalence relations), and <strong>GL</strong> (Gödel–Löb logic, for provability).</li>
+<li>In S4, both <span class="arithmatex">\(\Box A \to A\)</span> and <span class="arithmatex">\(\Box A \to \Box \Box A\)</span> are valid, so iterated modalities can be simplified: <span class="arithmatex">\(\Box \Box A \equiv \Box A\)</span>.</li>
+</ul>
+<hr>
+<h3 id="exam-revision-summary-four-subtopics-of-comp0003">Exam revision summary — four subtopics of COMP0003<a class="headerlink" href="#exam-revision-summary-four-subtopics-of-comp0003" title="Permanent link">¶</a></h3>
+<p>The COMP0003 module (as indicated in the lectures) covers four main blocks:</p>
+<ol>
+<li><strong>Propositional logic:</strong> syntax, semantics (truth tables), tautologies, satisfiability, natural deduction, soundness and completeness.</li>
+<li><strong>First-order logic (FOL):</strong> predicates, quantifiers (<span class="arithmatex">\(\forall, \exists\)</span>), structures, satisfaction, validity, natural deduction for FOL.</li>
+<li><strong>Induction:</strong> ordinary induction, complete (strong) induction, infinite descent, well-ordering.</li>
+<li><strong>Modal logic:</strong> <span class="arithmatex">\(\Box\)</span>, <span class="arithmatex">\(\Diamond\)</span>, Kripke frames, satisfaction, validity, frame conditions (reflexive, transitive), S4.</li>
+</ol>
+<hr>
+<h2 id="2-exam-style-questions-with-model-answers">2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)<a class="headerlink" href="#2-exam-style-questions-with-model-answers" title="Permanent link">¶</a></h2>
+<h3 id="q1-satisfaction-at-a-world">Q1 — Satisfaction at a world<a class="headerlink" href="#q1-satisfaction-at-a-world" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Consider the frame <span class="arithmatex">\(\mathcal{M} = (W, R)\)</span> with <span class="arithmatex">\(W = \{w_1, w_2, w_3\}\)</span> and <span class="arithmatex">\(R = \{(w_1, w_2), (w_1, w_3), (w_2, w_3)\}\)</span>. Let <span class="arithmatex">\(\rho(P) = \{w_2\}\)</span> and <span class="arithmatex">\(\rho(Q) = \{w_2, w_3\}\)</span>. Determine whether <span class="arithmatex">\(\mathcal{M}, w_1 \models_\rho \Box Q\)</span> and whether <span class="arithmatex">\(\mathcal{M}, w_1 \models_\rho \Diamond P\)</span>.</p>
+<p><strong>Model answer.</strong></p>
+<p><strong><span class="arithmatex">\(\Box Q\)</span> at <span class="arithmatex">\(w_1\)</span>:</strong> The worlds accessible from <span class="arithmatex">\(w_1\)</span> are <span class="arithmatex">\(w_2\)</span> and <span class="arithmatex">\(w_3\)</span> (since <span class="arithmatex">\(Rw_1 w_2\)</span> and <span class="arithmatex">\(Rw_1 w_3\)</span>). Is <span class="arithmatex">\(Q\)</span> true at both?</p>
+<ul>
+<li><span class="arithmatex">\(w_2 \in \rho(Q) = \{w_2, w_3\}\)</span>: yes.</li>
+<li><span class="arithmatex">\(w_3 \in \rho(Q)\)</span>: yes.</li>
+</ul>
+<p>Both accessible worlds satisfy <span class="arithmatex">\(Q\)</span>, so <span class="arithmatex">\(\mathcal{M}, w_1 \models_\rho \Box Q\)</span>. <strong>True.</strong></p>
+<p><strong><span class="arithmatex">\(\Diamond P\)</span> at <span class="arithmatex">\(w_1\)</span>:</strong> Is there an accessible world where <span class="arithmatex">\(P\)</span> is true?</p>
+<ul>
+<li><span class="arithmatex">\(w_2 \in \rho(P) = \{w_2\}\)</span>: yes, and <span class="arithmatex">\(Rw_1 w_2\)</span>.</li>
+</ul>
+<p>So <span class="arithmatex">\(\mathcal{M}, w_1 \models_\rho \Diamond P\)</span>. <strong>True.</strong></p>
+<hr>
+<h3 id="q2-counterexample-to-general-validity">Q2 — Counterexample to general validity<a class="headerlink" href="#q2-counterexample-to-general-validity" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Show that <span class="arithmatex">\(\Box A \to A\)</span> is not generally valid by constructing a counterexample.</p>
+<p><strong>Model answer.</strong> Let <span class="arithmatex">\(\mathcal{M} = (\{w\}, \emptyset)\)</span> — a single world <span class="arithmatex">\(w\)</span> with no accessibility edges. Let <span class="arithmatex">\(\rho(P) = \emptyset\)</span>.</p>
+<ul>
+<li><span class="arithmatex">\(\mathcal{M}, w \models_\rho \Box P\)</span>: There are <strong>no</strong> <span class="arithmatex">\(w'\)</span> with <span class="arithmatex">\(Rww'\)</span>, so the condition "<span class="arithmatex">\(\forall w'.\; Rww' \to \mathcal{M}, w' \models_\rho P\)</span>" is <strong>vacuously true</strong>.</li>
+<li><span class="arithmatex">\(\mathcal{M}, w \not\models_\rho P\)</span>: since <span class="arithmatex">\(w \notin \rho(P) = \emptyset\)</span>.</li>
+</ul>
+<p>Therefore <span class="arithmatex">\(\mathcal{M}, w \models_\rho \Box P\)</span> and <span class="arithmatex">\(\mathcal{M}, w \not\models_\rho P\)</span>, so <span class="arithmatex">\(\Box P \to P\)</span> is false at <span class="arithmatex">\(w\)</span>. The formula is not generally valid. <span class="arithmatex">\(\blacksquare\)</span></p>
+<hr>
+<h3 id="q3-prove-validity-of-the-duality-not-a-iff-a">Q3 — Prove validity of the □/◇ duality (not-□A iff ◇¬A)<a class="headerlink" href="#q3-prove-validity-of-the-duality-not-a-iff-a" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Prove that <span class="arithmatex">\(\neg \Box A \leftrightarrow \Diamond \neg A\)</span> is valid in all frames.</p>
+<p><strong>Model answer.</strong> Let <span class="arithmatex">\(\mathcal{M} = (W, R)\)</span> be any frame, <span class="arithmatex">\(\rho\)</span> any valuation, <span class="arithmatex">\(w \in W\)</span>.</p>
+<p><span class="arithmatex">\((\Rightarrow)\)</span> Suppose <span class="arithmatex">\(\mathcal{M}, w \models_\rho \neg \Box A\)</span>. Then <span class="arithmatex">\(\mathcal{M}, w \not\models_\rho \Box A\)</span>: not every accessible world satisfies <span class="arithmatex">\(A\)</span>. So <span class="arithmatex">\(\exists w' \in W\)</span> with <span class="arithmatex">\(Rww'\)</span> and <span class="arithmatex">\(\mathcal{M}, w' \not\models_\rho A\)</span>, i.e. <span class="arithmatex">\(\mathcal{M}, w' \models_\rho \neg A\)</span>. Since <span class="arithmatex">\(Rww'\)</span> and <span class="arithmatex">\(w'\)</span> satisfies <span class="arithmatex">\(\neg A\)</span>, by the semantics of <span class="arithmatex">\(\Diamond\)</span>: <span class="arithmatex">\(\mathcal{M}, w \models_\rho \Diamond \neg A\)</span>.</p>
+<p><span class="arithmatex">\((\Leftarrow)\)</span> Suppose <span class="arithmatex">\(\mathcal{M}, w \models_\rho \Diamond \neg A\)</span>. Then <span class="arithmatex">\(\exists w'\)</span> with <span class="arithmatex">\(Rww'\)</span> and <span class="arithmatex">\(\mathcal{M}, w' \models_\rho \neg A\)</span>, i.e. <span class="arithmatex">\(\mathcal{M}, w' \not\models_\rho A\)</span>. So not all accessible worlds satisfy <span class="arithmatex">\(A\)</span>, meaning <span class="arithmatex">\(\mathcal{M}, w \not\models_\rho \Box A\)</span>, hence <span class="arithmatex">\(\mathcal{M}, w \models_\rho \neg \Box A\)</span>.</p>
+<p>Both directions hold at every world in every frame under every valuation. <span class="arithmatex">\(\blacksquare\)</span></p>
+<hr>
+<h3 id="q4-prove-a-a-is-valid-iff-the-frame-is-reflexive">Q4 — Prove □A → A is valid iff the frame is reflexive<a class="headerlink" href="#q4-prove-a-a-is-valid-iff-the-frame-is-reflexive" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Prove that <span class="arithmatex">\(\Box A \to A\)</span> is valid in a frame <span class="arithmatex">\(\mathcal{M} = (W, R)\)</span> if and only if <span class="arithmatex">\(R\)</span> is reflexive.</p>
+<p><strong>Model answer.</strong></p>
+<p><strong>(<span class="arithmatex">\(\Leftarrow\)</span>)</strong> Suppose <span class="arithmatex">\(R\)</span> is reflexive. Let <span class="arithmatex">\(w \in W\)</span> and <span class="arithmatex">\(\rho\)</span> any valuation with <span class="arithmatex">\(\mathcal{M}, w \models_\rho \Box A\)</span>. Then <span class="arithmatex">\(\forall w'.\; Rww' \to \mathcal{M}, w' \models_\rho A\)</span>. Since <span class="arithmatex">\(R\)</span> is reflexive, <span class="arithmatex">\(Rww\)</span>, so taking <span class="arithmatex">\(w' = w\)</span>: <span class="arithmatex">\(\mathcal{M}, w \models_\rho A\)</span>. Thus <span class="arithmatex">\(\Box A \to A\)</span> holds at every world.</p>
+<p><strong>(<span class="arithmatex">\(\Rightarrow\)</span>)</strong> Suppose <span class="arithmatex">\(\Box A \to A\)</span> is valid in <span class="arithmatex">\(\mathcal{M}\)</span> but <span class="arithmatex">\(R\)</span> is <strong>not</strong> reflexive: there exists <span class="arithmatex">\(w_0\)</span> with <span class="arithmatex">\(\neg Rw_0 w_0\)</span>. Define <span class="arithmatex">\(\rho(P) = \{w' \in W \mid Rw_0 w'\}\)</span>. Then:</p>
+<ul>
+<li>For all <span class="arithmatex">\(w'\)</span> with <span class="arithmatex">\(Rw_0 w'\)</span>: <span class="arithmatex">\(w' \in \rho(P)\)</span>, so <span class="arithmatex">\(\mathcal{M}, w' \models_\rho P\)</span>. Hence <span class="arithmatex">\(\mathcal{M}, w_0 \models_\rho \Box P\)</span>.</li>
+<li>But <span class="arithmatex">\(w_0 \notin \rho(P)\)</span> (since <span class="arithmatex">\(\neg Rw_0 w_0\)</span>), so <span class="arithmatex">\(\mathcal{M}, w_0 \not\models_\rho P\)</span>.</li>
+</ul>
+<p>This makes <span class="arithmatex">\(\Box P \to P\)</span> false at <span class="arithmatex">\(w_0\)</span>, contradicting validity. <span class="arithmatex">\(\blacksquare\)</span></p>
+<hr>
+<h3 id="q5-s4-and-frame-conditions">Q5 — S4 and frame conditions<a class="headerlink" href="#q5-s4-and-frame-conditions" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> What frame conditions define the modal logic S4? State the two corresponding axioms and explain why <span class="arithmatex">\(\Box \Box A \equiv \Box A\)</span> in S4.</p>
+<p><strong>Model answer.</strong> S4 is the modal logic of frames where <span class="arithmatex">\(R\)</span> is both <strong>reflexive</strong> and <strong>transitive</strong>. The axioms are:</p>
+<ul>
+<li><strong>Axiom T:</strong> <span class="arithmatex">\(\Box A \to A\)</span> (corresponds to reflexivity).</li>
+<li><strong>Axiom 4:</strong> <span class="arithmatex">\(\Box A \to \Box \Box A\)</span> (corresponds to transitivity).</li>
+</ul>
+<p>To show <span class="arithmatex">\(\Box \Box A \equiv \Box A\)</span> in S4:</p>
+<ul>
+<li><span class="arithmatex">\(\Box A \to \Box \Box A\)</span>: this is Axiom 4, valid by transitivity.</li>
+<li><span class="arithmatex">\(\Box \Box A \to \Box A\)</span>: instantiate Axiom T with the formula <span class="arithmatex">\(\Box A\)</span>: <span class="arithmatex">\(\Box(\Box A) \to \Box A\)</span>. This is valid by reflexivity (applying the T axiom to the formula <span class="arithmatex">\(\Box A\)</span>).</li>
+</ul>
+<p>Combining both directions: <span class="arithmatex">\(\Box A \leftrightarrow \Box \Box A\)</span> is S4-valid. So iterated <span class="arithmatex">\(\Box\)</span> operators collapse in S4. <span class="arithmatex">\(\blacksquare\)</span></p>
+<hr>
+<h2 id="3-must-know-key-points">3. MUST-KNOW KEY POINTS<a class="headerlink" href="#3-must-know-key-points" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Syntax:</strong> <span class="arithmatex">\(\Box A\)</span> ("necessarily <span class="arithmatex">\(A\)</span>") and <span class="arithmatex">\(\Diamond A\)</span> ("possibly <span class="arithmatex">\(A\)</span>") extend propositional logic. Both bind tighter than binary connectives.</li>
+<li><strong>Kripke frame:</strong> <span class="arithmatex">\((W, R)\)</span> with <span class="arithmatex">\(W\)</span> a nonempty set of worlds and <span class="arithmatex">\(R \subseteq W \times W\)</span> the accessibility relation. Frames are directed graphs.</li>
+<li><strong>Valuation:</strong> <span class="arithmatex">\(\rho : \mathcal{L} \to \mathcal{P}(W)\)</span> assigns proposition letters to sets of worlds.</li>
+<li><strong>Satisfaction:</strong> <span class="arithmatex">\(\Box A\)</span> at <span class="arithmatex">\(w\)</span> iff <span class="arithmatex">\(A\)</span> holds at <strong>all</strong> <span class="arithmatex">\(R\)</span>-accessible worlds; <span class="arithmatex">\(\Diamond A\)</span> at <span class="arithmatex">\(w\)</span> iff <span class="arithmatex">\(A\)</span> holds at <strong>some</strong> <span class="arithmatex">\(R\)</span>-accessible world.</li>
+<li><strong>Duality:</strong> <span class="arithmatex">\(\neg \Box A \equiv \Diamond \neg A\)</span> and <span class="arithmatex">\(\neg \Diamond A \equiv \Box \neg A\)</span> — valid in all frames.</li>
+<li><strong><span class="arithmatex">\(\Box A \to \Diamond A\)</span> is NOT valid</strong> — fails at isolated worlds (<span class="arithmatex">\(R = \emptyset\)</span>) where <span class="arithmatex">\(\Box\)</span> is vacuously true.</li>
+<li><strong><span class="arithmatex">\(\Box A \to A\)</span> is NOT generally valid</strong> — same isolated-world counterexample.</li>
+<li><strong>Reflexive frames (<span class="arithmatex">\(Rww\)</span> for all <span class="arithmatex">\(w\)</span>):</strong> <span class="arithmatex">\(\Box A \to A\)</span> is valid <strong>iff</strong> the frame is reflexive.</li>
+<li><strong>Transitive frames:</strong> <span class="arithmatex">\(\Box A \to \Box \Box A\)</span> is valid <strong>iff</strong> the frame is transitive.</li>
+<li><strong>S4 = reflexive + transitive frames.</strong> Axioms: <span class="arithmatex">\(\Box A \to A\)</span> (T) and <span class="arithmatex">\(\Box A \to \Box \Box A\)</span> (4).</li>
+</ul>
+<hr>
+<h2 id="4-high-priority-topics">4. HIGH-PRIORITY TOPICS<a class="headerlink" href="#4-high-priority-topics" title="Permanent link">¶</a></h2>
+<h3 id="must-know">🔴 Must Know<a class="headerlink" href="#must-know" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Syntax:</strong> <span class="arithmatex">\(\Box\)</span>, <span class="arithmatex">\(\Diamond\)</span>, precedence rules. Translating English to modal formulas.</li>
+<li><strong>Kripke frame definition</strong> <span class="arithmatex">\((W, R)\)</span> and the concept of worlds and accessibility.</li>
+<li><strong>Satisfaction relation</strong> — all seven clauses, especially <span class="arithmatex">\(\Box\)</span> and <span class="arithmatex">\(\Diamond\)</span>.</li>
+<li><strong>Evaluating formulas</strong> at specific worlds in a given model (trace through the definition).</li>
+<li><strong>Duality of <span class="arithmatex">\(\Box\)</span> and <span class="arithmatex">\(\Diamond\)</span>:</strong> proof that <span class="arithmatex">\(\neg \Box A \leftrightarrow \Diamond \neg A\)</span>.</li>
+<li><strong>Counterexample:</strong> <span class="arithmatex">\(\Box A \to A\)</span> and <span class="arithmatex">\(\Box A \to \Diamond A\)</span> fail at isolated worlds — know how to construct and explain this.</li>
+<li><strong>Reflexivity characterisation:</strong> <span class="arithmatex">\(\Box A \to A\)</span> valid iff reflexive (both directions of the proof).</li>
+<li><strong>Transitivity characterisation:</strong> <span class="arithmatex">\(\Box A \to \Box \Box A\)</span> valid iff transitive (both directions).</li>
+</ul>
+<h3 id="important">🟡 Important<a class="headerlink" href="#important" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>S4 axioms</strong> (T and 4) and the corresponding frame conditions. Collapse of iterated modalities: <span class="arithmatex">\(\Box \Box A \equiv \Box A\)</span>.</li>
+<li><strong>Validity vs satisfiability</strong> distinction (in a frame vs generally).</li>
+<li><strong>Proof of</strong> <span class="arithmatex">\(\Box(A \wedge (A \to B)) \to \Box B\)</span> — as a template for showing formulas are valid.</li>
+<li><strong>Constructing counterexample frames</strong> to disprove general validity — knowing which "pathological" frames to try (isolated worlds, asymmetric edges, etc.).</li>
+</ul>
+<h3 id="useful-but-lower-priority">🟢 Useful but Lower Priority<a class="headerlink" href="#useful-but-lower-priority" title="Permanent link">¶</a></h3>
+<ul>
+<li>Other modal systems: <strong>K</strong>, <strong>T</strong>, <strong>S5</strong>, <strong>GL</strong> — names and rough frame conditions.</li>
+<li>Applications of modal logic in computer science (knowledge, belief, temporal reasoning).</li>
+<li>The full exam revision summary mapping four COMP0003 subtopics.</li>
+</ul>
+<hr>
+<h2 id="5-topic-interconnections-bigger-picture">5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE<a class="headerlink" href="#5-topic-interconnections-bigger-picture" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Propositional logic (Lectures 1–5)</strong> is the base language that modal logic extends. Every propositional tautology remains valid in modal logic; the <span class="arithmatex">\(\Box\)</span>/<span class="arithmatex">\(\Diamond\)</span> operators add a new dimension of reasoning about <strong>possible</strong> versus <strong>actual</strong> truth.</li>
+<li><strong>First-order logic (Lectures 6–10)</strong> has quantifiers <span class="arithmatex">\(\forall\)</span> and <span class="arithmatex">\(\exists\)</span> over a domain. <span class="arithmatex">\(\Box\)</span> and <span class="arithmatex">\(\Diamond\)</span> behave analogously: <span class="arithmatex">\(\Box\)</span> = "for all accessible worlds" and <span class="arithmatex">\(\Diamond\)</span> = "there exists an accessible world." The duality <span class="arithmatex">\(\neg \Box \equiv \Diamond \neg\)</span> mirrors <span class="arithmatex">\(\neg \forall \equiv \exists \neg\)</span>.</li>
+<li><strong>Induction (Lectures 11–12)</strong> connects in that frame-condition proofs (reflexivity, transitivity characterisations) sometimes use structural arguments or case analysis familiar from inductive reasoning. Well-foundedness of accessibility relations is central to modal logics of provability (GL).</li>
+<li><strong>Automata theory</strong> (the other half of COMP0003) intersects via <strong>model checking</strong>: verifying whether a Kripke structure satisfies a modal/temporal formula is algorithmic, relating to state-space exploration in finite automata.</li>
+<li><strong>Temporal logic</strong> (CTL, LTL) extends modal logic with operators for "always in the future" and "eventually," used in hardware and software verification — a natural continuation of the Kripke semantics framework.</li>
+</ul>
+<hr>
+<h2 id="6-exam-strategy-tips">6. EXAM STRATEGY TIPS<a class="headerlink" href="#6-exam-strategy-tips" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Draw the frame.</strong> For any question involving a specific model, sketch the directed graph with labelled worlds and edges. Mark which proposition letters are true at each world. This prevents mistakes when evaluating nested modalities.</li>
+<li><strong>Evaluate inside-out.</strong> For nested formulas like <span class="arithmatex">\(\Box(\Diamond P \to Q)\)</span>, first evaluate <span class="arithmatex">\(\Diamond P\)</span> at each world, then <span class="arithmatex">\(\Diamond P \to Q\)</span> at each world, then apply <span class="arithmatex">\(\Box\)</span>.</li>
+<li><strong>Isolated-world trick.</strong> The frame <span class="arithmatex">\((\{w\}, \emptyset)\)</span> is the go-to counterexample for anything involving <span class="arithmatex">\(\Box\)</span> being vacuously true. Use it whenever asked to show a formula is <strong>not</strong> generally valid.</li>
+<li><strong>Both directions in "iff" proofs.</strong> For "<span class="arithmatex">\(\Box A \to A\)</span> valid iff reflexive," you must prove (<span class="arithmatex">\(\Leftarrow\)</span>) and (<span class="arithmatex">\(\Rightarrow\)</span>) separately. The (<span class="arithmatex">\(\Rightarrow\)</span>) direction typically constructs a <strong>clever valuation</strong> <span class="arithmatex">\(\rho\)</span> tailored to expose the failure.</li>
+<li><strong>Precedence matters.</strong> <span class="arithmatex">\(\Box P \to Q\)</span> is <span class="arithmatex">\((\Box P) \to Q\)</span>, not <span class="arithmatex">\(\Box(P \to Q)\)</span>. Misplacing parentheses changes the meaning entirely — annotate your work with explicit parentheses when in doubt.</li>
+<li><strong>Duality as a shortcut.</strong> Instead of proving something about <span class="arithmatex">\(\Diamond\)</span> from scratch, use <span class="arithmatex">\(\Diamond A \equiv \neg \Box \neg A\)</span> to reduce to a <span class="arithmatex">\(\Box\)</span>-statement (or vice versa). Examiners accept this equivalence without re-proof once it has been established.</li>
+<li><strong>Name the axioms.</strong> When invoking S4 properties, say "by Axiom T (reflexivity)" or "by Axiom 4 (transitivity)" rather than just "by S4." This shows you know which condition does the work.</li>
+</ul>
+<hr>
+<p><em>These notes cover Logic Lectures 13–15 (Modal Logic) for COMP0003 Formal Logic; follow your lecturer's notation if it differs.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

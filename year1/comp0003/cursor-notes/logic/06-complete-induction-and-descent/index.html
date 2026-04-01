@@ -1,0 +1,3744 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Year 1 Computer Science notes — UCL">
+      
+      
+        <meta name="author" content="Alex Tam">
+      
+      
+        <link rel="canonical" href="https://alexlhtam.github.io/ucl/year1/comp0003/cursor-notes/logic/06-complete-induction-and-descent/">
+      
+      
+        <link rel="prev" href="../05-proof-by-induction/">
+      
+      
+        <link rel="next" href="../07-modal-logic/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Complete Induction &amp; Descent - Alex's UCL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#complete-induction-infinite-descent-comp0003-formal-logic" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-header__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex's UCL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Complete Induction &amp; Descent
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Year 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-nav__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    Alex's UCL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Year 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Year 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms (COMP0005)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms (COMP0005)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/02-analysis-of-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis of Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/06-abstract-data-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sorting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sorting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/03-elementary-sorts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementary Sorts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/04-mergesort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MergeSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/05-quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QuickSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/07-heaps-and-heapsort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heaps &amp; HeapSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/08-symbol-tables-and-bst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbol Tables &amp; BST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/09-balanced-trees-and-hash-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balanced Trees &amp; Hash Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/10-undirected-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undirected Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/11-directed-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/12-minimum-spanning-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Spanning Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/13-shortest-paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shortest Paths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_5" id="__nav_2_1_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strings
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Strings
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/14-string-sorting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String Sorting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/15-tries-and-string-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tries &amp; String Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/16-substring-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Substring Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OOP / Java (COMP0004)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OOP / Java (COMP0004)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/01-intro-to-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/02-core-java-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Java Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/03-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Object-Oriented Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/04-classes-objects-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes, Objects &amp; References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/05-designing-with-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/06-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/07-interfaces-and-polymorphism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces &amp; Polymorphism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/08-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/09-file-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/10-json-csv-and-records/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON, CSV &amp; Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/11-packages-and-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages &amp; Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/12-lambdas-and-streams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambdas &amp; Streams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/13-web-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/14-data-structures-in-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures in Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/15-design-patterns-and-threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns &amp; Threads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory of Computation (COMP0003)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory of Computation (COMP0003)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formal Logic
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Formal Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-overview-and-history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview &amp; History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-boolean-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boolean Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-proof-by-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof by Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Induction &amp; Descent
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Induction &amp; Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARY
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARY">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ordinary-induction-quick-recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordinary induction — quick recap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-strong-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete (strong) induction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-every-integer-n-2-is-a-product-of-primes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example — every integer n ≥ 2 is a product of primes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-ackermann-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Ackermann function
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Ackermann function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proving-the-ackermann-function-is-total-via-complete-induction-with-lexicographic-ordering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proving the Ackermann function is total via complete induction with lexicographic ordering
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equivalence-of-complete-induction-and-ordinary-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Equivalence of complete induction and ordinary induction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Equivalence of complete induction and ordinary induction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ordinary-implies-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordinary implies complete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-implies-ordinary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete implies ordinary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infinite-descent-fermats-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Infinite descent (Fermat's method)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-every-natural-number-is-even-or-odd-by-descent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example — every natural number is even or odd (by descent)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-square-root-of-2-is-irrational-by-descent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example — square root of 2 is irrational (by descent)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equivalence-of-infinite-descent-and-complete-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Equivalence of infinite descent and complete induction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-state-and-compare-the-two-induction-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — State and compare the two induction principles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-product-of-primes-by-complete-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Product of primes by complete induction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-ackermann-function-recursive-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Ackermann function recursive calls
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-infinite-descent-square-root-of-2-is-irrational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Infinite descent: square root of 2 is irrational
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-prove-descent-and-complete-induction-are-equivalent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Prove descent and complete induction are equivalent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-modal-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modal Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automata
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Automata
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/01-dfas-and-regular-languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFAs &amp; Regular Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/02-nfas-and-dfa-equivalence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFAs &amp; DFA Equivalence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/03-closure-and-regular-expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closure &amp; Regular Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/04-pumping-lemma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/05-pushdown-automata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pushdown Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/06-context-free-grammars/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Free Grammars
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/07-pumping-lemma-for-cfls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma for CFLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/08-turing-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turing Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/09-decidability-and-undecidability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decidability &amp; Undecidability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARY
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARY">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ordinary-induction-quick-recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordinary induction — quick recap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-strong-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete (strong) induction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-every-integer-n-2-is-a-product-of-primes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example — every integer n ≥ 2 is a product of primes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-ackermann-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Ackermann function
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Ackermann function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proving-the-ackermann-function-is-total-via-complete-induction-with-lexicographic-ordering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proving the Ackermann function is total via complete induction with lexicographic ordering
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equivalence-of-complete-induction-and-ordinary-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Equivalence of complete induction and ordinary induction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Equivalence of complete induction and ordinary induction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ordinary-implies-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordinary implies complete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-implies-ordinary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete implies ordinary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infinite-descent-fermats-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Infinite descent (Fermat's method)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-every-natural-number-is-even-or-odd-by-descent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example — every natural number is even or odd (by descent)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-square-root-of-2-is-irrational-by-descent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example — square root of 2 is irrational (by descent)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equivalence-of-infinite-descent-and-complete-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Equivalence of infinite descent and complete induction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-state-and-compare-the-two-induction-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — State and compare the two induction principles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-product-of-primes-by-complete-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Product of primes by complete induction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-ackermann-function-recursive-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Ackermann function recursive calls
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-infinite-descent-square-root-of-2-is-irrational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Infinite descent: square root of 2 is irrational
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-prove-descent-and-complete-induction-are-equivalent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Prove descent and complete induction are equivalent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="complete-induction-infinite-descent-comp0003-formal-logic">Complete Induction &amp; Infinite Descent — COMP0003 Formal Logic<a class="headerlink" href="#complete-induction-infinite-descent-comp0003-formal-logic" title="Permanent link">¶</a></h1>
+<p><em>Lecture-style notes covering Logic Lecture 12. </em><em>Complete (strong) induction</em><em> generalises ordinary induction by letting the inductive hypothesis assume <span class="arithmatex">\(P(k')\)</span> for </em><em>all</em><em> <span class="arithmatex">\(k' &lt; k\)</span>, eliminating the need for a separate base case. </em><em>Infinite descent</em><em> (Fermat) is logically equivalent: if every counterexample implies a smaller counterexample, the property holds universally over <span class="arithmatex">\(\mathbb{N}\)</span>. Both techniques shine where ordinary induction's "assume <span class="arithmatex">\(P(k)\)</span>, show <span class="arithmatex">\(P(k+1)\)</span>" structure is awkward — for instance, the Fundamental Theorem of Arithmetic and the irrationality of <span class="arithmatex">\(\sqrt{2}\)</span>.</em></p>
+<hr>
+<h2 id="1-complete-topic-summary">1. COMPLETE TOPIC SUMMARY<a class="headerlink" href="#1-complete-topic-summary" title="Permanent link">¶</a></h2>
+<h3 id="ordinary-induction-quick-recap">Ordinary induction — quick recap<a class="headerlink" href="#ordinary-induction-quick-recap" title="Permanent link">¶</a></h3>
+<p>Ordinary (weak) induction over <span class="arithmatex">\(\mathbb{N}\)</span> requires two steps:</p>
+<ol>
+<li><strong>Base case.</strong> Show <span class="arithmatex">\(P(0)\)</span>.</li>
+<li><strong>Inductive step.</strong> Assume <span class="arithmatex">\(P(k)\)</span>, show <span class="arithmatex">\(P(k+1)\)</span>.</li>
+</ol>
+<p><strong>Conclusion:</strong> <span class="arithmatex">\(\forall n \in \mathbb{N}.\; P(n)\)</span>.</p>
+<p>This works perfectly when <span class="arithmatex">\(P(k+1)\)</span> depends only on <span class="arithmatex">\(P(k)\)</span>, but becomes cumbersome when the argument needs <span class="arithmatex">\(P(j)\)</span> for arbitrary <span class="arithmatex">\(j &lt; k+1\)</span>.</p>
+<hr>
+<h3 id="complete-strong-induction">Complete (strong) induction<a class="headerlink" href="#complete-strong-induction" title="Permanent link">¶</a></h3>
+<p>Complete induction collapses the base case into the inductive step by strengthening the hypothesis.</p>
+<p><strong>Principle.</strong> To prove <span class="arithmatex">\(\forall n \in \mathbb{N}.\; P(n)\)</span>, it suffices to prove a single step:</p>
+<div class="arithmatex">\[\forall k \in \mathbb{N}.\;\Big(\forall k'.\; (k' &lt; k \to P(k'))\Big) \to P(k)\]</div>
+<p>That is: for <strong>every</strong> <span class="arithmatex">\(k\)</span>, if <span class="arithmatex">\(P\)</span> holds for <strong>all</strong> predecessors of <span class="arithmatex">\(k\)</span>, then <span class="arithmatex">\(P(k)\)</span> follows.</p>
+<p><strong>Inference rule (formal):</strong></p>
+<div class="arithmatex">\[\frac{\forall k \in \mathbb{N}.\;\big(\forall k' &lt; k.\; P(k')\big) \to P(k)}{\forall n \in \mathbb{N}.\; P(n)}\]</div>
+<p><strong>Why no explicit base case?</strong> When <span class="arithmatex">\(k = 0\)</span>, the set <span class="arithmatex">\(\{k' \mid k' &lt; 0\}\)</span> is <strong>empty</strong>, so the premise <span class="arithmatex">\(\forall k' &lt; 0.\; P(k')\)</span> is <strong>vacuously true</strong>. Thus the step for <span class="arithmatex">\(k = 0\)</span> reduces to showing <span class="arithmatex">\(P(0)\)</span> outright — the base case is <strong>embedded</strong>.</p>
+<hr>
+<h3 id="example-every-integer-n-2-is-a-product-of-primes">Example — every integer n ≥ 2 is a product of primes<a class="headerlink" href="#example-every-integer-n-2-is-a-product-of-primes" title="Permanent link">¶</a></h3>
+<p><strong>Claim.</strong> For all <span class="arithmatex">\(n \geq 2\)</span>, <span class="arithmatex">\(n\)</span> can be written as a product of one or more primes (the Fundamental Theorem of Arithmetic, existence half).</p>
+<p><strong>Proof by complete induction on <span class="arithmatex">\(n\)</span>.</strong></p>
+<p>Let <span class="arithmatex">\(k \geq 2\)</span>. Assume (complete IH): for all <span class="arithmatex">\(k'\)</span> with <span class="arithmatex">\(2 \leq k' &lt; k\)</span>, <span class="arithmatex">\(k'\)</span> is a product of primes.</p>
+<ul>
+<li><strong>Case 1:</strong> <span class="arithmatex">\(k\)</span> is prime. Then <span class="arithmatex">\(k\)</span> is itself a product of primes (a single-factor product).</li>
+<li><strong>Case 2:</strong> <span class="arithmatex">\(k\)</span> is composite. Then <span class="arithmatex">\(k = a \cdot b\)</span> with <span class="arithmatex">\(2 \leq a, b &lt; k\)</span>. By the complete IH, both <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span> are products of primes, so <span class="arithmatex">\(k = a \cdot b\)</span> is a product of primes.</li>
+</ul>
+<p>In both cases, <span class="arithmatex">\(P(k)\)</span> holds. By complete induction, <span class="arithmatex">\(\forall n \geq 2.\; P(n)\)</span>. <span class="arithmatex">\(\blacksquare\)</span></p>
+<p><strong>Why ordinary induction struggles here:</strong> In Case 2, the factors <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span> satisfy <span class="arithmatex">\(a &lt; k\)</span> and <span class="arithmatex">\(b &lt; k\)</span>, but neither needs to equal <span class="arithmatex">\(k - 1\)</span>. Ordinary induction only gives <span class="arithmatex">\(P(k-1)\)</span>, which is insufficient.</p>
+<hr>
+<h3 id="the-ackermann-function">The Ackermann function<a class="headerlink" href="#the-ackermann-function" title="Permanent link">¶</a></h3>
+<p>The <strong>Ackermann function</strong> <span class="arithmatex">\(A : \mathbb{N} \times \mathbb{N} \to \mathbb{N}\)</span> is defined recursively:</p>
+<div class="arithmatex">\[A(0, y) = s(y)\]</div>
+<div class="arithmatex">\[A(s(x), 0) = A(x, s(0))\]</div>
+<div class="arithmatex">\[A(s(x), s(y)) = A(x, A(s(x), y))\]</div>
+<p>where <span class="arithmatex">\(s(n) = n + 1\)</span> is the successor function.</p>
+<p><strong>Key property:</strong> <span class="arithmatex">\(A\)</span> grows extraordinarily fast — faster than any primitive recursive function. The challenge is proving that <span class="arithmatex">\(A\)</span> is <strong>total</strong> (terminates on all inputs).</p>
+<h4 id="proving-the-ackermann-function-is-total-via-complete-induction-with-lexicographic-ordering">Proving the Ackermann function is total via complete induction with lexicographic ordering<a class="headerlink" href="#proving-the-ackermann-function-is-total-via-complete-induction-with-lexicographic-ordering" title="Permanent link">¶</a></h4>
+<p>The recursive calls do not simply decrease a single argument, so ordinary induction on one variable is insufficient. Instead, use <strong>complete induction</strong> on pairs <span class="arithmatex">\((x, y)\)</span> ordered <strong>lexicographically</strong>:</p>
+<div class="arithmatex">\[(x_1, y_1) &lt;_{\text{lex}} (x_2, y_2) \iff x_1 &lt; x_2,\;\text{or}\;(x_1 = x_2 \text{ and } y_1 &lt; y_2)\]</div>
+<p><strong>Claim:</strong> <span class="arithmatex">\(A(x, y)\)</span> is defined for all <span class="arithmatex">\((x, y) \in \mathbb{N}^2\)</span>.</p>
+<p><strong>Proof sketch (complete induction on <span class="arithmatex">\(&lt;_{\text{lex}}\)</span>).</strong> Assume <span class="arithmatex">\(A(x', y')\)</span> is defined for all <span class="arithmatex">\((x', y') &lt;_{\text{lex}} (x, y)\)</span>.</p>
+<ul>
+<li><strong>Case</strong> <span class="arithmatex">\(x = 0\)</span>: <span class="arithmatex">\(A(0, y) = s(y)\)</span>, which is defined. No recursive call needed.</li>
+<li><strong>Case</strong> <span class="arithmatex">\(x = s(x'), y = 0\)</span>: <span class="arithmatex">\(A(s(x'), 0) = A(x', s(0))\)</span>. Since <span class="arithmatex">\((x', s(0)) &lt;_{\text{lex}} (s(x'), 0)\)</span> (the first component decreased), the IH gives that <span class="arithmatex">\(A(x', s(0))\)</span> is defined.</li>
+<li><strong>Case</strong> <span class="arithmatex">\(x = s(x'), y = s(y')\)</span>: <span class="arithmatex">\(A(s(x'), s(y')) = A(x', A(s(x'), y'))\)</span>.<ul>
+<li>First, <span class="arithmatex">\((s(x'), y') &lt;_{\text{lex}} (s(x'), s(y'))\)</span> (same first component, second decreased), so by the IH, <span class="arithmatex">\(A(s(x'), y')\)</span> is defined — call its value <span class="arithmatex">\(v\)</span>.</li>
+<li>Then <span class="arithmatex">\((x', v) &lt;_{\text{lex}} (s(x'), s(y'))\)</span> (first component decreased), so by the IH, <span class="arithmatex">\(A(x', v)\)</span> is defined.</li>
+</ul>
+</li>
+</ul>
+<p>In all cases, <span class="arithmatex">\(A(x, y)\)</span> is defined. By complete induction on <span class="arithmatex">\(&lt;_{\text{lex}}\)</span>, <span class="arithmatex">\(A\)</span> is total. <span class="arithmatex">\(\blacksquare\)</span></p>
+<hr>
+<h3 id="equivalence-of-complete-induction-and-ordinary-induction">Equivalence of complete induction and ordinary induction<a class="headerlink" href="#equivalence-of-complete-induction-and-ordinary-induction" title="Permanent link">¶</a></h3>
+<p>Complete induction and ordinary induction are <strong>logically equivalent</strong> — each can derive the other.</p>
+<h4 id="ordinary-implies-complete">Ordinary implies complete<a class="headerlink" href="#ordinary-implies-complete" title="Permanent link">¶</a></h4>
+<p>To derive the complete induction principle from ordinary induction, define an auxiliary property:</p>
+<div class="arithmatex">\[Q(n) \;\equiv\; \forall k \leq n.\; P(k)\]</div>
+<p>Prove <span class="arithmatex">\(\forall n.\; Q(n)\)</span> by ordinary induction:</p>
+<ul>
+<li><strong>Base:</strong> <span class="arithmatex">\(Q(0)\)</span>: <span class="arithmatex">\(P(0)\)</span> holds because the complete induction step with <span class="arithmatex">\(k = 0\)</span> (vacuous hypothesis) gives <span class="arithmatex">\(P(0)\)</span>.</li>
+<li><strong>Step:</strong> Assume <span class="arithmatex">\(Q(n)\)</span> (i.e. <span class="arithmatex">\(\forall k \leq n.\; P(k)\)</span>). For <span class="arithmatex">\(k = n + 1\)</span>, we have <span class="arithmatex">\(\forall k' &lt; n + 1.\; P(k')\)</span> (which is exactly <span class="arithmatex">\(Q(n)\)</span>), so by the complete induction step, <span class="arithmatex">\(P(n+1)\)</span>. Combined with <span class="arithmatex">\(Q(n)\)</span>, this gives <span class="arithmatex">\(Q(n+1)\)</span>.</li>
+</ul>
+<p>Therefore <span class="arithmatex">\(\forall n.\; Q(n)\)</span>, which implies <span class="arithmatex">\(\forall n.\; P(n)\)</span>.</p>
+<h4 id="complete-implies-ordinary">Complete implies ordinary<a class="headerlink" href="#complete-implies-ordinary" title="Permanent link">¶</a></h4>
+<p>Conversely, if we have ordinary induction (base <span class="arithmatex">\(P(0)\)</span> and step <span class="arithmatex">\(P(k) \to P(k+1)\)</span>), we can derive the complete induction principle. The complete induction step <span class="arithmatex">\((\forall k' &lt; k.\; P(k')) \to P(k)\)</span> is <strong>stronger</strong> than the ordinary step <span class="arithmatex">\(P(k-1) \to P(k)\)</span> — if we can show <span class="arithmatex">\(P(k)\)</span> given only <span class="arithmatex">\(P(k-1)\)</span>, we can certainly show <span class="arithmatex">\(P(k)\)</span> given <span class="arithmatex">\(P(k')\)</span> for all <span class="arithmatex">\(k' &lt; k\)</span>. So the ordinary induction step is a special case of the complete induction step, and the derivation goes through by applying ordinary induction to build up <span class="arithmatex">\(\forall k' &lt; k.\; P(k')\)</span> incrementally.</p>
+<hr>
+<h3 id="infinite-descent-fermats-method">Infinite descent (Fermat's method)<a class="headerlink" href="#infinite-descent-fermats-method" title="Permanent link">¶</a></h3>
+<p><strong>Infinite descent</strong> is a proof technique attributed to Fermat. It proves <span class="arithmatex">\(\forall n \in \mathbb{N}.\; P(n)\)</span> by contradiction: assume a counterexample exists and show it implies a <strong>smaller</strong> counterexample, giving an infinite descending chain in <span class="arithmatex">\(\mathbb{N}\)</span> — which is impossible.</p>
+<p><strong>Formal principle:</strong></p>
+<div class="arithmatex">\[\frac{\forall k \in \mathbb{N}.\;\neg P(k) \to \exists k'.\;(k' &lt; k \;\wedge\; \neg P(k'))}{\forall n \in \mathbb{N}.\; P(n)}\]</div>
+<p><strong>Reasoning:</strong> Suppose <span class="arithmatex">\(\exists n.\; \neg P(n)\)</span>. Let <span class="arithmatex">\(n_0\)</span> be such a counterexample. The premise gives <span class="arithmatex">\(n_1 &lt; n_0\)</span> with <span class="arithmatex">\(\neg P(n_1)\)</span>. Repeating gives <span class="arithmatex">\(n_2 &lt; n_1\)</span> with <span class="arithmatex">\(\neg P(n_2)\)</span>, and so on:</p>
+<div class="arithmatex">\[n_0 &gt; n_1 &gt; n_2 &gt; \cdots\]</div>
+<p>This is an <strong>infinite strictly descending sequence</strong> of natural numbers, which cannot exist (the natural numbers are <strong>well-ordered</strong> — every nonempty subset has a least element). Contradiction. Therefore <span class="arithmatex">\(\forall n.\; P(n)\)</span>. <span class="arithmatex">\(\blacksquare\)</span></p>
+<p><strong>No infinite descending chains in <span class="arithmatex">\(\mathbb{N}\)</span>:</strong> This is equivalent to the well-ordering principle. Every nonempty subset of <span class="arithmatex">\(\mathbb{N}\)</span> has a minimum, so any descending chain must terminate.</p>
+<hr>
+<h3 id="example-every-natural-number-is-even-or-odd-by-descent">Example — every natural number is even or odd (by descent)<a class="headerlink" href="#example-every-natural-number-is-even-or-odd-by-descent" title="Permanent link">¶</a></h3>
+<p><strong>Claim.</strong> <span class="arithmatex">\(\forall n \in \mathbb{N}.\;\)</span> <span class="arithmatex">\(n\)</span> is even or <span class="arithmatex">\(n\)</span> is odd.</p>
+<p><strong>Proof by infinite descent.</strong> Suppose for contradiction that some <span class="arithmatex">\(n_0\)</span> is neither even nor odd.</p>
+<ul>
+<li><span class="arithmatex">\(n_0 \neq 0\)</span> (since <span class="arithmatex">\(0\)</span> is even).</li>
+<li>So <span class="arithmatex">\(n_0 = n_1 + 1\)</span> for some <span class="arithmatex">\(n_1 &lt; n_0\)</span>.</li>
+<li>If <span class="arithmatex">\(n_1\)</span> were even, say <span class="arithmatex">\(n_1 = 2m\)</span>, then <span class="arithmatex">\(n_0 = 2m + 1\)</span> would be odd — contradiction.</li>
+<li>If <span class="arithmatex">\(n_1\)</span> were odd, say <span class="arithmatex">\(n_1 = 2m + 1\)</span>, then <span class="arithmatex">\(n_0 = 2m + 2 = 2(m+1)\)</span> would be even — contradiction.</li>
+<li>So <span class="arithmatex">\(n_1\)</span> is also neither even nor odd.</li>
+</ul>
+<p>We have produced a smaller counterexample <span class="arithmatex">\(n_1 &lt; n_0\)</span>. Iterating gives an infinite descending chain in <span class="arithmatex">\(\mathbb{N}\)</span>, which is impossible. Therefore every natural number is even or odd. <span class="arithmatex">\(\blacksquare\)</span></p>
+<hr>
+<h3 id="example-square-root-of-2-is-irrational-by-descent">Example — square root of 2 is irrational (by descent)<a class="headerlink" href="#example-square-root-of-2-is-irrational-by-descent" title="Permanent link">¶</a></h3>
+<p><strong>Claim.</strong> <span class="arithmatex">\(\sqrt{2}\)</span> is irrational.</p>
+<p><strong>Proof by infinite descent (on <span class="arithmatex">\(y\)</span>).</strong> Suppose for contradiction that <span class="arithmatex">\(\sqrt{2}\)</span> is rational, so <span class="arithmatex">\(\sqrt{2} = x_0 / y_0\)</span> for some positive integers <span class="arithmatex">\(x_0, y_0\)</span>. Then <span class="arithmatex">\(2 y_0^2 = x_0^2\)</span>.</p>
+<p>From <span class="arithmatex">\(x_0^2 = 2 y_0^2\)</span>, we get that <span class="arithmatex">\(x_0^2\)</span> is even, hence <span class="arithmatex">\(x_0\)</span> is even (since the square of an odd number is odd). Write <span class="arithmatex">\(x_0 = 2k\)</span>. Then <span class="arithmatex">\(2 y_0^2 = 4k^2\)</span>, so <span class="arithmatex">\(y_0^2 = 2k^2\)</span>. By the same argument, <span class="arithmatex">\(y_0\)</span> is even; write <span class="arithmatex">\(y_0 = 2m\)</span>.</p>
+<p>Now set <span class="arithmatex">\(x_1 = k\)</span> and <span class="arithmatex">\(y_1 = m\)</span>. We have <span class="arithmatex">\(\sqrt{2} = x_1 / y_1\)</span> with <span class="arithmatex">\(y_1 = y_0 / 2 &lt; y_0\)</span>.</p>
+<p>This gives a new representation with a <strong>strictly smaller</strong> denominator. Repeating produces an infinite descending chain of positive integers:</p>
+<div class="arithmatex">\[y_0 &gt; y_1 &gt; y_2 &gt; \cdots\]</div>
+<p>This is impossible in <span class="arithmatex">\(\mathbb{N}\)</span>. Contradiction. Therefore <span class="arithmatex">\(\sqrt{2}\)</span> is irrational. <span class="arithmatex">\(\blacksquare\)</span></p>
+<p><strong>Connection to the standard proof:</strong> The "lowest terms" proof asserts <span class="arithmatex">\(\gcd(x, y) = 1\)</span> then derives <span class="arithmatex">\(2 \mid x\)</span> and <span class="arithmatex">\(2 \mid y\)</span>, contradicting coprimality. Infinite descent replaces "assume lowest terms" with "produce a smaller fraction" — logically the same, but framed as descent rather than a direct contradiction with coprimality.</p>
+<hr>
+<h3 id="equivalence-of-infinite-descent-and-complete-induction">Equivalence of infinite descent and complete induction<a class="headerlink" href="#equivalence-of-infinite-descent-and-complete-induction" title="Permanent link">¶</a></h3>
+<p>The premise of infinite descent is:</p>
+<div class="arithmatex">\[\forall k.\; \neg P(k) \to \exists k' &lt; k.\; \neg P(k')\]</div>
+<p>Taking the <strong>contrapositive</strong> of the inner implication:</p>
+<div class="arithmatex">\[\forall k.\; \big(\forall k' &lt; k.\; P(k')\big) \to P(k)\]</div>
+<p>This is exactly the premise of <strong>complete induction</strong>. The two principles are <strong>logically equivalent</strong> — they are contrapositives of each other. Any proof by one can be mechanically rewritten as a proof by the other.</p>
+<p><strong>Summary of equivalences:</strong></p>
+<div class="arithmatex">\[\text{Ordinary induction} \iff \text{Complete induction} \iff \text{Infinite descent} \iff \text{Well-ordering of } \mathbb{N}\]</div>
+<hr>
+<h2 id="2-exam-style-questions-with-model-answers">2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)<a class="headerlink" href="#2-exam-style-questions-with-model-answers" title="Permanent link">¶</a></h2>
+<h3 id="q1-state-and-compare-the-two-induction-principles">Q1 — State and compare the two induction principles<a class="headerlink" href="#q1-state-and-compare-the-two-induction-principles" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> State the principles of (a) ordinary induction and (b) complete (strong) induction over <span class="arithmatex">\(\mathbb{N}\)</span>. Why does complete induction not require a separate base case?</p>
+<p><strong>Model answer.</strong></p>
+<p>(a) <strong>Ordinary induction:</strong> If <span class="arithmatex">\(P(0)\)</span> holds, and <span class="arithmatex">\(\forall k.\; P(k) \to P(k+1)\)</span>, then <span class="arithmatex">\(\forall n \in \mathbb{N}.\; P(n)\)</span>.</p>
+<p>(b) <strong>Complete induction:</strong> If <span class="arithmatex">\(\forall k \in \mathbb{N}.\; (\forall k' &lt; k.\; P(k')) \to P(k)\)</span>, then <span class="arithmatex">\(\forall n \in \mathbb{N}.\; P(n)\)</span>.</p>
+<p>Complete induction has <strong>no separate base case</strong> because when <span class="arithmatex">\(k = 0\)</span>, the set <span class="arithmatex">\(\{k' \mid k' &lt; 0\}\)</span> is empty, making the hypothesis <span class="arithmatex">\(\forall k' &lt; 0.\; P(k')\)</span> <strong>vacuously true</strong>. The inductive step at <span class="arithmatex">\(k = 0\)</span> therefore requires proving <span class="arithmatex">\(P(0)\)</span> from a trivially true assumption — effectively embedding the base case. In ordinary induction, the hypothesis at the base (<span class="arithmatex">\(P(k)\)</span> for <span class="arithmatex">\(k = 0\)</span>) is not yet available, so <span class="arithmatex">\(P(0)\)</span> must be shown separately.</p>
+<hr>
+<h3 id="q2-product-of-primes-by-complete-induction">Q2 — Product of primes by complete induction<a class="headerlink" href="#q2-product-of-primes-by-complete-induction" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Prove by complete induction that every integer <span class="arithmatex">\(n \geq 2\)</span> can be expressed as a product of primes.</p>
+<p><strong>Model answer.</strong> Let <span class="arithmatex">\(P(n)\)</span> be "<span class="arithmatex">\(n\)</span> is a product of one or more primes."</p>
+<p><strong>Complete induction step:</strong> Let <span class="arithmatex">\(k \geq 2\)</span> and assume <span class="arithmatex">\(P(k')\)</span> for all <span class="arithmatex">\(2 \leq k' &lt; k\)</span>.</p>
+<ul>
+<li>If <span class="arithmatex">\(k\)</span> is <strong>prime</strong>, then <span class="arithmatex">\(k\)</span> is trivially a product of primes (just <span class="arithmatex">\(k\)</span> itself).</li>
+<li>If <span class="arithmatex">\(k\)</span> is <strong>composite</strong>, then <span class="arithmatex">\(k = a \cdot b\)</span> where <span class="arithmatex">\(2 \leq a &lt; k\)</span> and <span class="arithmatex">\(2 \leq b &lt; k\)</span>. By the inductive hypothesis, <span class="arithmatex">\(a = p_1 \cdots p_r\)</span> and <span class="arithmatex">\(b = q_1 \cdots q_s\)</span> for primes <span class="arithmatex">\(p_i, q_j\)</span>. Therefore <span class="arithmatex">\(k = p_1 \cdots p_r \cdot q_1 \cdots q_s\)</span>, a product of primes.</li>
+</ul>
+<p>By complete induction, <span class="arithmatex">\(P(n)\)</span> holds for all <span class="arithmatex">\(n \geq 2\)</span>. <span class="arithmatex">\(\blacksquare\)</span></p>
+<p><strong>Why ordinary induction is awkward here:</strong> Knowing <span class="arithmatex">\(P(k-1)\)</span> is insufficient — the factors <span class="arithmatex">\(a, b\)</span> can be any values less than <span class="arithmatex">\(k\)</span>, not just <span class="arithmatex">\(k - 1\)</span>.</p>
+<hr>
+<h3 id="q3-ackermann-function-recursive-calls">Q3 — Ackermann function recursive calls<a class="headerlink" href="#q3-ackermann-function-recursive-calls" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> The Ackermann function is defined by <span class="arithmatex">\(A(0, y) = s(y)\)</span>, <span class="arithmatex">\(A(s(x), 0) = A(x, s(0))\)</span>, <span class="arithmatex">\(A(s(x), s(y)) = A(x, A(s(x), y))\)</span>. Explain why the recursive call <span class="arithmatex">\(A(s(x), s(y)) = A(x, A(s(x), y))\)</span> terminates, using lexicographic ordering on pairs.</p>
+<p><strong>Model answer.</strong> We use complete induction on pairs <span class="arithmatex">\((x, y)\)</span> under the lexicographic order <span class="arithmatex">\(&lt;_{\text{lex}}\)</span>.</p>
+<p>To evaluate <span class="arithmatex">\(A(s(x), s(y))\)</span>, two recursive calls are made:</p>
+<ol>
+<li>
+<p><strong>Inner call</strong> <span class="arithmatex">\(A(s(x), y)\)</span>: the pair <span class="arithmatex">\((s(x), y)\)</span> satisfies <span class="arithmatex">\((s(x), y) &lt;_{\text{lex}} (s(x), s(y))\)</span> because the first components are equal and <span class="arithmatex">\(y &lt; s(y)\)</span>. By the IH, this call terminates and returns some value <span class="arithmatex">\(v\)</span>.</p>
+</li>
+<li>
+<p><strong>Outer call</strong> <span class="arithmatex">\(A(x, v)\)</span>: the pair <span class="arithmatex">\((x, v)\)</span> satisfies <span class="arithmatex">\((x, v) &lt;_{\text{lex}} (s(x), s(y))\)</span> because <span class="arithmatex">\(x &lt; s(x)\)</span> (the first component strictly decreased). By the IH, this call terminates.</p>
+</li>
+</ol>
+<p>Since every recursive call is on a lexicographically smaller pair, and there are no infinite descending chains in <span class="arithmatex">\(\mathbb{N} \times \mathbb{N}\)</span> under <span class="arithmatex">\(&lt;_{\text{lex}}\)</span>, the computation terminates.</p>
+<hr>
+<h3 id="q4-infinite-descent-square-root-of-2-is-irrational">Q4 — Infinite descent: square root of 2 is irrational<a class="headerlink" href="#q4-infinite-descent-square-root-of-2-is-irrational" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Prove that <span class="arithmatex">\(\sqrt{2}\)</span> is irrational using infinite descent.</p>
+<p><strong>Model answer.</strong> Suppose for contradiction that <span class="arithmatex">\(\sqrt{2} = x / y\)</span> for positive integers <span class="arithmatex">\(x, y\)</span>. Then <span class="arithmatex">\(x^2 = 2y^2\)</span>.</p>
+<p>Since <span class="arithmatex">\(x^2\)</span> is even, <span class="arithmatex">\(x\)</span> is even; write <span class="arithmatex">\(x = 2k\)</span>. Substituting: <span class="arithmatex">\(4k^2 = 2y^2\)</span>, so <span class="arithmatex">\(y^2 = 2k^2\)</span>. Thus <span class="arithmatex">\(y\)</span> is also even; write <span class="arithmatex">\(y = 2m\)</span>.</p>
+<p>Now <span class="arithmatex">\(\sqrt{2} = 2k / 2m = k / m\)</span> with <span class="arithmatex">\(m = y/2 &lt; y\)</span>. We have constructed a new representation of <span class="arithmatex">\(\sqrt{2}\)</span> as a ratio of positive integers with a <strong>strictly smaller denominator</strong>.</p>
+<p>Repeating this argument produces an infinite strictly descending sequence of positive integer denominators <span class="arithmatex">\(y &gt; m &gt; \cdots\)</span>, which is impossible in <span class="arithmatex">\(\mathbb{N}\)</span>.</p>
+<p>Contradiction. Therefore <span class="arithmatex">\(\sqrt{2}\)</span> is irrational. <span class="arithmatex">\(\blacksquare\)</span></p>
+<hr>
+<h3 id="q5-prove-descent-and-complete-induction-are-equivalent">Q5 — Prove descent and complete induction are equivalent<a class="headerlink" href="#q5-prove-descent-and-complete-induction-are-equivalent" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Show that the principle of infinite descent is logically equivalent to complete induction, by rewriting the premise of one into the other.</p>
+<p><strong>Model answer.</strong> The premise of <strong>infinite descent</strong> is:</p>
+<div class="arithmatex">\[\forall k.\; \neg P(k) \to \exists k' &lt; k.\; \neg P(k') \tag{D}\]</div>
+<p>We rewrite using standard logical equivalences. The contrapositive of <span class="arithmatex">\(\neg P(k) \to \exists k' &lt; k.\; \neg P(k')\)</span> is:</p>
+<div class="arithmatex">\[\neg(\exists k' &lt; k.\; \neg P(k')) \to \neg\neg P(k)\]</div>
+<p>Applying <span class="arithmatex">\(\neg \exists = \forall \neg\)</span> and double negation elimination:</p>
+<div class="arithmatex">\[(\forall k' &lt; k.\; P(k')) \to P(k)\]</div>
+<p>Universally quantifying over <span class="arithmatex">\(k\)</span>:</p>
+<div class="arithmatex">\[\forall k.\; (\forall k' &lt; k.\; P(k')) \to P(k) \tag{CI}\]</div>
+<p>This is exactly the premise of <strong>complete induction</strong>. Since (D) and (CI) are contrapositives of each other (after distributing the outer <span class="arithmatex">\(\forall k\)</span>), they are logically equivalent. Therefore infinite descent and complete induction are the same principle. <span class="arithmatex">\(\blacksquare\)</span></p>
+<hr>
+<h2 id="3-must-know-key-points">3. MUST-KNOW KEY POINTS<a class="headerlink" href="#3-must-know-key-points" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Complete induction</strong> assumes <span class="arithmatex">\(P(k')\)</span> for <strong>all</strong> <span class="arithmatex">\(k' &lt; k\)</span> (not just <span class="arithmatex">\(k - 1\)</span>), then derives <span class="arithmatex">\(P(k)\)</span>. The base case is handled <strong>vacuously</strong> at <span class="arithmatex">\(k = 0\)</span>.</li>
+<li><strong>Formal rule:</strong> <span class="arithmatex">\(\big(\forall k.\; (\forall k' &lt; k.\; P(k')) \to P(k)\big) \vdash \forall n \in \mathbb{N}.\; P(n)\)</span>.</li>
+<li><strong>Use complete induction</strong> when the inductive step needs <span class="arithmatex">\(P(j)\)</span> for arbitrary <span class="arithmatex">\(j &lt; k\)</span> (e.g. factors of a composite number).</li>
+<li><strong>Ackermann function</strong> requires complete induction on <strong>lexicographically ordered pairs</strong> <span class="arithmatex">\((x, y)\)</span> because recursive calls decrease different components.</li>
+<li><strong>Infinite descent</strong> (Fermat): if <span class="arithmatex">\(\neg P(k) \to \exists k' &lt; k.\; \neg P(k')\)</span>, then <span class="arithmatex">\(\forall n.\; P(n)\)</span>. Every counterexample producing a smaller counterexample yields an impossible infinite descending chain in <span class="arithmatex">\(\mathbb{N}\)</span>.</li>
+<li><strong>Complete induction <span class="arithmatex">\(\iff\)</span> infinite descent:</strong> they are contrapositives — rewrite <span class="arithmatex">\(\neg P(k) \to \exists k' &lt; k.\; \neg P(k')\)</span> as <span class="arithmatex">\((\forall k' &lt; k.\; P(k')) \to P(k)\)</span>.</li>
+<li><strong>All four equivalent:</strong> ordinary induction <span class="arithmatex">\(\iff\)</span> complete induction <span class="arithmatex">\(\iff\)</span> infinite descent <span class="arithmatex">\(\iff\)</span> well-ordering of <span class="arithmatex">\(\mathbb{N}\)</span>.</li>
+</ul>
+<hr>
+<h2 id="4-high-priority-topics">4. HIGH-PRIORITY TOPICS<a class="headerlink" href="#4-high-priority-topics" title="Permanent link">¶</a></h2>
+<h3 id="must-know">🔴 Must Know<a class="headerlink" href="#must-know" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Complete induction principle:</strong> inference rule with the <span class="arithmatex">\(\forall k' &lt; k\)</span> hypothesis; why the base case is vacuous.</li>
+<li><strong>When to use complete induction</strong> over ordinary: argument needs <span class="arithmatex">\(P(j)\)</span> for <span class="arithmatex">\(j &lt; k\)</span> other than <span class="arithmatex">\(k - 1\)</span>.</li>
+<li><strong>"Product of primes" proof</strong> as the canonical example of complete induction.</li>
+<li><strong>Infinite descent principle:</strong> formal statement; "counterexample begets smaller counterexample" reasoning.</li>
+<li><strong><span class="arithmatex">\(\sqrt{2}\)</span> irrationality proof</strong> by descent on the denominator.</li>
+<li><strong>Equivalence:</strong> descent <span class="arithmatex">\(\iff\)</span> complete induction via contrapositive.</li>
+</ul>
+<h3 id="important">🟡 Important<a class="headerlink" href="#important" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Ackermann function definition</strong> and the three clauses; why single-variable induction fails.</li>
+<li><strong>Lexicographic ordering</strong> on pairs: <span class="arithmatex">\((x_1, y_1) &lt;_{\text{lex}} (x_2, y_2)\)</span> and why it is well-founded on <span class="arithmatex">\(\mathbb{N} \times \mathbb{N}\)</span>.</li>
+<li><strong>Proof that <span class="arithmatex">\(A\)</span> is total</strong> — identifying which component decreases in each recursive case.</li>
+<li><strong>Ordinary <span class="arithmatex">\(\iff\)</span> complete induction</strong> proof sketch using the auxiliary <span class="arithmatex">\(Q(n) = \forall k \leq n.\; P(k)\)</span>.</li>
+<li><strong>"Even or odd" example</strong> by descent.</li>
+</ul>
+<h3 id="useful-but-lower-priority">🟢 Useful but Lower Priority<a class="headerlink" href="#useful-but-lower-priority" title="Permanent link">¶</a></h3>
+<ul>
+<li>Full formal details of well-ordering <span class="arithmatex">\(\iff\)</span> induction <span class="arithmatex">\(\iff\)</span> descent equivalence circle.</li>
+<li>Growth rate of the Ackermann function (faster than any primitive recursive function).</li>
+<li>Descent proofs in number theory beyond <span class="arithmatex">\(\sqrt{2}\)</span> (e.g. Fermat's original applications).</li>
+</ul>
+<hr>
+<h2 id="5-topic-interconnections-bigger-picture">5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE<a class="headerlink" href="#5-topic-interconnections-bigger-picture" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Ordinary induction (Lecture 11)</strong> is the special case where the hypothesis is <span class="arithmatex">\(P(k)\)</span> only. Complete induction subsumes it; recognising when the stronger hypothesis is needed is a core exam skill.</li>
+<li><strong>Structural induction</strong> (on trees, formulas, etc.) parallels complete induction: the inductive hypothesis applies to <strong>all</strong> substructures, not just an immediate predecessor. Both generalise the same well-foundedness principle.</li>
+<li><strong>Propositional and first-order logic (Lectures 1–10)</strong> supply the formal language in which induction principles are stated. The quantifier manipulations <span class="arithmatex">\(\neg \exists \leftrightarrow \forall \neg\)</span> used to show descent <span class="arithmatex">\(\iff\)</span> complete induction are direct applications of FOL equivalences.</li>
+<li><strong>Well-ordering</strong> of <span class="arithmatex">\(\mathbb{N}\)</span> underpins all forms of induction over <span class="arithmatex">\(\mathbb{N}\)</span>. In set theory, the well-ordering principle, Zorn's lemma, and the axiom of choice are equivalent — a deeper connection encountered in later courses.</li>
+<li><strong>Modal logic (Lectures 13–15)</strong> uses Kripke frames with accessibility relations; proving properties of frames (e.g. reflexivity, transitivity) sometimes involves inductive arguments on paths, connecting back to the induction toolkit.</li>
+</ul>
+<hr>
+<h2 id="6-exam-strategy-tips">6. EXAM STRATEGY TIPS<a class="headerlink" href="#6-exam-strategy-tips" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>State the principle before using it.</strong> Write the complete induction rule or the descent principle explicitly at the start of your proof. This earns method marks even if the subsequent argument has a slip.</li>
+<li><strong>Vacuous truth for the base case:</strong> If asked "where is the base case?", explain that when <span class="arithmatex">\(k = 0\)</span> the hypothesis <span class="arithmatex">\(\forall k' &lt; 0.\; P(k')\)</span> is vacuously true, so <span class="arithmatex">\(P(0)\)</span> must be shown from nothing — the base case is embedded, not missing.</li>
+<li><strong>Descent proofs need the chain argument.</strong> Don't just say "we get a smaller counterexample." Explicitly state that repeating this process gives an infinite descending chain in <span class="arithmatex">\(\mathbb{N}\)</span>, which contradicts well-ordering.</li>
+<li><strong>Ackermann questions:</strong> Identify which argument decreases lexicographically for each clause. Draw a table of the three cases and annotate which component drops. Don't claim "both decrease" — in the third clause, the inner call only decreases <span class="arithmatex">\(y\)</span>, while the outer call decreases <span class="arithmatex">\(x\)</span>.</li>
+<li><strong>Contrapositive rewrite:</strong> For "show descent <span class="arithmatex">\(\iff\)</span> complete induction," write the descent premise, take the contrapositive of the inner implication, apply <span class="arithmatex">\(\neg \exists = \forall \neg\)</span> and double negation elimination. Examiners want to see each logical step.</li>
+<li><strong>Link to ordinary induction:</strong> If asked "are these equivalent?", sketch the auxiliary-property proof (<span class="arithmatex">\(Q(n) = \forall k \leq n.\; P(k)\)</span>) in both directions. A one-line "they're both induction" is insufficient.</li>
+</ul>
+<hr>
+<p><em>These notes cover Logic Lecture 12 (Complete Induction &amp; Infinite Descent) for COMP0003 Formal Logic; follow your lecturer's notation if it differs.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

@@ -1,0 +1,4064 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Year 1 Computer Science notes — UCL">
+      
+      
+        <meta name="author" content="Alex Tam">
+      
+      
+        <link rel="canonical" href="https://alexlhtam.github.io/ucl/year1/comp0004/cursor-notes/05-designing-with-classes/">
+      
+      
+        <link rel="prev" href="../04-classes-objects-references/">
+      
+      
+        <link rel="next" href="../06-inheritance/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Designing with Classes - Alex's UCL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#designing-with-classes-comp0004-object-oriented-programming-ucl" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Alex's UCL Notes" class="md-header__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex's UCL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Designing with Classes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../comp0005/cursor-notes/01-union-find/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Year 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Alex's UCL Notes" class="md-nav__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    Alex's UCL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Year 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Year 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms (COMP0005)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms (COMP0005)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/01-union-find/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/02-analysis-of-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis of Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/06-abstract-data-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sorting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sorting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/03-elementary-sorts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementary Sorts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/04-mergesort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MergeSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/05-quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QuickSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/07-heaps-and-heapsort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heaps &amp; HeapSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/08-symbol-tables-and-bst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbol Tables &amp; BST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/09-balanced-trees-and-hash-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balanced Trees &amp; Hash Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/10-undirected-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undirected Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/11-directed-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/12-minimum-spanning-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Spanning Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/13-shortest-paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shortest Paths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_5" id="__nav_2_1_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strings
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Strings
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/14-string-sorting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String Sorting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/15-tries-and-string-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tries &amp; String Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0005/cursor-notes/16-substring-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Substring Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OOP / Java (COMP0004)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OOP / Java (COMP0004)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-intro-to-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-core-java-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Java Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Object-Oriented Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-classes-objects-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes, Objects &amp; References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#object-oriented-design-ood-what-it-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object-oriented design (OOD) — what it is
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-software-development-cycle-high-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The software development cycle (high level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirements-functional-vs-non-functional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements: functional vs non-functional
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moscow-prioritisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MoSCoW prioritisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-cases-and-user-stories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use cases and user stories
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analysis-finding-classes-and-relationships" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analysis: finding classes and relationships
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uml-class-diagrams-what-comp0004-usually-expects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UML class diagrams (what COMP0004 usually expects)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#design-principles-the-acronym-soup-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design principles (the acronym soup, explained)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Design principles (the acronym soup, explained)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SOLID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dry-kiss-yagni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DRY, KISS, YAGNI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-cohesion-low-coupling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High cohesion, low coupling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#designing-a-multi-class-program-simpleordersystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Designing a multi-class program: SimpleOrderSystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructors-in-java-rules-that-must-be-automatic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constructors in Java (rules that must be automatic)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overloaded-constructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overloaded constructors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-constructor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default constructor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#this-for-fields-vs-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        this for fields vs parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initializer-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initializer blocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-class-variables-and-constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        static: class variables and constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#null-handling-and-optionalt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        null handling and Optional&lt;T&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shallow-copy-vs-deep-copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shallow copy vs deep copy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getter-methods-immutable-classes-pojo-withers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getter methods, immutable classes (POJO), “withers”
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-35-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (3–5 with model answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (3–5 with model answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-distinguish-functional-vs-non-functional-requirements-give-one-example-of-each-for-an-online-shop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1. Distinguish functional vs non-functional requirements. Give one example of each for an online shop.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-explain-aggregation-vs-composition-in-uml-and-what-the-diamonds-mean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2. Explain aggregation vs composition in UML and what the diamonds mean.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-state-the-single-responsibility-principle-and-apply-it-to-a-class-that-both-reads-user-input-from-the-console-and-calculates-order-totals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3. State the Single Responsibility Principle and apply it to a class that both reads user input from the console and calculates order totals.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-what-is-wrong-with-this-constructor-header-and-what-is-the-correct-java-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4. What is wrong with this constructor header, and what is the correct Java form?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-explain-why-returning-the-internal-arraylist-directly-is-risky-and-what-new-arraylistorders-improves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5. Explain why returning the internal ArrayList directly is risky, and what new ArrayList&lt;&gt;(orders) improves.
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics-must-know-important-useful" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS (🔴 Must Know / 🟡 Important / 🟢 Useful)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS (🔴 Must Know / 🟡 Important / 🟢 Useful)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-interfaces-and-polymorphism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces &amp; Polymorphism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-file-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-json-csv-and-records/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON, CSV &amp; Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-packages-and-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages &amp; Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-lambdas-and-streams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambdas &amp; Streams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-web-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-data-structures-in-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures in Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-design-patterns-and-threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns &amp; Threads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory of Computation (COMP0003)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory of Computation (COMP0003)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formal Logic
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Formal Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/01-overview-and-history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview &amp; History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/03-boolean-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boolean Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/04-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/05-proof-by-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof by Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/06-complete-induction-and-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Induction &amp; Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/07-modal-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modal Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automata
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Automata
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/01-dfas-and-regular-languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFAs &amp; Regular Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/02-nfas-and-dfa-equivalence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFAs &amp; DFA Equivalence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/03-closure-and-regular-expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closure &amp; Regular Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/04-pumping-lemma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/05-pushdown-automata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pushdown Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/06-context-free-grammars/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Free Grammars
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/07-pumping-lemma-for-cfls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma for CFLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/08-turing-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turing Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/09-decidability-and-undecidability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decidability &amp; Undecidability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#object-oriented-design-ood-what-it-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object-oriented design (OOD) — what it is
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-software-development-cycle-high-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The software development cycle (high level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirements-functional-vs-non-functional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements: functional vs non-functional
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moscow-prioritisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MoSCoW prioritisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-cases-and-user-stories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use cases and user stories
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analysis-finding-classes-and-relationships" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analysis: finding classes and relationships
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uml-class-diagrams-what-comp0004-usually-expects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UML class diagrams (what COMP0004 usually expects)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#design-principles-the-acronym-soup-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design principles (the acronym soup, explained)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Design principles (the acronym soup, explained)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SOLID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dry-kiss-yagni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DRY, KISS, YAGNI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-cohesion-low-coupling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High cohesion, low coupling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#designing-a-multi-class-program-simpleordersystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Designing a multi-class program: SimpleOrderSystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructors-in-java-rules-that-must-be-automatic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constructors in Java (rules that must be automatic)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overloaded-constructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overloaded constructors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-constructor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default constructor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#this-for-fields-vs-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        this for fields vs parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initializer-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initializer blocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-class-variables-and-constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        static: class variables and constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#null-handling-and-optionalt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        null handling and Optional&lt;T&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shallow-copy-vs-deep-copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shallow copy vs deep copy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getter-methods-immutable-classes-pojo-withers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getter methods, immutable classes (POJO), “withers”
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-35-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (3–5 with model answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (3–5 with model answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-distinguish-functional-vs-non-functional-requirements-give-one-example-of-each-for-an-online-shop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1. Distinguish functional vs non-functional requirements. Give one example of each for an online shop.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-explain-aggregation-vs-composition-in-uml-and-what-the-diamonds-mean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2. Explain aggregation vs composition in UML and what the diamonds mean.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-state-the-single-responsibility-principle-and-apply-it-to-a-class-that-both-reads-user-input-from-the-console-and-calculates-order-totals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3. State the Single Responsibility Principle and apply it to a class that both reads user input from the console and calculates order totals.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-what-is-wrong-with-this-constructor-header-and-what-is-the-correct-java-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4. What is wrong with this constructor header, and what is the correct Java form?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-explain-why-returning-the-internal-arraylist-directly-is-risky-and-what-new-arraylistorders-improves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5. Explain why returning the internal ArrayList directly is risky, and what new ArrayList&lt;&gt;(orders) improves.
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics-must-know-important-useful" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS (🔴 Must Know / 🟡 Important / 🟢 Useful)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS (🔴 Must Know / 🟡 Important / 🟢 Useful)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="designing-with-classes-comp0004-object-oriented-programming-ucl">Designing with Classes — COMP0004 Object-Oriented Programming (UCL)<a class="headerlink" href="#designing-with-classes-comp0004-object-oriented-programming-ucl" title="Permanent link">¶</a></h1>
+<p><em>Lecture-style notes aligned with </em><em>Slide deck 7</em><em>: moving from “writing a class” to </em><em>object-oriented design (OOD)</em><em> — requirements, analysis, </em><em>UML</em><em>, multi-class structure, and core Java mechanics (</em><em>constructors</em><em>, </em><em><code>static</code></em><em>, </em><em><code>null</code></em><em>, copying, </em><em>getters</em><em> / </em><em>immutability</em><em>).</em></p>
+<hr>
+<h2 id="1-complete-topic-summaries">1. COMPLETE TOPIC SUMMARIES<a class="headerlink" href="#1-complete-topic-summaries" title="Permanent link">¶</a></h2>
+<h3 id="object-oriented-design-ood-what-it-is"><strong>Object-oriented design (OOD)</strong> — what it is<a class="headerlink" href="#object-oriented-design-ood-what-it-is" title="Permanent link">¶</a></h3>
+<p><strong>Object-oriented design (OOD)</strong> is the disciplined activity of deciding <strong>which classes</strong> you need, <strong>what each one is responsible for</strong>, and <strong>how they connect</strong>, so that your program stays understandable and changeable as requirements evolve. It sits between <strong>analysis</strong> (“what problem are we solving?”) and <strong>implementation</strong> (“how do we code it in Java?”).</p>
+<p>A useful mental model:</p>
+<ul>
+<li><strong>Analysis</strong> produces a <strong>conceptual model</strong> of the domain (nouns/verbs, relationships).</li>
+<li><strong>Design</strong> turns that model into <strong>software abstractions</strong> (classes, interfaces, packages) with clear <strong>contracts</strong>.</li>
+<li><strong>Implementation</strong> expresses those abstractions in <strong>Java</strong> using <strong>encapsulation</strong>, <strong>constructors</strong>, <strong>collections</strong>, and so on.</li>
+</ul>
+<hr>
+<h3 id="the-software-development-cycle-high-level"><strong>The software development cycle</strong> (high level)<a class="headerlink" href="#the-software-development-cycle-high-level" title="Permanent link">¶</a></h3>
+<p>A common teaching progression (and industry simplification) is:</p>
+<ol>
+<li><strong>Requirements</strong> — capture <strong>what</strong> the system must do (and constraints).</li>
+<li><strong>Analysis</strong> — understand the domain; identify <strong>candidate classes</strong> and <strong>relationships</strong>.</li>
+<li><strong>Design</strong> — refine abstractions, assign <strong>responsibilities</strong>, sketch <strong>UML</strong>, plan APIs.</li>
+<li><strong>Implementation</strong> — write Java (classes, methods, tests).</li>
+<li><strong>Testing</strong> — verify behaviour (<strong>unit</strong>, <strong>integration</strong>, acceptance).</li>
+</ol>
+<blockquote>
+<p><strong>Beginner intuition:</strong> Requirements are the “menu of features”; design is the “floor plan”; code is the “building.” Changing the floor plan after construction is expensive — good early design reduces rework.</p>
+</blockquote>
+<hr>
+<h3 id="requirements-functional-vs-non-functional"><strong>Requirements: functional vs non-functional</strong><a class="headerlink" href="#requirements-functional-vs-non-functional" title="Permanent link">¶</a></h3>
+<ul>
+<li>
+<p><strong>Functional requirements</strong> describe <strong>observable behaviour</strong>: inputs, outputs, workflows, business rules.<br>
+<em>Example:</em> “A customer can place an order containing multiple line items.”</p>
+</li>
+<li>
+<p><strong>Non-functional requirements</strong> describe <strong>qualities</strong> and constraints: performance, security, usability, maintainability, portability, legal compliance.<br>
+<em>Example:</em> “Order totals must compute in under 50 ms for typical basket sizes on lab machines.”</p>
+</li>
+</ul>
+<p>Exams often want you to <strong>classify</strong> a sentence as functional vs non-functional and justify it in one line.</p>
+<hr>
+<h3 id="moscow-prioritisation"><strong>MoSCoW prioritisation</strong><a class="headerlink" href="#moscow-prioritisation" title="Permanent link">¶</a></h3>
+<p><strong>MoSCoW</strong> is a lightweight way to prioritise scope when time is limited:</p>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Must have</strong></td>
+<td>Non-negotiable for the release / milestone.</td>
+</tr>
+<tr>
+<td><strong>Should have</strong></td>
+<td>Important; include unless strong pressure.</td>
+</tr>
+<tr>
+<td><strong>Could have</strong></td>
+<td>Nice-to-have if time permits.</td>
+</tr>
+<tr>
+<td><strong>Won’t have (this time)</strong></td>
+<td>Explicitly out of scope (prevents scope creep).</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Exam tip:</strong> MoSCoW is about <strong>delivery planning</strong>, not Java syntax — but it explains why your coursework might implement only a subset of “dream features.”</p>
+</blockquote>
+<hr>
+<h3 id="use-cases-and-user-stories"><strong>Use cases and user stories</strong><a class="headerlink" href="#use-cases-and-user-stories" title="Permanent link">¶</a></h3>
+<p>A <strong>use case</strong> describes an interaction between an <strong>actor</strong> (human or external system) and the system to achieve a goal. Typical elements:</p>
+<ul>
+<li><strong>Actor</strong> — who initiates or participates.</li>
+<li><strong>Preconditions</strong> — what must be true before the use case starts.</li>
+<li><strong>Postconditions</strong> — what must be true after success (and sometimes failure).</li>
+<li><strong>Main success scenario</strong> — numbered <strong>sequence of steps</strong>.</li>
+<li><strong>Extensions / alternatives</strong> — variations (e.g. invalid input, item out of stock).</li>
+<li><strong>Errors / exceptions</strong> — how failures are surfaced or recovered.</li>
+</ul>
+<p>A <strong>user story</strong> is a short goal statement, often:<br>
+“As a <strong>\&lt;role&gt;</strong>, I want <strong>\&lt;capability&gt;</strong> so that <strong>\&lt;benefit&gt;</strong>.”</p>
+<p>Stories are good for <strong>backlog</strong> communication; use cases are good for <strong>detailed flows</strong> and test scenarios.</p>
+<hr>
+<h3 id="analysis-finding-classes-and-relationships"><strong>Analysis: finding classes and relationships</strong><a class="headerlink" href="#analysis-finding-classes-and-relationships" title="Permanent link">¶</a></h3>
+<p>In early OOP courses, a practical technique is:</p>
+<ul>
+<li>Read requirements and highlight <strong>nouns</strong> → candidate <strong>classes</strong> or <strong>attributes</strong>.</li>
+<li>Highlight <strong>verbs</strong> → candidate <strong>methods</strong> or <strong>use-case steps</strong>.</li>
+<li>Ask: <strong>who owns</strong> this data? <strong>who collaborates</strong> with whom?</li>
+</ul>
+<p>The output is a <strong>conceptual model</strong>: not necessarily identical to your final Java packages, but a map of <strong>entities</strong> and <strong>associations</strong> you will refine during design.</p>
+<hr>
+<h3 id="uml-class-diagrams-what-comp0004-usually-expects"><strong>UML class diagrams</strong> (what COMP0004 usually expects)<a class="headerlink" href="#uml-class-diagrams-what-comp0004-usually-expects" title="Permanent link">¶</a></h3>
+<p><strong>UML (Unified Modeling Language)</strong> class diagrams show <strong>types</strong> (classes/interfaces) as boxes and <strong>relationships</strong> as lines.</p>
+<p><strong>Associations</strong> — a structural link between types (often navigable in code as a field reference).</p>
+<p><strong>Multiplicity</strong> — how many instances participate (examples):</p>
+<ul>
+<li><strong><code>1</code></strong> exactly one  </li>
+<li><strong><code>0..1</code></strong> zero or one  </li>
+<li><strong><code>*</code> or <code>0..*</code></strong> zero or many  </li>
+<li><strong><code>1..*</code></strong> one or many  </li>
+</ul>
+<p><strong>Aggregation</strong> — “whole/part” where the part <strong>can exist independently”; drawn with a </strong>hollow (open) diamond<strong> on the “whole” side. (Interpretations vary in industry; in teaching, treat it as </strong>weaker ownership** than composition.)</p>
+<p><strong>Composition</strong> — stronger “whole/part”: the part’s lifetime is tied to the whole; drawn with a <strong>filled diamond</strong> on the whole side.</p>
+<blockquote>
+<p><strong>Beginner pitfall:</strong> Do not confuse UML diamonds with Java keywords — they are <strong>design notation</strong>. The Java code might still be plain fields and collections.</p>
+</blockquote>
+<hr>
+<h3 id="design-principles-the-acronym-soup-explained"><strong>Design principles</strong> (the acronym soup, explained)<a class="headerlink" href="#design-principles-the-acronym-soup-explained" title="Permanent link">¶</a></h3>
+<p>These are <strong>guidelines</strong>, not laws — but examiners love them because they test whether you can <strong>justify</strong> structure.</p>
+<h4 id="solid"><strong>SOLID</strong><a class="headerlink" href="#solid" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>S — Single Responsibility Principle (SRP):</strong> a class should have <strong>one reason to change</strong> (one cohesive responsibility). If a class mixes unrelated concerns (e.g. UI + database + business rules), changes become risky.</li>
+<li><strong>O — Open/Closed Principle (OCP):</strong> design modules <strong>open for extension</strong> but <strong>closed for modification</strong> — often via <strong>interfaces</strong>, <strong>polymorphism</strong>, or <strong>composition</strong>, so new behaviour does not require editing fragile core code constantly.</li>
+<li><strong>L — Liskov Substitution Principle (LSP):</strong> subtypes must be <strong>substitutable</strong> for their base types <strong>without breaking correctness</strong> of programs that use the base type. (Deeply tied to <strong>inheritance</strong>; see the inheritance notes.)</li>
+<li><strong>I — Interface Segregation Principle (ISP):</strong> prefer <strong>small, focused interfaces</strong> over one “fat” interface forcing implementors to provide irrelevant methods.</li>
+<li><strong>D — Dependency Inversion Principle (DIP):</strong> depend on <strong>abstractions</strong> (interfaces) rather than concrete implementations where practical, so high-level policy is not glued to low-level details.</li>
+</ul>
+<h4 id="dry-kiss-yagni"><strong>DRY, KISS, YAGNI</strong><a class="headerlink" href="#dry-kiss-yagni" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>DRY (Don’t Repeat Yourself):</strong> avoid duplicating knowledge/logic; duplication means duplicated bug fixes. (Balance: don’t “abstract” too early.)</li>
+<li><strong>KISS (Keep It Simple, Stupid):</strong> choose the <strong>simplest design</strong> that meets requirements.</li>
+<li><strong>YAGNI (You Aren’t Gonna Need It):</strong> don’t build features “just in case” without evidence.</li>
+</ul>
+<h4 id="high-cohesion-low-coupling"><strong>High cohesion, low coupling</strong><a class="headerlink" href="#high-cohesion-low-coupling" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Cohesion</strong> — how strongly the parts inside a module belong together. <strong>High cohesion</strong> is good: methods/fields support one clear purpose.</li>
+<li><strong>Coupling</strong> — how much modules depend on each other’s internals. <strong>Low coupling</strong> is good: changes ripple less.</li>
+</ul>
+<hr>
+<h3 id="designing-a-multi-class-program-simpleordersystem"><strong>Designing a multi-class program: <code>SimpleOrderSystem</code></strong><a class="headerlink" href="#designing-a-multi-class-program-simpleordersystem" title="Permanent link">¶</a></h3>
+<p>A classic teaching pattern is a small <strong>domain model</strong> for orders:</p>
+<ul>
+<li><strong><code>Customer</code></strong> — identity/contact details; owns a collection of <strong><code>Order</code></strong> objects.</li>
+<li><strong><code>Order</code></strong> — a basket-like object containing <strong><code>LineItem</code></strong> entries.</li>
+<li><strong><code>LineItem</code></strong> — pairs a <strong><code>Product</code></strong> with a <strong>quantity</strong> and can compute a <strong>subtotal</strong>.</li>
+<li><strong><code>Product</code></strong> — something sellable (in your repo’s exercise code, <strong><code>Product</code> is declared <code>abstract</code></strong> — a forward link to <strong>inheritance</strong> topics).</li>
+</ul>
+<p><strong>Collaboration sketch (conceptual):</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>SimpleOrderSystem
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>   ├─ manages lists of Customer / Product (application layer)
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Customer
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>   ├─ List&lt;Order&gt; orders
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>Order
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>   ├─ List&lt;LineItem&gt; lineItems
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>LineItem
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>   ├─ Product product
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>   ├─ int quantity
+</code></pre></div>
+<p>This is a clean example of <strong>separation of concerns</strong>: domain objects (<code>Customer</code>, <code>Order</code>, …) are not responsible for reading console menus; an app class coordinates use cases.</p>
+<hr>
+<h3 id="constructors-in-java-rules-that-must-be-automatic"><strong>Constructors in Java</strong> (rules that must be automatic)<a class="headerlink" href="#constructors-in-java-rules-that-must-be-automatic" title="Permanent link">¶</a></h3>
+<ul>
+<li>A <strong>constructor</strong> has the <strong>same name as the class</strong>.</li>
+<li>It has <strong>no return type</strong> (not even <code>void</code>).</li>
+<li>It runs when you <strong><code>new</code></strong> a class: <code>Customer c = new Customer(...);</code></li>
+<li>Its job is to put the object into a <strong>valid initial state</strong> (initialise fields, create empty collections, enforce invariants).</li>
+</ul>
+<hr>
+<h3 id="overloaded-constructors"><strong>Overloaded constructors</strong><a class="headerlink" href="#overloaded-constructors" title="Permanent link">¶</a></h3>
+<p><strong>Constructor overloading</strong> means multiple constructors with <strong>different parameter lists</strong> (different arity/types). Common patterns:</p>
+<ul>
+<li>a “full” constructor setting all fields, and</li>
+<li>a convenience constructor delegating with <strong><code>this(...)</code></strong>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Point</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Point</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Point</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">        </span><span class="k">this</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// delegates to Point(int,int)</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="p">}</span>
+</code></pre></div>
+<hr>
+<h3 id="default-constructor"><strong>Default constructor</strong><a class="headerlink" href="#default-constructor" title="Permanent link">¶</a></h3>
+<p>If you declare <strong>no constructors at all</strong>, Java provides a <strong>public no-argument default constructor</strong> automatically.</p>
+<p>If you declare <strong>any</strong> constructor explicitly, the compiler <strong>does not</strong> add the default unless you write it yourself.</p>
+<hr>
+<h3 id="this-for-fields-vs-parameters"><strong><code>this</code> for fields vs parameters</strong><a class="headerlink" href="#this-for-fields-vs-parameters" title="Permanent link">¶</a></h3>
+<p>The idiom <strong><code>this.name = name</code></strong> disambiguates a <strong>field</strong> from a <strong>parameter</strong> with the same identifier:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">public</span><span class="w"> </span><span class="nf">Person</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">}</span>
+</code></pre></div>
+<p>You can also use <strong><code>this(...)</code></strong> to call another constructor in the same class (<strong>must be the first statement</strong> in that constructor).</p>
+<hr>
+<h3 id="initializer-blocks"><strong>Initializer blocks</strong><a class="headerlink" href="#initializer-blocks" title="Permanent link">¶</a></h3>
+<p><strong>Instance initializer blocks</strong> run when an object is constructed (before the constructor body), in a defined order with field initialisers. <strong>Static initializer blocks</strong> run once when the class is initialised.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Demo</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="c1">// instance initializer</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"instance init"</span><span class="p">);</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// static initializer</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"static init (once)"</span><span class="p">);</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Demo</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Course reality:</strong> know they exist; most coursework prefers explicit constructors for clarity.</p>
+</blockquote>
+<hr>
+<h3 id="static-class-variables-and-constants"><strong><code>static</code>: class variables and constants</strong><a class="headerlink" href="#static-class-variables-and-constants" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Instance variables</strong> — one per object (<code>each customer has its own name</code>).</li>
+<li><strong>Class variables</strong> — declared <strong><code>static</code></strong>: shared by <strong>all instances</strong> of the class (<code>static</code> “belongs to the type”).</li>
+</ul>
+<p><strong><code>public static final</code></strong> is the usual Java pattern for <strong>named constants</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Keys</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MAX_RETRIES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr>
+<h3 id="null-handling-and-optionalt"><strong><code>null</code> handling and <code>Optional&lt;T&gt;</code></strong><a class="headerlink" href="#null-handling-and-optionalt" title="Permanent link">¶</a></h3>
+<p><strong><code>null</code></strong> means “no object reference.” Calling a method on <code>null</code> causes a <strong><code>NullPointerException</code></strong>.</p>
+<p>Defensive checks:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">printUpper</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"(null)"</span><span class="p">);</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">toUpperCase</span><span class="p">());</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong><code>Optional&lt;T&gt;</code></strong> (in <code>java.util</code>) models “maybe absent” <strong>explicitly</strong> at the API level:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">public</span><span class="w"> </span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findNickname</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="c1">// ...</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">empty</span><span class="p">();</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">}</span>
+</code></pre></div>
+<p>Use <strong><code>Optional</code></strong> for <strong>return types</strong> more than for <strong>every field</strong>; overusing it can obscure simple code.</p>
+<hr>
+<h3 id="shallow-copy-vs-deep-copy"><strong>Shallow copy vs deep copy</strong><a class="headerlink" href="#shallow-copy-vs-deep-copy" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Shallow copy</strong> — duplicate the <strong>container/reference structure</strong>, but <strong>inner objects may still be shared</strong>.</li>
+<li><strong>Deep copy</strong> — recursively duplicate nested objects so copies are fully independent (more work; not always desired).</li>
+</ul>
+<p>For <strong><code>ArrayList</code></strong>, <strong><code>new ArrayList&lt;&gt;(list)</code></strong> copies the <strong>list structure</strong> (new list object) but <strong>elements are the same references</strong> → typically a <strong>shallow</strong> copy of the collection.</p>
+<p>Your <code>Customer</code> exercise uses a defensive pattern:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kd">public</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Order</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getOrders</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Order</span><span class="o">&gt;</span><span class="p">(</span><span class="n">orders</span><span class="p">);</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">}</span>
+</code></pre></div>
+<p>This prevents callers from <strong>adding/removing</strong> orders through the returned list <strong>without</strong> your methods — but it does <strong>not</strong> clone the <strong><code>Order</code></strong> objects themselves (still shallow at element level).</p>
+<hr>
+<h3 id="getter-methods-immutable-classes-pojo-withers"><strong>Getter methods, immutable classes (POJO), “withers”</strong><a class="headerlink" href="#getter-methods-immutable-classes-pojo-withers" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Getters</strong> expose read access to fields, often as <code>getX()</code> / <code>isX()</code> for <code>boolean</code>.</li>
+<li>A <strong>POJO (Plain Old Java Object)</strong> often means a simple data-focused class with fields + getters/setters (and maybe <code>equals</code>/<code>hashCode</code>).</li>
+</ul>
+<p>An <strong>immutable</strong> object cannot be changed after construction: <strong><code>final</code> fields</strong>, no setters, defensive copying of mutable components if needed.</p>
+<p>A <strong>wither</strong> (like a setter but immutable) returns a <strong>new instance</strong> with one field changed:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">record</span> <span class="nc">Point</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Point</span><span class="w"> </span><span class="nf">withX</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">nx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">);</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="p">}</span>
+</code></pre></div>
+<p>(Java <strong><code>record</code></strong> types are a compact way to model immutable data carriers — useful if your course has introduced them.)</p>
+<hr>
+<h2 id="2-exam-style-questions-35-with-model-answers">2. EXAM-STYLE QUESTIONS (3–5 with model answers)<a class="headerlink" href="#2-exam-style-questions-35-with-model-answers" title="Permanent link">¶</a></h2>
+<h3 id="q1-distinguish-functional-vs-non-functional-requirements-give-one-example-of-each-for-an-online-shop"><strong>Q1.</strong> Distinguish <strong>functional</strong> vs <strong>non-functional</strong> requirements. Give one example of each for an online shop.<a class="headerlink" href="#q1-distinguish-functional-vs-non-functional-requirements-give-one-example-of-each-for-an-online-shop" title="Permanent link">¶</a></h3>
+<p><strong>Model answer:</strong> <strong>Functional</strong> requirements specify <strong>behaviour</strong> (what the system does): e.g. “Users can add products to a basket and checkout.” <strong>Non-functional</strong> requirements specify <strong>qualities/constraints</strong>: e.g. “Checkout must complete within 2 seconds under normal load” (performance) or “Passwords must be stored hashed” (security).</p>
+<hr>
+<h3 id="q2-explain-aggregation-vs-composition-in-uml-and-what-the-diamonds-mean"><strong>Q2.</strong> Explain <strong>aggregation</strong> vs <strong>composition</strong> in UML and what the diamonds mean.<a class="headerlink" href="#q2-explain-aggregation-vs-composition-in-uml-and-what-the-diamonds-mean" title="Permanent link">¶</a></h3>
+<p><strong>Model answer:</strong> Both model <strong>whole/part</strong> relationships. <strong>Aggregation</strong> uses an <strong>open (hollow) diamond</strong> and suggests the part <strong>can exist independently</strong> of the whole. <strong>Composition</strong> uses a <strong>filled diamond</strong> and suggests <strong>stronger ownership/lifetime dependence</strong> (the part is conceptually owned by the whole). Multiplicity annotations (e.g. <code>1..*</code>) clarify how many parts may attach.</p>
+<hr>
+<h3 id="q3-state-the-single-responsibility-principle-and-apply-it-to-a-class-that-both-reads-user-input-from-the-console-and-calculates-order-totals"><strong>Q3.</strong> State the <strong>Single Responsibility Principle</strong> and apply it to a class that both reads user input from the console and calculates order totals.<a class="headerlink" href="#q3-state-the-single-responsibility-principle-and-apply-it-to-a-class-that-both-reads-user-input-from-the-console-and-calculates-order-totals" title="Permanent link">¶</a></h3>
+<p><strong>Model answer:</strong> <strong>SRP</strong> says a class should have <strong>one reason to change</strong>—one cohesive responsibility. A class that both parses console input and computes totals mixes <strong>I/O</strong> with <strong>domain logic</strong>; input formatting changes and pricing rule changes both force edits. Better: separate <strong><code>InputReader</code>/<code>Ui</code></strong> concerns from <strong><code>Order</code>/<code>PricingService</code></strong> domain code, connected by clear method calls.</p>
+<hr>
+<h3 id="q4-what-is-wrong-with-this-constructor-header-and-what-is-the-correct-java-form"><strong>Q4.</strong> What is wrong with this constructor header, and what is the correct Java form?<a class="headerlink" href="#q4-what-is-wrong-with-this-constructor-header-and-what-is-the-correct-java-form" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">Person</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p><strong>Model answer:</strong> Constructors <strong>must not</strong> have a return type (not even <code>void</code>). <code>void Person(...)</code> is treated as a <strong>method named <code>Person</code></strong>, not a constructor, so <strong><code>new Person(...)</code></strong> will not use it as a constructor. Correct: <code>public Person(String name) { ... }</code>.</p>
+<hr>
+<h3 id="q5-explain-why-returning-the-internal-arraylist-directly-is-risky-and-what-new-arraylistorders-improves"><strong>Q5.</strong> Explain why returning the internal <code>ArrayList</code> directly is risky, and what <code>new ArrayList&lt;&gt;(orders)</code> improves.<a class="headerlink" href="#q5-explain-why-returning-the-internal-arraylist-directly-is-risky-and-what-new-arraylistorders-improves" title="Permanent link">¶</a></h3>
+<p><strong>Model answer:</strong> Returning the <strong>internal list reference</strong> lets callers <strong>mutate your object’s encapsulated state</strong> (add/remove/clear) bypassing your invariants. Returning <strong><code>new ArrayList&lt;&gt;(orders)</code></strong> provides a <strong>shallow copy of the list structure</strong>, so callers cannot directly modify <strong>which elements</strong> your field references via list operations—though the <strong><code>Order</code></strong> objects inside may still be mutable unless you design otherwise.</p>
+<hr>
+<h2 id="3-must-know-key-points">3. MUST-KNOW KEY POINTS<a class="headerlink" href="#3-must-know-key-points" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>OOD</strong> bridges <strong>domain understanding</strong> and <strong>Java implementation</strong> via <strong>abstractions</strong> and <strong>relationships</strong>.</li>
+<li>Requirements split into <strong>functional</strong> (behaviour) vs <strong>non-functional</strong> (qualities/constraints); <strong>MoSCoW</strong> prioritises delivery scope.</li>
+<li><strong>Use cases</strong> structure <strong>actors</strong>, <strong>pre/postconditions</strong>, <strong>main flow</strong>, <strong>alternatives</strong>, and <strong>errors</strong>.</li>
+<li><strong>UML</strong> communicates <strong>associations</strong>, <strong>multiplicity</strong>, <strong>aggregation (open diamond)</strong>, <strong>composition (filled diamond)</strong>.</li>
+<li><strong>SOLID / DRY / KISS / YAGNI</strong> + <strong>high cohesion / low coupling</strong> are standard justification vocabulary.</li>
+<li><strong>Constructors</strong>: same name as class, <strong>no return type</strong>, invoked by <strong><code>new</code></strong>, can be <strong>overloaded</strong>; default constructor exists <strong>only if</strong> you declare none.</li>
+<li><strong><code>this.field = param</code></strong> disambiguates fields; <strong><code>this(...)</code></strong> chains constructors (first line).</li>
+<li><strong><code>static</code></strong> fields/methods belong to the <strong>class</strong>; <strong><code>public static final</code></strong> for constants.</li>
+<li><strong><code>null</code></strong> requires careful checks; <strong><code>Optional&lt;T&gt;</code></strong> can document “absent” results in APIs.</li>
+<li>Returning <strong><code>new ArrayList&lt;&gt;(internal)</code></strong> is a common <strong>defensive copy</strong> pattern (<strong>shallow</strong> at element level).</li>
+<li><strong>Getters/setters</strong> vs <strong>immutability</strong> vs <strong>withers</strong> expresses how you manage change safely.</li>
+</ul>
+<hr>
+<h2 id="4-high-priority-topics-must-know-important-useful">4. HIGH-PRIORITY TOPICS (🔴 Must Know / 🟡 Important / 🟢 Useful)<a class="headerlink" href="#4-high-priority-topics-must-know-important-useful" title="Permanent link">¶</a></h2>
+<h3 id="must-know">🔴 <strong>Must Know</strong><a class="headerlink" href="#must-know" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Development cycle:</strong> Requirements → Analysis → Design → Implementation → Testing  </li>
+<li><strong>Functional vs non-functional</strong> requirements  </li>
+<li><strong>UML:</strong> associations + <strong>multiplicity</strong> + <strong>aggregation vs composition</strong> (diamonds)  </li>
+<li><strong>Constructor rules</strong>, <strong>overloading</strong>, <strong>default constructor</strong> behaviour  </li>
+<li><strong><code>this</code> field initialisation idiom</strong>  </li>
+<li><strong><code>static</code> vs instance</strong> fields; <strong><code>public static final</code> constants</strong>  </li>
+<li><strong><code>null</code> safety</strong> basics + why <strong>defensive copies</strong> of collections matter  </li>
+</ul>
+<h3 id="important">🟡 <strong>Important</strong><a class="headerlink" href="#important" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Use cases / user stories</strong> structure (actor, pre/post, steps, alternatives)  </li>
+<li><strong>MoSCoW</strong> prioritisation  </li>
+<li><strong>SRP</strong> + <strong>high cohesion / low coupling</strong> (frequent short-answer prompts)  </li>
+<li><strong>OCP, LSP, ISP, DIP</strong> at “define + small example” level  </li>
+<li><strong>DRY, KISS, YAGNI</strong> as trade-off heuristics  </li>
+<li><strong>Initializer blocks</strong> (recognise/explain execution order at a high level)  </li>
+<li><strong><code>Optional&lt;T&gt;</code></strong> as an API style for absent values  </li>
+</ul>
+<h3 id="useful">🟢 <strong>Useful</strong><a class="headerlink" href="#useful" title="Permanent link">¶</a></h3>
+<ul>
+<li>Multi-class design narratives like <strong><code>SimpleOrderSystem</code></strong> as an exam story problem  </li>
+<li><strong>Immutable objects</strong>, <strong>POJO</strong> terminology, <strong>wither</strong> methods / <strong><code>record</code></strong> as modern immutability  </li>
+</ul>
+<hr>
+<h2 id="5-topic-interconnections-bigger-picture">5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE<a class="headerlink" href="#5-topic-interconnections-bigger-picture" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Requirements → use cases → analysis classes</strong> is the same pipeline you later validate with <strong>tests</strong> (behaviour described early becomes <strong>test scenarios</strong>).</li>
+<li><strong>UML relationships</strong> often become <strong>fields</strong> (<code>Customer</code> has <code>List&lt;Order&gt;</code>), and multiplicity warns you about <strong><code>null</code></strong>, empty collections, and <strong>encapsulation</strong> choices.</li>
+<li><strong>Defensive copying</strong> is part of <strong>encapsulation</strong>: it connects to <strong>immutability</strong> and to <strong>security/correctness</strong> in larger systems.</li>
+<li><strong>SRP/cohesion</strong> decisions anticipate <strong>inheritance and interfaces</strong> later: clean classes are easier to extend without breaking <strong>LSP</strong>.</li>
+<li><strong>Static constants</strong> often appear in “menu-driven” coursework apps (<code>SimpleOrderSystem</code>)—they tie <strong>readability</strong> to <strong>maintainability</strong>.</li>
+</ul>
+<hr>
+<h2 id="6-exam-strategy-tips">6. EXAM STRATEGY TIPS<a class="headerlink" href="#6-exam-strategy-tips" title="Permanent link">¶</a></h2>
+<ul>
+<li>For “<strong>principle</strong>” questions, use a <strong>two-step template</strong>: (1) <strong>define</strong> in one sentence, (2) <strong>apply</strong> to a tiny example (2–3 sentences).</li>
+<li>When asked for <strong>UML</strong>, label <strong>multiplicities</strong> even if the drawing is rough—examiners mark the <strong>intent</strong>.</li>
+<li>If a question mentions <strong><code>void ClassName(...)</code></strong>, immediately discuss <strong>constructor vs method</strong> confusion—this is a classic trap.</li>
+<li>For <strong>copying</strong>, explicitly say <strong>shallow vs deep</strong> and what is shared after <code>new ArrayList&lt;&gt;(...)</code>.</li>
+<li>Link <strong>non-functional</strong> requirements to measurable words: <strong>latency</strong>, <strong>throughput</strong>, <strong>security</strong>, <strong>maintainability</strong>, <strong>usability</strong>.</li>
+</ul>
+<hr>
+<p><em>These notes are for revision; always follow your module’s exact definitions, diagram conventions, and coding standards in assessed work.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
