@@ -190,15 +190,15 @@ nav:
     # ── COMP0011: Mathematics & Statistics ─────────────────────
     - Mathematics & Statistics (COMP0011):
       - Algebra:
-        - Complex Numbers: year1/comp0011/cursor-notes/01-complex-numbers.md
-        - Polynomials: year1/comp0011/cursor-notes/02-polynomials.md
-        - Vector Spaces: year1/comp0011/cursor-notes/03-vector-spaces.md
-        - Matrices: year1/comp0011/cursor-notes/04-matrices.md
+        - Complex Numbers: year1/comp0011/master-notes/complex-numbers.md
+        - Polynomials: year1/comp0011/master-notes/polynomials.md
+        - Vector Spaces: year1/comp0011/master-notes/vector-spaces.md
+        - Matrices & Linear Algebra: year1/comp0011/master-notes/matrices-linear-algebra.md
       - Calculus:
-        - Continuous Functions: year1/comp0011/cursor-notes/05-continuous-functions.md
-        - Sequences & Series: year1/comp0011/cursor-notes/06-sequences-and-series.md
-        - Differential Calculus: year1/comp0011/cursor-notes/07-differential-calculus.md
-        - Integral Calculus: year1/comp0011/cursor-notes/08-integral-calculus.md
+        - Continuous Functions: year1/comp0011/master-notes/calculus.md
+        - Sequences & Series: year1/comp0011/master-notes/sequences-and-series.md
+        - Differential Calculus: year1/comp0011/master-notes/differential-calculus.md
+        - Integral Calculus: year1/comp0011/master-notes/integral-calculus.md
       - Probability & Statistics:
         - Probabilities: year1/comp0011/cursor-notes/09-probabilities.md
         - Statistics: year1/comp0011/cursor-notes/10-statistics.md
