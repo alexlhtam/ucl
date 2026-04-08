@@ -187,17 +187,21 @@ nav:
     #   - year1/comp0004/master-notes/java-records.md
     #   - year1/comp0004/master-notes/json-and-csv.md
 
-    # ── COMP0011: Mathematics ─────────────────────────────────
-    # Uncomment when ready to publish:
-    # - Mathematics (COMP0011):
-    #   - year1/comp0011/master-notes/polynomials.md
-    #   - year1/comp0011/master-notes/calculus.md
-    #   - year1/comp0011/master-notes/differential-calculus.md
-    #   - year1/comp0011/master-notes/integral-calculus.md
-    #   - year1/comp0011/master-notes/sequences-and-series.md
-    #   - year1/comp0011/master-notes/complex-numbers.md
-    #   - year1/comp0011/master-notes/matrices-linear-algebra.md
-    #   - year1/comp0011/master-notes/vector-spaces.md
+    # ── COMP0011: Mathematics & Statistics ─────────────────────
+    - Mathematics & Statistics (COMP0011):
+      - Algebra:
+        - Complex Numbers: year1/comp0011/cursor-notes/01-complex-numbers.md
+        - Polynomials: year1/comp0011/cursor-notes/02-polynomials.md
+        - Vector Spaces: year1/comp0011/cursor-notes/03-vector-spaces.md
+        - Matrices: year1/comp0011/cursor-notes/04-matrices.md
+      - Calculus:
+        - Continuous Functions: year1/comp0011/cursor-notes/05-continuous-functions.md
+        - Sequences & Series: year1/comp0011/cursor-notes/06-sequences-and-series.md
+        - Differential Calculus: year1/comp0011/cursor-notes/07-differential-calculus.md
+        - Integral Calculus: year1/comp0011/cursor-notes/08-integral-calculus.md
+      - Probability & Statistics:
+        - Probabilities: year1/comp0011/cursor-notes/09-probabilities.md
+        - Statistics: year1/comp0011/cursor-notes/10-statistics.md
 
     # ── COMP0147: Proofs & Foundations ───────────────────────
     # Uncomment when ready to publish:
