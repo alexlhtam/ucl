@@ -199,13 +199,25 @@ nav:
     #   - year1/comp0011/master-notes/matrices-linear-algebra.md
     #   - year1/comp0011/master-notes/vector-spaces.md
 
-    # ── COMP0147: Proofs & Foundations ───────────────────────
-    # Uncomment when ready to publish:
-    # - Proofs (COMP0147):
-    #   - year1/comp0147/master-notes/sets.md
-    #   - year1/comp0147/master-notes/functions.md
-    #   - year1/comp0147/master-notes/relations.md
-    #   - year1/comp0147/master-notes/graphs-1.md
-    #   - year1/comp0147/master-notes/graphs-2.md
-    #   - year1/comp0147/master-notes/recursion-and-structural-induction.md
-    #   - year1/comp0147/master-notes/proofs-cheatsheet.md
+    # ── COMP0147: Discrete Mathematics ──────────────────────
+    - Discrete Maths (COMP0147):
+      - Foundations:
+        - Numbers: year1/comp0147/cursor-notes/01-numbers.md
+        - Propositional Logic: year1/comp0147/cursor-notes/02-propositional-logic.md
+        - First-Order Logic: year1/comp0147/cursor-notes/03-first-order-logic.md
+      - Number Theory:
+        - Modular Arithmetic & Primes: year1/comp0147/cursor-notes/04-modular-arithmetic-and-primes.md
+      - Proofs & Induction:
+        - Proof Techniques: year1/comp0147/cursor-notes/05-proofs.md
+        - Mathematical Induction: year1/comp0147/cursor-notes/06-induction.md
+        - Strong Induction: year1/comp0147/cursor-notes/07-strong-induction.md
+        - Recursion & Structural Induction: year1/comp0147/cursor-notes/08-recursion-and-structural-induction.md
+      - Sets & Functions:
+        - Sets: year1/comp0147/cursor-notes/09-sets.md
+        - Functions & Sequences: year1/comp0147/cursor-notes/10-functions-and-sequences.md
+      - Combinatorics & Cardinality:
+        - Counting: year1/comp0147/cursor-notes/11-counting.md
+        - Cardinality: year1/comp0147/cursor-notes/12-cardinality.md
+      - Relations & Graphs:
+        - Relations: year1/comp0147/cursor-notes/13-relations.md
+        - Graphs: year1/comp0147/cursor-notes/14-graphs.md
