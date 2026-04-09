@@ -95,6 +95,7 @@ nav:
       - Search:
         - Symbol Tables & BST: year1/comp0005/cursor-notes/08-symbol-tables-and-bst.md
         - Balanced Trees & Hash Tables: year1/comp0005/cursor-notes/09-balanced-trees-and-hash-tables.md
+        - LLRB tree visualiser (demo): year1/comp0005/demos/llrb-visualiser/index.html
       - Graphs:
         - Undirected Graphs: year1/comp0005/cursor-notes/10-undirected-graphs.md
         - Directed Graphs: year1/comp0005/cursor-notes/11-directed-graphs.md
