@@ -59,6 +59,8 @@
 
 **Search.** **Identical** to ordinary **BST search** — **ignore colors**; they exist only to preserve balance on **updates**.
 
+**Interactive demo (browser).** Step through inserts and LLRB fix-ups in an [LLRB tree visualiser](../demos/llrb-visualiser/index.html) (static page for this site — same behaviour as the local Python `llrb_visualiser_web.py` tool).
+
 **Storing color.** Typically: **each node** stores the color of the **incoming** link from its **parent** (**RED** = true, **BLACK** = false); **null** links are treated as **BLACK**.
 
 ---
