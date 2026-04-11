@@ -104,7 +104,10 @@ nav:
       - Strings:
         - String Sorting: year1/comp0005/cursor-notes/14-string-sorting.md
         - Tries & String Search: year1/comp0005/cursor-notes/15-tries-and-string-search.md
+        - R-way trie (demo): year1/comp0005/demos/rway-trie/index.html
+        - TST / 3-way trie (demo): year1/comp0005/demos/tst-trie/index.html
         - Substring Search: year1/comp0005/cursor-notes/16-substring-search.md
+        - KMP visualiser (demo): year1/comp0005/demos/kmp-visualiser/index.html
 
     # ── COMP0004: OOP / Java ──────────────────────────────────
     - OOP / Java (COMP0004):
