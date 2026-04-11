@@ -98,6 +98,8 @@ Bold entries are match transitions; the rest are mismatch transitions copied fro
 ![KMP DFA for pattern ABABAC with match and mismatch transitions](../resources/16-kmp-dfa-example.png)
 *The KMP DFA for pattern ABABAC. Green arrows are match transitions (advance one state); red/orange arrows are mismatch transitions (fall back to the restart state). The transition table below encodes the full automaton.*
 
+**Interactive demo (browser).** [KMP DFA builder &amp; search](../demos/kmp-visualiser/index.html) — same `build_dfa` logic as scratch `kmp.py`, plus a search trace.
+
 **Analysis:**
 
 | | Cost |

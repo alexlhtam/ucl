@@ -18,6 +18,8 @@
 ![R-way trie storing seven keys with values](../resources/15-rway-trie-structure.png)
 *An R-way trie for seven keys. Each node stores one character; values appear at terminal nodes. Null links are not drawn.*
 
+**Interactive demo (browser).** [R-way trie visualiser](../demos/rway-trie/index.html) — put/get with **a–z** keys (matches scratch `r-way-trie.py`).
+
 **Search.**
 
 1. Start at the root.
@@ -92,6 +94,8 @@ Each node stores: a **character**, a **value** (may be null), and three child po
 
 ![Side-by-side R-way trie and ternary search trie for the same keys](../resources/15-tst-vs-rway.png)
 *Left: an R-way trie with R links per node (many null). Right: the equivalent TST with only 3 links per node — far more space-efficient for large alphabets.*
+
+**Interactive demo (browser).** [TST / 3-way trie visualiser](../demos/tst-trie/index.html) — same structure as scratch `three-way-trie.py`.
 
 **Search.**
 
