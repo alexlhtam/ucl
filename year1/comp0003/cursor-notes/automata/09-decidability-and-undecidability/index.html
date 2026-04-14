@@ -1,0 +1,5295 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Year 1 Computer Science notes — UCL">
+      
+      
+        <meta name="author" content="Alex Tam">
+      
+      
+        <link rel="canonical" href="https://alexlhtam.github.io/ucl/year1/comp0003/cursor-notes/automata/09-decidability-and-undecidability/">
+      
+      
+        <link rel="prev" href="../08-turing-machines/">
+      
+      
+        <link rel="next" href="../../../../comp0011/master-notes/complex-numbers/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Decidability &amp; Undecidability - Alex's UCL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#decidability-undecidability-comp0003-automata" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-header__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex's UCL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Decidability &amp; Undecidability
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Year 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-nav__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    Alex's UCL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Year 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Year 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms (COMP0005)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms (COMP0005)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/02-analysis-of-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis of Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/06-abstract-data-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sorting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sorting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/03-elementary-sorts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementary Sorts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/04-mergesort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MergeSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/05-quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QuickSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/07-heaps-and-heapsort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heaps &amp; HeapSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../comp0005/demos/llrb-visualiser/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/08-symbol-tables-and-bst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbol Tables &amp; BST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/09-balanced-trees-and-hash-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balanced Trees &amp; Hash Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/10-undirected-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undirected Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/11-directed-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/12-minimum-spanning-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Spanning Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/13-shortest-paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shortest Paths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_5">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../comp0005/demos/rway-trie/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strings
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_5" id="__nav_2_1_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Strings
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/14-string-sorting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String Sorting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/15-tries-and-string-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tries &amp; String Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/demos/tst-trie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TST / 3-way trie (demo)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/16-substring-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Substring Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/demos/kmp-visualiser/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KMP visualiser (demo)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OOP / Java (COMP0004)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OOP / Java (COMP0004)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/01-intro-to-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/02-core-java-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Java Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/03-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Object-Oriented Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/04-classes-objects-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes, Objects &amp; References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/05-designing-with-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/06-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/07-interfaces-and-polymorphism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces &amp; Polymorphism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/08-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/09-file-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/10-json-csv-and-records/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON, CSV &amp; Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/11-packages-and-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages &amp; Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/12-lambdas-and-streams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambdas &amp; Streams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/13-web-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/14-data-structures-in-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures in Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/15-design-patterns-and-threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns &amp; Threads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory of Computation (COMP0003)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory of Computation (COMP0003)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formal Logic
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Formal Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/01-overview-and-history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview &amp; History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/03-boolean-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boolean Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/04-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/05-proof-by-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof by Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/06-complete-induction-and-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Induction &amp; Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/07-modal-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modal Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automata
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Automata
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-dfas-and-regular-languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFAs &amp; Regular Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-nfas-and-dfa-equivalence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFAs &amp; DFA Equivalence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-closure-and-regular-expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closure &amp; Regular Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-pumping-lemma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-pushdown-automata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pushdown Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-context-free-grammars/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Free Grammars
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-pumping-lemma-for-cfls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma for CFLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-turing-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turing Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decidability &amp; Undecidability
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decidability &amp; Undecidability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recognition-vs-decidability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recognition vs decidability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-language-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The language hierarchy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decidable-problems-about-dfas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decidable problems about DFAs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decidable-problems-about-cfgs-and-chomsky-normal-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decidable problems about CFGs and Chomsky Normal Form
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decidable problems about CFGs and Chomsky Normal Form">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chomsky-normal-form-cnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chomsky Normal Form (CNF)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#undecidability-of-a_tm-acceptance-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Undecidability of A_TM (acceptance problem)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Undecidability of A_TM (acceptance problem)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proof-by-diagonalisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proof by diagonalisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-halting-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The halting problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reductions-the-main-proof-technique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reductions — the main proof technique
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e_tm-tm-emptiness-is-undecidable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E_TM — TM emptiness is undecidable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eq_tm-tm-equality-is-undecidable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EQ_TM — TM equality is undecidable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-table-decidability-of-standard-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary table — decidability of standard problems
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-recognition-vs-decidability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Recognition vs decidability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-prove-a_tm-is-undecidable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Prove A_TM is undecidable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-decidable-recognisable-co-recognisable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Decidable = recognisable ∩ co-recognisable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-reduction-proving-e_tm-undecidable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Reduction: proving E_TM undecidable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-decidability-summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Decidability summary table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics &amp; Statistics (COMP0011)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics &amp; Statistics (COMP0011)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algebra
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algebra
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/complex-numbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complex Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/polynomials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polynomials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/vector-spaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Spaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/matrices-linear-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matrices &amp; Linear Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculus
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Calculus
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Continuous Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/sequences-and-series/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sequences &amp; Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/differential-calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Differential Calculus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/integral-calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integral Calculus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability &amp; Statistics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Probability &amp; Statistics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/cursor-notes/09-probabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probabilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/cursor-notes/10-statistics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discrete Maths (COMP0147)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Discrete Maths (COMP0147)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_1" id="__nav_2_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/01-numbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/03-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_2" id="__nav_2_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Number Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Number Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/04-modular-arithmetic-and-primes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modular Arithmetic &amp; Primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_3" id="__nav_2_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proofs &amp; Induction
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Proofs &amp; Induction
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/05-proofs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof Techniques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/06-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematical Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/07-strong-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strong Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/08-recursion-and-structural-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recursion &amp; Structural Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_4" id="__nav_2_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sets &amp; Functions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sets &amp; Functions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/09-sets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/10-functions-and-sequences/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions &amp; Sequences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_5" id="__nav_2_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combinatorics &amp; Cardinality
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Combinatorics &amp; Cardinality
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/11-counting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Counting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/12-cardinality/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cardinality
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_6">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_6" id="__nav_2_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relations &amp; Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Relations &amp; Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/13-relations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/14-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recognition-vs-decidability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recognition vs decidability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-language-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The language hierarchy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decidable-problems-about-dfas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decidable problems about DFAs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decidable-problems-about-cfgs-and-chomsky-normal-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decidable problems about CFGs and Chomsky Normal Form
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decidable problems about CFGs and Chomsky Normal Form">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chomsky-normal-form-cnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chomsky Normal Form (CNF)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#undecidability-of-a_tm-acceptance-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Undecidability of A_TM (acceptance problem)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Undecidability of A_TM (acceptance problem)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proof-by-diagonalisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proof by diagonalisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-halting-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The halting problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reductions-the-main-proof-technique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reductions — the main proof technique
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e_tm-tm-emptiness-is-undecidable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E_TM — TM emptiness is undecidable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eq_tm-tm-equality-is-undecidable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EQ_TM — TM equality is undecidable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-table-decidability-of-standard-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary table — decidability of standard problems
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-recognition-vs-decidability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Recognition vs decidability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-prove-a_tm-is-undecidable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Prove A_TM is undecidable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-decidable-recognisable-co-recognisable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Decidable = recognisable ∩ co-recognisable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-reduction-proving-e_tm-undecidable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Reduction: proving E_TM undecidable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-decidability-summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Decidability summary table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="decidability-undecidability-comp0003-automata">Decidability &amp; Undecidability — COMP0003 Automata<a class="headerlink" href="#decidability-undecidability-comp0003-automata" title="Permanent link">¶</a></h1>
+<p><em>Lecture-style notes. </em><em>Decidability</em><em> asks whether a TM can always give a definitive YES or NO answer. Some problems — most famously <span class="arithmatex">\(A_{\text{TM}}\)</span> and the halting problem — are </em><em>undecidable</em><em>: no algorithm can solve them for all inputs. The proof technique is </em><em>diagonalisation</em><em>, and </em><em>reductions</em><em> extend undecidability from one problem to another.</em></p>
+<hr>
+<h2 id="1-complete-topic-summaries">1. COMPLETE TOPIC SUMMARIES<a class="headerlink" href="#1-complete-topic-summaries" title="Permanent link">¶</a></h2>
+<h3 id="recognition-vs-decidability">Recognition vs decidability<a class="headerlink" href="#recognition-vs-decidability" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Definition</th>
+<th>Guarantee</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Turing-recognisable</strong> (r.e.)</td>
+<td>TM accepts every <span class="arithmatex">\(w \in L\)</span> in finite time</td>
+<td>Guaranteed <strong>YES</strong> for members; may loop on non-members</td>
+</tr>
+<tr>
+<td><strong>Decidable</strong> (recursive)</td>
+<td>TM accepts every <span class="arithmatex">\(w \in L\)</span> <strong>and</strong> rejects every <span class="arithmatex">\(w \notin L\)</span> in finite time</td>
+<td>Guaranteed <strong>YES or NO</strong> for every input</td>
+</tr>
+<tr>
+<td><strong>Co-Turing-recognisable</strong></td>
+<td>The <strong>complement</strong> <span class="arithmatex">\(\overline{L}\)</span> is Turing-recognisable</td>
+<td>Guaranteed <strong>NO</strong> for non-members; may loop on members</td>
+</tr>
+</tbody>
+</table>
+<p>A TM that always halts (on every input) is called a <strong>decider</strong>. If a language has a decider, it is <strong>decidable</strong>.</p>
+<p><strong>Key relationship:</strong></p>
+<div class="arithmatex">\[L \text{ is decidable} \;\Longleftrightarrow\; L \text{ is Turing-recognisable AND co-Turing-recognisable}\]</div>
+<p><strong>Proof idea:</strong> If <span class="arithmatex">\(L\)</span> is both recognisable (by <span class="arithmatex">\(M_1\)</span>) and co-recognisable (by <span class="arithmatex">\(M_2\)</span>), run <span class="arithmatex">\(M_1\)</span> and <span class="arithmatex">\(M_2\)</span> in <strong>parallel</strong> on input <span class="arithmatex">\(w\)</span>. One of them must accept (since <span class="arithmatex">\(w \in L\)</span> or <span class="arithmatex">\(w \in \overline{L}\)</span>). If <span class="arithmatex">\(M_1\)</span> accepts, accept; if <span class="arithmatex">\(M_2\)</span> accepts, reject. This always halts.</p>
+<hr>
+<h3 id="the-language-hierarchy">The language hierarchy<a class="headerlink" href="#the-language-hierarchy" title="Permanent link">¶</a></h3>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../resources/chomsky-hierarchy.png" data-desc-position="bottom"><img alt="Chomsky Hierarchy — Language Classes" src="../../../resources/chomsky-hierarchy.png"></a>
+<em>The Chomsky hierarchy: each layer is strictly more expressive than the one inside it. Example languages show where each class's boundary lies.</em></p>
+<div class="arithmatex">\[\text{Regular} \;\subset\; \text{Context-Free} \;\subset\; \text{Decidable} \;\subset\; \text{Turing-recognisable (r.e.)}\]</div>
+<ul>
+<li>Every regular language is decidable (DFAs always halt).</li>
+<li>Every CFL is decidable (there are algorithms to decide CFG membership — see Chomsky Normal Form below).</li>
+<li>There exist decidable languages that are not context-free (e.g. <span class="arithmatex">\(\{a^n b^n c^n\}\)</span>).</li>
+<li>There exist Turing-recognisable languages that are not decidable (e.g. <span class="arithmatex">\(A_{\text{TM}}\)</span>).</li>
+<li>There exist languages that are <strong>not even Turing-recognisable</strong> (e.g. <span class="arithmatex">\(\overline{A_{\text{TM}}}\)</span>).</li>
+</ul>
+<hr>
+<h3 id="decidable-problems-about-dfas">Decidable problems about DFAs<a class="headerlink" href="#decidable-problems-about-dfas" title="Permanent link">¶</a></h3>
+<p><strong><span class="arithmatex">\(A_{\text{DFA}}\)</span> — DFA acceptance.</strong> Given a DFA <span class="arithmatex">\(B\)</span> and a string <span class="arithmatex">\(w\)</span>, does <span class="arithmatex">\(B\)</span> accept <span class="arithmatex">\(w\)</span>?</p>
+<div class="arithmatex">\[A_{\text{DFA}} = \{\langle B, w \rangle \mid B \text{ is a DFA that accepts } w\}\]</div>
+<p><strong>Decidable.</strong> Simulate <span class="arithmatex">\(B\)</span> on <span class="arithmatex">\(w\)</span> step by step; after <span class="arithmatex">\(|w|\)</span> steps the DFA is in some state — accept if it is a final state, reject otherwise. The simulation always terminates.</p>
+<p><strong><span class="arithmatex">\(E_{\text{DFA}}\)</span> — DFA emptiness.</strong> Given a DFA <span class="arithmatex">\(B\)</span>, is <span class="arithmatex">\(L(B) = \emptyset\)</span>?</p>
+<div class="arithmatex">\[E_{\text{DFA}} = \{\langle B \rangle \mid B \text{ is a DFA with } L(B) = \emptyset\}\]</div>
+<p><strong>Decidable.</strong> Perform a <strong>reachability search</strong> (BFS/DFS) from the start state. If any accept state is reachable, reject (the language is non-empty); otherwise accept.</p>
+<hr>
+<h3 id="decidable-problems-about-cfgs-and-chomsky-normal-form">Decidable problems about CFGs and Chomsky Normal Form<a class="headerlink" href="#decidable-problems-about-cfgs-and-chomsky-normal-form" title="Permanent link">¶</a></h3>
+<p><strong><span class="arithmatex">\(A_{\text{CFG}}\)</span> — CFG acceptance.</strong> Given a CFG <span class="arithmatex">\(G\)</span> and a string <span class="arithmatex">\(w\)</span>, does <span class="arithmatex">\(G\)</span> generate <span class="arithmatex">\(w\)</span>?</p>
+<div class="arithmatex">\[A_{\text{CFG}} = \{\langle G, w \rangle \mid G \text{ is a CFG that generates } w\}\]</div>
+<p><strong>Decidable</strong> — but we need to avoid the problem of infinite derivations. The solution: convert to <strong>Chomsky Normal Form</strong> first.</p>
+<h4 id="chomsky-normal-form-cnf">Chomsky Normal Form (CNF)<a class="headerlink" href="#chomsky-normal-form-cnf" title="Permanent link">¶</a></h4>
+<p>A CFG is in <strong>Chomsky Normal Form</strong> if every rule has one of these forms:</p>
+<ul>
+<li><span class="arithmatex">\(A \to BC\)</span> where <span class="arithmatex">\(B, C\)</span> are variables (and neither is the start variable <span class="arithmatex">\(S\)</span>).</li>
+<li><span class="arithmatex">\(A \to a\)</span> where <span class="arithmatex">\(a\)</span> is a terminal.</li>
+<li><span class="arithmatex">\(S \to \epsilon\)</span> (only the start variable may derive <span class="arithmatex">\(\epsilon\)</span>).</li>
+</ul>
+<p><strong>Key property:</strong> In CNF, any derivation of a string <span class="arithmatex">\(w\)</span> with <span class="arithmatex">\(|w| = n\)</span> takes exactly <span class="arithmatex">\(2n - 1\)</span> steps (for <span class="arithmatex">\(n \geq 1\)</span>). This gives a <strong>finite bound</strong> on the number of derivation steps to check.</p>
+<p><strong>Conversion to CNF (high-level procedure):</strong></p>
+<ol>
+<li><strong>Add a new start variable</strong> <span class="arithmatex">\(S_0 \to S\)</span> so the original start variable can appear on the right-hand side of rules.</li>
+<li><strong>Eliminate <span class="arithmatex">\(\epsilon\)</span>-rules:</strong> for each <span class="arithmatex">\(A \to \epsilon\)</span> (where <span class="arithmatex">\(A \neq S_0\)</span>), add rules that account for <span class="arithmatex">\(A\)</span> being empty wherever <span class="arithmatex">\(A\)</span> appears on the right-hand side of other rules, then remove <span class="arithmatex">\(A \to \epsilon\)</span>.</li>
+<li><strong>Eliminate unit rules</strong> (<span class="arithmatex">\(A \to B\)</span>): replace with the rules that <span class="arithmatex">\(B\)</span> produces directly.</li>
+<li><strong>Convert remaining rules:</strong> for <span class="arithmatex">\(A \to u_1 u_2 \cdots u_k\)</span> with <span class="arithmatex">\(k \geq 3\)</span>, introduce new variables to create a chain of binary rules. Replace terminals in multi-symbol rules with fresh variables.</li>
+</ol>
+<p><strong>Deciding <span class="arithmatex">\(A_{\text{CFG}}\)</span>:</strong> Convert <span class="arithmatex">\(G\)</span> to CNF. If <span class="arithmatex">\(w = \epsilon\)</span>, check if <span class="arithmatex">\(S \to \epsilon\)</span> is a rule. Otherwise, enumerate all derivations of length <span class="arithmatex">\(2|w| - 1\)</span>. If any produces <span class="arithmatex">\(w\)</span>, accept; otherwise reject. (In practice, the <strong>CYK algorithm</strong> does this in <span class="arithmatex">\(O(n^3 |G|)\)</span> time.)</p>
+<hr>
+<h3 id="undecidability-of-a_tm-acceptance-problem">Undecidability of A_TM (acceptance problem)<a class="headerlink" href="#undecidability-of-a_tm-acceptance-problem" title="Permanent link">¶</a></h3>
+<div class="arithmatex">\[A_{\text{TM}} = \{\langle M, w \rangle \mid M \text{ is a TM that accepts } w\}\]</div>
+<p><span class="arithmatex">\(A_{\text{TM}}\)</span> is <strong>Turing-recognisable</strong> — a Universal TM can simulate <span class="arithmatex">\(M\)</span> on <span class="arithmatex">\(w\)</span> and accept if <span class="arithmatex">\(M\)</span> accepts. But <span class="arithmatex">\(A_{\text{TM}}\)</span> is <strong>not decidable</strong>: there is no TM that always halts and correctly decides membership.</p>
+<h4 id="proof-by-diagonalisation">Proof by diagonalisation<a class="headerlink" href="#proof-by-diagonalisation" title="Permanent link">¶</a></h4>
+<p><strong>Assume for contradiction</strong> that a decider <span class="arithmatex">\(H\)</span> exists for <span class="arithmatex">\(A_{\text{TM}}\)</span>:</p>
+<div class="arithmatex">\[H(\langle M, w \rangle) = \begin{cases} \text{accept} &amp; \text{if } M \text{ accepts } w \\ \text{reject} &amp; \text{if } M \text{ does not accept } w \end{cases}\]</div>
+<p><strong>Construct</strong> a new TM <span class="arithmatex">\(D\)</span> that takes input <span class="arithmatex">\(\langle M \rangle\)</span> (the encoding of a TM):</p>
+<ol>
+<li>Run <span class="arithmatex">\(H\)</span> on <span class="arithmatex">\(\langle M, \langle M \rangle \rangle\)</span> (feed <span class="arithmatex">\(M\)</span> its own description as input).</li>
+<li><strong>Reverse</strong> <span class="arithmatex">\(H\)</span>'s answer: if <span class="arithmatex">\(H\)</span> accepts, <span class="arithmatex">\(D\)</span> <strong>rejects</strong>; if <span class="arithmatex">\(H\)</span> rejects, <span class="arithmatex">\(D\)</span> <strong>accepts</strong>.</li>
+</ol>
+<p><strong>The contradiction.</strong> Run <span class="arithmatex">\(D\)</span> on its own description <span class="arithmatex">\(\langle D \rangle\)</span>:</p>
+<ul>
+<li>If <span class="arithmatex">\(D\)</span> accepts <span class="arithmatex">\(\langle D \rangle\)</span>: by <span class="arithmatex">\(D\)</span>'s construction, <span class="arithmatex">\(H\)</span> rejected <span class="arithmatex">\(\langle D, \langle D \rangle \rangle\)</span>, meaning <span class="arithmatex">\(D\)</span> does <strong>not</strong> accept <span class="arithmatex">\(\langle D \rangle\)</span>. Contradiction.</li>
+<li>If <span class="arithmatex">\(D\)</span> rejects <span class="arithmatex">\(\langle D \rangle\)</span>: by <span class="arithmatex">\(D\)</span>'s construction, <span class="arithmatex">\(H\)</span> accepted <span class="arithmatex">\(\langle D, \langle D \rangle \rangle\)</span>, meaning <span class="arithmatex">\(D\)</span> <strong>does</strong> accept <span class="arithmatex">\(\langle D \rangle\)</span>. Contradiction.</li>
+</ul>
+<p>Both cases lead to contradiction, so <span class="arithmatex">\(H\)</span> cannot exist. <span class="arithmatex">\(A_{\text{TM}}\)</span> is <strong>undecidable</strong>. <span class="arithmatex">\(\square\)</span></p>
+<p><strong>Intuition.</strong> This is a self-referential "liar's paradox" argument, analogous to Cantor's diagonal argument for uncountability of the reals.</p>
+<hr>
+<h3 id="the-halting-problem">The halting problem<a class="headerlink" href="#the-halting-problem" title="Permanent link">¶</a></h3>
+<div class="arithmatex">\[\text{HALT}_{\text{TM}} = \{\langle M, w \rangle \mid M \text{ is a TM that halts on input } w\}\]</div>
+<p><strong>Undecidable.</strong> Can be proved by:</p>
+<ol>
+<li><strong>Direct diagonalisation</strong> (similar structure to <span class="arithmatex">\(A_{\text{TM}}\)</span>), or</li>
+<li><strong>Reduction from <span class="arithmatex">\(A_{\text{TM}}\)</span>:</strong> if we could decide <span class="arithmatex">\(\text{HALT}_{\text{TM}}\)</span>, we could decide <span class="arithmatex">\(A_{\text{TM}}\)</span> — first check if <span class="arithmatex">\(M\)</span> halts on <span class="arithmatex">\(w\)</span>; if yes, simulate <span class="arithmatex">\(M\)</span> on <span class="arithmatex">\(w\)</span> and report its answer; if no, reject. Since <span class="arithmatex">\(A_{\text{TM}}\)</span> is undecidable, <span class="arithmatex">\(\text{HALT}_{\text{TM}}\)</span> must also be undecidable.</li>
+</ol>
+<hr>
+<h3 id="reductions-the-main-proof-technique">Reductions — the main proof technique<a class="headerlink" href="#reductions-the-main-proof-technique" title="Permanent link">¶</a></h3>
+<p>A <strong>reduction</strong> from problem <span class="arithmatex">\(A\)</span> to problem <span class="arithmatex">\(B\)</span> shows that solving <span class="arithmatex">\(B\)</span> would let us solve <span class="arithmatex">\(A\)</span>. If <span class="arithmatex">\(A\)</span> is known to be undecidable, then <span class="arithmatex">\(B\)</span> must also be undecidable.</p>
+<p><strong>Formally:</strong> <span class="arithmatex">\(A\)</span> <strong>reduces to</strong> <span class="arithmatex">\(B\)</span> (written <span class="arithmatex">\(A \leq_m B\)</span>) if there is a computable function <span class="arithmatex">\(f\)</span> such that <span class="arithmatex">\(w \in A \iff f(w) \in B\)</span>.</p>
+<p><strong>Proof pattern for undecidability of <span class="arithmatex">\(B\)</span>:</strong></p>
+<ol>
+<li>Assume <span class="arithmatex">\(B\)</span> is decidable (i.e. a decider <span class="arithmatex">\(R\)</span> exists for <span class="arithmatex">\(B\)</span>).</li>
+<li>Use <span class="arithmatex">\(R\)</span> to build a decider for <span class="arithmatex">\(A\)</span> (which is known undecidable).</li>
+<li>Contradiction — so <span class="arithmatex">\(B\)</span> is undecidable.</li>
+</ol>
+<hr>
+<h3 id="e_tm-tm-emptiness-is-undecidable">E_TM — TM emptiness is undecidable<a class="headerlink" href="#e_tm-tm-emptiness-is-undecidable" title="Permanent link">¶</a></h3>
+<div class="arithmatex">\[E_{\text{TM}} = \{\langle M \rangle \mid M \text{ is a TM with } L(M) = \emptyset\}\]</div>
+<p><strong>Reduction from <span class="arithmatex">\(A_{\text{TM}}\)</span>.</strong> Given <span class="arithmatex">\(\langle M, w \rangle\)</span>, construct a new TM <span class="arithmatex">\(M'\)</span>:</p>
+<ul>
+<li><span class="arithmatex">\(M'\)</span> on input <span class="arithmatex">\(x\)</span>: ignore <span class="arithmatex">\(x\)</span>, simulate <span class="arithmatex">\(M\)</span> on <span class="arithmatex">\(w\)</span>. If <span class="arithmatex">\(M\)</span> accepts <span class="arithmatex">\(w\)</span>, accept <span class="arithmatex">\(x\)</span>.</li>
+</ul>
+<p>Now: if <span class="arithmatex">\(M\)</span> accepts <span class="arithmatex">\(w\)</span>, then <span class="arithmatex">\(M'\)</span> accepts everything, so <span class="arithmatex">\(L(M') \neq \emptyset\)</span>, hence <span class="arithmatex">\(\langle M' \rangle \notin E_{\text{TM}}\)</span>. If <span class="arithmatex">\(M\)</span> does not accept <span class="arithmatex">\(w\)</span>, then <span class="arithmatex">\(M'\)</span> accepts nothing, so <span class="arithmatex">\(L(M') = \emptyset\)</span>, hence <span class="arithmatex">\(\langle M' \rangle \in E_{\text{TM}}\)</span>.</p>
+<p>If we had a decider for <span class="arithmatex">\(E_{\text{TM}}\)</span>, we could decide <span class="arithmatex">\(A_{\text{TM}}\)</span> (run the <span class="arithmatex">\(E_{\text{TM}}\)</span> decider on <span class="arithmatex">\(\langle M' \rangle\)</span> and negate). Since <span class="arithmatex">\(A_{\text{TM}}\)</span> is undecidable, <span class="arithmatex">\(E_{\text{TM}}\)</span> is undecidable. <span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h3 id="eq_tm-tm-equality-is-undecidable">EQ_TM — TM equality is undecidable<a class="headerlink" href="#eq_tm-tm-equality-is-undecidable" title="Permanent link">¶</a></h3>
+<div class="arithmatex">\[EQ_{\text{TM}} = \{\langle M_1, M_2 \rangle \mid L(M_1) = L(M_2)\}\]</div>
+<p><strong>Reduction from <span class="arithmatex">\(E_{\text{TM}}\)</span>.</strong> Given <span class="arithmatex">\(\langle M \rangle\)</span>, construct <span class="arithmatex">\(M_{\emptyset}\)</span> that rejects all inputs (so <span class="arithmatex">\(L(M_{\emptyset}) = \emptyset\)</span>). Then <span class="arithmatex">\(L(M) = \emptyset \iff L(M) = L(M_{\emptyset}) \iff \langle M, M_{\emptyset} \rangle \in EQ_{\text{TM}}\)</span>. A decider for <span class="arithmatex">\(EQ_{\text{TM}}\)</span> would decide <span class="arithmatex">\(E_{\text{TM}}\)</span>. Since <span class="arithmatex">\(E_{\text{TM}}\)</span> is undecidable, so is <span class="arithmatex">\(EQ_{\text{TM}}\)</span>. <span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h3 id="summary-table-decidability-of-standard-problems">Summary table — decidability of standard problems<a class="headerlink" href="#summary-table-decidability-of-standard-problems" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th style="text-align: center;">DFA / NFA</th>
+<th style="text-align: center;">CFG / PDA</th>
+<th style="text-align: center;">TM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Acceptance</strong> (<span class="arithmatex">\(A\)</span>): does machine/grammar accept/generate <span class="arithmatex">\(w\)</span>?</td>
+<td style="text-align: center;">Decidable</td>
+<td style="text-align: center;">Decidable (CNF / CYK)</td>
+<td style="text-align: center;"><strong>Undecidable</strong> (<span class="arithmatex">\(A_{\text{TM}}\)</span>)</td>
+</tr>
+<tr>
+<td><strong>Emptiness</strong> (<span class="arithmatex">\(E\)</span>): is the language empty?</td>
+<td style="text-align: center;">Decidable</td>
+<td style="text-align: center;">Decidable</td>
+<td style="text-align: center;"><strong>Undecidable</strong> (<span class="arithmatex">\(E_{\text{TM}}\)</span>)</td>
+</tr>
+<tr>
+<td><strong>Equivalence</strong> (<span class="arithmatex">\(EQ\)</span>): do two machines accept the same language?</td>
+<td style="text-align: center;">Decidable</td>
+<td style="text-align: center;"><strong>Undecidable</strong></td>
+<td style="text-align: center;"><strong>Undecidable</strong> (<span class="arithmatex">\(EQ_{\text{TM}}\)</span>)</td>
+</tr>
+<tr>
+<td><strong>Universality</strong> (<span class="arithmatex">\(ALL\)</span>): does the machine accept all strings?</td>
+<td style="text-align: center;">Decidable</td>
+<td style="text-align: center;"><strong>Undecidable</strong></td>
+<td style="text-align: center;"><strong>Undecidable</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notable:</strong> CFG equivalence (<span class="arithmatex">\(EQ_{\text{CFG}}\)</span>) is <strong>undecidable</strong>, but DFA equivalence (<span class="arithmatex">\(EQ_{\text{DFA}}\)</span>) is decidable (minimize both DFAs and compare, or check <span class="arithmatex">\(L(A) \Delta L(B) = \emptyset\)</span> using product construction).</p>
+<hr>
+<h2 id="2-exam-style-questions-with-model-answers">2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)<a class="headerlink" href="#2-exam-style-questions-with-model-answers" title="Permanent link">¶</a></h2>
+<h3 id="q1-recognition-vs-decidability">Q1 — Recognition vs decidability<a class="headerlink" href="#q1-recognition-vs-decidability" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Define "Turing-recognisable" and "decidable." Give an example of a language that is Turing-recognisable but not decidable, and explain why.</p>
+<p><strong>Model answer.</strong> A language <span class="arithmatex">\(L\)</span> is <strong>Turing-recognisable</strong> if some TM accepts every <span class="arithmatex">\(w \in L\)</span> (but may loop on <span class="arithmatex">\(w \notin L\)</span>). <span class="arithmatex">\(L\)</span> is <strong>decidable</strong> if some TM accepts every <span class="arithmatex">\(w \in L\)</span> and rejects every <span class="arithmatex">\(w \notin L\)</span> (always halts). Example: <span class="arithmatex">\(A_{\text{TM}} = \{\langle M, w \rangle \mid M \text{ accepts } w\}\)</span> is recognisable (a UTM simulates <span class="arithmatex">\(M\)</span> on <span class="arithmatex">\(w\)</span> and accepts if <span class="arithmatex">\(M\)</span> does) but not decidable (proved by diagonalisation — assuming a decider <span class="arithmatex">\(H\)</span> leads to a self-contradictory machine <span class="arithmatex">\(D\)</span>).</p>
+<hr>
+<h3 id="q2-prove-a_tm-is-undecidable">Q2 — Prove A_TM is undecidable<a class="headerlink" href="#q2-prove-a_tm-is-undecidable" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Prove that <span class="arithmatex">\(A_{\text{TM}} = \{\langle M, w \rangle \mid M \text{ is a TM that accepts } w\}\)</span> is undecidable.</p>
+<p><strong>Model answer.</strong> Assume decider <span class="arithmatex">\(H\)</span> exists: <span class="arithmatex">\(H(\langle M, w \rangle)\)</span> accepts if <span class="arithmatex">\(M\)</span> accepts <span class="arithmatex">\(w\)</span>, rejects otherwise. Construct <span class="arithmatex">\(D\)</span>: on input <span class="arithmatex">\(\langle M \rangle\)</span>, run <span class="arithmatex">\(H(\langle M, \langle M \rangle \rangle)\)</span> and output the <strong>opposite</strong>. Now consider <span class="arithmatex">\(D(\langle D \rangle)\)</span>: if <span class="arithmatex">\(D\)</span> accepts <span class="arithmatex">\(\langle D \rangle\)</span>, then <span class="arithmatex">\(H\)</span> rejected <span class="arithmatex">\(\langle D, \langle D \rangle \rangle\)</span>, meaning <span class="arithmatex">\(D\)</span> doesn't accept <span class="arithmatex">\(\langle D \rangle\)</span> — contradiction. If <span class="arithmatex">\(D\)</span> rejects <span class="arithmatex">\(\langle D \rangle\)</span>, then <span class="arithmatex">\(H\)</span> accepted, meaning <span class="arithmatex">\(D\)</span> does accept <span class="arithmatex">\(\langle D \rangle\)</span> — contradiction. So <span class="arithmatex">\(H\)</span> cannot exist. <span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h3 id="q3-decidable-recognisable-co-recognisable">Q3 — Decidable = recognisable ∩ co-recognisable<a class="headerlink" href="#q3-decidable-recognisable-co-recognisable" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Prove that a language <span class="arithmatex">\(L\)</span> is decidable if and only if both <span class="arithmatex">\(L\)</span> and <span class="arithmatex">\(\overline{L}\)</span> are Turing-recognisable.</p>
+<p><strong>Model answer.</strong> (<span class="arithmatex">\(\Rightarrow\)</span>) If <span class="arithmatex">\(L\)</span> is decidable by decider <span class="arithmatex">\(D\)</span>, then <span class="arithmatex">\(D\)</span> recognises <span class="arithmatex">\(L\)</span> (accepts members, rejects non-members — it halts on everything). A machine <span class="arithmatex">\(D'\)</span> that runs <span class="arithmatex">\(D\)</span> and flips the answer recognises <span class="arithmatex">\(\overline{L}\)</span>. (<span class="arithmatex">\(\Leftarrow\)</span>) Let <span class="arithmatex">\(M_1\)</span> recognise <span class="arithmatex">\(L\)</span> and <span class="arithmatex">\(M_2\)</span> recognise <span class="arithmatex">\(\overline{L}\)</span>. Build decider <span class="arithmatex">\(D\)</span>: on input <span class="arithmatex">\(w\)</span>, run <span class="arithmatex">\(M_1\)</span> and <span class="arithmatex">\(M_2\)</span> in parallel (alternate steps). Since <span class="arithmatex">\(w \in L\)</span> or <span class="arithmatex">\(w \in \overline{L}\)</span>, one machine must accept. If <span class="arithmatex">\(M_1\)</span> accepts first, accept <span class="arithmatex">\(w\)</span>; if <span class="arithmatex">\(M_2\)</span> accepts first, reject <span class="arithmatex">\(w\)</span>. <span class="arithmatex">\(D\)</span> always halts.</p>
+<hr>
+<h3 id="q4-reduction-proving-e_tm-undecidable">Q4 — Reduction: proving E_TM undecidable<a class="headerlink" href="#q4-reduction-proving-e_tm-undecidable" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Use a reduction from <span class="arithmatex">\(A_{\text{TM}}\)</span> to prove that <span class="arithmatex">\(E_{\text{TM}} = \{\langle M \rangle \mid L(M) = \emptyset\}\)</span> is undecidable.</p>
+<p><strong>Model answer.</strong> Assume decider <span class="arithmatex">\(R\)</span> exists for <span class="arithmatex">\(E_{\text{TM}}\)</span>. Given input <span class="arithmatex">\(\langle M, w \rangle\)</span> for <span class="arithmatex">\(A_{\text{TM}}\)</span>, construct TM <span class="arithmatex">\(M'\)</span>: on any input <span class="arithmatex">\(x\)</span>, <span class="arithmatex">\(M'\)</span> ignores <span class="arithmatex">\(x\)</span> and simulates <span class="arithmatex">\(M\)</span> on <span class="arithmatex">\(w\)</span>; if <span class="arithmatex">\(M\)</span> accepts, <span class="arithmatex">\(M'\)</span> accepts. Then: <span class="arithmatex">\(M\)</span> accepts <span class="arithmatex">\(w \iff L(M') \neq \emptyset \iff \langle M' \rangle \notin E_{\text{TM}}\)</span>. So run <span class="arithmatex">\(R\)</span> on <span class="arithmatex">\(\langle M' \rangle\)</span>: if <span class="arithmatex">\(R\)</span> rejects (meaning <span class="arithmatex">\(L(M') \neq \emptyset\)</span>), accept (meaning <span class="arithmatex">\(M\)</span> accepts <span class="arithmatex">\(w\)</span>); if <span class="arithmatex">\(R\)</span> accepts, reject. This decides <span class="arithmatex">\(A_{\text{TM}}\)</span> — contradiction. So <span class="arithmatex">\(R\)</span> cannot exist. <span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h3 id="q5-decidability-summary-table">Q5 — Decidability summary table<a class="headerlink" href="#q5-decidability-summary-table" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> For each of the problems Acceptance, Emptiness, and Equivalence, state whether it is decidable for (a) DFAs, (b) CFGs, (c) TMs.</p>
+<p><strong>Model answer.</strong> (a) <strong>DFAs:</strong> all three are decidable — acceptance by simulation, emptiness by reachability, equivalence by minimisation or symmetric difference. (b) <strong>CFGs:</strong> acceptance is decidable (convert to CNF, use CYK); emptiness is decidable (check if start variable generates any terminal string); equivalence is <strong>undecidable</strong>. (c) <strong>TMs:</strong> all three are <strong>undecidable</strong> — <span class="arithmatex">\(A_{\text{TM}}\)</span> by diagonalisation, <span class="arithmatex">\(E_{\text{TM}}\)</span> by reduction from <span class="arithmatex">\(A_{\text{TM}}\)</span>, <span class="arithmatex">\(EQ_{\text{TM}}\)</span> by reduction from <span class="arithmatex">\(E_{\text{TM}}\)</span>.</p>
+<hr>
+<h2 id="3-must-know-key-points">3. MUST-KNOW KEY POINTS<a class="headerlink" href="#3-must-know-key-points" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Turing-recognisable (r.e.):</strong> TM accepts members; may loop on non-members. <strong>Decidable:</strong> TM always halts with correct YES/NO.</li>
+<li><strong>Co-Turing-recognisable:</strong> complement is recognisable — guarantees NO for non-members.</li>
+<li><strong>Decidable <span class="arithmatex">\(=\)</span> recognisable <span class="arithmatex">\(\cap\)</span> co-recognisable</strong> (run both recognisers in parallel).</li>
+<li><strong>Hierarchy:</strong> Regular <span class="arithmatex">\(\subset\)</span> CFL <span class="arithmatex">\(\subset\)</span> Decidable <span class="arithmatex">\(\subset\)</span> Turing-recognisable; each inclusion is strict.</li>
+<li><strong>DFA problems:</strong> <span class="arithmatex">\(A_{\text{DFA}}\)</span>, <span class="arithmatex">\(E_{\text{DFA}}\)</span>, <span class="arithmatex">\(EQ_{\text{DFA}}\)</span> are all <strong>decidable</strong>.</li>
+<li><strong>CFG problems:</strong> <span class="arithmatex">\(A_{\text{CFG}}\)</span> and <span class="arithmatex">\(E_{\text{CFG}}\)</span> are decidable; <span class="arithmatex">\(EQ_{\text{CFG}}\)</span> is <strong>undecidable</strong>.</li>
+<li><strong>Chomsky Normal Form:</strong> rules are <span class="arithmatex">\(A \to BC\)</span>, <span class="arithmatex">\(A \to a\)</span>, or <span class="arithmatex">\(S \to \epsilon\)</span>; derivation of <span class="arithmatex">\(w\)</span> with <span class="arithmatex">\(|w| = n\)</span> takes exactly <span class="arithmatex">\(2n - 1\)</span> steps.</li>
+<li><strong><span class="arithmatex">\(A_{\text{TM}}\)</span> is undecidable:</strong> proof by diagonalisation — assume decider <span class="arithmatex">\(H\)</span>, build <span class="arithmatex">\(D\)</span> that reverses <span class="arithmatex">\(H\)</span> on <span class="arithmatex">\(\langle M, \langle M \rangle \rangle\)</span>, feed <span class="arithmatex">\(D\)</span> to itself → contradiction.</li>
+<li><strong>Halting problem</strong> is undecidable (direct diagonalisation or reduction from <span class="arithmatex">\(A_{\text{TM}}\)</span>).</li>
+<li><strong>Reductions:</strong> if solving <span class="arithmatex">\(B\)</span> solves known-undecidable <span class="arithmatex">\(A\)</span>, then <span class="arithmatex">\(B\)</span> is undecidable.</li>
+<li><strong><span class="arithmatex">\(E_{\text{TM}}\)</span></strong> undecidable via reduction from <span class="arithmatex">\(A_{\text{TM}}\)</span> (construct <span class="arithmatex">\(M'\)</span> that ignores input and simulates <span class="arithmatex">\(M\)</span> on <span class="arithmatex">\(w\)</span>).</li>
+<li><strong><span class="arithmatex">\(EQ_{\text{TM}}\)</span></strong> undecidable via reduction from <span class="arithmatex">\(E_{\text{TM}}\)</span>.</li>
+</ul>
+<hr>
+<h2 id="4-high-priority-topics">4. HIGH-PRIORITY TOPICS<a class="headerlink" href="#4-high-priority-topics" title="Permanent link">¶</a></h2>
+<h3 id="must-know">🔴 Must Know<a class="headerlink" href="#must-know" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Definitions:</strong> Turing-recognisable, decidable, co-Turing-recognisable, decider.</li>
+<li><strong>Decidable <span class="arithmatex">\(=\)</span> recognisable <span class="arithmatex">\(\cap\)</span> co-recognisable</strong> — statement and proof sketch (parallel simulation).</li>
+<li><strong><span class="arithmatex">\(A_{\text{TM}}\)</span> undecidability proof:</strong> the full diagonalisation argument (assume <span class="arithmatex">\(H\)</span>, build <span class="arithmatex">\(D\)</span>, feed <span class="arithmatex">\(\langle D \rangle\)</span> to <span class="arithmatex">\(D\)</span>, contradiction).</li>
+<li><strong>Reduction technique:</strong> how to prove undecidability by reducing from a known undecidable problem.</li>
+<li><strong><span class="arithmatex">\(E_{\text{TM}}\)</span> undecidability:</strong> the reduction from <span class="arithmatex">\(A_{\text{TM}}\)</span> (construct <span class="arithmatex">\(M'\)</span>, run <span class="arithmatex">\(E_{\text{TM}}\)</span> decider, negate).</li>
+<li><strong>Summary table:</strong> decidability status of <span class="arithmatex">\(A\)</span>, <span class="arithmatex">\(E\)</span>, <span class="arithmatex">\(EQ\)</span> for DFA / CFG / TM.</li>
+<li><strong>Hierarchy diagram:</strong> Regular <span class="arithmatex">\(\subset\)</span> CFL <span class="arithmatex">\(\subset\)</span> Decidable <span class="arithmatex">\(\subset\)</span> Turing-recognisable.</li>
+</ul>
+<h3 id="important">🟡 Important<a class="headerlink" href="#important" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>DFA decidability proofs:</strong> <span class="arithmatex">\(A_{\text{DFA}}\)</span> (simulate), <span class="arithmatex">\(E_{\text{DFA}}\)</span> (reachability search).</li>
+<li><strong>Chomsky Normal Form:</strong> the three rule forms, why it guarantees a finite derivation bound, high-level conversion steps.</li>
+<li><strong><span class="arithmatex">\(A_{\text{CFG}}\)</span> decidability:</strong> convert to CNF, then check derivations of bounded length (or CYK).</li>
+<li><strong>Halting problem:</strong> statement and proof (reduction from <span class="arithmatex">\(A_{\text{TM}}\)</span> or direct diagonalisation).</li>
+<li><strong><span class="arithmatex">\(EQ_{\text{TM}}\)</span> undecidability</strong> via reduction from <span class="arithmatex">\(E_{\text{TM}}\)</span>.</li>
+</ul>
+<h3 id="useful-but-lower-priority">🟢 Useful but Lower Priority<a class="headerlink" href="#useful-but-lower-priority" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>CNF conversion procedure</strong> in full detail (add new start, eliminate <span class="arithmatex">\(\epsilon\)</span>-rules, eliminate unit rules, binarise).</li>
+<li><strong>CYK algorithm</strong> — <span class="arithmatex">\(O(n^3)\)</span> dynamic programming for CFG membership (usually not examined in detail in automata courses).</li>
+<li><strong><span class="arithmatex">\(EQ_{\text{CFG}}\)</span> undecidability</strong> — reduction details.</li>
+<li><strong>Rice's theorem</strong> (generalises undecidability: any non-trivial property of TM languages is undecidable).</li>
+<li><strong>Formal definition of mapping reducibility</strong> <span class="arithmatex">\(\leq_m\)</span> and its properties.</li>
+</ul>
+<hr>
+<h2 id="5-topic-interconnections-bigger-picture">5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE<a class="headerlink" href="#5-topic-interconnections-bigger-picture" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>TMs</strong> (previous topic) provide the computational model; <strong>decidability</strong> asks what TMs can and cannot solve. The Universal TM <strong>recognises</strong> <span class="arithmatex">\(A_{\text{TM}}\)</span> but cannot <strong>decide</strong> it — this is the bridge between the two topics.</li>
+<li><strong>Diagonalisation</strong> is the same technique Cantor used to prove the reals are uncountable. The <span class="arithmatex">\(A_{\text{TM}}\)</span> proof is a direct analogue: we construct a "diagonal" machine <span class="arithmatex">\(D\)</span> that contradicts any proposed enumeration of deciders.</li>
+<li><strong>Reductions</strong> form a <strong>hierarchy of undecidability</strong>: <span class="arithmatex">\(A_{\text{TM}} \to E_{\text{TM}} \to EQ_{\text{TM}}\)</span> — each proof builds on the previous one. This chain-of-reductions technique is the same one used in NP-completeness proofs (Cook–Levin, Karp reductions).</li>
+<li><strong>Chomsky Normal Form</strong> connects back to <strong>CFGs and parsing</strong> (Lecture 8–9). CNF is also the basis for the <strong>CYK parsing algorithm</strong> used in natural language processing.</li>
+<li>The <strong>decidability table</strong> (DFA/CFG/TM × acceptance/emptiness/equivalence) encapsulates the entire automata course: regular languages are "easy" (everything decidable), CFLs are "medium" (equivalence breaks), TMs are "hard" (almost everything breaks). This reflects increasing expressive power coming at the cost of <strong>analysability</strong>.</li>
+<li><strong>Practical impact:</strong> the halting problem means no debugger can tell you whether an arbitrary program terminates. Undecidability of <span class="arithmatex">\(EQ_{\text{TM}}\)</span> means no tool can check whether two programs compute the same function. These are fundamental limits of software verification.</li>
+</ul>
+<hr>
+<h2 id="6-exam-strategy-tips">6. EXAM STRATEGY TIPS<a class="headerlink" href="#6-exam-strategy-tips" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong><span class="arithmatex">\(A_{\text{TM}}\)</span> diagonalisation is the most examinable proof in the course.</strong> Practise writing it from memory: (1) assume <span class="arithmatex">\(H\)</span>, (2) build <span class="arithmatex">\(D\)</span> that reverses <span class="arithmatex">\(H\)</span> on <span class="arithmatex">\(\langle M, \langle M \rangle \rangle\)</span>, (3) run <span class="arithmatex">\(D\)</span> on <span class="arithmatex">\(\langle D \rangle\)</span>, (4) both cases contradict.</li>
+<li><strong>Reductions:</strong> always clearly state (a) what you assume is decidable, (b) what known-undecidable problem you reduce from, (c) the construction of the intermediate TM, (d) the correspondence (YES maps to YES, NO maps to NO), (e) the contradiction.</li>
+<li><strong>Direction of reduction matters.</strong> To prove <span class="arithmatex">\(B\)</span> undecidable, reduce <strong>from</strong> a known-undecidable <span class="arithmatex">\(A\)</span> <strong>to</strong> <span class="arithmatex">\(B\)</span> (i.e. show <span class="arithmatex">\(A \leq_m B\)</span>). A common exam error is reducing in the wrong direction.</li>
+<li><strong>Decidable vs recognisable:</strong> if the question asks "is <span class="arithmatex">\(X\)</span> decidable?", answering "yes, a TM can recognise it" is <strong>wrong</strong> — you must show the TM always <strong>halts</strong>.</li>
+<li><strong>Summary table</strong> is a high-value memorisation target — it compresses the whole topic into one grid. Know not just the answers but a one-line justification for each cell.</li>
+<li><strong>CNF questions:</strong> know the three allowed rule forms (<span class="arithmatex">\(A \to BC\)</span>, <span class="arithmatex">\(A \to a\)</span>, <span class="arithmatex">\(S \to \epsilon\)</span>). For the conversion procedure, a bullet-point summary of the four steps (new start, <span class="arithmatex">\(\epsilon\)</span>-elimination, unit-elimination, binarisation) is sufficient unless the exam asks for a worked example.</li>
+<li><strong>"Recognisable <span class="arithmatex">\(\cap\)</span> co-recognisable <span class="arithmatex">\(=\)</span> decidable"</strong> is a common short-answer question. The proof boils down to: run two machines in parallel, one must halt.</li>
+<li>When asked "why is <span class="arithmatex">\(A_{\text{TM}}\)</span> recognisable?", the answer is: "a Universal TM simulates <span class="arithmatex">\(M\)</span> on <span class="arithmatex">\(w\)</span> and accepts if <span class="arithmatex">\(M\)</span> accepts." When asked "why is <span class="arithmatex">\(A_{\text{TM}}\)</span> not decidable?", the answer is the diagonalisation proof.</li>
+</ul>
+<hr>
+<p><em>These notes cover decidability and undecidability as presented in COMP0003 Automata Lectures 14–15. Follow your lecturer's conventions for encoding notation and reduction definitions if they differ.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

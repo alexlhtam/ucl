@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>KMP DFA demo — COMP0005</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; }
+    body { margin: 0; padding: 12px 16px; max-width: 960px; }
+    h1 { font-size: 1.15rem; margin: 0 0 8px; }
+    h2 { font-size: 1rem; margin: 16px 0 8px; }
+    .back { font-size: 0.9rem; margin-bottom: 12px; }
+    .back a { color: #3949ab; }
+    .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+    input[type="text"] { padding: 6px 8px; }
+    #pattern { width: 14rem; }
+    #text { width: 22rem; }
+    button { padding: 6px 12px; cursor: pointer; }
+    table { border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+    th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: center; }
+    th { background: #eceff1; }
+    td.match { background: #c8e6c9; font-weight: bold; }
+    pre { margin: 8px 0 0; padding: 10px; background: #f5f5f5; border-radius: 6px; font-size: 12px;
+          white-space: pre-wrap; max-height: 200px; overflow: auto; }
+    .hint { color: #555; font-size: 13px; margin-top: 8px; }
+    .err { color: #b00020; margin-top: 6px; }
+    .search-hl { font-family: Menlo, monospace; letter-spacing: 1px; font-size: 14px; margin: 8px 0; }
+    .cur { background: #fff9c4; }
+    .matchpos { background: #a5d6a7; }
+  </style>
+</head>
+<body>
+  <p class="back"><a href="../../cursor-notes/16-substring-search/">← Substring Search (notes)</a></p>
+  <h1>Knuth–Morris–Pratt — DFA builder &amp; search</h1>
+  <p class="hint">Same construction as scratch <code>kmp.py</code> / Sedgewick: <code>DFA[c][j]</code>, restart state <strong>X</strong>, <strong>R = 256</strong> extended ASCII.</p>
+
+  <h2>Pattern → DFA</h2>
+  <div class="row">
+    <label>Pattern <input type="text" id="pattern" placeholder="e.g. ABABAC" maxlength="64"/></label>
+    <button type="button" id="btn-build">Build DFA</button>
+  </div>
+  <div id="err" class="err" aria-live="polite"></div>
+  <div id="table-wrap"></div>
+  <h2>Construction trace</h2>
+  <pre id="trace"></pre>
+
+  <h2>Search in text</h2>
+  <div class="row">
+    <label>Text <input type="text" id="text" placeholder="e.g. BCBAABACAABABACAA" maxlength="256"/></label>
+    <button type="button" id="btn-search">Search (first match)</button>
+  </div>
+  <div id="search-out" class="search-hl" aria-live="polite"></div>
+  <pre id="search-steps"></pre>
+
+<script>
+(function () {
+  'use strict';
+
+  function buildDfa(pattern, R) {
+    R = R || 256;
+    const M = pattern.length;
+    if (M === 0) return { dfa: [], M: 0, trace: ['empty pattern'] };
+    const dfa = [];
+    for (let c = 0; c < R; c++) dfa[c] = new Array(M).fill(0);
+    const trace = [];
+    dfa[pattern.charCodeAt(0)][0] = 1;
+    trace.push('init: DFA[pattern[0]][0] = 1');
+    let X = 0;
+    for (let j = 1; j < M; j++) {
+      trace.push('— j = ' + j + ', X = ' + X + ' (restart) —');
+      trace.push('  copy mismatch: DFA[c][' + j + '] = DFA[c][' + X + '] for all c');
+      for (let c = 0; c < R; c++) dfa[c][j] = dfa[c][X];
+      const pj = pattern.charCodeAt(j);
+      dfa[pj][j] = j + 1;
+      trace.push('  match: DFA[' + escapeChar(pattern[j]) + '][' + j + '] = ' + (j + 1));
+      X = dfa[pj][X];
+      trace.push('  X ← DFA[' + escapeChar(pattern[j]) + '][X] = ' + X);
+    }
+    return { dfa, M, trace };
+  }
+
+  function escapeChar(ch) {
+    if (ch === '\n') return '\\n';
+    if (ch === '\t') return '\\t';
+    if (ch === ' ') return 'space';
+    return JSON.stringify(ch);
+  }
+
+  function kmpSearch(text, dfa, M) {
+    const N = text.length;
+    let j = 0;
+    const steps = [];
+    for (let i = 0; i < N; i++) {
+      const oc = text.charCodeAt(i);
+      const prev = j;
+      j = dfa[oc][j];
+      steps.push('i=' + i + " char=" + escapeChar(text[i]) + '  state ' + prev + ' → ' + j);
+      if (j === M) return { index: i - M + 1, steps };
+    }
+    return { index: -1, steps };
+  }
+
+  function uniqueChars(pattern) {
+    const s = new Set();
+    for (let i = 0; i < pattern.length; i++) s.add(pattern.charCodeAt(i));
+    return Array.from(s).sort((a, b) => a - b);
+  }
+
+  function renderTable(pattern, dfa, M) {
+    const wrap = document.getElementById('table-wrap');
+    if (M === 0) {
+      wrap.innerHTML = '<p class="hint">Nothing to show.</p>';
+      return;
+    }
+    const codes = uniqueChars(pattern);
+    let html = '<p class="hint">Columns = state <strong>j</strong> (0 … M−1). Bold green = match transition. Rows = characters that appear in the pattern.</p>';
+    html += '<table><thead><tr><th>char \\ j</th>';
+    for (let j = 0; j < M; j++) html += '<th>' + j + '</th>';
+    html += '</tr></thead><tbody>';
+    codes.forEach((code) => {
+      const ch = String.fromCharCode(code);
+      const rowLabel = ch === ' ' ? '(space)' : ch === '\n' ? '\\n' : ch;
+      html += '<tr><th>' + rowLabel + '</th>';
+      for (let j = 0; j < M; j++) {
+        const v = dfa[code][j];
+        const isMatch = code === pattern.charCodeAt(j);
+        html += '<td class="' + (isMatch ? 'match' : '') + '">' + v + '</td>';
+      }
+      html += '</tr>';
+    });
+    html += '</tbody></table>';
+    html += '<p class="hint">For any other character <code>c</code>, column <code>j</code> equals <code>DFA[c][j]</code> (full 256×M table in memory).</p>';
+    wrap.innerHTML = html;
+  }
+
+  function highlightText(text, start, M) {
+    if (start < 0) return escapeHtml(text);
+    let s = '';
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      const esc = ch === ' ' ? '\u00a0' : escapeHtml(ch);
+      if (i >= start && i < start + M) s += '<span class="matchpos">' + esc + '</span>';
+      else s += esc;
+    }
+    return s;
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  let lastDfa = null;
+  let lastM = 0;
+  let lastPattern = '';
+
+  document.getElementById('btn-build').onclick = function () {
+    document.getElementById('err').textContent = '';
+    const pattern = document.getElementById('pattern').value;
+    if (!pattern) {
+      document.getElementById('err').textContent = 'enter a pattern';
+      return;
+    }
+    const { dfa, M, trace } = buildDfa(pattern, 256);
+    lastDfa = dfa;
+    lastM = M;
+    lastPattern = pattern;
+    document.getElementById('trace').textContent = trace.join('\n');
+    renderTable(pattern, dfa, M);
+  };
+
+  document.getElementById('btn-search').onclick = function () {
+    document.getElementById('err').textContent = '';
+    const text = document.getElementById('text').value;
+    if (!lastDfa || lastM === 0) {
+      document.getElementById('err').textContent = 'build a DFA first';
+      return;
+    }
+    const { index, steps } = kmpSearch(text, lastDfa, lastM);
+    const out = document.getElementById('search-out');
+    const pre = document.getElementById('search-steps');
+    if (index < 0) {
+      out.innerHTML = '<span>No match.</span> <span style="font-family:Menlo">' + highlightText(text, -1, 0) + '</span>';
+      pre.textContent = steps.join('\n');
+      return;
+    }
+    out.innerHTML = 'First match at index <strong>' + index + '</strong>:<br/>' +
+      '<span style="font-family:Menlo">' + highlightText(text, index, lastM) + '</span>';
+    pre.textContent = steps.join('\n');
+  };
+})();
+</script>
+</body>
+</html>

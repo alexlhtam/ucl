@@ -1,0 +1,5742 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Year 1 Computer Science notes — UCL">
+      
+      
+        <meta name="author" content="Alex Tam">
+      
+      
+        <link rel="canonical" href="https://alexlhtam.github.io/ucl/year1/comp0003/cursor-notes/logic/02-propositional-logic/">
+      
+      
+        <link rel="prev" href="../01-overview-and-history/">
+      
+      
+        <link rel="next" href="../03-boolean-algebra/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Propositional Logic - Alex's UCL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#propositional-logic-comp0003-formal-logic" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-header__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex's UCL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Propositional Logic
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Year 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-nav__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    Alex's UCL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Year 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Year 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms (COMP0005)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms (COMP0005)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/02-analysis-of-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis of Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/06-abstract-data-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sorting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sorting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/03-elementary-sorts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementary Sorts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/04-mergesort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MergeSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/05-quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QuickSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/07-heaps-and-heapsort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heaps &amp; HeapSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../comp0005/demos/llrb-visualiser/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/08-symbol-tables-and-bst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbol Tables &amp; BST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/09-balanced-trees-and-hash-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balanced Trees &amp; Hash Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/10-undirected-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undirected Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/11-directed-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/12-minimum-spanning-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Spanning Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/13-shortest-paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shortest Paths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_5">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../comp0005/demos/rway-trie/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strings
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_5" id="__nav_2_1_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Strings
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/14-string-sorting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String Sorting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/15-tries-and-string-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tries &amp; String Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/demos/tst-trie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TST / 3-way trie (demo)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/16-substring-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Substring Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/demos/kmp-visualiser/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KMP visualiser (demo)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OOP / Java (COMP0004)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OOP / Java (COMP0004)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/01-intro-to-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/02-core-java-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Java Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/03-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Object-Oriented Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/04-classes-objects-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes, Objects &amp; References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/05-designing-with-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/06-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/07-interfaces-and-polymorphism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces &amp; Polymorphism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/08-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/09-file-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/10-json-csv-and-records/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON, CSV &amp; Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/11-packages-and-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages &amp; Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/12-lambdas-and-streams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambdas &amp; Streams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/13-web-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/14-data-structures-in-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures in Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/15-design-patterns-and-threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns &amp; Threads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory of Computation (COMP0003)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory of Computation (COMP0003)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formal Logic
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Formal Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-overview-and-history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview &amp; History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-propositional-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is propositional logic?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Syntax
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Syntax">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alphabet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alphabet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grammar-recursive-definition-of-well-formed-formulas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grammar (recursive definition of well-formed formulas)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#precedence-binding-strength-tightest-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precedence (binding strength, tightest first)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#translating-english-to-propositional-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Translating English to propositional logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semantics-valuations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semantics — valuations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semantics — valuations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#truth-tables-for-all-connectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Truth tables for all connectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#material-implication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Material implication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Material implication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#paradoxes-of-material-implication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paradoxes of material implication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#satisfiability-and-validity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Satisfiability and validity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-semantic-entailment-relation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The semantic entailment relation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimal-sets-of-connectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal sets of connectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-equivalences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key equivalences
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disjunctive-normal-form-dnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disjunctive Normal Form (DNF)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Disjunctive Normal Form (DNF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extracting-dnf-from-a-truth-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extracting DNF from a truth table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructing-dnf-using-equivalences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constructing DNF using equivalences
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conjunctive-normal-form-cnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conjunctive Normal Form (CNF)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conjunctive Normal Form (CNF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extracting-cnf-from-a-truth-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extracting CNF from a truth table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructing-cnf-using-equivalences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constructing CNF using equivalences
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-truth-table-and-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Truth table and classification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-semantic-entailment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Semantic entailment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-de-morgan-and-equivalence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — De Morgan and equivalence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-dnf-from-truth-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — DNF from truth table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-minimal-connective-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Minimal connective sets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-boolean-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boolean Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-proof-by-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof by Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-complete-induction-and-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Induction &amp; Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-modal-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modal Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automata
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Automata
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/01-dfas-and-regular-languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFAs &amp; Regular Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/02-nfas-and-dfa-equivalence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFAs &amp; DFA Equivalence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/03-closure-and-regular-expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closure &amp; Regular Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/04-pumping-lemma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/05-pushdown-automata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pushdown Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/06-context-free-grammars/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Free Grammars
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/07-pumping-lemma-for-cfls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma for CFLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/08-turing-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turing Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automata/09-decidability-and-undecidability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decidability &amp; Undecidability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics &amp; Statistics (COMP0011)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics &amp; Statistics (COMP0011)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algebra
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algebra
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/complex-numbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complex Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/polynomials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polynomials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/vector-spaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Spaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/matrices-linear-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matrices &amp; Linear Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculus
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Calculus
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Continuous Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/sequences-and-series/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sequences &amp; Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/differential-calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Differential Calculus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/integral-calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integral Calculus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability &amp; Statistics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Probability &amp; Statistics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/cursor-notes/09-probabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probabilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/cursor-notes/10-statistics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discrete Maths (COMP0147)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Discrete Maths (COMP0147)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_1" id="__nav_2_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/01-numbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/03-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_2" id="__nav_2_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Number Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Number Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/04-modular-arithmetic-and-primes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modular Arithmetic &amp; Primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_3" id="__nav_2_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proofs &amp; Induction
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Proofs &amp; Induction
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/05-proofs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof Techniques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/06-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematical Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/07-strong-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strong Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/08-recursion-and-structural-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recursion &amp; Structural Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_4" id="__nav_2_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sets &amp; Functions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sets &amp; Functions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/09-sets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/10-functions-and-sequences/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions &amp; Sequences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_5" id="__nav_2_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combinatorics &amp; Cardinality
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Combinatorics &amp; Cardinality
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/11-counting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Counting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/12-cardinality/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cardinality
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_6">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_6" id="__nav_2_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relations &amp; Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Relations &amp; Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/13-relations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/14-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-propositional-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is propositional logic?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Syntax
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Syntax">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alphabet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alphabet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grammar-recursive-definition-of-well-formed-formulas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grammar (recursive definition of well-formed formulas)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#precedence-binding-strength-tightest-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precedence (binding strength, tightest first)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#translating-english-to-propositional-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Translating English to propositional logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semantics-valuations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semantics — valuations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semantics — valuations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#truth-tables-for-all-connectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Truth tables for all connectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#material-implication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Material implication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Material implication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#paradoxes-of-material-implication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paradoxes of material implication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#satisfiability-and-validity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Satisfiability and validity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-semantic-entailment-relation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The semantic entailment relation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimal-sets-of-connectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal sets of connectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-equivalences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key equivalences
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disjunctive-normal-form-dnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disjunctive Normal Form (DNF)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Disjunctive Normal Form (DNF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extracting-dnf-from-a-truth-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extracting DNF from a truth table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructing-dnf-using-equivalences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constructing DNF using equivalences
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conjunctive-normal-form-cnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conjunctive Normal Form (CNF)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conjunctive Normal Form (CNF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extracting-cnf-from-a-truth-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extracting CNF from a truth table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructing-cnf-using-equivalences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constructing CNF using equivalences
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-truth-table-and-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Truth table and classification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-semantic-entailment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Semantic entailment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-de-morgan-and-equivalence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — De Morgan and equivalence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-dnf-from-truth-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — DNF from truth table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-minimal-connective-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Minimal connective sets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="propositional-logic-comp0003-formal-logic">Propositional Logic — COMP0003 Formal Logic<a class="headerlink" href="#propositional-logic-comp0003-formal-logic" title="Permanent link">¶</a></h1>
+<p><em>Lecture-style notes. </em><em>Propositional logic</em><em> is the simplest formal logic: it studies how the truth of </em><em>compound</em><em> statements depends on the truth of their </em><em>atomic</em><em> parts via connectives like <span class="arithmatex">\(\lnot, \land, \lor, \to, \leftrightarrow\)</span>. Mastery of </em><em>syntax</em><em>, </em><em>semantics</em><em>, </em><em>truth tables</em><em>, </em><em>equivalences</em><em>, and </em><em>normal forms</em><em> (DNF/CNF) is essential for everything that follows in this module.</em></p>
+<hr>
+<h2 id="1-complete-topic-summaries">1. COMPLETE TOPIC SUMMARIES<a class="headerlink" href="#1-complete-topic-summaries" title="Permanent link">¶</a></h2>
+<h3 id="what-is-propositional-logic">What is propositional logic?<a class="headerlink" href="#what-is-propositional-logic" title="Permanent link">¶</a></h3>
+<p>Propositional logic deals with <strong>propositions</strong> — statements that are either <strong>true</strong> or <strong>false</strong> — and the <strong>logical connectives</strong> that combine them. It does <strong>not</strong> look inside propositions (no variables, quantifiers, or predicates — that is <strong>first-order logic</strong>). Its strength is that validity and satisfiability are <strong>decidable</strong> (checkable by truth tables or algorithms), and it provides the algebraic backbone for Boolean circuits, SAT solvers, and more.</p>
+<hr>
+<h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h3>
+<h4 id="alphabet">Alphabet<a class="headerlink" href="#alphabet" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>Symbol type</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Proposition letters</strong> (atoms)</td>
+<td><span class="arithmatex">\(P, Q, R, S, \ldots\)</span> (sometimes <span class="arithmatex">\(p, q, r, \ldots\)</span>)</td>
+</tr>
+<tr>
+<td><strong>Connectives</strong></td>
+<td><span class="arithmatex">\(\lnot\)</span> (not), <span class="arithmatex">\(\land\)</span> (and), <span class="arithmatex">\(\lor\)</span> (or), <span class="arithmatex">\(\to\)</span> (implies), <span class="arithmatex">\(\leftrightarrow\)</span> (iff)</td>
+</tr>
+<tr>
+<td><strong>Parentheses</strong></td>
+<td><span class="arithmatex">\((\)</span>, <span class="arithmatex">\()\)</span></td>
+</tr>
+</tbody>
+</table>
+<h4 id="grammar-recursive-definition-of-well-formed-formulas">Grammar (recursive definition of well-formed formulas)<a class="headerlink" href="#grammar-recursive-definition-of-well-formed-formulas" title="Permanent link">¶</a></h4>
+<p>Let <span class="arithmatex">\(\mathcal{L} = \{P, Q, R, \ldots\}\)</span> be a set of proposition letters. The set of <strong>formulas</strong> over <span class="arithmatex">\(\mathcal{L}\)</span> is the smallest set such that:</p>
+<ol>
+<li>Every proposition letter <span class="arithmatex">\(P \in \mathcal{L}\)</span> is a formula.</li>
+<li>If <span class="arithmatex">\(\varphi\)</span> is a formula, then <span class="arithmatex">\(\lnot \varphi\)</span> is a formula.</li>
+<li>If <span class="arithmatex">\(\varphi\)</span> and <span class="arithmatex">\(\psi\)</span> are formulas, then <span class="arithmatex">\((\varphi \land \psi)\)</span>, <span class="arithmatex">\((\varphi \lor \psi)\)</span>, <span class="arithmatex">\((\varphi \to \psi)\)</span>, and <span class="arithmatex">\((\varphi \leftrightarrow \psi)\)</span> are formulas.</li>
+</ol>
+<p><strong>Syntax trees</strong> mirror the recursive structure: leaves are proposition letters; internal nodes are connectives. The <strong>main connective</strong> (root of the tree) determines the formula's outermost logical structure.</p>
+<h4 id="precedence-binding-strength-tightest-first">Precedence (binding strength, tightest first)<a class="headerlink" href="#precedence-binding-strength-tightest-first" title="Permanent link">¶</a></h4>
+<div class="arithmatex">\[\lnot \quad &gt; \quad \land \quad &gt; \quad \lor \quad &gt; \quad \to \quad &gt; \quad \leftrightarrow\]</div>
+<p>So <span class="arithmatex">\(\lnot P \land Q \to R\)</span> parses as <span class="arithmatex">\(((\lnot P) \land Q) \to R\)</span>. Implication <span class="arithmatex">\(\to\)</span> is <strong>right-associative</strong>: <span class="arithmatex">\(P \to Q \to R\)</span> means <span class="arithmatex">\(P \to (Q \to R)\)</span>.</p>
+<hr>
+<h3 id="translating-english-to-propositional-logic">Translating English to propositional logic<a class="headerlink" href="#translating-english-to-propositional-logic" title="Permanent link">¶</a></h3>
+<p><strong>Strategy:</strong> Identify atomic propositions, assign letters, then express the logical structure using connectives.</p>
+<table>
+<thead>
+<tr>
+<th>English</th>
+<th>Translation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"It is raining <strong>and</strong> cold"</td>
+<td><span class="arithmatex">\(R \land C\)</span></td>
+</tr>
+<tr>
+<td>"If it rains, the ground is wet"</td>
+<td><span class="arithmatex">\(R \to W\)</span></td>
+</tr>
+<tr>
+<td>"It is <strong>not</strong> the case that <span class="arithmatex">\(P\)</span>"</td>
+<td><span class="arithmatex">\(\lnot P\)</span></td>
+</tr>
+<tr>
+<td>"Either <span class="arithmatex">\(P\)</span> or <span class="arithmatex">\(Q\)</span> (or both)"</td>
+<td><span class="arithmatex">\(P \lor Q\)</span></td>
+</tr>
+<tr>
+<td>"<span class="arithmatex">\(P\)</span> if and only if <span class="arithmatex">\(Q\)</span>"</td>
+<td><span class="arithmatex">\(P \leftrightarrow Q\)</span></td>
+</tr>
+<tr>
+<td>"If it rains then I take an umbrella, <strong>unless</strong> it is warm"</td>
+<td><span class="arithmatex">\((R \land \lnot W) \to U\)</span> (interpretation-dependent)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pitfall:</strong> Natural language "or" is often <strong>exclusive</strong> ("one or the other, not both"), but logical <span class="arithmatex">\(\lor\)</span> is <strong>inclusive</strong>. Exclusive or can be expressed as <span class="arithmatex">\((P \lor Q) \land \lnot(P \land Q)\)</span>, or equivalently <span class="arithmatex">\(\lnot(P \leftrightarrow Q)\)</span>.</p>
+<hr>
+<h3 id="semantics-valuations">Semantics — valuations<a class="headerlink" href="#semantics-valuations" title="Permanent link">¶</a></h3>
+<p>A <strong>valuation</strong> (or <strong>truth assignment</strong>) is a function</p>
+<div class="arithmatex">\[v : \mathcal{L} \to \{0, 1\}\]</div>
+<p>mapping each proposition letter to a truth value (<span class="arithmatex">\(0\)</span> = false, <span class="arithmatex">\(1\)</span> = true). A valuation <strong>extends uniquely</strong> to all formulas via the truth tables of the connectives.</p>
+<h4 id="truth-tables-for-all-connectives">Truth tables for all connectives<a class="headerlink" href="#truth-tables-for-all-connectives" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><span class="arithmatex">\(A\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(B\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(\lnot A\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A \land B\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A \lor B\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A \to B\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A \leftrightarrow B\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="material-implication">Material implication<a class="headerlink" href="#material-implication" title="Permanent link">¶</a></h3>
+<p>The connective <span class="arithmatex">\(\to\)</span> is defined by:</p>
+<div class="arithmatex">\[A \to B \equiv \lnot A \lor B\]</div>
+<p>The only case where <span class="arithmatex">\(A \to B\)</span> is <strong>false</strong> is when <span class="arithmatex">\(A\)</span> is true and <span class="arithmatex">\(B\)</span> is false. In particular, a <strong>false antecedent</strong> makes the implication <strong>vacuously true</strong>.</p>
+<h4 id="paradoxes-of-material-implication">Paradoxes of material implication<a class="headerlink" href="#paradoxes-of-material-implication" title="Permanent link">¶</a></h4>
+<p>These are valid formulas that feel counterintuitive:</p>
+<ul>
+<li><span class="arithmatex">\(\lnot A \to (A \to B)\)</span> — "if <span class="arithmatex">\(A\)</span> is false, then <span class="arithmatex">\(A\)</span> implies anything."</li>
+<li><span class="arithmatex">\(B \to (A \to B)\)</span> — "if <span class="arithmatex">\(B\)</span> is true, then anything implies <span class="arithmatex">\(B\)</span>."</li>
+<li><span class="arithmatex">\((A \to B) \lor (B \to A)\)</span> — "of any two propositions, at least one implies the other."</li>
+</ul>
+<p>These are semantically valid in classical logic (check by truth table) but clash with everyday intuitions about implication as a <strong>causal</strong> or <strong>relevant</strong> connection. This mismatch motivates <strong>relevance logic</strong> and <strong>conditional logic</strong> but is not pursued in COMP0003.</p>
+<hr>
+<h3 id="satisfiability-and-validity">Satisfiability and validity<a class="headerlink" href="#satisfiability-and-validity" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Satisfiable</strong></td>
+<td>A formula <span class="arithmatex">\(\varphi\)</span> is satisfiable if <strong>there exists</strong> a valuation <span class="arithmatex">\(v\)</span> such that <span class="arithmatex">\(v(\varphi) = 1\)</span></td>
+</tr>
+<tr>
+<td><strong>Valid</strong> (tautology)</td>
+<td>A formula <span class="arithmatex">\(\varphi\)</span> is valid if <strong>for every</strong> valuation <span class="arithmatex">\(v\)</span>, <span class="arithmatex">\(v(\varphi) = 1\)</span></td>
+</tr>
+<tr>
+<td><strong>Unsatisfiable</strong> (contradiction)</td>
+<td>A formula <span class="arithmatex">\(\varphi\)</span> is unsatisfiable if <strong>no</strong> valuation makes it true</td>
+</tr>
+<tr>
+<td><strong>Contingent</strong></td>
+<td>A formula is satisfiable but not valid (true under some valuations, false under others)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key relationship:</strong></p>
+<div class="arithmatex">\[\varphi \text{ is valid} \iff \lnot\varphi \text{ is unsatisfiable}\]</div>
+<p>To show a formula is valid, you can show its negation is unsatisfiable (and vice versa). This duality is exploited in <strong>resolution</strong> and <strong>SAT-based</strong> validity checking.</p>
+<hr>
+<h3 id="the-semantic-entailment-relation">The semantic entailment relation<a class="headerlink" href="#the-semantic-entailment-relation" title="Permanent link">¶</a></h3>
+<p>We write</p>
+<div class="arithmatex">\[\varphi_1, \varphi_2, \ldots, \varphi_n \models \psi\]</div>
+<p>to mean: <strong>every</strong> valuation that makes <strong>all</strong> of <span class="arithmatex">\(\varphi_1, \ldots, \varphi_n\)</span> true also makes <span class="arithmatex">\(\psi\)</span> true. When the premise set is empty, <span class="arithmatex">\(\models \psi\)</span> means <span class="arithmatex">\(\psi\)</span> is valid.</p>
+<p><strong>Equivalently:</strong> the set <span class="arithmatex">\(\{\varphi_1, \ldots, \varphi_n, \lnot\psi\}\)</span> is <strong>unsatisfiable</strong>.</p>
+<hr>
+<h3 id="minimal-sets-of-connectives">Minimal sets of connectives<a class="headerlink" href="#minimal-sets-of-connectives" title="Permanent link">¶</a></h3>
+<p>Not all five connectives are independent. Any one of these sets is <strong>functionally complete</strong> — it can express every truth function:</p>
+<ul>
+<li><span class="arithmatex">\(\{\lnot, \land\}\)</span> — since <span class="arithmatex">\(A \lor B \equiv \lnot(\lnot A \land \lnot B)\)</span> and <span class="arithmatex">\(A \to B \equiv \lnot(A \land \lnot B)\)</span>.</li>
+<li><span class="arithmatex">\(\{\lnot, \lor\}\)</span> — since <span class="arithmatex">\(A \land B \equiv \lnot(\lnot A \lor \lnot B)\)</span> and <span class="arithmatex">\(A \to B \equiv \lnot A \lor B\)</span>.</li>
+<li><span class="arithmatex">\(\{\lnot, \to\}\)</span> — since <span class="arithmatex">\(A \lor B \equiv \lnot A \to B\)</span> and <span class="arithmatex">\(A \land B \equiv \lnot(A \to \lnot B)\)</span>.</li>
+</ul>
+<p>Even a <strong>single</strong> connective suffices: the <strong>Sheffer stroke</strong> (NAND) <span class="arithmatex">\(A \mid B \equiv \lnot(A \land B)\)</span> or <strong>Peirce's arrow</strong> (NOR) <span class="arithmatex">\(A \downarrow B \equiv \lnot(A \lor B)\)</span>.</p>
+<hr>
+<h3 id="key-equivalences">Key equivalences<a class="headerlink" href="#key-equivalences" title="Permanent link">¶</a></h3>
+<p>These equivalences hold for all valuations and are fundamental tools for rewriting formulas:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Equivalence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Double negation</strong></td>
+<td><span class="arithmatex">\(\lnot\lnot A \equiv A\)</span></td>
+</tr>
+<tr>
+<td><strong>Idempotency</strong></td>
+<td><span class="arithmatex">\(A \land A \equiv A\)</span>; <span class="arithmatex">\(A \lor A \equiv A\)</span></td>
+</tr>
+<tr>
+<td><strong>Commutativity</strong></td>
+<td><span class="arithmatex">\(A \land B \equiv B \land A\)</span>; <span class="arithmatex">\(A \lor B \equiv B \lor A\)</span></td>
+</tr>
+<tr>
+<td><strong>Associativity</strong></td>
+<td><span class="arithmatex">\((A \land B) \land C \equiv A \land (B \land C)\)</span>; likewise for <span class="arithmatex">\(\lor\)</span></td>
+</tr>
+<tr>
+<td><strong>De Morgan's laws</strong></td>
+<td><span class="arithmatex">\(\lnot(A \land B) \equiv \lnot A \lor \lnot B\)</span>; <span class="arithmatex">\(\lnot(A \lor B) \equiv \lnot A \land \lnot B\)</span></td>
+</tr>
+<tr>
+<td><strong>Distribution</strong></td>
+<td><span class="arithmatex">\(A \land (B \lor C) \equiv (A \land B) \lor (A \land C)\)</span>; <span class="arithmatex">\(A \lor (B \land C) \equiv (A \lor B) \land (A \lor C)\)</span></td>
+</tr>
+<tr>
+<td><strong>Contrapositive</strong></td>
+<td><span class="arithmatex">\(A \to B \equiv \lnot B \to \lnot A\)</span></td>
+</tr>
+<tr>
+<td><strong>Material implication</strong></td>
+<td><span class="arithmatex">\(A \to B \equiv \lnot A \lor B\)</span></td>
+</tr>
+<tr>
+<td><strong>Biconditional</strong></td>
+<td><span class="arithmatex">\(A \leftrightarrow B \equiv (A \to B) \land (B \to A)\)</span></td>
+</tr>
+<tr>
+<td><strong>Absorption</strong></td>
+<td><span class="arithmatex">\(A \land (A \lor B) \equiv A\)</span>; <span class="arithmatex">\(A \lor (A \land B) \equiv A\)</span></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="disjunctive-normal-form-dnf">Disjunctive Normal Form (DNF)<a class="headerlink" href="#disjunctive-normal-form-dnf" title="Permanent link">¶</a></h3>
+<p><strong>Definitions:</strong></p>
+<ul>
+<li>A <strong>literal</strong> is an atom or its negation: <span class="arithmatex">\(P\)</span> or <span class="arithmatex">\(\lnot P\)</span>.</li>
+<li>A <strong>conjunctive clause</strong> (minterm) is a conjunction of literals: <span class="arithmatex">\(P \land \lnot Q \land R\)</span>.</li>
+<li>A formula is in <strong>DNF</strong> if it is a disjunction of conjunctive clauses:</li>
+</ul>
+<div class="arithmatex">\[(\ell_{1,1} \land \cdots \land \ell_{1,k_1}) \lor (\ell_{2,1} \land \cdots \land \ell_{2,k_2}) \lor \cdots\]</div>
+<h4 id="extracting-dnf-from-a-truth-table">Extracting DNF from a truth table<a class="headerlink" href="#extracting-dnf-from-a-truth-table" title="Permanent link">¶</a></h4>
+<ol>
+<li>For each row where the formula evaluates to <strong>1</strong>, form a conjunctive clause: use <span class="arithmatex">\(P\)</span> if <span class="arithmatex">\(v(P)=1\)</span>, use <span class="arithmatex">\(\lnot P\)</span> if <span class="arithmatex">\(v(P)=0\)</span>.</li>
+<li>Take the <strong>disjunction</strong> of all such clauses.</li>
+</ol>
+<p><strong>Example:</strong> For <span class="arithmatex">\(A \to B\)</span>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><span class="arithmatex">\(A\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(B\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A \to B\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+<p>Rows 1, 2, 4 give value 1. DNF: <span class="arithmatex">\((\lnot A \land \lnot B) \lor (\lnot A \land B) \lor (A \land B)\)</span>.</p>
+<h4 id="constructing-dnf-using-equivalences">Constructing DNF using equivalences<a class="headerlink" href="#constructing-dnf-using-equivalences" title="Permanent link">¶</a></h4>
+<ol>
+<li>Eliminate <span class="arithmatex">\(\to\)</span> and <span class="arithmatex">\(\leftrightarrow\)</span> using their definitions.</li>
+<li>Push <span class="arithmatex">\(\lnot\)</span> inward using <strong>De Morgan's laws</strong> and <strong>double negation</strong>.</li>
+<li>Distribute <span class="arithmatex">\(\land\)</span> over <span class="arithmatex">\(\lor\)</span> until the formula is a disjunction of conjunctions.</li>
+</ol>
+<hr>
+<h3 id="conjunctive-normal-form-cnf">Conjunctive Normal Form (CNF)<a class="headerlink" href="#conjunctive-normal-form-cnf" title="Permanent link">¶</a></h3>
+<p><strong>Definitions:</strong></p>
+<ul>
+<li>A <strong>disjunctive clause</strong> is a disjunction of literals: <span class="arithmatex">\(P \lor \lnot Q \lor R\)</span>.</li>
+<li>A formula is in <strong>CNF</strong> if it is a conjunction of disjunctive clauses:</li>
+</ul>
+<div class="arithmatex">\[(\ell_{1,1} \lor \cdots \lor \ell_{1,k_1}) \land (\ell_{2,1} \lor \cdots \lor \ell_{2,k_2}) \land \cdots\]</div>
+<p><strong>Relation to DNF:</strong> A formula <span class="arithmatex">\(\varphi\)</span> is in CNF iff <span class="arithmatex">\(\lnot\varphi\)</span> can be put in DNF (by De Morgan). Alternatively: negate the formula, find DNF of the negation, negate back and apply De Morgan.</p>
+<p><strong>Why CNF matters:</strong> A CNF formula is <strong>valid</strong> iff <strong>every</strong> clause is valid (contains some literal and its complement). This makes validity checking easy for CNF. CNF is also the input format for <strong>SAT solvers</strong> and <strong>resolution</strong> proof systems.</p>
+<h4 id="extracting-cnf-from-a-truth-table">Extracting CNF from a truth table<a class="headerlink" href="#extracting-cnf-from-a-truth-table" title="Permanent link">¶</a></h4>
+<ol>
+<li>For each row where the formula evaluates to <strong>0</strong>, form a disjunctive clause: use <span class="arithmatex">\(\lnot P\)</span> if <span class="arithmatex">\(v(P) = 1\)</span>, use <span class="arithmatex">\(P\)</span> if <span class="arithmatex">\(v(P) = 0\)</span> (i.e. <strong>negate</strong> the assignment).</li>
+<li>Take the <strong>conjunction</strong> of all such clauses.</li>
+</ol>
+<h4 id="constructing-cnf-using-equivalences">Constructing CNF using equivalences<a class="headerlink" href="#constructing-cnf-using-equivalences" title="Permanent link">¶</a></h4>
+<ol>
+<li>Eliminate <span class="arithmatex">\(\to\)</span> and <span class="arithmatex">\(\leftrightarrow\)</span>.</li>
+<li>Push <span class="arithmatex">\(\lnot\)</span> inward (De Morgan + double negation).</li>
+<li>Distribute <span class="arithmatex">\(\lor\)</span> over <span class="arithmatex">\(\land\)</span> until the formula is a conjunction of disjunctions.</li>
+</ol>
+<hr>
+<h2 id="2-exam-style-questions-with-model-answers">2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)<a class="headerlink" href="#2-exam-style-questions-with-model-answers" title="Permanent link">¶</a></h2>
+<h3 id="q1-truth-table-and-classification">Q1 — Truth table and classification<a class="headerlink" href="#q1-truth-table-and-classification" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Construct the truth table for <span class="arithmatex">\((P \to Q) \to P\)</span>. Is this formula valid, satisfiable but not valid, or unsatisfiable?</p>
+<p><strong>Model answer.</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><span class="arithmatex">\(P\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(Q\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(P \to Q\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\((P \to Q) \to P\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+<p>The formula is true in rows 3–4 and false in rows 1–2. It is <strong>satisfiable but not valid</strong> (contingent). This is <strong>Peirce's law</strong> — it is valid in classical logic only when taken as an axiom schema or proved via excluded middle, but the specific propositional instance here is not a tautology as the truth table shows.</p>
+<p><em>Correction — re-evaluation:</em> Actually, <span class="arithmatex">\((P \to Q) \to P\)</span> is indeed <strong>not</strong> a tautology. Peirce's law <span class="arithmatex">\(((P \to Q) \to P) \to P\)</span> (with the extra <span class="arithmatex">\(\to P\)</span>) <strong>is</strong> a tautology. The formula as given is <strong>contingent</strong>.</p>
+<hr>
+<h3 id="q2-semantic-entailment">Q2 — Semantic entailment<a class="headerlink" href="#q2-semantic-entailment" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Does <span class="arithmatex">\(P \to Q,\; Q \to R \models P \to R\)</span>? Prove your answer.</p>
+<p><strong>Model answer.</strong> Yes. Let <span class="arithmatex">\(v\)</span> be any valuation with <span class="arithmatex">\(v(P \to Q) = 1\)</span> and <span class="arithmatex">\(v(Q \to R) = 1\)</span>. We need <span class="arithmatex">\(v(P \to R) = 1\)</span>. If <span class="arithmatex">\(v(P) = 0\)</span>, then <span class="arithmatex">\(v(P \to R) = 1\)</span> immediately. If <span class="arithmatex">\(v(P) = 1\)</span>, then from <span class="arithmatex">\(v(P \to Q) = 1\)</span> we get <span class="arithmatex">\(v(Q) = 1\)</span>; from <span class="arithmatex">\(v(Q \to R) = 1\)</span> we get <span class="arithmatex">\(v(R) = 1\)</span>; so <span class="arithmatex">\(v(P \to R) = 1\)</span>. In all cases the conclusion holds, so <span class="arithmatex">\(P \to Q,\; Q \to R \models P \to R\)</span>.</p>
+<hr>
+<h3 id="q3-de-morgan-and-equivalence">Q3 — De Morgan and equivalence<a class="headerlink" href="#q3-de-morgan-and-equivalence" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Using equivalences, show that <span class="arithmatex">\(\lnot(P \to Q)\)</span> is equivalent to <span class="arithmatex">\(P \land \lnot Q\)</span>. State each equivalence used.</p>
+<p><strong>Model answer.</strong></p>
+<div class="arithmatex">\[\lnot(P \to Q) \equiv \lnot(\lnot P \lor Q) \quad \text{(material implication)}$$
+$$\equiv \lnot\lnot P \land \lnot Q \quad \text{(De Morgan)}$$
+$$\equiv P \land \lnot Q \quad \text{(double negation)}\]</div>
+<hr>
+<h3 id="q4-dnf-from-truth-table">Q4 — DNF from truth table<a class="headerlink" href="#q4-dnf-from-truth-table" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Find the DNF of <span class="arithmatex">\(\lnot(P \leftrightarrow Q)\)</span> by constructing its truth table.</p>
+<p><strong>Model answer.</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><span class="arithmatex">\(P\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(Q\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(P \leftrightarrow Q\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(\lnot(P \leftrightarrow Q)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+<p>Rows with output 1: row 2 (<span class="arithmatex">\(P=0, Q=1\)</span>) and row 3 (<span class="arithmatex">\(P=1, Q=0\)</span>). DNF:</p>
+<div class="arithmatex">\[(\lnot P \land Q) \lor (P \land \lnot Q)\]</div>
+<p>This is the <strong>exclusive or</strong> of <span class="arithmatex">\(P\)</span> and <span class="arithmatex">\(Q\)</span>.</p>
+<hr>
+<h3 id="q5-minimal-connective-sets">Q5 — Minimal connective sets<a class="headerlink" href="#q5-minimal-connective-sets" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Prove that <span class="arithmatex">\(\{\lnot, \to\}\)</span> is functionally complete by expressing <span class="arithmatex">\(\land\)</span> and <span class="arithmatex">\(\lor\)</span> using only <span class="arithmatex">\(\lnot\)</span> and <span class="arithmatex">\(\to\)</span>.</p>
+<p><strong>Model answer.</strong> <strong>Disjunction:</strong> <span class="arithmatex">\(A \lor B \equiv \lnot A \to B\)</span>. Check: <span class="arithmatex">\(\lnot A \to B \equiv \lnot\lnot A \lor B \equiv A \lor B\)</span>. <strong>Conjunction:</strong> <span class="arithmatex">\(A \land B \equiv \lnot(A \to \lnot B)\)</span>. Check: <span class="arithmatex">\(A \to \lnot B \equiv \lnot A \lor \lnot B \equiv \lnot(A \land B)\)</span> by De Morgan, so <span class="arithmatex">\(\lnot(A \to \lnot B) \equiv A \land B\)</span>. Since <span class="arithmatex">\(\lor\)</span> and <span class="arithmatex">\(\land\)</span> can be expressed, and together <span class="arithmatex">\(\{\lnot, \land, \lor\}\)</span> is known to be functionally complete, so is <span class="arithmatex">\(\{\lnot, \to\}\)</span>.</p>
+<hr>
+<h2 id="3-must-know-key-points">3. MUST-KNOW KEY POINTS<a class="headerlink" href="#3-must-know-key-points" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Syntax:</strong> formulas built from atoms <span class="arithmatex">\(P, Q, R, \ldots\)</span> and connectives <span class="arithmatex">\(\lnot, \land, \lor, \to, \leftrightarrow\)</span> via a recursive grammar.</li>
+<li><strong>Precedence:</strong> <span class="arithmatex">\(\lnot &gt; \land &gt; \lor &gt; \to &gt; \leftrightarrow\)</span>; <span class="arithmatex">\(\to\)</span> is right-associative.</li>
+<li><strong>Semantics:</strong> a valuation <span class="arithmatex">\(v : \mathcal{L} \to \{0,1\}\)</span> determines the truth value of every formula.</li>
+<li><strong>Material implication:</strong> <span class="arithmatex">\(A \to B \equiv \lnot A \lor B\)</span>; false <strong>only</strong> when <span class="arithmatex">\(A\)</span> is true and <span class="arithmatex">\(B\)</span> is false.</li>
+<li><strong>Satisfiable</strong> = some <span class="arithmatex">\(v\)</span> makes it true; <strong>valid</strong> = every <span class="arithmatex">\(v\)</span> makes it true; <strong><span class="arithmatex">\(\varphi\)</span> valid <span class="arithmatex">\(\iff\)</span> <span class="arithmatex">\(\lnot\varphi\)</span> unsatisfiable</strong>.</li>
+<li><strong><span class="arithmatex">\(\models\)</span></strong>: <span class="arithmatex">\(\Gamma \models \psi\)</span> means every valuation satisfying all of <span class="arithmatex">\(\Gamma\)</span> also satisfies <span class="arithmatex">\(\psi\)</span>.</li>
+<li><strong>Minimal connective sets:</strong> <span class="arithmatex">\(\{\lnot, \land\}\)</span>, <span class="arithmatex">\(\{\lnot, \lor\}\)</span>, or <span class="arithmatex">\(\{\lnot, \to\}\)</span> are each functionally complete.</li>
+<li><strong>Key equivalences:</strong> De Morgan, double negation, distribution, contrapositive, material implication, biconditional expansion.</li>
+<li><strong>DNF:</strong> disjunction of conjunctive clauses; extract from truth-table rows with output 1, or derive via equivalences.</li>
+<li><strong>CNF:</strong> conjunction of disjunctive clauses; extract from truth-table rows with output 0 (negate the assignment); a CNF is valid iff every clause is a tautology.</li>
+</ul>
+<hr>
+<h2 id="4-high-priority-topics">4. HIGH-PRIORITY TOPICS<a class="headerlink" href="#4-high-priority-topics" title="Permanent link">¶</a></h2>
+<h3 id="must-know">🔴 Must Know<a class="headerlink" href="#must-know" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Truth tables</strong> for all five connectives — be able to write them from memory.</li>
+<li><strong>Material implication</strong> <span class="arithmatex">\(A \to B \equiv \lnot A \lor B\)</span> and the "only false when <span class="arithmatex">\(A\)</span> true, <span class="arithmatex">\(B\)</span> false" rule.</li>
+<li><strong>Satisfiability vs validity</strong> definitions and the <strong>duality</strong>: valid <span class="arithmatex">\(\iff\)</span> negation unsatisfiable.</li>
+<li><strong>Semantic entailment</strong> <span class="arithmatex">\(\models\)</span> — definition and how to verify (check all valuations).</li>
+<li><strong>De Morgan's laws</strong> and <strong>double negation</strong> — used in almost every equivalence derivation.</li>
+<li><strong>DNF from truth table</strong> — the mechanical procedure (rows with 1, form minterms, disjoin).</li>
+<li><strong>CNF from truth table</strong> — the dual procedure (rows with 0, negate assignments, conjoin).</li>
+<li><strong>Constructing DNF/CNF via equivalences</strong> — eliminate <span class="arithmatex">\(\to, \leftrightarrow\)</span>, push <span class="arithmatex">\(\lnot\)</span> inward, distribute.</li>
+</ul>
+<h3 id="important">🟡 Important<a class="headerlink" href="#important" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Precedence and parsing</strong> — correctly parenthesising formulas from their textual form.</li>
+<li><strong>Syntax trees</strong> — drawing the parse tree, identifying the main connective.</li>
+<li><strong>Translating English to logic</strong> — knowing when to use <span class="arithmatex">\(\to\)</span>, <span class="arithmatex">\(\land\)</span>, <span class="arithmatex">\(\lor\)</span>, <span class="arithmatex">\(\leftrightarrow\)</span>.</li>
+<li><strong>Paradoxes of material implication</strong> — recognising vacuous truth and why it is valid classically.</li>
+<li><strong>Functional completeness</strong> — showing a connective set suffices by expressing the others.</li>
+</ul>
+<h3 id="useful-but-lower-priority">🟢 Useful but Lower Priority<a class="headerlink" href="#useful-but-lower-priority" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Sheffer stroke</strong> (NAND) and <strong>Peirce's arrow</strong> (NOR) as single-connective complete sets.</li>
+<li><strong>Absorption</strong> laws.</li>
+<li>Historical context of material implication debates.</li>
+<li>Efficiency considerations for DNF vs CNF (exponential blowup in the worst case).</li>
+</ul>
+<hr>
+<h2 id="5-topic-interconnections-bigger-picture">5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE<a class="headerlink" href="#5-topic-interconnections-bigger-picture" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Boolean algebra</strong> (Lecture 4) gives the <strong>algebraic</strong> view of propositional logic: <span class="arithmatex">\(\lor \leftrightarrow +\)</span>, <span class="arithmatex">\(\land \leftrightarrow \cdot\)</span>, <span class="arithmatex">\(\lnot \leftrightarrow \overline{\ }\)</span>. DNF corresponds to <strong>sums of products</strong>; CNF to <strong>products of sums</strong>.</li>
+<li><strong>Natural deduction</strong> (Lectures 5–6) provides <strong>syntactic proof rules</strong> for propositional logic — the inference-rule layer that complements the semantic (truth-table) layer studied here.</li>
+<li><strong>First-order logic</strong> (Lectures 7+) extends propositional logic with <strong>quantifiers</strong> and <strong>predicates</strong> — every propositional equivalence carries over, but new phenomena (quantifier scope, free/bound variables) arise.</li>
+<li><strong>SAT solvers</strong> use CNF as input; the ability to convert arbitrary formulas to CNF is a prerequisite for understanding resolution and DPLL algorithms.</li>
+<li><strong>Digital circuits</strong> implement propositional formulas in hardware — DNF corresponds to <strong>two-level AND-OR</strong> circuits; CNF to <strong>two-level OR-AND</strong> circuits.</li>
+</ul>
+<hr>
+<h2 id="6-exam-strategy-tips">6. EXAM STRATEGY TIPS<a class="headerlink" href="#6-exam-strategy-tips" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Truth tables are mechanical</strong> — for <span class="arithmatex">\(n\)</span> atoms, you have <span class="arithmatex">\(2^n\)</span> rows. Don't skip rows; list all combinations systematically (binary counting order).</li>
+<li><strong>Label columns</strong> for subformulas (e.g. compute <span class="arithmatex">\(P \to Q\)</span> before <span class="arithmatex">\((P \to Q) \to R\)</span>). This avoids errors and earns method marks.</li>
+<li>For <strong>equivalence proofs</strong>, write one equivalence per line and cite the rule (De Morgan, double negation, etc.) — examiners look for justification at each step.</li>
+<li>When constructing <strong>DNF from a truth table</strong>, double-check: the DNF should have exactly as many clauses as there are 1-rows.</li>
+<li>For <strong>CNF</strong>, remember the "flip" compared to DNF: use the 0-rows, and negate the literal sense.</li>
+<li><strong>Validity checking via CNF:</strong> convert to CNF, then check each clause for a complementary pair <span class="arithmatex">\(P, \lnot P\)</span>. If every clause has one, the formula is valid.</li>
+<li>If asked whether a set of connectives is functionally complete, express <span class="arithmatex">\(\lnot\)</span> and one binary connective (<span class="arithmatex">\(\land\)</span> or <span class="arithmatex">\(\lor\)</span>) using only the given set — that suffices.</li>
+<li><strong>Entailment questions:</strong> either do the truth table (small cases) or argue semantically case-by-case on the possible values of the atoms.</li>
+</ul>
+<hr>
+<p><em>These notes cover Logic Lectures 2–3 of COMP0003 Formal Logic — propositional syntax, semantics, truth tables, equivalences, and normal forms.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>LLRB visualiser — COMP0005</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; }
+    body { margin: 0; padding: 12px 16px; max-width: 1100px; }
+    h1 { font-size: 1.15rem; margin: 0 0 8px; }
+    .back { font-size: 0.9rem; margin-bottom: 12px; }
+    .back a { color: #3949ab; }
+    .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+    input[type="text"] { width: 12rem; padding: 6px 8px; }
+    button { padding: 6px 12px; cursor: pointer; }
+    label { margin-right: 6px; }
+    #svg-wrap { border: 1px solid #ccc; border-radius: 6px; background: #fff; overflow: auto; }
+    svg { display: block; }
+    .panels { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+    @media (max-width: 720px) { .panels { grid-template-columns: 1fr; } }
+    pre { margin: 0; padding: 10px; background: #f5f5f5; border-radius: 6px; font-size: 12px;
+          white-space: pre-wrap; word-break: break-word; max-height: 220px; overflow: auto; }
+    .hint { color: #555; font-size: 13px; margin-top: 8px; }
+    .err { color: #b00020; margin-top: 6px; }
+    #step-panel { margin: 10px 0; padding: 10px 12px; background: #f0f4f8; border-radius: 8px; display: none; }
+    #step-panel.visible { display: block; }
+    #step-panel .step-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 8px; }
+    #step-slider { flex: 1; min-width: 160px; max-width: 420px; }
+    #step-label { font-size: 13px; color: #222; max-width: 100%; }
+  </style>
+</head>
+<body>
+  <p class="back"><a href="../../cursor-notes/09-balanced-trees-and-hash-tables/">← Balanced Trees &amp; Hash Tables (notes)</a></p>
+  <h1>Left-leaning red-black tree (interactive)</h1>
+  <div class="row">
+    <label>Key <input type="text" id="key" placeholder="e.g. 5 or foo"/></label>
+    <label><input type="radio" name="mode" value="int" checked/> int</label>
+    <label><input type="radio" name="mode" value="str"/> string</label>
+    <button type="button" id="btn-insert">Insert</button>
+    <button type="button" id="btn-clear-tree">Clear tree</button>
+    <button type="button" id="btn-clear-trace">Clear trace log</button>
+  </div>
+  <div id="step-panel">
+    <label><input type="checkbox" id="toggle-steps"/> Show step-by-step fix-ups for <strong>last insert</strong></label>
+    <div class="step-row">
+      <button type="button" id="step-prev" disabled>◀ Prev</button>
+      <input type="range" id="step-slider" min="0" max="0" value="0" disabled/>
+      <button type="button" id="step-next" disabled>Next ▶</button>
+    </div>
+    <div id="step-label" class="step-row"></div>
+  </div>
+  <div id="err" class="err" aria-live="polite"></div>
+  <div id="svg-wrap"><svg id="diagram" xmlns="http://www.w3.org/2000/svg"></svg></div>
+  <p class="hint">Edges: red line = red link to child; dark line = black link (colour is stored on the child node).</p>
+  <div class="panels">
+    <div>
+      <strong>Trace (last insert)</strong>
+      <pre id="trace-last"></pre>
+    </div>
+    <div>
+      <strong>Full session log</strong>
+      <pre id="trace-full"></pre>
+    </div>
+  </div>
+<script>
+(function () {
+  'use strict';
+  const RED = true;
+  const BLACK = false;
+
+  function Node(key) {
+    this.key = key;
+    this.left = null;
+    this.right = null;
+    this.colour = RED;
+  }
+
+  function isRed(node) {
+    if (node === null) return BLACK;
+    return node.colour;
+  }
+
+  function layoutInorder(node, depth, state, pos) {
+    if (node === null) return;
+    layoutInorder(node.left, depth + 1, state, pos);
+    const x = state.i * state.hSpace;
+    const y = depth * state.vSpace;
+    pos.set(node, [x, y]);
+    state.i += 1;
+    layoutInorder(node.right, depth + 1, state, pos);
+  }
+
+  function treeBounds(pos, pad) {
+    if (pos.size === 0) return [0, 0, 400, 200];
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    pos.forEach((p) => {
+      minX = Math.min(minX, p[0]);
+      minY = Math.min(minY, p[1]);
+      maxX = Math.max(maxX, p[0]);
+      maxY = Math.max(maxY, p[1]);
+    });
+    return [minX - pad, minY - pad, maxX + pad, maxY + pad];
+  }
+
+  function buildDiagram(root, hSpace, vSpace, r) {
+    hSpace = hSpace === undefined ? 56 : hSpace;
+    vSpace = vSpace === undefined ? 64 : vSpace;
+    r = r === undefined ? 22 : r;
+    if (root === null) {
+      return { empty: true, width: 400, height: 140 };
+    }
+    const state = { i: 0, hSpace, vSpace };
+    const pos = new Map();
+    layoutInorder(root, 0, state, pos);
+    const pad = r + 24;
+    const b = treeBounds(pos, pad);
+    const minX = b[0], minY = b[1], maxX = b[2], maxY = b[3];
+    const offX = -minX + pad;
+    const offY = -minY + pad;
+    function cx(n) { return pos.get(n)[0] + offX; }
+    function cy(n) { return pos.get(n)[1] + offY; }
+    const edges = [];
+    pos.forEach((_, n) => {
+      [n.left, n.right].forEach((child) => {
+        if (child === null) return;
+        edges.push({
+          x1: cx(n), y1: cy(n) + r,
+          x2: cx(child), y2: cy(child) - r,
+          red: child.colour === RED,
+        });
+      });
+    });
+    const nodes = [];
+    pos.forEach((_, n) => {
+      let label = String(n.key);
+      if (label.length > 8) label = label.slice(0, 7) + '…';
+      nodes.push({ cx: cx(n), cy: cy(n), r, label });
+    });
+    const legendY = maxY - minY + 2 * pad + 10;
+    const width = maxX - minX + 3 * pad;
+    const height = Math.max(legendY + 36, maxY - minY + 3 * pad);
+    return {
+      empty: false, width, height, legend_y: legendY, nodes, edges,
+    };
+  }
+
+  function findParent(root, child) {
+    if (root === null || root === child) return null;
+    if (root.left === child || root.right === child) return root;
+    if (child.key < root.key) return findParent(root.left, child);
+    return findParent(root.right, child);
+  }
+
+  function LLRB() {
+    this.root = null;
+  }
+  LLRB.prototype.isRed = isRed;
+  LLRB.prototype.rotateLeft = function (n) {
+    const x = n.right;
+    n.right = x.left;
+    x.left = n;
+    x.colour = n.colour;
+    n.colour = RED;
+    return x;
+  };
+  LLRB.prototype.rotateRight = function (n) {
+    const x = n.left;
+    n.left = x.right;
+    x.right = n;
+    x.colour = n.colour;
+    n.colour = RED;
+    return x;
+  };
+  LLRB.prototype.flipColours = function (n) {
+    const x = n.left;
+    const y = n.right;
+    n.colour = !n.colour;
+    x.colour = !x.colour;
+    y.colour = !y.colour;
+  };
+  LLRB.prototype._put = function (n, key) {
+    if (n === null) return new Node(key);
+    if (key > n.key) n.right = this._put(n.right, key);
+    else if (key < n.key) n.left = this._put(n.left, key);
+    if (this.isRed(n.right) && !this.isRed(n.left)) n = this.rotateLeft(n);
+    if (this.isRed(n.left) && this.isRed(n.left.left)) n = this.rotateRight(n);
+    if (this.isRed(n.left) && this.isRed(n.right)) this.flipColours(n);
+    return n;
+  };
+  LLRB.prototype.insert = function (key) {
+    this.root = this._put(this.root, key);
+    this.root.colour = BLACK;
+  };
+
+  function TracingLLRB() {
+    LLRB.call(this);
+    this.traceLog = [];
+  }
+  TracingLLRB.prototype = Object.create(LLRB.prototype);
+  TracingLLRB.prototype.constructor = TracingLLRB;
+  TracingLLRB.prototype.insert = function (key) {
+    this.traceLog.push('insert(' + JSON.stringify(key) + ')');
+    LLRB.prototype.insert.call(this, key);
+  };
+  TracingLLRB.prototype.rotateLeft = function (n) {
+    this.traceLog.push('rotate_left at subtree root key=' + JSON.stringify(n.key));
+    return LLRB.prototype.rotateLeft.call(this, n);
+  };
+  TracingLLRB.prototype.rotateRight = function (n) {
+    this.traceLog.push('rotate_right at subtree root key=' + JSON.stringify(n.key));
+    return LLRB.prototype.rotateRight.call(this, n);
+  };
+  TracingLLRB.prototype.flipColours = function (n) {
+    this.traceLog.push('flip_colours at node key=' + JSON.stringify(n.key));
+    LLRB.prototype.flipColours.call(this, n);
+  };
+
+  function StepTracingLLRB() {
+    TracingLLRB.call(this);
+    this.lastInsertSteps = [];
+    this._recordingSteps = false;
+    this._diagramRootHolder = [];
+  }
+  StepTracingLLRB.prototype = Object.create(TracingLLRB.prototype);
+  StepTracingLLRB.prototype.constructor = StepTracingLLRB;
+  StepTracingLLRB.prototype.insert = function (key) {
+    this.lastInsertSteps = [];
+    this._recordingSteps = true;
+    this._diagramRootHolder = [this.root];
+    this.lastInsertSteps.push({
+      label: 'Before insert',
+      diagram: buildDiagram(this.root),
+    });
+    TracingLLRB.prototype.insert.call(this, key);
+    this._recordingSteps = false;
+    this.lastInsertSteps.push({
+      label: 'After insert (final)',
+      diagram: buildDiagram(this.root),
+    });
+  };
+  StepTracingLLRB.prototype._reattachAfterRotation = function (n, result) {
+    let root = this._diagramRootHolder.length ? this._diagramRootHolder[0] : null;
+    if (root === null) {
+      this._diagramRootHolder = [result];
+      return;
+    }
+    const parent = findParent(root, n);
+    if (parent === null) {
+      this._diagramRootHolder[0] = result;
+    } else if (parent.left === n) {
+      parent.left = result;
+    } else if (parent.right === n) {
+      parent.right = result;
+    }
+  };
+  StepTracingLLRB.prototype.rotateLeft = function (n) {
+    const result = LLRB.prototype.rotateLeft.call(this, n);
+    if (this._recordingSteps) {
+      this._reattachAfterRotation(n, result);
+      this._snapshotAfterFix();
+    }
+    return result;
+  };
+  StepTracingLLRB.prototype.rotateRight = function (n) {
+    const result = LLRB.prototype.rotateRight.call(this, n);
+    if (this._recordingSteps) {
+      this._reattachAfterRotation(n, result);
+      this._snapshotAfterFix();
+    }
+    return result;
+  };
+  StepTracingLLRB.prototype.flipColours = function (n) {
+    LLRB.prototype.flipColours.call(this, n);
+    if (this._recordingSteps) this._snapshotAfterFix();
+  };
+  StepTracingLLRB.prototype._snapshotAfterFix = function () {
+    if (!this._recordingSteps || !this.traceLog.length) return;
+    const root = this._diagramRootHolder.length
+      ? this._diagramRootHolder[0]
+      : this.root;
+    this.lastInsertSteps.push({
+      label: this.traceLog[this.traceLog.length - 1],
+      diagram: buildDiagram(root),
+    });
+  };
+
+  let tree = new StepTracingLLRB();
+  let fullLog = [];
+  let lastApiState = null;
+
+  function mode() {
+    const m = document.querySelector('input[name="mode"]:checked');
+    return m ? m.value : 'int';
+  }
+
+  function parseKey(raw, m) {
+    raw = String(raw).trim();
+    if (!raw) throw new Error('empty key');
+    if (m === 'int') {
+      if (/^0[xX]/.test(raw)) return parseInt(raw, 16);
+      return parseInt(raw, 10);
+    }
+    return raw;
+  }
+
+  function state() {
+    return {
+      diagram: buildDiagram(tree.root),
+      full_log: fullLog,
+      last_trace: lastTrace,
+      insert_steps: tree.lastInsertSteps,
+    };
+  }
+
+  function renderDiagramIntoSvg(d) {
+    const svg = document.getElementById('diagram');
+    svg.innerHTML = '';
+    if (d.empty) {
+      svg.setAttribute('viewBox', '0 0 ' + d.width + ' ' + d.height);
+      const t = document.createElementNS(svg.namespaceURI, 'text');
+      t.setAttribute('x', '16');
+      t.setAttribute('y', '28');
+      t.setAttribute('fill', '#666');
+      t.textContent = '(empty tree)';
+      svg.appendChild(t);
+    } else {
+      svg.setAttribute('viewBox', '0 0 ' + d.width + ' ' + d.height);
+      d.edges.forEach((e) => {
+        const line = document.createElementNS(svg.namespaceURI, 'line');
+        line.setAttribute('x1', e.x1);
+        line.setAttribute('y1', e.y1);
+        line.setAttribute('x2', e.x2);
+        line.setAttribute('y2', e.y2);
+        line.setAttribute('stroke', e.red ? '#c62828' : '#212121');
+        line.setAttribute('stroke-width', e.red ? '3' : '2');
+        svg.appendChild(line);
+      });
+      d.nodes.forEach((n) => {
+        const c = document.createElementNS(svg.namespaceURI, 'circle');
+        c.setAttribute('cx', n.cx);
+        c.setAttribute('cy', n.cy);
+        c.setAttribute('r', n.r);
+        c.setAttribute('fill', '#fafafa');
+        c.setAttribute('stroke', '#333');
+        c.setAttribute('stroke-width', '2');
+        svg.appendChild(c);
+        const t = document.createElementNS(svg.namespaceURI, 'text');
+        t.setAttribute('x', n.cx);
+        t.setAttribute('y', n.cy);
+        t.setAttribute('text-anchor', 'middle');
+        t.setAttribute('dominant-baseline', 'middle');
+        t.setAttribute('font-family', 'Menlo, monospace');
+        t.setAttribute('font-size', '12');
+        t.setAttribute('font-weight', 'bold');
+        t.textContent = n.label;
+        svg.appendChild(t);
+      });
+      const leg = document.createElementNS(svg.namespaceURI, 'text');
+      leg.setAttribute('x', '24');
+      leg.setAttribute('y', d.legend_y + 14);
+      leg.setAttribute('fill', '#444');
+      leg.setAttribute('font-size', '11');
+      leg.textContent = 'Edge: red = red link, black = black link';
+      svg.appendChild(leg);
+    }
+  }
+
+  function syncStepControls() {
+    const st = lastApiState;
+    const panel = document.getElementById('step-panel');
+    const toggle = document.getElementById('toggle-steps');
+    const slider = document.getElementById('step-slider');
+    const steps = (st && st.insert_steps) ? st.insert_steps : [];
+    const hasSteps = steps.length > 0;
+    panel.classList.toggle('visible', hasSteps);
+    if (!hasSteps) {
+      slider.disabled = true;
+      document.getElementById('step-prev').disabled = true;
+      document.getElementById('step-next').disabled = true;
+      return;
+    }
+    const max = steps.length - 1;
+    slider.max = String(max);
+    let v = parseInt(slider.value, 10);
+    if (Number.isNaN(v) || v > max) v = max;
+    if (v < 0) v = 0;
+    slider.value = String(v);
+    const useSteps = toggle.checked;
+    slider.disabled = !useSteps;
+    document.getElementById('step-prev').disabled = !useSteps || v <= 0;
+    document.getElementById('step-next').disabled = !useSteps || v >= max;
+  }
+
+  function redrawDiagram() {
+    const st = lastApiState;
+    if (!st) return;
+    const toggle = document.getElementById('toggle-steps');
+    const steps = st.insert_steps || [];
+    let d;
+    let cap = '';
+    if (toggle.checked && steps.length) {
+      const i = parseInt(document.getElementById('step-slider').value, 10) || 0;
+      d = steps[i].diagram;
+      cap = (i + 1) + ' / ' + steps.length + ': ' + steps[i].label;
+    } else {
+      d = st.diagram;
+    }
+    document.getElementById('step-label').textContent = cap;
+    renderDiagramIntoSvg(d);
+    syncStepControls();
+  }
+
+  let lastTrace = [];
+
+  function render(s) {
+    lastApiState = s;
+    document.getElementById('trace-last').textContent =
+      (lastTrace && lastTrace.length) ? lastTrace.join('\n') : '(no ops on last insert)';
+    document.getElementById('trace-full').textContent =
+      (s.full_log && s.full_log.length) ? s.full_log.join('\n') : '(empty)';
+    const steps = s.insert_steps || [];
+    if (steps.length) {
+      document.getElementById('step-slider').value = String(steps.length - 1);
+    }
+    redrawDiagram();
+  }
+
+  function doInsert() {
+    document.getElementById('err').textContent = '';
+    const raw = document.getElementById('key').value;
+    try {
+      const key = parseKey(raw, mode());
+      const before = tree.traceLog.length;
+      tree.insert(key);
+      lastTrace = tree.traceLog.slice(before);
+      fullLog = fullLog.concat(lastTrace);
+      render(state());
+      document.getElementById('key').value = '';
+      document.getElementById('key').focus();
+    } catch (e) {
+      document.getElementById('err').textContent = e.message || String(e);
+    }
+  }
+
+  document.getElementById('btn-insert').onclick = doInsert;
+
+  document.getElementById('btn-clear-tree').onclick = function () {
+    document.getElementById('err').textContent = '';
+    tree = new StepTracingLLRB();
+    fullLog = [];
+    lastTrace = [];
+    render(state());
+  };
+
+  document.getElementById('btn-clear-trace').onclick = function () {
+    document.getElementById('err').textContent = '';
+    fullLog = [];
+    lastTrace = [];
+    render(state());
+  };
+
+  document.getElementById('key').addEventListener('keydown', function (ev) {
+    if (ev.key === 'Enter') doInsert();
+  });
+
+  document.getElementById('toggle-steps').addEventListener('change', redrawDiagram);
+  document.getElementById('step-slider').addEventListener('input', redrawDiagram);
+  document.getElementById('step-prev').onclick = function () {
+    const s = document.getElementById('step-slider');
+    s.value = String(Math.max(0, parseInt(s.value, 10) - 1));
+    redrawDiagram();
+  };
+  document.getElementById('step-next').onclick = function () {
+    const s = document.getElementById('step-slider');
+    const max = parseInt(s.max, 10);
+    s.value = String(Math.min(max, parseInt(s.value, 10) + 1));
+    redrawDiagram();
+  };
+
+  render(state());
+})();
+</script>
+</body>
+</html>

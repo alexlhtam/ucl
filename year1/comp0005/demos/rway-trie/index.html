@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>R-way trie demo — COMP0005</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; }
+    body { margin: 0; padding: 12px 16px; max-width: 1100px; }
+    h1 { font-size: 1.15rem; margin: 0 0 8px; }
+    .back { font-size: 0.9rem; margin-bottom: 12px; }
+    .back a { color: #3949ab; }
+    .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+    input[type="text"] { width: 10rem; padding: 6px 8px; }
+    button { padding: 6px 12px; cursor: pointer; }
+    #svg-wrap { border: 1px solid #ccc; border-radius: 6px; background: #fff; overflow: auto; }
+    svg { display: block; }
+    pre { margin: 8px 0 0; padding: 10px; background: #f5f5f5; border-radius: 6px; font-size: 12px;
+          white-space: pre-wrap; max-height: 120px; overflow: auto; }
+    .hint { color: #555; font-size: 13px; margin-top: 8px; }
+    .err { color: #b00020; margin-top: 6px; }
+  </style>
+</head>
+<body>
+  <p class="back"><a href="../../cursor-notes/15-tries-and-string-search/">← Tries &amp; String Search (notes)</a></p>
+  <h1>R-way trie (interactive)</h1>
+  <p class="hint">Lowercase <strong>a–z</strong> keys only (same as the scratch <code>r-way-trie.py</code>). Values are arbitrary labels.</p>
+  <div class="row">
+    <label>Key <input type="text" id="key" placeholder="e.g. sea" maxlength="32"/></label>
+    <label>Value <input type="text" id="val" placeholder="e.g. 1" maxlength="16"/></label>
+    <button type="button" id="btn-put">Put</button>
+    <button type="button" id="btn-get">Get</button>
+    <button type="button" id="btn-clear">Clear</button>
+  </div>
+  <div id="err" class="err" aria-live="polite"></div>
+  <div id="svg-wrap"><svg id="diagram" xmlns="http://www.w3.org/2000/svg"></svg></div>
+  <pre id="out"></pre>
+<script>
+(function () {
+  'use strict';
+  const R = 26;
+  function idx(c) {
+    const code = c.charCodeAt(0) - 97;
+    if (code < 0 || code >= R) throw new Error('use a–z only');
+    return code;
+  }
+  function validKey(s) {
+    s = String(s).trim().toLowerCase();
+    if (!s) throw new Error('empty key');
+    for (let i = 0; i < s.length; i++) idx(s[i]);
+    return s;
+  }
+
+  class RWayNode {
+    constructor() {
+      this.value = null;
+      this.children = new Array(R).fill(null);
+    }
+  }
+
+  class RWayTrie {
+    constructor() { this.root = null; }
+    get(key) {
+      const n = this._get(this.root, key, 0);
+      return n === null ? undefined : n.value;
+    }
+    _get(node, key, d) {
+      if (node === null) return null;
+      if (d === key.length) return node;
+      return this._get(node.children[idx(key[d])], key, d + 1);
+    }
+    put(key, value) {
+      this.root = this._put(this.root, key, value, 0);
+    }
+    _put(node, key, value, d) {
+      if (node === null) node = new RWayNode();
+      if (d === key.length) {
+        node.value = value;
+        return node;
+      }
+      const i = idx(key[d]);
+      node.children[i] = this._put(node.children[i], key, value, d + 1);
+      return node;
+    }
+  }
+
+  const trie = new RWayTrie();
+  const NODE_R = 20;
+  const V = 72;
+  const W0 = 720;
+
+  function layoutRWay(node, depth, x0, x1, pos) {
+    if (!node) return;
+    const cx = (x0 + x1) / 2;
+    const cy = depth * V;
+    pos.set(node, { cx, cy, value: node.value });
+    const kids = [];
+    for (let i = 0; i < R; i++) {
+      if (node.children[i]) kids.push({ ch: String.fromCharCode(97 + i), n: node.children[i] });
+    }
+    const n = kids.length;
+    kids.forEach((k, j) => {
+      const l = x0 + (j / n) * (x1 - x0);
+      const r = x0 + ((j + 1) / n) * (x1 - x0);
+      layoutRWay(k.n, depth + 1, l, r, pos);
+    });
+  }
+
+  function collectEdges(node, pos, edges) {
+    if (!node) return;
+    const p = pos.get(node);
+    for (let i = 0; i < R; i++) {
+      const ch = node.children[i];
+      if (!ch) continue;
+      const c = pos.get(ch);
+      edges.push({ x1: p.cx, y1: p.cy + NODE_R, x2: c.cx, y2: c.cy - NODE_R, label: String.fromCharCode(97 + i) });
+      collectEdges(ch, pos, edges);
+    }
+  }
+
+  function buildDiagram() {
+    const pos = new Map();
+    if (!trie.root) {
+      return { empty: true, width: 400, height: 160 };
+    }
+    layoutRWay(trie.root, 0, 0, W0, pos);
+    let minX = Infinity, maxX = -Infinity, maxY = 0;
+    pos.forEach((p) => {
+      minX = Math.min(minX, p.cx - NODE_R);
+      maxX = Math.max(maxX, p.cx + NODE_R);
+      maxY = Math.max(maxY, p.cy + NODE_R);
+    });
+    const pad = 36;
+    const offX = pad - minX;
+    const offY = pad;
+    const edges = [];
+    collectEdges(trie.root, pos, edges);
+    const edges2 = edges.map((e) => ({
+      x1: e.x1 + offX, y1: e.y1 + offY, x2: e.x2 + offX, y2: e.y2 + offY, label: e.label,
+    }));
+    const nodes = [];
+    pos.forEach((p, n) => {
+      let lab = '';
+      if (p.value !== null && p.value !== undefined) lab = String(p.value);
+      nodes.push({ cx: p.cx + offX, cy: p.cy + offY, r: NODE_R, sub: lab });
+    });
+    const width = maxX - minX + 2 * pad;
+    const height = maxY + 2 * pad + 28;
+    return { empty: false, width, height, edges: edges2, nodes };
+  }
+
+  function render() {
+    const d = buildDiagram();
+    const svg = document.getElementById('diagram');
+    svg.innerHTML = '';
+    if (d.empty) {
+      svg.setAttribute('viewBox', '0 0 400 160');
+      const t = document.createElementNS(svg.namespaceURI, 'text');
+      t.setAttribute('x', '16'); t.setAttribute('y', '28');
+      t.setAttribute('fill', '#666');
+      t.textContent = '(empty trie)';
+      svg.appendChild(t);
+      return;
+    }
+    svg.setAttribute('viewBox', '0 0 ' + d.width + ' ' + d.height);
+    d.edges.forEach((e) => {
+      const line = document.createElementNS(svg.namespaceURI, 'line');
+      line.setAttribute('x1', e.x1); line.setAttribute('y1', e.y1);
+      line.setAttribute('x2', e.x2); line.setAttribute('y2', e.y2);
+      line.setAttribute('stroke', '#424242'); line.setAttribute('stroke-width', '2');
+      svg.appendChild(line);
+      const mx = (e.x1 + e.x2) / 2, my = (e.y1 + e.y2) / 2;
+      const lb = document.createElementNS(svg.namespaceURI, 'text');
+      lb.setAttribute('x', mx); lb.setAttribute('y', my - 4);
+      lb.setAttribute('text-anchor', 'middle'); lb.setAttribute('font-size', '11');
+      lb.setAttribute('fill', '#1565c0'); lb.setAttribute('font-weight', 'bold');
+      lb.textContent = e.label;
+      svg.appendChild(lb);
+    });
+    d.nodes.forEach((n) => {
+      const c = document.createElementNS(svg.namespaceURI, 'circle');
+      c.setAttribute('cx', n.cx); c.setAttribute('cy', n.cy); c.setAttribute('r', n.r);
+      c.setAttribute('fill', '#fafafa'); c.setAttribute('stroke', '#333'); c.setAttribute('stroke-width', '2');
+      svg.appendChild(c);
+      const t = document.createElementNS(svg.namespaceURI, 'text');
+      t.setAttribute('x', n.cx); t.setAttribute('y', n.cy + 4);
+      t.setAttribute('text-anchor', 'middle'); t.setAttribute('font-size', '10');
+      t.setAttribute('font-family', 'Menlo, monospace');
+      t.textContent = n.sub || '·';
+      svg.appendChild(t);
+    });
+    const leg = document.createElementNS(svg.namespaceURI, 'text');
+    leg.setAttribute('x', '12'); leg.setAttribute('y', d.height - 8);
+    leg.setAttribute('fill', '#666'); leg.setAttribute('font-size', '11');
+    leg.textContent = 'Edge label = next character; node shows value at terminal (or ·)';
+    svg.appendChild(leg);
+  }
+
+  function log(msg) {
+    document.getElementById('out').textContent = msg;
+  }
+
+  document.getElementById('btn-put').onclick = function () {
+    document.getElementById('err').textContent = '';
+    try {
+      const k = validKey(document.getElementById('key').value);
+      const v = document.getElementById('val').value.trim();
+      if (!v) throw new Error('empty value');
+      trie.put(k, v);
+      log('put(' + JSON.stringify(k) + ', ' + JSON.stringify(v) + ')');
+      render();
+    } catch (e) {
+      document.getElementById('err').textContent = e.message || String(e);
+    }
+  };
+
+  document.getElementById('btn-get').onclick = function () {
+    document.getElementById('err').textContent = '';
+    try {
+      const k = validKey(document.getElementById('key').value);
+      const v = trie.get(k);
+      log(v === undefined ? 'get(' + JSON.stringify(k) + ') → miss' : 'get(' + JSON.stringify(k) + ') → ' + JSON.stringify(v));
+    } catch (e) {
+      document.getElementById('err').textContent = e.message || String(e);
+    }
+  };
+
+  document.getElementById('btn-clear').onclick = function () {
+    trie.root = null;
+    log('cleared');
+    render();
+  };
+
+  render();
+})();
+</script>
+</body>
+</html>

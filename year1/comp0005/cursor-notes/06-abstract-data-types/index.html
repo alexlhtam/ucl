@@ -1,0 +1,5624 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Year 1 Computer Science notes — UCL">
+      
+      
+        <meta name="author" content="Alex Tam">
+      
+      
+        <link rel="canonical" href="https://alexlhtam.github.io/ucl/year1/comp0005/cursor-notes/06-abstract-data-types/">
+      
+      
+        <link rel="prev" href="../02-analysis-of-algorithms/">
+      
+      
+        <link rel="next" href="../03-elementary-sorts/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Abstract Data Types - Alex's UCL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#abstract-data-types-comp0005-algorithms" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Alex's UCL Notes" class="md-header__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex's UCL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Abstract Data Types
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../01-union-find/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Year 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Alex's UCL Notes" class="md-nav__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    Alex's UCL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Year 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Year 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms (COMP0005)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms (COMP0005)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-union-find/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-analysis-of-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis of Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adts-vs-data-structures-two-viewpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADTs vs data structures — two viewpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adt-overview-linear-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADT overview — linear collections
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ADT overview — linear collections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#array-adt-fixed-size-indexable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Array ADT (fixed size, indexable)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-adt-dynamic-sequential" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List ADT (dynamic, sequential)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stack-adt-lifo-last-in-first-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stack ADT (LIFO — last in, first out)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#queue-adt-fifo-first-in-first-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Queue ADT (FIFO — first in, first out)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-queue-adt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Priority queue ADT
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adt-overview-non-linear-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADT overview — non-linear collections
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ADT overview — non-linear collections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-and-multiset-bag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set and multiset (bag)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#map-dictionary-associative-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Map (dictionary / associative array)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementing-adts-array-data-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementing ADTs — array data structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementing ADTs — array data structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#array-adt-on-a-plain-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Array ADT on a plain array
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stack-adt-on-an-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stack ADT on an array
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#queue-adt-on-an-array-circular-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Queue ADT on an array — circular buffer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resizing-arrays-dynamic-stack-list-backing-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resizing arrays (dynamic stack / list backing store)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementing-adts-linked-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementing ADTs — linked lists
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementing ADTs — linked lists">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#singly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Singly linked list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#doubly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Doubly linked list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stack-via-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stack via linked list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#queue-via-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Queue via linked list
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-implementations-maps-and-priority-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other implementations — maps and priority queues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-summary-table-course-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation summary table (course-style)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-adt-vs-data-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — ADT vs data structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-queue-with-array-without-shifting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Queue with array without shifting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-linked-list-complexities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Linked list complexities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-resizing-stack-amortised-vs-worst-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Resizing stack — amortised vs worst case
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-map-and-priority-queue-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Map and priority queue implementations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sorting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sorting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-elementary-sorts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementary Sorts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-mergesort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MergeSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QuickSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-heaps-and-heapsort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heaps &amp; HeapSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../demos/llrb-visualiser/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-symbol-tables-and-bst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbol Tables &amp; BST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-balanced-trees-and-hash-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balanced Trees &amp; Hash Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-undirected-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undirected Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-directed-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-minimum-spanning-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Spanning Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-shortest-paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shortest Paths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_5">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../demos/rway-trie/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strings
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_5" id="__nav_2_1_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Strings
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-string-sorting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String Sorting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-tries-and-string-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tries &amp; String Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/tst-trie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TST / 3-way trie (demo)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-substring-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Substring Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demos/kmp-visualiser/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KMP visualiser (demo)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OOP / Java (COMP0004)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OOP / Java (COMP0004)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/01-intro-to-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/02-core-java-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Java Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/03-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Object-Oriented Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/04-classes-objects-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes, Objects &amp; References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/05-designing-with-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/06-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/07-interfaces-and-polymorphism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces &amp; Polymorphism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/08-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/09-file-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/10-json-csv-and-records/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON, CSV &amp; Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/11-packages-and-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages &amp; Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/12-lambdas-and-streams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambdas &amp; Streams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/13-web-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/14-data-structures-in-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures in Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0004/cursor-notes/15-design-patterns-and-threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns &amp; Threads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory of Computation (COMP0003)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory of Computation (COMP0003)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formal Logic
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Formal Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/01-overview-and-history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview &amp; History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/03-boolean-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boolean Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/04-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/05-proof-by-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof by Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/06-complete-induction-and-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Induction &amp; Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/logic/07-modal-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modal Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automata
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Automata
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/01-dfas-and-regular-languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFAs &amp; Regular Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/02-nfas-and-dfa-equivalence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFAs &amp; DFA Equivalence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/03-closure-and-regular-expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closure &amp; Regular Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/04-pumping-lemma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/05-pushdown-automata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pushdown Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/06-context-free-grammars/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Free Grammars
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/07-pumping-lemma-for-cfls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma for CFLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/08-turing-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turing Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0003/cursor-notes/automata/09-decidability-and-undecidability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decidability &amp; Undecidability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics &amp; Statistics (COMP0011)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics &amp; Statistics (COMP0011)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algebra
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algebra
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0011/master-notes/complex-numbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complex Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0011/master-notes/polynomials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polynomials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0011/master-notes/vector-spaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Spaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0011/master-notes/matrices-linear-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matrices &amp; Linear Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculus
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Calculus
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0011/master-notes/calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Continuous Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0011/master-notes/sequences-and-series/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sequences &amp; Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0011/master-notes/differential-calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Differential Calculus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0011/master-notes/integral-calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integral Calculus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability &amp; Statistics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Probability &amp; Statistics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0011/cursor-notes/09-probabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probabilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0011/cursor-notes/10-statistics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discrete Maths (COMP0147)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Discrete Maths (COMP0147)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_1" id="__nav_2_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0147/cursor-notes/01-numbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0147/cursor-notes/02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0147/cursor-notes/03-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_2" id="__nav_2_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Number Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Number Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0147/cursor-notes/04-modular-arithmetic-and-primes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modular Arithmetic &amp; Primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_3" id="__nav_2_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proofs &amp; Induction
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Proofs &amp; Induction
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0147/cursor-notes/05-proofs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof Techniques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0147/cursor-notes/06-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematical Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0147/cursor-notes/07-strong-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strong Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0147/cursor-notes/08-recursion-and-structural-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recursion &amp; Structural Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_4" id="__nav_2_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sets &amp; Functions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sets &amp; Functions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0147/cursor-notes/09-sets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0147/cursor-notes/10-functions-and-sequences/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions &amp; Sequences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_5" id="__nav_2_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combinatorics &amp; Cardinality
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Combinatorics &amp; Cardinality
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0147/cursor-notes/11-counting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Counting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0147/cursor-notes/12-cardinality/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cardinality
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_6">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_6" id="__nav_2_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relations &amp; Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Relations &amp; Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0147/cursor-notes/13-relations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../comp0147/cursor-notes/14-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adts-vs-data-structures-two-viewpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADTs vs data structures — two viewpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adt-overview-linear-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADT overview — linear collections
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ADT overview — linear collections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#array-adt-fixed-size-indexable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Array ADT (fixed size, indexable)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-adt-dynamic-sequential" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List ADT (dynamic, sequential)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stack-adt-lifo-last-in-first-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stack ADT (LIFO — last in, first out)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#queue-adt-fifo-first-in-first-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Queue ADT (FIFO — first in, first out)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-queue-adt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Priority queue ADT
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adt-overview-non-linear-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADT overview — non-linear collections
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ADT overview — non-linear collections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-and-multiset-bag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set and multiset (bag)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#map-dictionary-associative-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Map (dictionary / associative array)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementing-adts-array-data-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementing ADTs — array data structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementing ADTs — array data structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#array-adt-on-a-plain-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Array ADT on a plain array
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stack-adt-on-an-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stack ADT on an array
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#queue-adt-on-an-array-circular-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Queue ADT on an array — circular buffer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resizing-arrays-dynamic-stack-list-backing-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resizing arrays (dynamic stack / list backing store)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementing-adts-linked-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementing ADTs — linked lists
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementing ADTs — linked lists">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#singly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Singly linked list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#doubly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Doubly linked list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stack-via-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stack via linked list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#queue-via-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Queue via linked list
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-implementations-maps-and-priority-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other implementations — maps and priority queues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-summary-table-course-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation summary table (course-style)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-adt-vs-data-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — ADT vs data structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-queue-with-array-without-shifting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Queue with array without shifting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-linked-list-complexities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Linked list complexities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-resizing-stack-amortised-vs-worst-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Resizing stack — amortised vs worst case
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-map-and-priority-queue-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Map and priority queue implementations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="abstract-data-types-comp0005-algorithms">Abstract Data Types — COMP0005 Algorithms<a class="headerlink" href="#abstract-data-types-comp0005-algorithms" title="Permanent link">¶</a></h1>
+<p><em>Lecture-style notes. An </em><em>abstract data type (ADT)</em><em> describes </em>what<em> operations a collection supports and </em>how<em> they behave from the </em><em>user’s</em><em> perspective. A </em><em>data structure</em><em> is a </em><em>concrete</em><em> way to store data in memory so those operations can be implemented efficiently from the </em><em>implementer’s</em><em> perspective. Separating the two is central to modular software design and to reasoning about correctness vs performance.</em></p>
+<hr>
+<h2 id="1-complete-topic-summaries">1. COMPLETE TOPIC SUMMARIES<a class="headerlink" href="#1-complete-topic-summaries" title="Permanent link">¶</a></h2>
+<h3 id="adts-vs-data-structures-two-viewpoints">ADTs vs data structures — two viewpoints<a class="headerlink" href="#adts-vs-data-structures-two-viewpoints" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Abstract Data Type (ADT)</strong></th>
+<th><strong>Data Structure</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Perspective</strong></td>
+<td><strong>User</strong> / client of the API</td>
+<td><strong>Implementer</strong> / library author</td>
+</tr>
+<tr>
+<td><strong>Specifies</strong></td>
+<td><strong>Behaviour</strong>: allowed operations and their <strong>meaning</strong> (pre/post conditions, invariants)</td>
+<td><strong>Representation</strong>: how values are laid out in memory (arrays, pointers, trees, hash tables, …)</td>
+</tr>
+<tr>
+<td><strong>Hides</strong></td>
+<td>Implementation details</td>
+<td>Nothing — this <em>is</em> the implementation</td>
+</tr>
+<tr>
+<td><strong>Example</strong></td>
+<td>“A <strong>stack</strong> supports <code>push</code>, <code>pop</code>, <code>isEmpty</code> with LIFO semantics”</td>
+<td>“Implement the stack with a <strong>resizing array</strong> or a <strong>linked list</strong>”</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why it matters:</strong> You can <strong>swap implementations</strong> (e.g. <code>ArrayList</code> vs <code>LinkedList</code> for a <strong>list</strong>-like ADT) without changing code that only uses the public operations — as long as the <strong>semantics</strong> stay the same.</p>
+<blockquote>
+<p><strong>Exam phrasing:</strong> An ADT is a <strong>contract</strong>; a data structure is one <strong>way to honour</strong> that contract.</p>
+</blockquote>
+<hr>
+<h3 id="adt-overview-linear-collections">ADT overview — linear collections<a class="headerlink" href="#adt-overview-linear-collections" title="Permanent link">¶</a></h3>
+<p><strong>Linear</strong> ADTs organise elements in a <strong>sequence</strong> (there is a natural “first”, “next”, “last” story, even if access patterns differ).</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../resources/06-adt-stack-queue-linkedlist.png" data-desc-position="bottom"><img alt="Linear ADTs: Stack, Queue, and Linked Lists" src="../../resources/06-adt-stack-queue-linkedlist.png"></a>
+<em>Stack (LIFO) operations push/pop at the top; Queue (FIFO) operations enqueue at tail, dequeue from head. Singly linked lists have one-way traversal; doubly linked lists support efficient deletion from any node.</em></p>
+<h4 id="array-adt-fixed-size-indexable"><strong>Array ADT</strong> (fixed size, indexable)<a class="headerlink" href="#array-adt-fixed-size-indexable" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Idea:</strong> A sequence of <strong><span class="arithmatex">\(n\)</span></strong> slots, numbered <strong><span class="arithmatex">\(0, 1, \ldots, n-1\)</span></strong>, each holding one element.</li>
+<li><strong>Typical operations:</strong> <strong><code>get(i)</code></strong>, <strong><code>set(i, x)</code></strong> — random access by index.</li>
+<li><strong>Constraint:</strong> Length is usually <strong>fixed</strong> at creation (unlike a dynamic list).</li>
+</ul>
+<h4 id="list-adt-dynamic-sequential"><strong>List ADT</strong> (dynamic, sequential)<a class="headerlink" href="#list-adt-dynamic-sequential" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Idea:</strong> A <strong>variable-length</strong> ordered sequence; emphasis on <strong>structure at the ends</strong> and sequential traversal.</li>
+<li><strong>Typical operations:</strong> <strong><code>append(x)</code></strong>, <strong><code>prepend(x)</code></strong>, <strong><code>head()</code></strong>, <strong><code>tail()</code></strong> (exact names vary by course/textbook; some courses also require <strong><code>insert</code>/<code>remove</code> at position</strong>).</li>
+<li><strong>Contrast with array ADT:</strong> Lists stress <strong>growth</strong> and <strong>sequential</strong> use; arrays stress <strong>index</strong> access.</li>
+</ul>
+<h4 id="stack-adt-lifo-last-in-first-out"><strong>Stack ADT</strong> (LIFO — last in, first out)<a class="headerlink" href="#stack-adt-lifo-last-in-first-out" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Operations:</strong> <strong><code>push(x)</code></strong> adds <strong><span class="arithmatex">\(x\)</span></strong> on top; <strong><code>pop()</code></strong> removes and returns the <strong>most recently pushed</strong> element; <strong><code>isEmpty()</code></strong> tests whether any element remains.</li>
+<li><strong>Invariant:</strong> The element returned by <strong><code>pop</code></strong> is always the one most recently <strong><code>push</code></strong>ed among those still stored.</li>
+</ul>
+<h4 id="queue-adt-fifo-first-in-first-out"><strong>Queue ADT</strong> (FIFO — first in, first out)<a class="headerlink" href="#queue-adt-fifo-first-in-first-out" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Operations:</strong> <strong><code>enqueue(x)</code></strong> adds <strong><span class="arithmatex">\(x\)</span></strong> at the <strong>back</strong>; <strong><code>dequeue()</code></strong> removes and returns the element at the <strong>front</strong> (the <strong>oldest</strong> still waiting).</li>
+<li><strong>Invariant:</strong> Order of removal matches order of insertion among items still in the queue.</li>
+</ul>
+<h4 id="priority-queue-adt"><strong>Priority queue ADT</strong><a class="headerlink" href="#priority-queue-adt" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Operations:</strong> <strong><code>enqueue(x, p)</code></strong> (or enqueue <strong><span class="arithmatex">\(x\)</span></strong> with implicit priority) inserts an item; <strong><code>dequeue()</code></strong> removes an item with <strong>highest priority</strong> (or lowest, by convention — be consistent in an exam answer).</li>
+<li><strong>Contrast with queue:</strong> <strong>FIFO</strong> is replaced by <strong>priority order</strong>; two items enqueued at different times may leave in <strong>either</strong> order depending on priority.</li>
+</ul>
+<hr>
+<h3 id="adt-overview-non-linear-collections">ADT overview — non-linear collections<a class="headerlink" href="#adt-overview-non-linear-collections" title="Permanent link">¶</a></h3>
+<p><strong>Non-linear</strong> ADTs are not modelled as a single left-to-right sequence with one obvious “next” for every element in the same way.</p>
+<h4 id="set-and-multiset-bag"><strong>Set</strong> and <strong>multiset (bag)</strong><a class="headerlink" href="#set-and-multiset-bag" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Set:</strong> Unordered collection of <strong>distinct</strong> elements.</li>
+<li><strong>Multiset (bag):</strong> Unordered collection <strong>allowing duplicates</strong> (each value may appear more than once; “how many copies” is part of the state).</li>
+<li><strong>Typical operations:</strong> <strong><code>insert(x)</code></strong>, <strong><code>remove(x)</code></strong>, <strong><code>contains(x)</code></strong> (and for bags, often <strong><code>count(x)</code></strong> in richer APIs).</li>
+</ul>
+<h4 id="map-dictionary-associative-array"><strong>Map</strong> (dictionary / associative array)<a class="headerlink" href="#map-dictionary-associative-array" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Idea:</strong> Stores <strong>(key → value)</strong> pairs; each <strong>key</strong> appears <strong>at most once</strong>.</li>
+<li><strong>Typical operations:</strong> <strong><code>insert(k, v)</code></strong>, <strong><code>remove(k)</code></strong>, <strong><code>update(k, v)</code></strong>, <strong><code>lookup(k)</code></strong> (sometimes <strong><code>insert</code></strong> and <strong><code>update</code></strong> are unified as “put”).</li>
+<li><strong>Use case:</strong> Fast retrieval of a value <strong>by key</strong> rather than by integer index.</li>
+</ul>
+<hr>
+<h3 id="implementing-adts-array-data-structure">Implementing ADTs — array data structure<a class="headerlink" href="#implementing-adts-array-data-structure" title="Permanent link">¶</a></h3>
+<p>An <strong>array</strong> (in the data-structure sense) is a contiguous block of memory holding <strong>homogeneous</strong> elements (same size per cell in the low-level picture).</p>
+<h4 id="array-adt-on-a-plain-array"><strong>Array ADT on a plain array</strong><a class="headerlink" href="#array-adt-on-a-plain-array" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Addressing:</strong> Cell <strong><span class="arithmatex">\(i\)</span></strong> is found at <strong><span class="arithmatex">\(\text{base} + i \times \text{sizeOfElement}\)</span></strong> (conceptually); hence <strong><code>get(i)</code></strong> and <strong><code>set(i, x)</code></strong> are <strong><span class="arithmatex">\(O(1)\)</span></strong> <strong>worst case</strong> for a fixed array.</li>
+</ul>
+<h4 id="stack-adt-on-an-array"><strong>Stack ADT on an array</strong><a class="headerlink" href="#stack-adt-on-an-array" title="Permanent link">¶</a></h4>
+<ul>
+<li>Keep a <strong>top index</strong> (or size counter). <strong><code>push</code></strong> writes at <strong><code>top+1</code></strong> and increments; <strong><code>pop</code></strong> reads <strong><code>top</code></strong> and decrements. All <strong><span class="arithmatex">\(O(1)\)</span></strong> <strong>worst case</strong> if space is already available.</li>
+</ul>
+<h4 id="queue-adt-on-an-array-circular-buffer"><strong>Queue ADT on an array — circular buffer</strong><a class="headerlink" href="#queue-adt-on-an-array-circular-buffer" title="Permanent link">¶</a></h4>
+<ul>
+<li>Naive dequeue (<strong>shift everything left</strong>) is <strong><span class="arithmatex">\(O(n)\)</span></strong>. Instead, keep <strong>head</strong> and <strong>tail</strong> indices and treat the array as <strong>circular</strong> (wrap with modulo or explicit wrap logic). Then <strong>enqueue</strong> and <strong>dequeue</strong> are <strong><span class="arithmatex">\(O(1)\)</span></strong> <strong>worst case</strong> per operation (given capacity).</li>
+</ul>
+<h4 id="resizing-arrays-dynamic-stack-list-backing-store"><strong>Resizing arrays (dynamic stack / list backing store)</strong><a class="headerlink" href="#resizing-arrays-dynamic-stack-list-backing-store" title="Permanent link">¶</a></h4>
+<p>When the array is <strong>full</strong> and you need another <strong><code>push</code>:</strong></p>
+<ol>
+<li>Allocate a new array of <strong>double the capacity</strong> (common choice).</li>
+<li><strong>Copy</strong> all elements to the new array.</li>
+<li>Continue operations.</li>
+</ol>
+<p><strong>Amortised analysis (sketch):</strong> Doubling is expensive <strong>occasionally</strong>, but the copies are <strong>rare</strong> enough that <strong>averaged over many pushes</strong>, each push costs <strong><span class="arithmatex">\(O(1)\)</span></strong> <strong>amortised</strong>.</p>
+<p><strong>Shrinking (common policy):</strong> When the array becomes <strong>only <span class="arithmatex">\(\frac{1}{4}\)</span> full</strong> after a <strong><code>pop</code></strong>, <strong>halve</strong> the capacity (and copy). This keeps space <strong><span class="arithmatex">\(\Theta(n)\)</span></strong> for <strong><span class="arithmatex">\(n\)</span></strong> stored elements and preserves <strong><span class="arithmatex">\(O(1)\)</span></strong> amortised for <strong>both</strong> push and pop under standard accounting.</p>
+<p><strong>Capacity invariant (typical):</strong> After each operation, the array is between <strong><span class="arithmatex">\(25\%\)</span></strong> and <strong><span class="arithmatex">\(100\%\)</span></strong> full (up to small constant slack right after resize), so you do not thrash between grow and shrink.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Worst case (single op)</strong></th>
+<th><strong>Amortised</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Push / pop with resize</td>
+<td><strong><span class="arithmatex">\(O(n)\)</span></strong> when copy happens</td>
+<td><strong><span class="arithmatex">\(O(1)\)</span></strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="implementing-adts-linked-lists">Implementing ADTs — linked lists<a class="headerlink" href="#implementing-adts-linked-lists" title="Permanent link">¶</a></h3>
+<p>A <strong>linked list</strong> is a <strong>dynamic</strong> chain of <strong>nodes</strong>. Each node stores <strong>payload data</strong> and <strong>link(s)</strong> to neighbour(s). Lists are good when you need <strong>frequent inserts/deletes</strong> in the middle <strong>given a pointer to the node</strong> — but <strong>random access by index</strong> is generally slow.</p>
+<h4 id="singly-linked-list"><strong>Singly linked list</strong><a class="headerlink" href="#singly-linked-list" title="Permanent link">¶</a></h4>
+<p>Each node: <strong><code>data</code></strong>, <strong><code>next</code></strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Idea</th>
+<th>Typical time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Append</strong> (with <strong><code>tail</code></strong> pointer)</td>
+<td><code>tail.next = newNode</code>, move <strong><code>tail</code></strong></td>
+<td><strong><span class="arithmatex">\(O(1)\)</span></strong></td>
+</tr>
+<tr>
+<td><strong>Prepend</strong></td>
+<td><code>newNode.next = head</code>, <code>head = newNode</code></td>
+<td><strong><span class="arithmatex">\(O(1)\)</span></strong></td>
+</tr>
+<tr>
+<td><strong>Delete a known node</strong></td>
+<td>Need <strong>predecessor</strong> to patch <strong><code>next</code></strong></td>
+<td><strong><span class="arithmatex">\(O(n)\)</span></strong> without predecessor pointer; <strong><span class="arithmatex">\(O(1)\)</span></strong> if you already have predecessor</td>
+</tr>
+<tr>
+<td><strong>Access <span class="arithmatex">\(i\)</span>-th element</strong></td>
+<td>Walk from <strong><code>head</code></strong></td>
+<td><strong><span class="arithmatex">\(O(n)\)</span></strong></td>
+</tr>
+</tbody>
+</table>
+<h4 id="doubly-linked-list"><strong>Doubly linked list</strong><a class="headerlink" href="#doubly-linked-list" title="Permanent link">¶</a></h4>
+<p>Each node: <strong><code>data</code></strong>, <strong><code>prev</code></strong>, <strong><code>next</code></strong>.</p>
+<ul>
+<li><strong>Delete</strong> (with pointer to node): patch <strong><code>prev.next</code></strong> and <strong><code>next.prev</code></strong> in <strong><span class="arithmatex">\(O(1)\)</span></strong>.</li>
+<li><strong>Trade-off:</strong> Extra memory per node and slightly more pointer bookkeeping.</li>
+</ul>
+<h4 id="stack-via-linked-list"><strong>Stack via linked list</strong><a class="headerlink" href="#stack-via-linked-list" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong><code>push</code>:</strong> prepend (or append with tail) → <strong><span class="arithmatex">\(O(1)\)</span></strong>.</li>
+<li><strong><code>pop</code>:</strong> remove head (or tail if doubly linked / with tail) → <strong><span class="arithmatex">\(O(1)\)</span></strong>.</li>
+</ul>
+<h4 id="queue-via-linked-list"><strong>Queue via linked list</strong><a class="headerlink" href="#queue-via-linked-list" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong><code>enqueue</code>:</strong> insert at tail → <strong><span class="arithmatex">\(O(1)\)</span></strong> with tail pointer.</li>
+<li><strong><code>dequeue</code>:</strong> remove from head → <strong><span class="arithmatex">\(O(1)\)</span></strong>.</li>
+</ul>
+<hr>
+<h3 id="other-implementations-maps-and-priority-queues">Other implementations — maps and priority queues<a class="headerlink" href="#other-implementations-maps-and-priority-queues" title="Permanent link">¶</a></h3>
+<p>These ADTs are specified <strong>abstractly</strong>, but their <strong>performance</strong> depends heavily on representation.</p>
+<table>
+<thead>
+<tr>
+<th>ADT</th>
+<th>Naïve / simple backing</th>
+<th>Better backing</th>
+<th>Typical time (informal)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Map</strong></td>
+<td>Unsorted array: scan keys</td>
+<td><strong>Hash table</strong></td>
+<td>Unsorted array: <strong><span class="arithmatex">\(O(n)\)</span></strong> per lookup; hash table: <strong><span class="arithmatex">\(O(1)\)</span></strong> <strong>average</strong></td>
+</tr>
+<tr>
+<td><strong>Priority queue</strong></td>
+<td>Unsorted array: scan for max/min</td>
+<td><strong>Binary heap</strong></td>
+<td>Array: <strong><span class="arithmatex">\(O(n)\)</span></strong> dequeue; heap: <strong><span class="arithmatex">\(O(\log n)\)</span></strong> enqueue/dequeue</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Exam caution:</strong> <strong><span class="arithmatex">\(O(1)\)</span></strong> for hash tables is almost always <strong>average-case</strong> under good hashing; <strong>worst-case</strong> collisions can degrade behaviour unless assumptions or fixes (e.g. balanced trees) are mentioned.</p>
+</blockquote>
+<hr>
+<h3 id="implementation-summary-table-course-style">Implementation summary table (course-style)<a class="headerlink" href="#implementation-summary-table-course-style" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>ADT</th>
+<th>Common implementations</th>
+<th>Java examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Array</td>
+<td>array</td>
+<td><code>type[]</code></td>
+</tr>
+<tr>
+<td>List</td>
+<td>array, linked list</td>
+<td><code>ArrayList</code>, <code>LinkedList</code></td>
+</tr>
+<tr>
+<td>Queue</td>
+<td>array, linked list</td>
+<td><code>LinkedList</code></td>
+</tr>
+<tr>
+<td>Stack</td>
+<td>array, linked list</td>
+<td><code>Stack</code>, <code>Deque</code> implementations</td>
+</tr>
+<tr>
+<td>Set &amp; Bag</td>
+<td>hash table</td>
+<td><code>HashSet</code></td>
+</tr>
+<tr>
+<td>Map</td>
+<td>hash table</td>
+<td><code>HashMap</code></td>
+</tr>
+<tr>
+<td>Priority Queue</td>
+<td>heap</td>
+<td><code>PriorityQueue</code></td>
+</tr>
+</tbody>
+</table>
+<p><em>(Java class names are </em><em>illustrative</em><em> of common choices; your lecturer may prefer different interfaces.)</em></p>
+<hr>
+<h2 id="2-exam-style-questions-with-model-answers">2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)<a class="headerlink" href="#2-exam-style-questions-with-model-answers" title="Permanent link">¶</a></h2>
+<h3 id="q1-adt-vs-data-structure">Q1 — ADT vs data structure<a class="headerlink" href="#q1-adt-vs-data-structure" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Explain the difference between an <strong>abstract data type</strong> and a <strong>data structure</strong>. Give one example of the same ADT implemented with two different data structures.</p>
+<p><strong>Model answer.</strong> An <strong>ADT</strong> specifies <strong>what operations</strong> exist and their <strong>behaviour</strong> (the user’s view), without saying <strong>how</strong> they are implemented. A <strong>data structure</strong> is a <strong>concrete representation</strong> in memory (the implementer’s view). Example: the <strong>stack ADT</strong> (LIFO with <strong><code>push</code>/<code>pop</code></strong>) can be implemented with a <strong>fixed/resizing array</strong> (top index) or a <strong>linked list</strong> (insert/remove at one end). Both honour the same <strong>abstract</strong> contract; time/space trade-offs differ.</p>
+<hr>
+<h3 id="q2-queue-with-array-without-shifting">Q2 — Queue with array without shifting<a class="headerlink" href="#q2-queue-with-array-without-shifting" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Why is a <strong>naïve array queue</strong> that shifts all elements left on <strong><code>dequeue</code></strong> inefficient? Describe the <strong>circular array</strong> idea and state the <strong>worst-case</strong> time per <strong><code>enqueue</code></strong> and <strong><code>dequeue</code></strong> when capacity is sufficient.</p>
+<p><strong>Model answer.</strong> Shifting <strong><span class="arithmatex">\(n\)</span></strong> elements costs <strong><span class="arithmatex">\(\Theta(n)\)</span></strong> per <strong><code>dequeue</code></strong>, so <strong><span class="arithmatex">\(m\)</span></strong> operations can cost <strong><span class="arithmatex">\(\Theta(mn)\)</span></strong>. A <strong>circular buffer</strong> keeps <strong>head</strong> and <strong>tail</strong> indices; <strong><code>dequeue</code></strong> only advances <strong><code>head</code></strong> (with wrap-around), and <strong><code>enqueue</code></strong> writes at <strong><code>tail</code></strong> and advances <strong><code>tail</code></strong>. Each operation is <strong><span class="arithmatex">\(O(1)\)</span></strong> <strong>worst case</strong> as long as no resize is needed. (If the array must grow, a separate analysis / amortised story applies.)</p>
+<hr>
+<h3 id="q3-linked-list-complexities">Q3 — Linked list complexities<a class="headerlink" href="#q3-linked-list-complexities" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> For a <strong>singly linked list</strong> with pointers to <strong><code>head</code></strong> and <strong><code>tail</code></strong>, give <strong>big-O</strong> for: <strong>(a)</strong> prepend, <strong>(b)</strong> append, <strong>(c)</strong> access the element at index <strong><span class="arithmatex">\(i\)</span></strong>, <strong>(d)</strong> delete a node when you only have a pointer to that node (not its predecessor).</p>
+<p><strong>Model answer.</strong> <strong>(a)</strong> <strong><span class="arithmatex">\(O(1)\)</span></strong> — create node, point to old head, update head. <strong>(b)</strong> <strong><span class="arithmatex">\(O(1)\)</span></strong> with <strong><code>tail</code></strong> — link old tail to new node, update tail. <strong>(c)</strong> <strong><span class="arithmatex">\(O(n)\)</span></strong> — must walk <strong><span class="arithmatex">\(i\)</span></strong> steps from head in the worst case. <strong>(d)</strong> <strong><span class="arithmatex">\(O(n)\)</span></strong> in general — singly linked lists cannot unlink a node without the predecessor unless it is the head (special case); finding the predecessor requires a scan.</p>
+<hr>
+<h3 id="q4-resizing-stack-amortised-vs-worst-case">Q4 — Resizing stack — amortised vs worst case<a class="headerlink" href="#q4-resizing-stack-amortised-vs-worst-case" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> A stack is implemented with a <strong>dynamic array</strong> that <strong>doubles</strong> when full. Argue that <strong><code>push</code></strong> is <strong><span class="arithmatex">\(O(1)\)</span></strong> <strong>amortised</strong> even though a single <strong><code>push</code></strong> can trigger <strong><span class="arithmatex">\(\Theta(n)\)</span></strong> copying. Mention why shrinking is usually <strong>not</strong> done immediately when the array becomes half full.</p>
+<p><strong>Model answer.</strong> Most pushes copy <strong>nothing</strong> and cost <strong><span class="arithmatex">\(\Theta(1)\)</span></strong>. After a resize from capacity <strong><span class="arithmatex">\(n\)</span></strong> to <strong><span class="arithmatex">\(2n\)</span></strong>, the <strong>expensive</strong> push pays for copying <strong><span class="arithmatex">\(n\)</span></strong> elements. Charging that cost across the <strong><span class="arithmatex">\(\Omega(n)\)</span></strong> cheap pushes since the previous resize yields <strong><span class="arithmatex">\(O(1)\)</span></strong> <strong>amortised</strong> per push (standard aggregate or accounting argument). If we <strong>halved</strong> whenever the array became <strong>half full</strong>, alternating push/pop near the threshold could trigger <strong><span class="arithmatex">\(\Theta(n)\)</span></strong> work <strong>every</strong> operation; hence <strong>shrink-on-quarter-full</strong> (or similar hysteresis) is used so amortised bounds stay <strong><span class="arithmatex">\(O(1)\)</span></strong>.</p>
+<hr>
+<h3 id="q5-map-and-priority-queue-implementations">Q5 — Map and priority queue implementations<a class="headerlink" href="#q5-map-and-priority-queue-implementations" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Compare implementing a <strong>map ADT</strong> with an <strong>unsorted array</strong> vs a <strong>hash table</strong>, and a <strong>priority queue ADT</strong> with an <strong>unsorted array</strong> vs a <strong>heap</strong>. Use <strong>big-O</strong> for <strong><code>lookup</code></strong> / <strong><code>dequeue</code></strong> as appropriate.</p>
+<p><strong>Model answer.</strong> <strong>Map:</strong> With an unsorted array, <strong><code>lookup(k)</code></strong> may scan all keys → <strong><span class="arithmatex">\(O(n)\)</span></strong> worst case. A <strong>hash table</strong> maps keys with a hash function to buckets; <strong><code>lookup</code></strong> is <strong><span class="arithmatex">\(O(1)\)</span></strong> <strong>average</strong> under good hashing and load-factor control (worst case can degrade if many collisions). <strong>Priority queue:</strong> With an unsorted array, <strong><code>dequeue</code></strong> must find the extremal priority → <strong><span class="arithmatex">\(O(n)\)</span></strong>. With a <strong>heap</strong>, extract-min/max is <strong><span class="arithmatex">\(O(\log n)\)</span></strong> (and insert typically <strong><span class="arithmatex">\(O(\log n)\)</span></strong>).</p>
+<hr>
+<h2 id="3-must-know-key-points">3. MUST-KNOW KEY POINTS<a class="headerlink" href="#3-must-know-key-points" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ADT</strong> = <strong>behavioural</strong> specification (operations + meaning); <strong>data structure</strong> = <strong>concrete</strong> realisation.</li>
+<li><strong>Linear ADTs:</strong> array (indexed, fixed), list (dynamic sequence), stack (LIFO), queue (FIFO), priority queue (by priority).</li>
+<li><strong>Non-linear ADTs:</strong> set vs <strong>bag</strong> (duplicates), <strong>map</strong> (unique keys → values).</li>
+<li><strong>Arrays:</strong> contiguous, <strong><span class="arithmatex">\(O(1)\)</span></strong> index access; <strong>circular buffer</strong> for <strong><span class="arithmatex">\(O(1)\)</span></strong> queue ends; <strong>doubling + halving on quarter</strong> → <strong><span class="arithmatex">\(O(1)\)</span></strong> amortised stack/list growth story; single op can still be <strong><span class="arithmatex">\(O(n)\)</span></strong> worst case when copying.</li>
+<li><strong>Linked lists:</strong> <strong><span class="arithmatex">\(O(1)\)</span></strong> prepend/append with right pointers; <strong><span class="arithmatex">\(O(n)\)</span></strong> <strong><span class="arithmatex">\(i\)</span></strong>-th access; singly linked delete needs predecessor unless head.</li>
+<li><strong>Map / PQ:</strong> simple array backing often <strong><span class="arithmatex">\(O(n)\)</span></strong> for heavy ops; <strong>hash table</strong> / <strong>heap</strong> give the <strong>standard</strong> fast implementations (<strong>average</strong> vs <strong>log</strong> caveats).</li>
+</ul>
+<hr>
+<h2 id="4-high-priority-topics">4. HIGH-PRIORITY TOPICS<a class="headerlink" href="#4-high-priority-topics" title="Permanent link">¶</a></h2>
+<h3 id="must-know">🔴 Must Know<a class="headerlink" href="#must-know" title="Permanent link">¶</a></h3>
+<ul>
+<li>Definitions: <strong>ADT</strong> vs <strong>data structure</strong>; <strong>LIFO</strong> vs <strong>FIFO</strong>; <strong>set</strong> vs <strong>multiset</strong></li>
+<li><strong>Array</strong> addressing: <strong><span class="arithmatex">\(\text{base} + i \times \text{size}\)</span></strong> → <strong><span class="arithmatex">\(O(1)\)</span></strong> <strong><code>get</code>/<code>set</code></strong></li>
+<li><strong>Circular array</strong> queue: why it beats shifting; <strong><span class="arithmatex">\(O(1)\)</span></strong> enqueue/dequeue (no resize)</li>
+<li><strong>Resizing array:</strong> double on full; <strong>amortised</strong> <strong><span class="arithmatex">\(O(1)\)</span></strong> push; <strong><span class="arithmatex">\(O(n)\)</span></strong> worst-case single push</li>
+<li><strong>Shrink hysteresis:</strong> <strong>quarter-full</strong> rule; avoids <strong><span class="arithmatex">\(\Theta(n)\)</span></strong> per op thrashing</li>
+<li><strong>Singly vs doubly</strong> linked list trade-offs for <strong>delete</strong> and <strong>predecessor</strong></li>
+<li><strong>Map:</strong> array <strong><span class="arithmatex">\(O(n)\)</span></strong> lookup vs hash <strong><span class="arithmatex">\(O(1)\)</span></strong> <strong>average</strong></li>
+<li><strong>Priority queue:</strong> array <strong><span class="arithmatex">\(O(n)\)</span></strong> dequeue vs heap <strong><span class="arithmatex">\(O(\log n)\)</span></strong></li>
+</ul>
+<h3 id="important">🟡 Important<a class="headerlink" href="#important" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>List</strong> vs <strong>array ADT</strong>: dynamic/sequential vs fixed/indexed emphasis</li>
+<li><strong>Priority queue</strong> semantics: <strong>not</strong> FIFO unless priorities tie in a specified way</li>
+<li><strong>Java</strong> mapping table (recognise typical classes, not memorise every method name)</li>
+<li><strong>Homogeneous</strong> contiguous memory vs <strong>heterogeneous</strong> linked nodes (conceptual; languages vary)</li>
+<li><strong>Worst vs amortised vs average</strong> — which bound applies to which structure</li>
+</ul>
+<h3 id="useful-but-lower-priority">🟢 Useful but Lower Priority<a class="headerlink" href="#useful-but-lower-priority" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Alternative</strong> list/map/PQ implementations (balanced BSTs, skip lists, etc.) as enrichment</li>
+<li><strong>Detailed</strong> accounting method vs potential method for amortised analysis (if not examined)</li>
+<li><strong>Thread-safety</strong>, iterator invalidation, and <strong>API</strong> design in real libraries</li>
+</ul>
+<hr>
+<h2 id="5-topic-interconnections-bigger-picture">5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE<a class="headerlink" href="#5-topic-interconnections-bigger-picture" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ADTs modularise</strong> algorithms: e.g. <strong>graph</strong> algorithms often need a <strong>queue</strong> (BFS), <strong>stack</strong> (DFS), <strong>priority queue</strong> (Dijkstra / Prim).</li>
+<li><strong>Analysis of algorithms</strong> attaches to <strong>implementations</strong>: the <strong>same</strong> ADT operation can be <strong><span class="arithmatex">\(O(1)\)</span></strong> or <strong><span class="arithmatex">\(O(n)\)</span></strong> depending on backing store — always ask <strong>“which representation?”</strong></li>
+<li><strong>Sorting</strong> connects to <strong>priority queues</strong>: <strong>heapsort</strong> is essentially <strong>PQ sort</strong> using a heap as the PQ implementation.</li>
+<li><strong>Hashing</strong> (maps/sets) reuses ideas from <strong>universal / good hash functions</strong> and <strong>load factors</strong>; collision resolution ties to <strong>lists</strong> or <strong>open addressing</strong> (arrays again).</li>
+<li><strong>Memory hierarchy:</strong> arrays are <strong>cache-friendly</strong> (contiguous access); linked lists can be <strong>pointer-chasing</strong> heavy — big-O is not the whole engineering story.</li>
+<li><strong>Abstract</strong> specification + <strong>concrete</strong> implementation is the same design pattern behind <strong>interfaces</strong> and <strong>classes</strong> in OOP.</li>
+</ul>
+<hr>
+<h2 id="6-exam-strategy-tips">6. EXAM STRATEGY TIPS<a class="headerlink" href="#6-exam-strategy-tips" title="Permanent link">¶</a></h2>
+<ul>
+<li>If a question names an <strong>ADT</strong>, <strong>list the operations</strong> and <strong>invariants</strong> first (e.g. <strong>LIFO</strong>), then discuss implementation — marks often go to <strong>correct behaviour</strong> before <strong>complexity</strong>.</li>
+<li>For <strong>complexity</strong>, state <strong>worst / amortised / average</strong> explicitly when relevant (especially <strong>hash tables</strong> and <strong>resizing arrays</strong>).</li>
+<li><strong>Queue + array</strong> questions: mention <strong>circular indices</strong> and <strong>why shifting fails</strong>.</li>
+<li><strong>Linked list</strong> questions: always check whether you have <strong><code>tail</code></strong>, <strong>doubly linked</strong> links, or a pointer to <strong>predecessor</strong> — these change <strong>delete</strong> and <strong>append</strong> answers.</li>
+<li><strong>Compare two implementations</strong> using a <strong>small table</strong> (time for each core op, memory overhead, cache locality) — examiners like structured comparisons.</li>
+<li>When citing <strong>Java</strong> examples, treat them as <strong>illustrative</strong>; tie each back to the <strong>underlying</strong> data structure (<strong>array</strong>, <strong>doubly linked</strong>, <strong>hash table</strong>, <strong>heap</strong>).</li>
+</ul>
+<hr>
+<p><em>These notes align with standard COMP0005 treatments of ADTs and basic implementations; follow your lecturer’s exact operation lists and complexity conventions if they differ.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

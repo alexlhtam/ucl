@@ -1,0 +1,5009 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Year 1 Computer Science notes — UCL">
+      
+      
+        <meta name="author" content="Alex Tam">
+      
+      
+        <link rel="canonical" href="https://alexlhtam.github.io/ucl/year1/comp0147/DIAGRAM_PACK/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>DIAGRAM_PACK — COMP0147 Discrete Mathematics - Alex's UCL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#diagram_pack-comp0147-discrete-mathematics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Alex's UCL Notes" class="md-header__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex's UCL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DIAGRAM_PACK — COMP0147 Discrete Mathematics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../comp0005/cursor-notes/01-union-find/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Year 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Alex's UCL Notes" class="md-nav__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    Alex's UCL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Year 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Year 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms (COMP0005)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms (COMP0005)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0005/cursor-notes/01-union-find/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0005/cursor-notes/02-analysis-of-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis of Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0005/cursor-notes/06-abstract-data-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sorting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sorting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0005/cursor-notes/03-elementary-sorts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementary Sorts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0005/cursor-notes/04-mergesort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MergeSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0005/cursor-notes/05-quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QuickSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0005/cursor-notes/07-heaps-and-heapsort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heaps &amp; HeapSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../comp0005/demos/llrb-visualiser/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0005/cursor-notes/08-symbol-tables-and-bst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbol Tables &amp; BST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0005/cursor-notes/09-balanced-trees-and-hash-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balanced Trees &amp; Hash Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0005/cursor-notes/10-undirected-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undirected Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0005/cursor-notes/11-directed-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0005/cursor-notes/12-minimum-spanning-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Spanning Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0005/cursor-notes/13-shortest-paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shortest Paths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_5">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../comp0005/demos/rway-trie/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strings
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_5" id="__nav_2_1_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Strings
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0005/cursor-notes/14-string-sorting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String Sorting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0005/cursor-notes/15-tries-and-string-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tries &amp; String Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0005/demos/tst-trie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TST / 3-way trie (demo)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0005/cursor-notes/16-substring-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Substring Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0005/demos/kmp-visualiser/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KMP visualiser (demo)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OOP / Java (COMP0004)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OOP / Java (COMP0004)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0004/cursor-notes/01-intro-to-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0004/cursor-notes/02-core-java-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Java Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0004/cursor-notes/03-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Object-Oriented Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0004/cursor-notes/04-classes-objects-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes, Objects &amp; References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0004/cursor-notes/05-designing-with-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0004/cursor-notes/06-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0004/cursor-notes/07-interfaces-and-polymorphism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces &amp; Polymorphism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0004/cursor-notes/08-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0004/cursor-notes/09-file-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0004/cursor-notes/10-json-csv-and-records/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON, CSV &amp; Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0004/cursor-notes/11-packages-and-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages &amp; Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0004/cursor-notes/12-lambdas-and-streams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambdas &amp; Streams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0004/cursor-notes/13-web-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0004/cursor-notes/14-data-structures-in-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures in Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0004/cursor-notes/15-design-patterns-and-threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns &amp; Threads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory of Computation (COMP0003)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory of Computation (COMP0003)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formal Logic
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Formal Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0003/cursor-notes/logic/01-overview-and-history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview &amp; History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0003/cursor-notes/logic/02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0003/cursor-notes/logic/03-boolean-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boolean Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0003/cursor-notes/logic/04-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0003/cursor-notes/logic/05-proof-by-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof by Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0003/cursor-notes/logic/06-complete-induction-and-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Induction &amp; Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0003/cursor-notes/logic/07-modal-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modal Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automata
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Automata
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0003/cursor-notes/automata/01-dfas-and-regular-languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFAs &amp; Regular Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0003/cursor-notes/automata/02-nfas-and-dfa-equivalence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFAs &amp; DFA Equivalence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0003/cursor-notes/automata/03-closure-and-regular-expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closure &amp; Regular Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0003/cursor-notes/automata/04-pumping-lemma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0003/cursor-notes/automata/05-pushdown-automata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pushdown Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0003/cursor-notes/automata/06-context-free-grammars/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Free Grammars
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0003/cursor-notes/automata/07-pumping-lemma-for-cfls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma for CFLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0003/cursor-notes/automata/08-turing-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turing Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0003/cursor-notes/automata/09-decidability-and-undecidability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decidability &amp; Undecidability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics &amp; Statistics (COMP0011)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics &amp; Statistics (COMP0011)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algebra
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algebra
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0011/master-notes/complex-numbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complex Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0011/master-notes/polynomials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polynomials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0011/master-notes/vector-spaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Spaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0011/master-notes/matrices-linear-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matrices &amp; Linear Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculus
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Calculus
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0011/master-notes/calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Continuous Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0011/master-notes/sequences-and-series/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sequences &amp; Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0011/master-notes/differential-calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Differential Calculus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0011/master-notes/integral-calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integral Calculus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability &amp; Statistics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Probability &amp; Statistics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0011/cursor-notes/09-probabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probabilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comp0011/cursor-notes/10-statistics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discrete Maths (COMP0147)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Discrete Maths (COMP0147)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_1" id="__nav_2_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor-notes/01-numbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor-notes/02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor-notes/03-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_2" id="__nav_2_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Number Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Number Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor-notes/04-modular-arithmetic-and-primes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modular Arithmetic &amp; Primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_3" id="__nav_2_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proofs &amp; Induction
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Proofs &amp; Induction
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor-notes/05-proofs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof Techniques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor-notes/06-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematical Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor-notes/07-strong-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strong Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor-notes/08-recursion-and-structural-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recursion &amp; Structural Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_4" id="__nav_2_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sets &amp; Functions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sets &amp; Functions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor-notes/09-sets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor-notes/10-functions-and-sequences/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions &amp; Sequences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_5" id="__nav_2_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combinatorics &amp; Cardinality
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Combinatorics &amp; Cardinality
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor-notes/11-counting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Counting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor-notes/12-cardinality/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cardinality
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_6">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_6" id="__nav_2_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relations &amp; Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Relations &amp; Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor-notes/13-relations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor-notes/14-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-number-sets-venn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 — number-sets-venn
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-decimal-to-binary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 — decimal-to-binary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-logic-connectives-truth-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 — logic-connectives-truth-tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-implication-truth-table-visual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 — implication-truth-table-visual
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-quantifier-negation-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 — quantifier-negation-rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-euclidean-algorithm-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6 — euclidean-algorithm-example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-proof-techniques-flowchart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7 — proof-techniques-flowchart
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-induction-ladder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8 — induction-ladder
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-l-tiling-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9 — l-tiling-induction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-tower-of-hanoi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10 — tower-of-hanoi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-strong-vs-weak-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11 — strong-vs-weak-induction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-recursive-fibonacci-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12 — recursive-fibonacci-tree
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-set-operations-venn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13 — set-operations-venn
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-function-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14 — function-types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-pigeonhole-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15 — pigeonhole-principle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-counting-summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16 — counting-summary-table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-pascals-triangle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17 — pascals-triangle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-cantor-diagonal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18 — cantor-diagonal
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-rationals-countable-zigzag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19 — rationals-countable-zigzag
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-relation-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20 — relation-properties
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-equivalence-classes-partition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21 — equivalence-classes-partition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-hasse-diagram-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22 — hasse-diagram-example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-graph-types-taxonomy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23 — graph-types-taxonomy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-special-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24 — special-graphs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-graph-representations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25 — graph-representations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-connectivity-cut-vertex-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26 — connectivity-cut-vertex-bridge
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="diagram_pack-comp0147-discrete-mathematics">DIAGRAM_PACK — COMP0147 Discrete Mathematics<a class="headerlink" href="#diagram_pack-comp0147-discrete-mathematics" title="Permanent link">¶</a></h1>
+<blockquote>
+<p>This file is read by <strong>Agent 2</strong> to generate images.
+Each entry specifies one figure: its prompt, filename, save path, and where to embed it.</p>
+</blockquote>
+<hr>
+<h2 id="1-number-sets-venn">1 — number-sets-venn<a class="headerlink" href="#1-number-sets-venn" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>number-sets-venn</code></li>
+<li><strong>Image prompt</strong>: A clean, modern Venn-style diagram showing the nested containment of number sets. Concentric rounded rectangles (not circles) centred on the page. Innermost: <strong>N</strong> (natural numbers) in light green. Next layer: <strong>Z</strong> (integers) in light blue. Then <strong>Q</strong> (rationals) in light yellow. Then <strong>R</strong> (reals) in light orange. Mark the region R \ Q as <strong>I</strong> (irrationals) with a hatch pattern or distinct tint. Each region is labelled with the set symbol in bold sans-serif. Include a few representative elements in each region: 0, 1, 2 in N; −3 in Z; 1/2 in Q; √2, π in I. White background. No copyrighted material. Flat vector style with thin dark borders.</li>
+<li><strong>Filename</strong>: <code>number-sets-venn.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/number-sets-venn.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/01-numbers.md</code></li>
+<li>Section heading: <code>## Number Sets</code></li>
+<li>Markdown: <code>![Nested number sets: N ⊂ Z ⊂ Q ⊂ R, with irrationals I = R \ Q](../resources/number-sets-venn.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/number-sets-venn.png</code></li>
+<li><strong>Alt text</strong>: Nested number sets: N ⊂ Z ⊂ Q ⊂ R, with irrationals I = R \ Q</li>
+<li><strong>Priority</strong>: High</li>
+</ul>
+<hr>
+<h2 id="2-decimal-to-binary">2 — decimal-to-binary<a class="headerlink" href="#2-decimal-to-binary" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>decimal-to-binary</code></li>
+<li><strong>Image prompt</strong>: A step-by-step diagram showing the conversion of the decimal number 77 to binary using repeated division by 2. Left column shows the divisions: 77÷2=38 R1, 38÷2=19 R0, 19÷2=9 R1, 9÷2=4 R1, 4÷2=2 R0, 2÷2=1 R0, 1÷2=0 R1. Right side shows an arrow labelled "read remainders bottom-to-top" pointing to the result 1001101₂. Clean flat vector style, white background, dark text, remainders highlighted in blue circles, result in a green box.</li>
+<li><strong>Filename</strong>: <code>decimal-to-binary.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/decimal-to-binary.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/01-numbers.md</code></li>
+<li>Section heading: <code>## Binary Representation</code></li>
+<li>Markdown: <code>![Converting 77 to binary via repeated division by 2](../resources/decimal-to-binary.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/decimal-to-binary.png</code></li>
+<li><strong>Alt text</strong>: Converting 77 to binary via repeated division by 2</li>
+<li><strong>Priority</strong>: Medium</li>
+</ul>
+<hr>
+<h2 id="3-logic-connectives-truth-tables">3 — logic-connectives-truth-tables<a class="headerlink" href="#3-logic-connectives-truth-tables" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>logic-connectives-truth-tables</code></li>
+<li><strong>Image prompt</strong>: A single reference card showing truth tables for all five main propositional logic connectives side by side: NOT (¬p), AND (p∧q), OR (p∨q), XOR (p⊕q), IMPLIES (p→q), IFF (p↔q). Each connective has a small clearly labelled truth table with T/F values. Use a grid layout: 2 rows × 3 columns of small tables. Monospace font for T/F entries. Light pastel column headers. Clean flat vector style, white background, thin borders.</li>
+<li><strong>Filename</strong>: <code>logic-connectives-truth-tables.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/logic-connectives-truth-tables.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/02-propositional-logic.md</code></li>
+<li>Section heading: <code>## Connectives at a Glance</code></li>
+<li>Markdown: <code>![Truth tables for all main propositional logic connectives](../resources/logic-connectives-truth-tables.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/logic-connectives-truth-tables.png</code></li>
+<li><strong>Alt text</strong>: Truth tables for all main propositional logic connectives</li>
+<li><strong>Priority</strong>: High</li>
+</ul>
+<hr>
+<h2 id="4-implication-truth-table-visual">4 — implication-truth-table-visual<a class="headerlink" href="#4-implication-truth-table-visual" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>implication-truth-table-visual</code></li>
+<li><strong>Image prompt</strong>: A 2×2 grid visualisation of the implication p→q truth table. Top-left cell (P true, Q true): green check "TRUE". Top-right cell (P true, Q false): red cross "FALSE — only case where implication fails". Bottom-left cell (P false, Q true): green check "TRUE". Bottom-right cell (P false, Q false): green check "TRUE". Row header "P" on left, column header "Q" on top. Annotation: "Implication is only false when P is true but Q is false." Clean, minimal, pastel colours, no copyrighted material.</li>
+<li><strong>Filename</strong>: <code>implication-truth-table-visual.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/implication-truth-table-visual.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/02-propositional-logic.md</code></li>
+<li>Section heading: <code>## Implication</code></li>
+<li>Markdown: <code>![Visual truth table for implication: only false when P true and Q false](../resources/implication-truth-table-visual.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/implication-truth-table-visual.png</code></li>
+<li><strong>Alt text</strong>: Visual truth table for implication: only false when P true and Q false</li>
+<li><strong>Priority</strong>: Medium</li>
+</ul>
+<hr>
+<h2 id="5-quantifier-negation-rules">5 — quantifier-negation-rules<a class="headerlink" href="#5-quantifier-negation-rules" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>quantifier-negation-rules</code></li>
+<li><strong>Image prompt</strong>: A compact reference card showing De Morgan's laws for quantifiers. Two rows. Row 1: ¬(∀x P(x)) ≡ ∃x ¬P(x), with a left arrow labelled "flip ∀→∃, negate inside". Row 2: ¬(∃x P(x)) ≡ ∀x ¬P(x), with a left arrow labelled "flip ∃→∀, negate inside". Also show the consequence forms: ∀x P(x) ≡ ¬∃x ¬P(x) and ∃x P(x) ≡ ¬∀x ¬P(x). Use large clear mathematical notation, blue accent arrows, white background, flat vector style.</li>
+<li><strong>Filename</strong>: <code>quantifier-negation-rules.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/quantifier-negation-rules.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/03-first-order-logic.md</code></li>
+<li>Section heading: <code>## Negating Quantifiers</code></li>
+<li>Markdown: <code>![De Morgan's laws for quantifiers: negation flips ∀↔∃](../resources/quantifier-negation-rules.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/quantifier-negation-rules.png</code></li>
+<li><strong>Alt text</strong>: De Morgan's laws for quantifiers: negation flips ∀↔∃</li>
+<li><strong>Priority</strong>: High</li>
+</ul>
+<hr>
+<h2 id="6-euclidean-algorithm-example">6 — euclidean-algorithm-example<a class="headerlink" href="#6-euclidean-algorithm-example" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>euclidean-algorithm-example</code></li>
+<li><strong>Image prompt</strong>: A step-by-step diagram of the Euclidean algorithm computing gcd(1234, 54). Show each division step as a row: 1234 = 54×22 + 46, then 54 = 46×1 + 8, then 46 = 8×5 + 6, then 8 = 6×1 + 2, then 6 = 2×3 + 0. Highlight the final nonzero remainder (2) in a green box with label "gcd(1234,54) = 2". Use arrows connecting each remainder to the next step's divisor. Clean flat vector style, white background.</li>
+<li><strong>Filename</strong>: <code>euclidean-algorithm-example.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/euclidean-algorithm-example.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/04-modular-arithmetic-and-primes.md</code></li>
+<li>Section heading: <code>## Euclidean Algorithm</code></li>
+<li>Markdown: <code>![Euclidean algorithm computing gcd(1234, 54) = 2](../resources/euclidean-algorithm-example.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/euclidean-algorithm-example.png</code></li>
+<li><strong>Alt text</strong>: Euclidean algorithm computing gcd(1234, 54) = 2</li>
+<li><strong>Priority</strong>: Medium</li>
+</ul>
+<hr>
+<h2 id="7-proof-techniques-flowchart">7 — proof-techniques-flowchart<a class="headerlink" href="#7-proof-techniques-flowchart" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>proof-techniques-flowchart</code></li>
+<li><strong>Image prompt</strong>: A decision flowchart for choosing proof techniques. Start node: "What are you proving?". Branch 1: "∀x P(x)→Q(x)" leads to choices: "Direct proof (assume P, show Q)", "Contraposition (assume ¬Q, show ¬P)", "Contradiction (assume P∧¬Q, derive absurdity)". Branch 2: "∃x P(x)" leads to "Constructive (find witness)" or "Non-constructive (indirect)". Branch 3: "Disprove ∀x P(x)" leads to "Find counterexample". Branch 4: "P₁∨P₂∨...→Q" leads to "Case analysis". Each leaf node is in a coloured rounded box. Clean flowchart style, no copyrighted material, flat vector, white background.</li>
+<li><strong>Filename</strong>: <code>proof-techniques-flowchart.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/proof-techniques-flowchart.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/05-proofs.md</code></li>
+<li>Section heading: <code>## Choosing a Proof Technique</code></li>
+<li>Markdown: <code>![Flowchart for choosing the right proof technique](../resources/proof-techniques-flowchart.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/proof-techniques-flowchart.png</code></li>
+<li><strong>Alt text</strong>: Flowchart for choosing the right proof technique</li>
+<li><strong>Priority</strong>: High</li>
+</ul>
+<hr>
+<h2 id="8-induction-ladder">8 — induction-ladder<a class="headerlink" href="#8-induction-ladder" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>induction-ladder</code></li>
+<li><strong>Image prompt</strong>: A diagram of an infinite ladder extending upward. The bottom rung is labelled "Base case P(1) ✓". The second rung has an arrow from the first rung labelled "P(1)→P(2)". The third rung has an arrow from the second labelled "P(2)→P(3)", and so on with "..." continuing upward. A bracket on the right side says "Inductive step: P(k)→P(k+1) for all k". The conclusion at the top says "∴ P(n) for all n ≥ 1". Light blue ladder, gold rungs, green checks on reached rungs. Clean flat vector, white background.</li>
+<li><strong>Filename</strong>: <code>induction-ladder.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/induction-ladder.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/06-induction.md</code></li>
+<li>Section heading: <code>## The Principle</code></li>
+<li>Markdown: <code>![Induction as climbing an infinite ladder: base case + inductive step](../resources/induction-ladder.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/induction-ladder.png</code></li>
+<li><strong>Alt text</strong>: Induction as climbing an infinite ladder: base case + inductive step</li>
+<li><strong>Priority</strong>: High</li>
+</ul>
+<hr>
+<h2 id="9-l-tiling-induction">9 — l-tiling-induction<a class="headerlink" href="#9-l-tiling-induction" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>l-tiling-induction</code></li>
+<li><strong>Image prompt</strong>: A 6-panel diagram showing the inductive step for L-shaped tiling of a 2^(k+1) × 2^(k+1) board. Panel (a): the full board with one square removed. Panel (b): board divided into four 2^k × 2^k quadrants. Panel (c): the quadrant containing the removed square is tiled by I.H. Panel (d): one square temporarily removed from each of the other three quadrants (at the shared centre corner). Panel (e): each of those three quadrants tiled by I.H. Panel (f): the three removed centre squares filled with one L-shaped piece. Use distinct pastel colours for different quadrants; show the L-piece in red. Grid lines visible. Clean flat vector, white background, no copyrighted material.</li>
+<li><strong>Filename</strong>: <code>l-tiling-induction.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/l-tiling-induction.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/06-induction.md</code></li>
+<li>Section heading: <code>### L-Shaped Tiling</code></li>
+<li>Markdown: <code>![Inductive step for L-shaped tiling: divide, apply I.H., fill centre with one L-piece](../resources/l-tiling-induction.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/l-tiling-induction.png</code></li>
+<li><strong>Alt text</strong>: Inductive step for L-shaped tiling: divide, apply I.H., fill centre with one L-piece</li>
+<li><strong>Priority</strong>: Medium</li>
+</ul>
+<hr>
+<h2 id="10-tower-of-hanoi">10 — tower-of-hanoi<a class="headerlink" href="#10-tower-of-hanoi" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>tower-of-hanoi</code></li>
+<li><strong>Image prompt</strong>: A diagram of the Tower of Hanoi with 3 pegs labelled A, B, C and 4 disks of decreasing size stacked on peg A. Show the three-step strategy as annotated arrows: (1) "Move top k disks A→B (2^k − 1 moves)", (2) "Move largest disk A→C (1 move)", (3) "Move k disks B→C (2^k − 1 moves)". Total label: "M(k+1) = 2·M(k) + 1 = 2^(k+1) − 1". Wooden-style pegs, coloured disks (blue, green, yellow, red from top to bottom). Clean flat vector, white background.</li>
+<li><strong>Filename</strong>: <code>tower-of-hanoi.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/tower-of-hanoi.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/06-induction.md</code></li>
+<li>Section heading: <code>### Tower of Hanoi</code></li>
+<li>Markdown: <code>![Tower of Hanoi: recursive strategy for n disks requires 2^n − 1 moves](../resources/tower-of-hanoi.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/tower-of-hanoi.png</code></li>
+<li><strong>Alt text</strong>: Tower of Hanoi: recursive strategy for n disks requires 2^n − 1 moves</li>
+<li><strong>Priority</strong>: Medium</li>
+</ul>
+<hr>
+<h2 id="11-strong-vs-weak-induction">11 — strong-vs-weak-induction<a class="headerlink" href="#11-strong-vs-weak-induction" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>strong-vs-weak-induction</code></li>
+<li><strong>Image prompt</strong>: A side-by-side comparison diagram. Left side: "Weak Induction" — a chain of dominoes where each domino topples only the next one. Arrow from P(k) to P(k+1). Right side: "Strong Induction" — a chain where ALL previous dominoes are used: arrows from P(1), P(2), ..., P(k) all pointing to P(k+1). Caption below weak: "I.H.: P(k) is true". Caption below strong: "I.H.: P(1)∧P(2)∧...∧P(k) are all true". Clean flat vector, pastel colours, white background.</li>
+<li><strong>Filename</strong>: <code>strong-vs-weak-induction.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/strong-vs-weak-induction.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/07-strong-induction.md</code></li>
+<li>Section heading: <code>## Weak vs Strong Induction</code></li>
+<li>Markdown: <code>![Weak induction uses P(k); strong induction uses P(1)∧...∧P(k)](../resources/strong-vs-weak-induction.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/strong-vs-weak-induction.png</code></li>
+<li><strong>Alt text</strong>: Weak induction uses P(k); strong induction uses P(1)∧...∧P(k)</li>
+<li><strong>Priority</strong>: High</li>
+</ul>
+<hr>
+<h2 id="12-recursive-fibonacci-tree">12 — recursive-fibonacci-tree<a class="headerlink" href="#12-recursive-fibonacci-tree" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>recursive-fibonacci-tree</code></li>
+<li><strong>Image prompt</strong>: A call tree diagram for computing Fibonacci f(5). Root node "f(5)" branches to "f(4)" and "f(3)". "f(4)" branches to "f(3)" and "f(2)". Each "f(3)" branches to "f(2)" and "f(1)". Each "f(2)" branches to "f(1)" and "f(0)". Leaf nodes f(1)=1 and f(0)=1 are shown in green. Repeated subtrees (like f(3) appearing twice) highlighted with a dashed border and note "computed twice". Clean tree layout, flat vector style, white background.</li>
+<li><strong>Filename</strong>: <code>recursive-fibonacci-tree.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/recursive-fibonacci-tree.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/08-recursion-and-structural-induction.md</code></li>
+<li>Section heading: <code>## Recursive Functions</code></li>
+<li>Markdown: <code>![Recursive call tree for Fibonacci f(5), showing repeated subproblems](../resources/recursive-fibonacci-tree.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/recursive-fibonacci-tree.png</code></li>
+<li><strong>Alt text</strong>: Recursive call tree for Fibonacci f(5), showing repeated subproblems</li>
+<li><strong>Priority</strong>: Medium</li>
+</ul>
+<hr>
+<h2 id="13-set-operations-venn">13 — set-operations-venn<a class="headerlink" href="#13-set-operations-venn" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>set-operations-venn</code></li>
+<li><strong>Image prompt</strong>: A 2×3 grid of Venn diagrams showing the six main set operations. Each diagram has two overlapping circles A and B inside a rectangle U (universal set). Shaded regions: (1) A∪B — both circles shaded. (2) A∩B — overlap shaded. (3) A−B — A minus overlap shaded. (4) A^c — everything outside A shaded. (5) A△B (symmetric difference) — both circles minus overlap shaded. (6) A×B conceptual — not a Venn, instead show a grid of pairs. Labels under each. Consistent pastel blue/pink colouring for A and B. Clean flat vector, white background.</li>
+<li><strong>Filename</strong>: <code>set-operations-venn.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/set-operations-venn.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/09-sets.md</code></li>
+<li>Section heading: <code>## Set Operations</code></li>
+<li>Markdown: <code>![Venn diagrams for union, intersection, difference, complement, and symmetric difference](../resources/set-operations-venn.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/set-operations-venn.png</code></li>
+<li><strong>Alt text</strong>: Venn diagrams for union, intersection, difference, complement, and symmetric difference</li>
+<li><strong>Priority</strong>: High</li>
+</ul>
+<hr>
+<h2 id="14-function-types">14 — function-types<a class="headerlink" href="#14-function-types" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>function-types</code></li>
+<li><strong>Image prompt</strong>: Three side-by-side arrow diagrams showing injective, surjective, and bijective functions. Each shows a set A on the left (3-4 dots labelled a₁,a₂,...) and set B on the right (3-4 dots labelled b₁,b₂,...) with arrows mapping A to B. (1) Injective: each element of A maps to a different element of B; one element of B has no arrow. Label: "Injective (one-to-one)". (2) Surjective: every element of B has at least one arrow; two elements of A map to the same b. Label: "Surjective (onto)". (3) Bijective: perfect pairing, each a maps to exactly one unique b. Label: "Bijective". Clean flat vector, pastel colours, white background.</li>
+<li><strong>Filename</strong>: <code>function-types.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/function-types.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/10-functions-and-sequences.md</code></li>
+<li>Section heading: <code>## Injective, Surjective, Bijective</code></li>
+<li>Markdown: <code>![Arrow diagrams: injective, surjective, and bijective functions](../resources/function-types.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/function-types.png</code></li>
+<li><strong>Alt text</strong>: Arrow diagrams: injective, surjective, and bijective functions</li>
+<li><strong>Priority</strong>: High</li>
+</ul>
+<hr>
+<h2 id="15-pigeonhole-principle">15 — pigeonhole-principle<a class="headerlink" href="#15-pigeonhole-principle" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>pigeonhole-principle</code></li>
+<li><strong>Image prompt</strong>: A cartoon-style diagram illustrating the pigeonhole principle. Show 5 colourful pigeons trying to fit into 4 pigeonholes (small house-shaped boxes). One box clearly has 2 pigeons squeezed in together. Text label: "k+1 objects into k boxes → at least one box has ≥ 2 objects". For the generalised version below: "N objects into k boxes → at least one box has ≥ ⌈N/k⌉ objects". Friendly, clean flat illustration style, white background, no copyrighted material.</li>
+<li><strong>Filename</strong>: <code>pigeonhole-principle.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/pigeonhole-principle.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/11-counting.md</code></li>
+<li>Section heading: <code>## Pigeonhole Principle</code></li>
+<li>Markdown: <code>![Pigeonhole principle: k+1 pigeons in k holes means at least one hole has two](../resources/pigeonhole-principle.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/pigeonhole-principle.png</code></li>
+<li><strong>Alt text</strong>: Pigeonhole principle: k+1 pigeons in k holes means at least one hole has two</li>
+<li><strong>Priority</strong>: High</li>
+</ul>
+<hr>
+<h2 id="16-counting-summary-table">16 — counting-summary-table<a class="headerlink" href="#16-counting-summary-table" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>counting-summary-table</code></li>
+<li><strong>Image prompt</strong>: A clean 2×2 summary table for counting formulas. Rows: "Without repetition" and "With repetition". Columns: "Order matters (Permutations)" and "Order doesn't matter (Combinations)". Cell contents: (1) P(n,r)=n!/(n−r)!, (2) C(n,r)=n!/(r!(n−r)!), (3) nʳ, (4) C(n+r−1,r). Each cell has the formula in large text and a short label. Use distinct pastel colours for each cell. Clean flat vector, white background.</li>
+<li><strong>Filename</strong>: <code>counting-summary-table.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/counting-summary-table.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/11-counting.md</code></li>
+<li>Section heading: <code>## Summary</code></li>
+<li>Markdown: <code>![Counting formulas: permutations and combinations with/without repetition](../resources/counting-summary-table.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/counting-summary-table.png</code></li>
+<li><strong>Alt text</strong>: Counting formulas: permutations and combinations with/without repetition</li>
+<li><strong>Priority</strong>: High</li>
+</ul>
+<hr>
+<h2 id="17-pascals-triangle">17 — pascals-triangle<a class="headerlink" href="#17-pascals-triangle" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>pascals-triangle</code></li>
+<li><strong>Image prompt</strong>: Pascal's Triangle showing the first 7 rows (row 0 through row 6). Each entry is the binomial coefficient C(n,k). Entries arranged in a triangular pattern centred horizontally. Row 0: 1. Row 1: 1 1. Row 2: 1 2 1. Row 3: 1 3 3 1. Row 4: 1 4 6 4 1. Row 5: 1 5 10 10 5 1. Row 6: 1 6 15 20 15 6 1. Light connecting lines showing that each number is the sum of the two above it. Label the rows n=0,1,...,6 on the left. Clean flat vector, numbers in dark text on white circles, white background.</li>
+<li><strong>Filename</strong>: <code>pascals-triangle.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/pascals-triangle.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/11-counting.md</code></li>
+<li>Section heading: <code>## Pascal's Triangle</code></li>
+<li>Markdown: <code>![Pascal's Triangle rows 0–6, each entry is C(n,k)](../resources/pascals-triangle.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/pascals-triangle.png</code></li>
+<li><strong>Alt text</strong>: Pascal's Triangle rows 0–6, each entry is C(n,k)</li>
+<li><strong>Priority</strong>: Medium</li>
+</ul>
+<hr>
+<h2 id="18-cantor-diagonal">18 — cantor-diagonal<a class="headerlink" href="#18-cantor-diagonal" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>cantor-diagonal</code></li>
+<li><strong>Image prompt</strong>: A diagram illustrating Cantor's diagonal argument. Show a table with rows r₁, r₂, r₃, r₄, ... and columns representing decimal/binary digits. Each row is a real number in [0,1) written as a sequence of digits. The diagonal entries (r₁₁, r₂₂, r₃₃, r₄₄, ...) are highlighted in red. Below the table, construct the number s by flipping each diagonal digit (e.g. 0→1, 1→0). Annotation: "s differs from rₙ in the n-th digit → s is not in the list → contradiction". Clean flat vector style, white background, red highlighting on diagonal.</li>
+<li><strong>Filename</strong>: <code>cantor-diagonal.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/cantor-diagonal.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/12-cardinality.md</code></li>
+<li>Section heading: <code>## R Is Uncountable</code></li>
+<li>Markdown: <code>![Cantor's diagonal argument: constructing a real not in any enumeration](../resources/cantor-diagonal.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/cantor-diagonal.png</code></li>
+<li><strong>Alt text</strong>: Cantor's diagonal argument: constructing a real not in any enumeration</li>
+<li><strong>Priority</strong>: High</li>
+</ul>
+<hr>
+<h2 id="19-rationals-countable-zigzag">19 — rationals-countable-zigzag<a class="headerlink" href="#19-rationals-countable-zigzag" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>rationals-countable-zigzag</code></li>
+<li><strong>Image prompt</strong>: A table/grid with rows labelled by numerators (0, 1, −1, 2, −2, ...) and columns labelled by denominators (1, 2, 3, 4, 5, ...). Each cell shows the fraction numerator/denominator. A zig-zag path (Cantor pairing) winds through the grid, enumerating rationals in order: 0/1, 1/1, −1/1, 1/2, −1/2, 2/1, −2/1, ... Cells with non-simplified fractions (like 2/2, 3/3) are crossed out. The zig-zag path is drawn in blue with numbered steps. Clean flat vector, white background.</li>
+<li><strong>Filename</strong>: <code>rationals-countable-zigzag.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/rationals-countable-zigzag.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/12-cardinality.md</code></li>
+<li>Section heading: <code>## Q Is Countable</code></li>
+<li>Markdown: <code>![Zig-zag enumeration showing the rationals are countable](../resources/rationals-countable-zigzag.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/rationals-countable-zigzag.png</code></li>
+<li><strong>Alt text</strong>: Zig-zag enumeration showing the rationals are countable</li>
+<li><strong>Priority</strong>: Medium</li>
+</ul>
+<hr>
+<h2 id="20-relation-properties">20 — relation-properties<a class="headerlink" href="#20-relation-properties" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>relation-properties</code></li>
+<li><strong>Image prompt</strong>: A 2×2 grid of small directed graphs (digraphs) on 3 nodes {1,2,3}, each illustrating one relation property. (1) Reflexive: loops on all 3 vertices, plus some other edges. Label "Reflexive: loop on every vertex". (2) Symmetric: for every edge u→v, there is also v→u (double-headed arrows). Label "Symmetric: all edges bidirectional". (3) Antisymmetric: no pair of distinct vertices has edges in both directions. Label "Antisymmetric: no two-way edges between distinct vertices". (4) Transitive: if 1→2 and 2→3 then 1→3 exists. Label "Transitive: indirect path implies direct edge". Clean flat vector, distinct pastel background for each, white overall background.</li>
+<li><strong>Filename</strong>: <code>relation-properties.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/relation-properties.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/13-relations.md</code></li>
+<li>Section heading: <code>## Properties of Relations</code></li>
+<li>Markdown: <code>![Four key relation properties illustrated as digraphs: reflexive, symmetric, antisymmetric, transitive](../resources/relation-properties.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/relation-properties.png</code></li>
+<li><strong>Alt text</strong>: Four key relation properties illustrated as digraphs: reflexive, symmetric, antisymmetric, transitive</li>
+<li><strong>Priority</strong>: High</li>
+</ul>
+<hr>
+<h2 id="21-equivalence-classes-partition">21 — equivalence-classes-partition<a class="headerlink" href="#21-equivalence-classes-partition" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>equivalence-classes-partition</code></li>
+<li><strong>Image prompt</strong>: A diagram showing a set A = {2, 3, 4, 6, 7, 9} partitioned into three equivalence classes by congruence modulo 3. Three distinct coloured regions (blobs): green blob contains {3, 6, 9} labelled "[0] — remainder 0"; blue blob contains {4, 7} labelled "[1] — remainder 1"; pink blob contains {2} labelled "[2] — remainder 2". Within each blob, elements are connected by edges showing they are related. Outside the blobs, the universal set boundary is drawn. Caption: "Equivalence classes partition the set into disjoint subsets". Clean flat vector, white background.</li>
+<li><strong>Filename</strong>: <code>equivalence-classes-partition.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/equivalence-classes-partition.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/13-relations.md</code></li>
+<li>Section heading: <code>## Equivalence Classes and Partitions</code></li>
+<li>Markdown: <code>![Equivalence classes of mod 3 partitioning {2,3,4,6,7,9}](../resources/equivalence-classes-partition.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/equivalence-classes-partition.png</code></li>
+<li><strong>Alt text</strong>: Equivalence classes of mod 3 partitioning {2,3,4,6,7,9}</li>
+<li><strong>Priority</strong>: Medium</li>
+</ul>
+<hr>
+<h2 id="22-hasse-diagram-example">22 — hasse-diagram-example<a class="headerlink" href="#22-hasse-diagram-example" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>hasse-diagram-example</code></li>
+<li><strong>Image prompt</strong>: Two diagrams side by side for the poset ({1,2,3,9,18}, divides). Left: the full directed graph with all divisibility edges (1→2, 1→3, 1→9, 1→18, 2→18, 3→9, 3→18, 9→18) plus loops. Right: the simplified Hasse diagram — same set arranged vertically with 1 at bottom, 18 at top; edges only between 1-2, 1-3, 2-18, 3-9, 9-18; no loops, no transitive edges, no arrows (upward implicit). Clearly labelled "Directed graph" and "Hasse diagram". Clean flat vector, white background.</li>
+<li><strong>Filename</strong>: <code>hasse-diagram-example.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/hasse-diagram-example.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/13-relations.md</code></li>
+<li>Section heading: <code>## Hasse Diagrams</code></li>
+<li>Markdown: <code>![Divisibility poset on {1,2,3,9,18}: full digraph vs simplified Hasse diagram](../resources/hasse-diagram-example.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/hasse-diagram-example.png</code></li>
+<li><strong>Alt text</strong>: Divisibility poset on {1,2,3,9,18}: full digraph vs simplified Hasse diagram</li>
+<li><strong>Priority</strong>: Medium</li>
+</ul>
+<hr>
+<h2 id="23-graph-types-taxonomy">23 — graph-types-taxonomy<a class="headerlink" href="#23-graph-types-taxonomy" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>graph-types-taxonomy</code></li>
+<li><strong>Image prompt</strong>: A visual taxonomy of graph types as a grid. Six small example graphs, each clearly labelled. (1) Simple graph: 3 vertices, simple edges, no loops, no multi-edges. (2) Multigraph: 3 vertices with double edges between a pair. (3) Pseudograph: 2 vertices with a loop and multi-edges. (4) Simple directed graph: 3 vertices with one-way arrows. (5) Directed multigraph: directed with multiple same-direction edges and a loop. (6) Mixed graph: has both directed and undirected edges. Below: a summary table row showing Type / Edges / Multi-Edges? / Loops?. Clean flat vector, white background, each graph in its own box.</li>
+<li><strong>Filename</strong>: <code>graph-types-taxonomy.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/graph-types-taxonomy.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/14-graphs.md</code></li>
+<li>Section heading: <code>## Types of Graphs</code></li>
+<li>Markdown: <code>![Taxonomy of graph types: simple, multi, pseudo, directed, mixed](../resources/graph-types-taxonomy.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/graph-types-taxonomy.png</code></li>
+<li><strong>Alt text</strong>: Taxonomy of graph types: simple, multi, pseudo, directed, mixed</li>
+<li><strong>Priority</strong>: High</li>
+</ul>
+<hr>
+<h2 id="24-special-graphs">24 — special-graphs<a class="headerlink" href="#24-special-graphs" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>special-graphs</code></li>
+<li><strong>Image prompt</strong>: A row of four small labelled graphs showing special graph families. (1) K₅ — complete graph on 5 vertices, all edges drawn. (2) C₆ — cycle on 6 vertices. (3) W₅ — wheel graph (C₄ + hub). (4) K₂,₃ — complete bipartite graph with 2 vertices top and 3 vertices bottom, all cross-edges. Each graph clearly labelled with its name. Vertices as filled circles, edges as thin lines. Clean flat vector, white background.</li>
+<li><strong>Filename</strong>: <code>special-graphs.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/special-graphs.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/14-graphs.md</code></li>
+<li>Section heading: <code>## Special Graphs</code></li>
+<li>Markdown: <code>![Special graphs: K₅, C₆, W₅, K₂,₃](../resources/special-graphs.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/special-graphs.png</code></li>
+<li><strong>Alt text</strong>: Special graphs: K₅, C₆, W₅, K₂,₃</li>
+<li><strong>Priority</strong>: Medium</li>
+</ul>
+<hr>
+<h2 id="25-graph-representations">25 — graph-representations<a class="headerlink" href="#25-graph-representations" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>graph-representations</code></li>
+<li><strong>Image prompt</strong>: Three representations of the same simple graph G with 5 vertices {a,b,c,d,e} and edges {ab, ac, bd, be, cd, de}. Left panel: the graph drawn visually as a node-link diagram. Centre panel: adjacency list (table with vertex → list of neighbours). Right panel: 5×5 adjacency matrix with 0s and 1s. All three clearly labelled "Graph", "Adjacency List", "Adjacency Matrix". Clean flat vector, white background, thin borders.</li>
+<li><strong>Filename</strong>: <code>graph-representations.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/graph-representations.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/14-graphs.md</code></li>
+<li>Section heading: <code>## Representations</code></li>
+<li>Markdown: <code>![Three representations of a graph: visual, adjacency list, adjacency matrix](../resources/graph-representations.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/graph-representations.png</code></li>
+<li><strong>Alt text</strong>: Three representations of a graph: visual, adjacency list, adjacency matrix</li>
+<li><strong>Priority</strong>: Medium</li>
+</ul>
+<hr>
+<h2 id="26-connectivity-cut-vertex-bridge">26 — connectivity-cut-vertex-bridge<a class="headerlink" href="#26-connectivity-cut-vertex-bridge" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>ID</strong>: <code>connectivity-cut-vertex-bridge</code></li>
+<li><strong>Image prompt</strong>: A connected graph with about 8 vertices. Two vertices are circled in red and labelled "Cut vertex" (their removal disconnects the graph). One edge is highlighted in red and labelled "Bridge" (its removal disconnects the graph). Show the graph intact on the left and the graph with a cut vertex removed on the right (now disconnected into two components). Clean flat vector, white background.</li>
+<li><strong>Filename</strong>: <code>connectivity-cut-vertex-bridge.png</code></li>
+<li><strong>Save path</strong>: <code>ucl/year1/comp0147/resources/connectivity-cut-vertex-bridge.png</code></li>
+<li><strong>Embed in</strong>:</li>
+<li>File: <code>ucl/year1/comp0147/cursor-notes/14-graphs.md</code></li>
+<li>Section heading: <code>## Connectivity</code></li>
+<li>Markdown: <code>![Cut vertices and bridges: removing them disconnects the graph](../resources/connectivity-cut-vertex-bridge.png)</code></li>
+<li><strong>Relative path from .md</strong>: <code>../resources/connectivity-cut-vertex-bridge.png</code></li>
+<li><strong>Alt text</strong>: Cut vertices and bridges: removing them disconnects the graph</li>
+<li><strong>Priority</strong>: Medium</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

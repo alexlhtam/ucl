@@ -1,0 +1,5353 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Year 1 Computer Science notes — UCL">
+      
+      
+        <meta name="author" content="Alex Tam">
+      
+      
+        <link rel="canonical" href="https://alexlhtam.github.io/ucl/year1/comp0003/cursor-notes/automata/07-pumping-lemma-for-cfls/">
+      
+      
+        <link rel="prev" href="../06-context-free-grammars/">
+      
+      
+        <link rel="next" href="../08-turing-machines/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Pumping Lemma for CFLs - Alex's UCL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pumping-lemma-for-context-free-languages-comp0003-automata" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-header__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex's UCL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Pumping Lemma for CFLs
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Year 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-nav__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    Alex's UCL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Year 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Year 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms (COMP0005)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms (COMP0005)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/02-analysis-of-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis of Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/06-abstract-data-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sorting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sorting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/03-elementary-sorts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementary Sorts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/04-mergesort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MergeSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/05-quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QuickSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/07-heaps-and-heapsort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heaps &amp; HeapSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../comp0005/demos/llrb-visualiser/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/08-symbol-tables-and-bst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbol Tables &amp; BST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/09-balanced-trees-and-hash-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balanced Trees &amp; Hash Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/10-undirected-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undirected Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/11-directed-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/12-minimum-spanning-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Spanning Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/13-shortest-paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shortest Paths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_5">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../comp0005/demos/rway-trie/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strings
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_5" id="__nav_2_1_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Strings
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/14-string-sorting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String Sorting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/15-tries-and-string-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tries &amp; String Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/demos/tst-trie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TST / 3-way trie (demo)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/16-substring-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Substring Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/demos/kmp-visualiser/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KMP visualiser (demo)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OOP / Java (COMP0004)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OOP / Java (COMP0004)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/01-intro-to-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/02-core-java-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Java Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/03-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Object-Oriented Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/04-classes-objects-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes, Objects &amp; References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/05-designing-with-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/06-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/07-interfaces-and-polymorphism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces &amp; Polymorphism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/08-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/09-file-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/10-json-csv-and-records/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON, CSV &amp; Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/11-packages-and-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages &amp; Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/12-lambdas-and-streams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambdas &amp; Streams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/13-web-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/14-data-structures-in-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures in Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/15-design-patterns-and-threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns &amp; Threads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory of Computation (COMP0003)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory of Computation (COMP0003)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formal Logic
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Formal Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/01-overview-and-history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview &amp; History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/03-boolean-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boolean Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/04-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/05-proof-by-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof by Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/06-complete-induction-and-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Induction &amp; Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/07-modal-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modal Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automata
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Automata
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-dfas-and-regular-languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFAs &amp; Regular Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-nfas-and-dfa-equivalence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFAs &amp; DFA Equivalence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-closure-and-regular-expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closure &amp; Regular Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-pumping-lemma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-pushdown-automata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pushdown Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-context-free-grammars/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Free Grammars
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma for CFLs
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma for CFLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parse-trees-visual-foundation-for-the-lemma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parse trees — visual foundation for the lemma
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ambiguity-brief-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ambiguity (brief context)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statement-of-the-pumping-lemma-for-cfls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statement of the pumping lemma for CFLs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proof-of-the-pumping-lemma-parse-tree-argument" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proof of the pumping lemma — parse-tree argument
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proof of the pumping lemma — parse-tree argument">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-a-long-string-forces-a-repeated-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why a long string forces a repeated variable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identifying-the-pieces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Identifying the pieces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pumping-up-duplicating-upper-rs-subtree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pumping up — duplicating upper R's subtree
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pumping-down-replacing-upper-r-with-lower-rs-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pumping down — replacing upper R with lower R's decisions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-vy-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why |vy| &gt; 0
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-vxy-p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why |vxy| ≤ p
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-contrapositive-to-prove-non-cfl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using the contrapositive to prove non-CFL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-1-an-bn-cn-n-0-is-not-cfl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1 — a^n b^n c^n (n ≥ 0) is not CFL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-ww-over-01-is-not-cfl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2 — ww over {0,1} is not CFL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-ai-bj-ck-with-i-j-k-is-not-cfl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3 — a^i b^j c^k with i ≤ j ≤ k is not CFL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfl-vs-non-cfl-comparison-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CFL vs non-CFL comparison table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-class-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Language class hierarchy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-state-the-pumping-lemma-for-cfls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — State the pumping lemma for CFLs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-why-does-vy-0-hold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Why does |vy| &gt; 0 hold?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-prove-an-bn-cn-n-0-is-not-cfl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Prove a^n b^n c^n (n ≥ 0) is not CFL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-prove-ww-over-01-is-not-cfl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Prove ww over {0,1} is not CFL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-cfl-vs-non-cfl-and-the-role-of-the-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — CFL vs non-CFL and the role of the stack
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-turing-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turing Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-decidability-and-undecidability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decidability &amp; Undecidability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics &amp; Statistics (COMP0011)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics &amp; Statistics (COMP0011)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algebra
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algebra
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/complex-numbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complex Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/polynomials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polynomials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/vector-spaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Spaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/matrices-linear-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matrices &amp; Linear Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculus
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Calculus
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Continuous Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/sequences-and-series/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sequences &amp; Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/differential-calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Differential Calculus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/integral-calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integral Calculus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability &amp; Statistics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Probability &amp; Statistics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/cursor-notes/09-probabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probabilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/cursor-notes/10-statistics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discrete Maths (COMP0147)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Discrete Maths (COMP0147)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_1" id="__nav_2_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/01-numbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/03-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_2" id="__nav_2_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Number Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Number Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/04-modular-arithmetic-and-primes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modular Arithmetic &amp; Primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_3" id="__nav_2_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proofs &amp; Induction
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Proofs &amp; Induction
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/05-proofs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof Techniques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/06-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematical Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/07-strong-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strong Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/08-recursion-and-structural-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recursion &amp; Structural Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_4" id="__nav_2_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sets &amp; Functions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sets &amp; Functions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/09-sets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/10-functions-and-sequences/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions &amp; Sequences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_5" id="__nav_2_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combinatorics &amp; Cardinality
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Combinatorics &amp; Cardinality
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/11-counting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Counting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/12-cardinality/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cardinality
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_6">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_6" id="__nav_2_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relations &amp; Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Relations &amp; Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/13-relations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/14-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parse-trees-visual-foundation-for-the-lemma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parse trees — visual foundation for the lemma
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ambiguity-brief-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ambiguity (brief context)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statement-of-the-pumping-lemma-for-cfls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statement of the pumping lemma for CFLs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proof-of-the-pumping-lemma-parse-tree-argument" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proof of the pumping lemma — parse-tree argument
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proof of the pumping lemma — parse-tree argument">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-a-long-string-forces-a-repeated-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why a long string forces a repeated variable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identifying-the-pieces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Identifying the pieces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pumping-up-duplicating-upper-rs-subtree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pumping up — duplicating upper R's subtree
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pumping-down-replacing-upper-r-with-lower-rs-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pumping down — replacing upper R with lower R's decisions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-vy-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why |vy| &gt; 0
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-vxy-p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why |vxy| ≤ p
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-contrapositive-to-prove-non-cfl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using the contrapositive to prove non-CFL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-1-an-bn-cn-n-0-is-not-cfl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1 — a^n b^n c^n (n ≥ 0) is not CFL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-ww-over-01-is-not-cfl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2 — ww over {0,1} is not CFL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-ai-bj-ck-with-i-j-k-is-not-cfl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3 — a^i b^j c^k with i ≤ j ≤ k is not CFL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfl-vs-non-cfl-comparison-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CFL vs non-CFL comparison table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-class-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Language class hierarchy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-state-the-pumping-lemma-for-cfls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — State the pumping lemma for CFLs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-why-does-vy-0-hold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Why does |vy| &gt; 0 hold?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-prove-an-bn-cn-n-0-is-not-cfl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Prove a^n b^n c^n (n ≥ 0) is not CFL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-prove-ww-over-01-is-not-cfl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Prove ww over {0,1} is not CFL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-cfl-vs-non-cfl-and-the-role-of-the-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — CFL vs non-CFL and the role of the stack
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="pumping-lemma-for-context-free-languages-comp0003-automata">Pumping Lemma for Context-Free Languages — COMP0003 Automata<a class="headerlink" href="#pumping-lemma-for-context-free-languages-comp0003-automata" title="Permanent link">¶</a></h1>
+<p><em>Lecture-style notes. The </em><em>pumping lemma for CFLs</em><em> mirrors the regular-language version but splits a long string into </em><em>five</em><em> pieces <span class="arithmatex">\(s = uvxyz\)</span> and pumps the </em><em>second and fourth</em><em> parts simultaneously. Mastery of the </em><em>parse-tree proof</em><em>, the </em><em>three conditions</em><em>, and the </em><em>contrapositive argument</em><em> for showing languages are not context-free is essential.</em></p>
+<hr>
+<h2 id="1-complete-topic-summaries">1. COMPLETE TOPIC SUMMARIES<a class="headerlink" href="#1-complete-topic-summaries" title="Permanent link">¶</a></h2>
+<h3 id="parse-trees-visual-foundation-for-the-lemma">Parse trees — visual foundation for the lemma<a class="headerlink" href="#parse-trees-visual-foundation-for-the-lemma" title="Permanent link">¶</a></h3>
+<p>A <strong>parse tree</strong> for a CFG derivation has:</p>
+<ul>
+<li><strong>Root</strong> = start variable <span class="arithmatex">\(S\)</span>.</li>
+<li><strong>Interior nodes</strong> = variables; <strong>leaves</strong> = terminals (read left-to-right to recover the derived string).</li>
+<li><strong>Children</strong> of a node labelled <span class="arithmatex">\(A\)</span> are the symbols on the right-hand side of whichever rule <span class="arithmatex">\(A \to w\)</span> was applied.</li>
+</ul>
+<p>The <strong>branching factor</strong> <span class="arithmatex">\(b\)</span> of a grammar is the maximum number of symbols on the right-hand side of any rule. A tree with branching factor <span class="arithmatex">\(b\)</span> and <span class="arithmatex">\(h\)</span> levels has at most <span class="arithmatex">\(b^h\)</span> leaves.</p>
+<hr>
+<h3 id="ambiguity-brief-context">Ambiguity (brief context)<a class="headerlink" href="#ambiguity-brief-context" title="Permanent link">¶</a></h3>
+<p>A grammar is <strong>ambiguous</strong> if some string has <strong>more than one parse tree</strong>. For the pumping lemma we always work with a <strong>most compact</strong> (fewest interior nodes) parse tree — this assumption is critical for the <span class="arithmatex">\(|vy| &gt; 0\)</span> argument.</p>
+<hr>
+<h3 id="statement-of-the-pumping-lemma-for-cfls">Statement of the pumping lemma for CFLs<a class="headerlink" href="#statement-of-the-pumping-lemma-for-cfls" title="Permanent link">¶</a></h3>
+<p>For any context-free language <span class="arithmatex">\(A\)</span>, there exists a <strong>pumping length</strong> <span class="arithmatex">\(p\)</span> such that every string <span class="arithmatex">\(s \in A\)</span> with <span class="arithmatex">\(|s| \geq p\)</span> can be split into five pieces</p>
+<div class="arithmatex">\[s = u\,v\,x\,y\,z\]</div>
+<p>satisfying <strong>all three</strong> conditions:</p>
+<ol>
+<li><span class="arithmatex">\(uv^i x y^i z \in A\)</span> for every <span class="arithmatex">\(i \geq 0\)</span> (pump <span class="arithmatex">\(v\)</span> and <span class="arithmatex">\(y\)</span> <strong>simultaneously</strong>).</li>
+<li><span class="arithmatex">\(|vy| &gt; 0\)</span> (at least one of <span class="arithmatex">\(v\)</span>, <span class="arithmatex">\(y\)</span> is non-empty).</li>
+<li><span class="arithmatex">\(|vxy| \leq p\)</span> (the pumpable "window" is bounded).</li>
+</ol>
+<p>Compare with the <strong>RL pumping lemma</strong> where the split is <span class="arithmatex">\(s = xyz\)</span> and only the middle piece <span class="arithmatex">\(y\)</span> is pumped.</p>
+<hr>
+<h3 id="proof-of-the-pumping-lemma-parse-tree-argument">Proof of the pumping lemma — parse-tree argument<a class="headerlink" href="#proof-of-the-pumping-lemma-parse-tree-argument" title="Permanent link">¶</a></h3>
+<h4 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">¶</a></h4>
+<p>Let the grammar for <span class="arithmatex">\(A\)</span> have:</p>
+<ul>
+<li><span class="arithmatex">\(b\)</span> = branching factor (max RHS length of any rule).</li>
+<li><span class="arithmatex">\(n = |V|\)</span> = number of variables.</li>
+<li><strong>Pumping length:</strong> <span class="arithmatex">\(p = b^{\,n+1}\)</span>.</li>
+</ul>
+<h4 id="why-a-long-string-forces-a-repeated-variable">Why a long string forces a repeated variable<a class="headerlink" href="#why-a-long-string-forces-a-repeated-variable" title="Permanent link">¶</a></h4>
+<p>A tree with branching factor <span class="arithmatex">\(b\)</span> and at most <span class="arithmatex">\(n\)</span> interior-node levels (i.e. <span class="arithmatex">\(\leq n+1\)</span> total levels including leaves) can have at most <span class="arithmatex">\(b^n\)</span> leaves. So if <span class="arithmatex">\(|s| \geq b^{\,n+1} &gt; b^n\)</span>, the parse tree must have a root-to-leaf path with <strong>at least <span class="arithmatex">\(n + 1\)</span> interior nodes</strong> (variables). Since there are only <span class="arithmatex">\(n\)</span> distinct variables, by the <strong>pigeonhole principle</strong> some variable <span class="arithmatex">\(R\)</span> must <strong>appear twice</strong> on that path.</p>
+<h4 id="identifying-the-pieces">Identifying the pieces<a class="headerlink" href="#identifying-the-pieces" title="Permanent link">¶</a></h4>
+<p>Pick the <strong>longest</strong> root-to-leaf path in the <strong>most compact</strong> parse tree. Label the two copies of the repeated variable:</p>
+<ul>
+<li><strong>Upper <span class="arithmatex">\(R\)</span></strong> — the occurrence closer to the root.</li>
+<li><strong>Lower <span class="arithmatex">\(R\)</span></strong> — the occurrence closer to the leaf.</li>
+</ul>
+<p>Then:</p>
+<ul>
+<li>Lower <span class="arithmatex">\(R\)</span>'s subtree generates some substring <span class="arithmatex">\(x\)</span>.</li>
+<li>Upper <span class="arithmatex">\(R\)</span>'s subtree generates a wider substring <span class="arithmatex">\(vxy\)</span> (lower <span class="arithmatex">\(R\)</span>'s part is nested inside).</li>
+<li>The rest of the string gives <span class="arithmatex">\(u\)</span> (before <span class="arithmatex">\(vxy\)</span>) and <span class="arithmatex">\(z\)</span> (after <span class="arithmatex">\(vxy\)</span>).</li>
+</ul>
+<h4 id="pumping-up-duplicating-upper-rs-subtree">Pumping up — duplicating upper R's subtree<a class="headerlink" href="#pumping-up-duplicating-upper-rs-subtree" title="Permanent link">¶</a></h4>
+<p>At the position of lower <span class="arithmatex">\(R\)</span>, <strong>replace</strong> its subtree with a copy of upper <span class="arithmatex">\(R\)</span>'s entire subtree. This inserts an extra copy of <span class="arithmatex">\(v\)</span> before <span class="arithmatex">\(x\)</span> and an extra copy of <span class="arithmatex">\(y\)</span> after <span class="arithmatex">\(x\)</span>, producing <span class="arithmatex">\(uv^2xy^2z\)</span>. Repeating gives <span class="arithmatex">\(uv^i xy^i z\)</span> for any <span class="arithmatex">\(i \geq 2\)</span>.</p>
+<h4 id="pumping-down-replacing-upper-r-with-lower-rs-decisions">Pumping down — replacing upper R with lower R's decisions<a class="headerlink" href="#pumping-down-replacing-upper-r-with-lower-rs-decisions" title="Permanent link">¶</a></h4>
+<p>At upper <span class="arithmatex">\(R\)</span>, apply the same derivation rules that lower <span class="arithmatex">\(R\)</span> used. This <strong>skips</strong> <span class="arithmatex">\(v\)</span> and <span class="arithmatex">\(y\)</span> entirely, producing <span class="arithmatex">\(uxz = uv^0 x y^0 z\)</span>.</p>
+<h4 id="why-vy-0">Why |vy| &gt; 0<a class="headerlink" href="#why-vy-0" title="Permanent link">¶</a></h4>
+<p>If both <span class="arithmatex">\(v = \epsilon\)</span> and <span class="arithmatex">\(y = \epsilon\)</span>, then upper <span class="arithmatex">\(R\)</span>'s subtree generates the same substring <span class="arithmatex">\(x\)</span> as lower <span class="arithmatex">\(R\)</span>'s subtree but with <strong>more interior nodes</strong>. Replacing upper <span class="arithmatex">\(R\)</span>'s subtree with lower <span class="arithmatex">\(R\)</span>'s would produce a <strong>smaller</strong> parse tree for the same string — contradicting our choice of the <strong>most compact</strong> tree.</p>
+<h4 id="why-vxy-p">Why |vxy| ≤ p<a class="headerlink" href="#why-vxy-p" title="Permanent link">¶</a></h4>
+<p>The repeated variable was found in the <strong>bottom <span class="arithmatex">\(n + 1\)</span></strong> interior nodes of the longest path. Upper <span class="arithmatex">\(R\)</span>'s subtree therefore has at most <span class="arithmatex">\(n + 1\)</span> levels of interior nodes, so at most <span class="arithmatex">\(b^{\,n+1} = p\)</span> leaves. Hence <span class="arithmatex">\(|vxy| \leq p\)</span>.</p>
+<hr>
+<h3 id="using-the-contrapositive-to-prove-non-cfl">Using the contrapositive to prove non-CFL<a class="headerlink" href="#using-the-contrapositive-to-prove-non-cfl" title="Permanent link">¶</a></h3>
+<p>The lemma says: <strong>CFL <span class="arithmatex">\(\Rightarrow\)</span> pumping property holds</strong>.</p>
+<p><strong>Contrapositive:</strong> pumping property fails <span class="arithmatex">\(\Rightarrow\)</span> <strong>not a CFL</strong>.</p>
+<p><strong>Proof template:</strong></p>
+<ol>
+<li>Let <span class="arithmatex">\(p\)</span> be an <strong>arbitrary</strong> pumping length (the adversary chooses <span class="arithmatex">\(p\)</span>).</li>
+<li><strong>Construct</strong> an "evil string" <span class="arithmatex">\(s \in L\)</span> with <span class="arithmatex">\(|s| \geq p\)</span>.</li>
+<li>For <strong>every</strong> valid split <span class="arithmatex">\(s = uvxyz\)</span> with <span class="arithmatex">\(|vy| &gt; 0\)</span> and <span class="arithmatex">\(|vxy| \leq p\)</span>, show that some pumped string <span class="arithmatex">\(uv^i xy^i z \notin L\)</span>.</li>
+<li>Conclude <span class="arithmatex">\(L\)</span> is <strong>not</strong> a CFL.</li>
+</ol>
+<hr>
+<h3 id="example-1-an-bn-cn-n-0-is-not-cfl">Example 1 — a^n b^n c^n (n ≥ 0) is not CFL<a class="headerlink" href="#example-1-an-bn-cn-n-0-is-not-cfl" title="Permanent link">¶</a></h3>
+<p><strong>Evil string:</strong> <span class="arithmatex">\(s = a^p b^p c^p\)</span>, so <span class="arithmatex">\(|s| = 3p \geq p\)</span> and <span class="arithmatex">\(s \in L\)</span>.</p>
+<p><strong>Window argument (using condition 3).</strong> Since <span class="arithmatex">\(|vxy| \leq p\)</span> and each of the three blocks <span class="arithmatex">\(a^p\)</span>, <span class="arithmatex">\(b^p\)</span>, <span class="arithmatex">\(c^p\)</span> has length <span class="arithmatex">\(p\)</span>, the window <span class="arithmatex">\(vxy\)</span> can <strong>overlap at most two</strong> of the three blocks. So <span class="arithmatex">\(v\)</span> and <span class="arithmatex">\(y\)</span> collectively touch at most <strong>two</strong> character types.</p>
+<ul>
+<li><strong>Case A — <span class="arithmatex">\(v\)</span> and <span class="arithmatex">\(y\)</span> each contain a single character type.</strong> Pumping up (<span class="arithmatex">\(i = 2\)</span>) increases at most two of the three counts while the third stays at <span class="arithmatex">\(p\)</span>. The counts become unequal, so <span class="arithmatex">\(uv^2 xy^2 z \notin L\)</span>.</li>
+<li><strong>Case B — <span class="arithmatex">\(v\)</span> or <span class="arithmatex">\(y\)</span> contains two character types (e.g. <span class="arithmatex">\(ab\)</span>).</strong> Pumping up produces interleaved characters (e.g. <span class="arithmatex">\(abab\)</span>), breaking the <span class="arithmatex">\(a^*b^*c^*\)</span> pattern.</li>
+</ul>
+<p>All cases fail. <span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h3 id="example-2-ww-over-01-is-not-cfl">Example 2 — ww over {0,1} is not CFL<a class="headerlink" href="#example-2-ww-over-01-is-not-cfl" title="Permanent link">¶</a></h3>
+<p><strong>Evil string:</strong> <span class="arithmatex">\(s = 0^p 1^p 0^p 1^p\)</span>. Here <span class="arithmatex">\(s = ww\)</span> with <span class="arithmatex">\(w = 0^p 1^p\)</span>, so <span class="arithmatex">\(s \in L\)</span> and <span class="arithmatex">\(|s| = 4p \geq p\)</span>.</p>
+<p>The <strong>midpoint</strong> of <span class="arithmatex">\(s\)</span> falls between the first <span class="arithmatex">\(1^p\)</span> block and the second <span class="arithmatex">\(0^p\)</span> block.</p>
+<ul>
+<li><strong>Case 1 — <span class="arithmatex">\(vxy\)</span> falls entirely in the first half (or entirely in the second half).</strong> Pumping up adds at most <span class="arithmatex">\(p\)</span> characters to that half, shifting the midpoint. The two resulting halves begin with different symbols (one starts with <span class="arithmatex">\(0\)</span>, the other with <span class="arithmatex">\(1\)</span>), so the string is not of the form <span class="arithmatex">\(ww\)</span>.</li>
+<li><strong>Case 2 — <span class="arithmatex">\(vxy\)</span> straddles the midpoint.</strong> Since <span class="arithmatex">\(|vxy| \leq p\)</span>, the first-half portion of the window touches only <span class="arithmatex">\(1\)</span>'s and the second-half portion touches only <span class="arithmatex">\(0\)</span>'s. Pumping down (<span class="arithmatex">\(i = 0\)</span>) removes some <span class="arithmatex">\(1\)</span>'s from the first half and some <span class="arithmatex">\(0\)</span>'s from the second half, making the two halves unequal.</li>
+</ul>
+<p>All cases fail. <span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h3 id="example-3-ai-bj-ck-with-i-j-k-is-not-cfl">Example 3 — a^i b^j c^k with i ≤ j ≤ k is not CFL<a class="headerlink" href="#example-3-ai-bj-ck-with-i-j-k-is-not-cfl" title="Permanent link">¶</a></h3>
+<p><strong>Evil string:</strong> <span class="arithmatex">\(s = a^p b^p c^p\)</span> (satisfies <span class="arithmatex">\(i = j = k = p\)</span>).</p>
+<p>By condition 3, <span class="arithmatex">\(|vxy| \leq p\)</span>, so the window touches at most two of the three blocks.</p>
+<ul>
+<li><strong>Window covers <span class="arithmatex">\(a\)</span>'s and <span class="arithmatex">\(b\)</span>'s (no <span class="arithmatex">\(c\)</span>'s):</strong> pump <strong>up</strong> (<span class="arithmatex">\(i = 2\)</span>) — more <span class="arithmatex">\(a\)</span>'s or <span class="arithmatex">\(b\)</span>'s than <span class="arithmatex">\(c\)</span>'s, breaking <span class="arithmatex">\(j \leq k\)</span>.</li>
+<li><strong>Window covers <span class="arithmatex">\(b\)</span>'s and <span class="arithmatex">\(c\)</span>'s (no <span class="arithmatex">\(a\)</span>'s):</strong> pump <strong>down</strong> (<span class="arithmatex">\(i = 0\)</span>) — fewer <span class="arithmatex">\(b\)</span>'s or <span class="arithmatex">\(c\)</span>'s, so either <span class="arithmatex">\(i &gt; j\)</span> or <span class="arithmatex">\(j &gt; k\)</span> fails. Actually: fewer <span class="arithmatex">\(b\)</span>'s can break <span class="arithmatex">\(i \leq j\)</span> (since <span class="arithmatex">\(a\)</span>'s stay at <span class="arithmatex">\(p\)</span>), and fewer <span class="arithmatex">\(c\)</span>'s can break <span class="arithmatex">\(j \leq k\)</span>.</li>
+<li><strong>Window covers only <span class="arithmatex">\(a\)</span>'s:</strong> pump up — more <span class="arithmatex">\(a\)</span>'s than <span class="arithmatex">\(b\)</span>'s, breaking <span class="arithmatex">\(i \leq j\)</span>.</li>
+<li><strong>Window covers only <span class="arithmatex">\(b\)</span>'s:</strong> pump up — <span class="arithmatex">\(j &gt; k\)</span>; pump down — <span class="arithmatex">\(i &gt; j\)</span>. Either way, broken.</li>
+<li><strong>Window covers only <span class="arithmatex">\(c\)</span>'s:</strong> pump down — <span class="arithmatex">\(j &gt; k\)</span>, broken.</li>
+<li><strong>Mixed characters in <span class="arithmatex">\(v\)</span> or <span class="arithmatex">\(y\)</span>:</strong> pumping produces interleaved characters, breaking the <span class="arithmatex">\(a^*b^*c^*\)</span> pattern.</li>
+</ul>
+<p>All cases fail. <span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h3 id="cfl-vs-non-cfl-comparison-table">CFL vs non-CFL comparison table<a class="headerlink" href="#cfl-vs-non-cfl-comparison-table" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>CFL (PDA/CFG can handle)</th>
+<th>Not a CFL (pumping lemma proves)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\{ww^R \mid w \in \Sigma^*\}\)</span> (palindromes)</td>
+<td><span class="arithmatex">\(\{ww \mid w \in \Sigma^*\}\)</span> (exact copy)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\{a^n b^n \mid n \geq 0\}\)</span></td>
+<td><span class="arithmatex">\(\{a^n b^n c^n \mid n \geq 0\}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\{a^i b^j \mid 0 \leq i \leq j\}\)</span></td>
+<td><span class="arithmatex">\(\{a^i b^j c^k \mid 0 \leq i \leq j \leq k\}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Intuition:</strong> a PDA's single stack can match <strong>one pair</strong> of constraints (e.g. count <span class="arithmatex">\(a\)</span>'s, then match with <span class="arithmatex">\(b\)</span>'s). It <strong>cannot</strong> enforce <strong>two independent equalities or orderings</strong> simultaneously. The pumping lemma formalises this limitation.</p>
+<hr>
+<h3 id="language-class-hierarchy">Language class hierarchy<a class="headerlink" href="#language-class-hierarchy" title="Permanent link">¶</a></h3>
+<div class="arithmatex">\[\text{Regular Languages} \;\subset\; \text{Context-Free Languages} \;\subset\; \cdots\]</div>
+<ul>
+<li><strong>Regular languages:</strong> recognised by DFAs = NFAs = regular expressions.</li>
+<li><strong>Context-free languages:</strong> recognised by PDAs = generated by CFGs.</li>
+<li>Some languages (like <span class="arithmatex">\(\{a^n b^n c^n\}\)</span>) are <strong>beyond</strong> CFLs — recognising them requires more powerful models (Turing machines).</li>
+</ul>
+<hr>
+<h2 id="2-exam-style-questions-with-model-answers">2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)<a class="headerlink" href="#2-exam-style-questions-with-model-answers" title="Permanent link">¶</a></h2>
+<h3 id="q1-state-the-pumping-lemma-for-cfls">Q1 — State the pumping lemma for CFLs<a class="headerlink" href="#q1-state-the-pumping-lemma-for-cfls" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> State the pumping lemma for context-free languages, clearly listing all three conditions.</p>
+<p><strong>Model answer.</strong> For any CFL <span class="arithmatex">\(A\)</span>, there exists a pumping length <span class="arithmatex">\(p\)</span> such that every <span class="arithmatex">\(s \in A\)</span> with <span class="arithmatex">\(|s| \geq p\)</span> can be written as <span class="arithmatex">\(s = uvxyz\)</span> satisfying: (1) <span class="arithmatex">\(uv^i xy^i z \in A\)</span> for all <span class="arithmatex">\(i \geq 0\)</span>; (2) <span class="arithmatex">\(|vy| &gt; 0\)</span>; (3) <span class="arithmatex">\(|vxy| \leq p\)</span>.</p>
+<hr>
+<h3 id="q2-why-does-vy-0-hold">Q2 — Why does |vy| &gt; 0 hold?<a class="headerlink" href="#q2-why-does-vy-0-hold" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> In the proof of the CFL pumping lemma, explain why condition 2 (<span class="arithmatex">\(|vy| &gt; 0\)</span>) must hold.</p>
+<p><strong>Model answer.</strong> We choose the <strong>most compact</strong> parse tree (fewest interior nodes). If <span class="arithmatex">\(v = \epsilon\)</span> and <span class="arithmatex">\(y = \epsilon\)</span>, then upper <span class="arithmatex">\(R\)</span>'s subtree generates exactly the same substring <span class="arithmatex">\(x\)</span> as lower <span class="arithmatex">\(R\)</span>'s subtree but with strictly more nodes. Replacing upper <span class="arithmatex">\(R\)</span>'s subtree with lower <span class="arithmatex">\(R\)</span>'s would yield a valid, <strong>smaller</strong> parse tree for the same string — contradicting compactness. Therefore at least one of <span class="arithmatex">\(v\)</span>, <span class="arithmatex">\(y\)</span> must be non-empty.</p>
+<hr>
+<h3 id="q3-prove-an-bn-cn-n-0-is-not-cfl">Q3 — Prove a^n b^n c^n (n ≥ 0) is not CFL<a class="headerlink" href="#q3-prove-an-bn-cn-n-0-is-not-cfl" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Using the pumping lemma, prove that <span class="arithmatex">\(L = \{a^n b^n c^n \mid n \geq 0\}\)</span> is not a context-free language.</p>
+<p><strong>Model answer.</strong> Assume for contradiction that <span class="arithmatex">\(L\)</span> is a CFL with pumping length <span class="arithmatex">\(p\)</span>. Choose <span class="arithmatex">\(s = a^p b^p c^p \in L\)</span> with <span class="arithmatex">\(|s| = 3p \geq p\)</span>. For any split <span class="arithmatex">\(s = uvxyz\)</span> with <span class="arithmatex">\(|vxy| \leq p\)</span>: since each block has length <span class="arithmatex">\(p\)</span>, the window <span class="arithmatex">\(vxy\)</span> spans at most two of the three blocks. If <span class="arithmatex">\(v\)</span> and <span class="arithmatex">\(y\)</span> each contain one character type, pumping up (<span class="arithmatex">\(i = 2\)</span>) increases at most two counts while the third remains <span class="arithmatex">\(p\)</span> — counts become unequal. If either contains two types, pumping produces interleaved characters breaking the <span class="arithmatex">\(a^*b^*c^*\)</span> pattern. In both cases <span class="arithmatex">\(uv^2 xy^2 z \notin L\)</span>. Contradiction. <span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h3 id="q4-prove-ww-over-01-is-not-cfl">Q4 — Prove ww over {0,1} is not CFL<a class="headerlink" href="#q4-prove-ww-over-01-is-not-cfl" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Prove that <span class="arithmatex">\(L = \{ww \mid w \in \{0,1\}^*\}\)</span> is not context-free.</p>
+<p><strong>Model answer.</strong> Let <span class="arithmatex">\(p\)</span> be the pumping length. Choose <span class="arithmatex">\(s = 0^p 1^p 0^p 1^p \in L\)</span>. The midpoint falls between the first <span class="arithmatex">\(1^p\)</span> and the second <span class="arithmatex">\(0^p\)</span>. For any split with <span class="arithmatex">\(|vxy| \leq p\)</span>: <strong>Case 1</strong> — window is entirely in one half: pumping changes that half's length, shifting the midpoint so the two halves start with different symbols. <strong>Case 2</strong> — window straddles the midpoint: the first-half portion is all <span class="arithmatex">\(1\)</span>'s and the second-half portion is all <span class="arithmatex">\(0\)</span>'s; pumping down removes some of each, making the halves unequal. All cases give <span class="arithmatex">\(uv^i xy^i z \notin L\)</span>. <span class="arithmatex">\(\square\)</span></p>
+<hr>
+<h3 id="q5-cfl-vs-non-cfl-and-the-role-of-the-stack">Q5 — CFL vs non-CFL and the role of the stack<a class="headerlink" href="#q5-cfl-vs-non-cfl-and-the-role-of-the-stack" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Explain intuitively why <span class="arithmatex">\(\{a^n b^n\}\)</span> is a CFL but <span class="arithmatex">\(\{a^n b^n c^n\}\)</span> is not. What limitation of PDAs does this illustrate?</p>
+<p><strong>Model answer.</strong> For <span class="arithmatex">\(\{a^n b^n\}\)</span>, a PDA pushes one symbol per <span class="arithmatex">\(a\)</span> and pops one per <span class="arithmatex">\(b\)</span>; accepting with an empty stack ensures equal counts. For <span class="arithmatex">\(\{a^n b^n c^n\}\)</span>, after matching <span class="arithmatex">\(a\)</span>'s with <span class="arithmatex">\(b\)</span>'s the stack is empty and there is no mechanism to verify the <span class="arithmatex">\(c\)</span>-count also equals <span class="arithmatex">\(n\)</span>. A PDA's <strong>single stack</strong> can track <strong>one</strong> counter relationship at a time but not <strong>two independent</strong> equalities simultaneously. The pumping lemma formalises this: the "window" <span class="arithmatex">\(vxy\)</span> of length <span class="arithmatex">\(\leq p\)</span> cannot span all three blocks, so pumping always breaks at least one equality.</p>
+<hr>
+<h2 id="3-must-know-key-points">3. MUST-KNOW KEY POINTS<a class="headerlink" href="#3-must-know-key-points" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>CFL pumping lemma splits</strong> into <strong>five</strong> parts <span class="arithmatex">\(s = uvxyz\)</span>; the <strong>RL</strong> version splits into <strong>three</strong> parts <span class="arithmatex">\(s = xyz\)</span>.</li>
+<li><strong>Three conditions:</strong> (1) <span class="arithmatex">\(uv^i xy^i z \in A\)</span> for all <span class="arithmatex">\(i \geq 0\)</span>; (2) <span class="arithmatex">\(|vy| &gt; 0\)</span>; (3) <span class="arithmatex">\(|vxy| \leq p\)</span>.</li>
+<li><strong>Pumping length:</strong> <span class="arithmatex">\(p = b^{\,n+1}\)</span> where <span class="arithmatex">\(b\)</span> = branching factor, <span class="arithmatex">\(n\)</span> = number of variables.</li>
+<li><strong>Proof mechanism:</strong> pigeonhole on a long root-to-leaf path forces a <strong>repeated variable</strong> <span class="arithmatex">\(R\)</span>; pumping up = duplicate upper <span class="arithmatex">\(R\)</span>'s subtree at lower <span class="arithmatex">\(R\)</span>; pumping down = replace upper <span class="arithmatex">\(R\)</span> with lower <span class="arithmatex">\(R\)</span>'s subtree.</li>
+<li><strong><span class="arithmatex">\(|vy| &gt; 0\)</span></strong> from compactness of the chosen parse tree; <strong><span class="arithmatex">\(|vxy| \leq p\)</span></strong> because upper <span class="arithmatex">\(R\)</span>'s subtree has <span class="arithmatex">\(\leq n+1\)</span> levels.</li>
+<li><strong>Contrapositive</strong> is the tool for proofs: given arbitrary <span class="arithmatex">\(p\)</span>, pick an evil string, show all splits fail.</li>
+<li><strong>Evil string recipe:</strong> typically set all parameters to <span class="arithmatex">\(p\)</span> (e.g. <span class="arithmatex">\(a^p b^p c^p\)</span>) so the window covers at most two blocks.</li>
+<li><strong>Non-CFL examples:</strong> <span class="arithmatex">\(\{a^n b^n c^n\}\)</span>, <span class="arithmatex">\(\{ww\}\)</span>, <span class="arithmatex">\(\{a^i b^j c^k \mid i \leq j \leq k\}\)</span>.</li>
+<li><strong>CFL examples:</strong> <span class="arithmatex">\(\{a^n b^n\}\)</span>, <span class="arithmatex">\(\{ww^R\}\)</span>, <span class="arithmatex">\(\{a^i b^j \mid i \leq j\}\)</span> — stack matches <strong>one</strong> pair.</li>
+<li><strong>Hierarchy:</strong> Regular <span class="arithmatex">\(\subset\)</span> Context-Free <span class="arithmatex">\(\subset\)</span> (needs Turing machines and beyond).</li>
+</ul>
+<hr>
+<h2 id="4-high-priority-topics">4. HIGH-PRIORITY TOPICS<a class="headerlink" href="#4-high-priority-topics" title="Permanent link">¶</a></h2>
+<h3 id="must-know">🔴 Must Know<a class="headerlink" href="#must-know" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Full statement</strong> of the CFL pumping lemma with all three conditions.</li>
+<li><strong>Contrapositive proof structure:</strong> arbitrary <span class="arithmatex">\(p\)</span>, evil string, exhaust all splits.</li>
+<li><strong>Proof that <span class="arithmatex">\(\{a^n b^n c^n\}\)</span> is not CFL</strong> — the canonical example (window argument).</li>
+<li><strong>Proof that <span class="arithmatex">\(\{ww\}\)</span> is not CFL</strong> — choosing <span class="arithmatex">\(0^p 1^p 0^p 1^p\)</span> and the midpoint/straddling argument.</li>
+<li><strong>CFL vs non-CFL table</strong> — know which languages are CFL and which are not, with brief justification.</li>
+<li><strong>Difference from RL pumping lemma:</strong> five-piece split <span class="arithmatex">\(uvxyz\)</span> vs three-piece <span class="arithmatex">\(xyz\)</span>; two pieces pumped simultaneously.</li>
+</ul>
+<h3 id="important">🟡 Important<a class="headerlink" href="#important" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Parse-tree proof sketch:</strong> branching factor <span class="arithmatex">\(b\)</span>, pumping length <span class="arithmatex">\(p = b^{\,n+1}\)</span>, pigeonhole on repeated variable.</li>
+<li><strong>Why <span class="arithmatex">\(|vy| &gt; 0\)</span></strong> (compactness argument) and <strong>why <span class="arithmatex">\(|vxy| \leq p\)</span></strong> (bounded subtree depth).</li>
+<li><strong>Pumping up vs pumping down</strong> — when each is useful in a proof.</li>
+<li><strong><span class="arithmatex">\(\{a^i b^j c^k \mid i \leq j \leq k\}\)</span> proof</strong> — handling directional inequalities.</li>
+</ul>
+<h3 id="useful-but-lower-priority">🟢 Useful but Lower Priority<a class="headerlink" href="#useful-but-lower-priority" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Ambiguity</strong> of grammars (multiple parse trees) as context for "most compact tree" assumption.</li>
+<li><strong>Exact computation</strong> of <span class="arithmatex">\(p = b^{\,n+1}\)</span> for a given grammar (e.g. the algebraic expression grammar where <span class="arithmatex">\(b = 3\)</span>, <span class="arithmatex">\(n = 3\)</span>, <span class="arithmatex">\(p = 81\)</span>).</li>
+<li><strong>Language hierarchy positioning:</strong> where CFLs sit relative to regular languages below and Turing-recognisable languages above.</li>
+</ul>
+<hr>
+<h2 id="5-topic-interconnections-bigger-picture">5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE<a class="headerlink" href="#5-topic-interconnections-bigger-picture" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>RL pumping lemma</strong> (Lectures 4–5) is the <strong>direct precursor</strong>. The CFL version generalises the pigeonhole argument from states on a path (DFA) to variables on a root-to-leaf path (parse tree).</li>
+<li><strong>CFG ↔ PDA equivalence</strong> (Lecture 9) establishes what CFLs can do; the pumping lemma establishes what they <strong>cannot</strong> do. Together they <strong>fully characterise</strong> the boundary of context-free power.</li>
+<li><strong>Parse trees</strong> connect to <strong>ambiguity</strong> and <strong>Chomsky Normal Form</strong> — both restructure derivations for analysis. CNF ensures binary branching (<span class="arithmatex">\(b = 2\)</span>), simplifying the pumping length calculation.</li>
+<li>The non-CFL examples (<span class="arithmatex">\(\{a^n b^n c^n\}\)</span>, <span class="arithmatex">\(\{ww\}\)</span>) motivate <strong>Turing machines</strong> — a strictly more powerful model that can recognise these languages by using an infinite read/write tape instead of a stack.</li>
+<li><strong>Closure properties</strong> interact with the pumping lemma: CFLs are closed under union, concatenation, and Kleene star, but <strong>not</strong> under intersection or complement. Knowing closure failures can sometimes replace pumping arguments.</li>
+</ul>
+<hr>
+<h2 id="6-exam-strategy-tips">6. EXAM STRATEGY TIPS<a class="headerlink" href="#6-exam-strategy-tips" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Memorise the three conditions</strong> — exams often ask you to state the lemma before applying it; missing condition 3 (<span class="arithmatex">\(|vxy| \leq p\)</span>) is a common error.</li>
+<li><strong>Always use the window argument</strong> (<span class="arithmatex">\(|vxy| \leq p\)</span>) to restrict where <span class="arithmatex">\(v\)</span> and <span class="arithmatex">\(y\)</span> can fall. This eliminates many cases immediately (e.g. <span class="arithmatex">\(vxy\)</span> cannot span all three blocks of <span class="arithmatex">\(a^p b^p c^p\)</span>).</li>
+<li><strong>State your evil string explicitly</strong> with <span class="arithmatex">\(|s| \geq p\)</span> justified. A good default: set every parameter to <span class="arithmatex">\(p\)</span>.</li>
+<li><strong>Organise cases cleanly:</strong> "single character type in <span class="arithmatex">\(v,y\)</span>" vs "mixed characters in <span class="arithmatex">\(v\)</span> or <span class="arithmatex">\(y\)</span>." Cover both and explain the contradiction for each.</li>
+<li>For <strong><span class="arithmatex">\(\{ww\}\)</span></strong> proofs, the evil string <span class="arithmatex">\(0^p 1^p 0^p 1^p\)</span> is standard; do <strong>not</strong> use <span class="arithmatex">\(0^p 0^p\)</span> (that can be pumped within the CFL <span class="arithmatex">\(\{0^n 0^n\} = \{0^{2n}\}\)</span>).</li>
+<li><strong>Pumping down</strong> (<span class="arithmatex">\(i = 0\)</span>) is often simpler to argue than pumping up — remember it as "delete <span class="arithmatex">\(v\)</span> and <span class="arithmatex">\(y\)</span>."</li>
+<li><strong>Do not confuse</strong> the RL pumping lemma (<span class="arithmatex">\(s = xyz\)</span>, pump <span class="arithmatex">\(y\)</span>) with the CFL version (<span class="arithmatex">\(s = uvxyz\)</span>, pump <span class="arithmatex">\(v\)</span> and <span class="arithmatex">\(y\)</span> together). If the exam asks for the CFL version, writing the RL version scores zero.</li>
+<li>When comparing CFL vs non-CFL, reference the <strong>stack limitation</strong>: one stack matches one pair of constraints; two independent constraints require more power.</li>
+</ul>
+<hr>
+<p><em>These notes cover the CFL pumping lemma as presented in COMP0003 Automata Lectures 10–11 (first half). Always follow your lecturer's notation for the split and conditions if it differs from the conventions here.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

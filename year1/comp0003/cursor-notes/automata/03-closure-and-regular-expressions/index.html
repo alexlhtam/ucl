@@ -1,0 +1,5438 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Year 1 Computer Science notes — UCL">
+      
+      
+        <meta name="author" content="Alex Tam">
+      
+      
+        <link rel="canonical" href="https://alexlhtam.github.io/ucl/year1/comp0003/cursor-notes/automata/03-closure-and-regular-expressions/">
+      
+      
+        <link rel="prev" href="../02-nfas-and-dfa-equivalence/">
+      
+      
+        <link rel="next" href="../04-pumping-lemma/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Closure &amp; Regular Expressions - Alex's UCL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#closure-properties-regular-expressions-comp0003-automata" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-header__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex's UCL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Closure &amp; Regular Expressions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Year 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Alex's UCL Notes" class="md-nav__button md-logo" aria-label="Alex's UCL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"></path></svg>
+
+    </a>
+    Alex's UCL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Year 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Year 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms (COMP0005)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms (COMP0005)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/01-union-find/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union-Find
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/02-analysis-of-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis of Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/06-abstract-data-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Abstract Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sorting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sorting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/03-elementary-sorts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementary Sorts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/04-mergesort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MergeSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/05-quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QuickSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/07-heaps-and-heapsort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heaps &amp; HeapSort
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../comp0005/demos/llrb-visualiser/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Search
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/08-symbol-tables-and-bst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbol Tables &amp; BST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/09-balanced-trees-and-hash-tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balanced Trees &amp; Hash Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/10-undirected-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Undirected Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/11-directed-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Directed Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/12-minimum-spanning-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimum Spanning Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/13-shortest-paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shortest Paths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_5">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../comp0005/demos/rway-trie/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strings
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_5" id="__nav_2_1_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Strings
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/14-string-sorting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String Sorting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/15-tries-and-string-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tries &amp; String Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/demos/tst-trie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TST / 3-way trie (demo)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/cursor-notes/16-substring-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Substring Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0005/demos/kmp-visualiser/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KMP visualiser (demo)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OOP / Java (COMP0004)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OOP / Java (COMP0004)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/01-intro-to-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/02-core-java-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Java Language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/03-arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Object-Oriented Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/04-classes-objects-references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes, Objects &amp; References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/05-designing-with-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Designing with Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/06-inheritance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/07-interfaces-and-polymorphism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces &amp; Polymorphism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/08-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/09-file-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/10-json-csv-and-records/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON, CSV &amp; Records
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/11-packages-and-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages &amp; Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/12-lambdas-and-streams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lambdas &amp; Streams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/13-web-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/14-data-structures-in-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures in Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0004/cursor-notes/15-design-patterns-and-threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns &amp; Threads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory of Computation (COMP0003)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory of Computation (COMP0003)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formal Logic
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Formal Logic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/01-overview-and-history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview &amp; History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/03-boolean-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boolean Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/04-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/05-proof-by-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof by Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/06-complete-induction-and-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Induction &amp; Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logic/07-modal-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modal Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automata
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Automata
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-dfas-and-regular-languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFAs &amp; Regular Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-nfas-and-dfa-equivalence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFAs &amp; DFA Equivalence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closure &amp; Regular Expressions
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closure &amp; Regular Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-big-three-closure-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The "big three" closure properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#union-closure-nfa-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Union closure — NFA construction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concatenation-closure-nfa-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concatenation closure — NFA construction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kleene-star-closure-nfa-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kleene star closure — NFA construction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regular-expressions-recursive-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regular expressions — recursive definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convenience-features-and-shorthand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convenience features and shorthand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#order-of-operations-precedence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Order of operations (precedence)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regex-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regex examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regex-dfanfa-equivalence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regex ↔ DFA/NFA equivalence
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regex ↔ DFA/NFA equivalence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direction-1-regex-nfa-structural-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Direction 1: Regex → NFA (structural induction)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#direction-2-dfa-regex-via-gnfas-and-state-elimination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Direction 2: DFA → Regex (via GNFAs and state elimination)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-even-1s-dfa-regex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example: even-1s DFA → regex
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-union-nfa-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Union NFA construction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-kleene-star-pitfall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Kleene star pitfall
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-converting-a-regex-to-an-nfa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Converting a regex to an NFA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-gnfa-state-elimination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — GNFA state elimination
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-regex-equivalence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Regex equivalence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-pumping-lemma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-pushdown-automata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pushdown Automata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-context-free-grammars/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Free Grammars
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-pumping-lemma-for-cfls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pumping Lemma for CFLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-turing-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turing Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-decidability-and-undecidability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decidability &amp; Undecidability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics &amp; Statistics (COMP0011)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics &amp; Statistics (COMP0011)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algebra
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algebra
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/complex-numbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complex Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/polynomials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polynomials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/vector-spaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector Spaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/matrices-linear-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matrices &amp; Linear Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculus
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Calculus
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Continuous Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/sequences-and-series/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sequences &amp; Series
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/differential-calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Differential Calculus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/master-notes/integral-calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integral Calculus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability &amp; Statistics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Probability &amp; Statistics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/cursor-notes/09-probabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probabilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0011/cursor-notes/10-statistics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discrete Maths (COMP0147)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Discrete Maths (COMP0147)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_1" id="__nav_2_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/01-numbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/02-propositional-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propositional Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/03-first-order-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First-Order Logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_2" id="__nav_2_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Number Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Number Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/04-modular-arithmetic-and-primes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modular Arithmetic &amp; Primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_3" id="__nav_2_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proofs &amp; Induction
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Proofs &amp; Induction
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/05-proofs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proof Techniques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/06-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematical Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/07-strong-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strong Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/08-recursion-and-structural-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recursion &amp; Structural Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_4" id="__nav_2_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sets &amp; Functions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sets &amp; Functions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/09-sets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/10-functions-and-sequences/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions &amp; Sequences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_5" id="__nav_2_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combinatorics &amp; Cardinality
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Combinatorics &amp; Cardinality
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/11-counting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Counting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/12-cardinality/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cardinality
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_6">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_6" id="__nav_2_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relations &amp; Graphs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Relations &amp; Graphs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/13-relations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../comp0147/cursor-notes/14-graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-complete-topic-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COMPLETE TOPIC SUMMARIES
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. COMPLETE TOPIC SUMMARIES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-big-three-closure-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The "big three" closure properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#union-closure-nfa-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Union closure — NFA construction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concatenation-closure-nfa-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concatenation closure — NFA construction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kleene-star-closure-nfa-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kleene star closure — NFA construction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regular-expressions-recursive-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regular expressions — recursive definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convenience-features-and-shorthand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convenience features and shorthand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#order-of-operations-precedence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Order of operations (precedence)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regex-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regex examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regex-dfanfa-equivalence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regex ↔ DFA/NFA equivalence
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regex ↔ DFA/NFA equivalence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direction-1-regex-nfa-structural-induction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Direction 1: Regex → NFA (structural induction)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#direction-2-dfa-regex-via-gnfas-and-state-elimination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Direction 2: DFA → Regex (via GNFAs and state elimination)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-even-1s-dfa-regex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example: even-1s DFA → regex
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exam-style-questions-with-model-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-union-nfa-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Union NFA construction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-kleene-star-pitfall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Kleene star pitfall
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-converting-a-regex-to-an-nfa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Converting a regex to an NFA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-gnfa-state-elimination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — GNFA state elimination
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-regex-equivalence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Regex equivalence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-must-know-key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MUST-KNOW KEY POINTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-priority-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HIGH-PRIORITY TOPICS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HIGH-PRIORITY TOPICS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 Must Know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 Important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-but-lower-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 Useful but Lower Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-interconnections-bigger-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exam-strategy-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. EXAM STRATEGY TIPS
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="closure-properties-regular-expressions-comp0003-automata">Closure Properties &amp; Regular Expressions — COMP0003 Automata<a class="headerlink" href="#closure-properties-regular-expressions-comp0003-automata" title="Permanent link">¶</a></h1>
+<p><em>Lecture-style notes. </em><em>Closure properties</em><em> show that the class of regular languages is </em><em>robust</em><em> — combining regular languages via </em><em>union</em><em>, </em><em>concatenation</em><em>, or </em><em>Kleene star</em><em> always yields another regular language. </em><em>Regular expressions</em><em> are a compact notation that captures exactly the same class. The equivalence </em><em>regex ↔ NFA/DFA</em><em> is proved via </em><em>structural induction</em><em> (regex → NFA) and </em><em>GNFA state elimination</em><em> (DFA → regex).</em></p>
+<hr>
+<h2 id="1-complete-topic-summaries">1. COMPLETE TOPIC SUMMARIES<a class="headerlink" href="#1-complete-topic-summaries" title="Permanent link">¶</a></h2>
+<h3 id="the-big-three-closure-properties">The "big three" closure properties<a class="headerlink" href="#the-big-three-closure-properties" title="Permanent link">¶</a></h3>
+<p>If <strong><span class="arithmatex">\(L_1\)</span></strong> and <strong><span class="arithmatex">\(L_2\)</span></strong> are regular languages (recognised by some NFAs <strong><span class="arithmatex">\(M_1\)</span></strong> and <strong><span class="arithmatex">\(M_2\)</span></strong>), then each of the following is also regular:</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Notation</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Union</strong></td>
+<td><strong><span class="arithmatex">\(L_1 \cup L_2\)</span></strong></td>
+<td>Strings in <strong><span class="arithmatex">\(L_1\)</span></strong> <strong>or</strong> <strong><span class="arithmatex">\(L_2\)</span></strong> (or both)</td>
+</tr>
+<tr>
+<td><strong>Concatenation</strong></td>
+<td><strong><span class="arithmatex">\(L_1 \circ L_2\)</span></strong></td>
+<td>Every string <strong><span class="arithmatex">\(s_1 s_2\)</span></strong> where <strong><span class="arithmatex">\(s_1 \in L_1\)</span></strong> and <strong><span class="arithmatex">\(s_2 \in L_2\)</span></strong></td>
+</tr>
+<tr>
+<td><strong>Kleene star</strong></td>
+<td><strong><span class="arithmatex">\(L^*\)</span></strong></td>
+<td>Zero or more strings from <strong><span class="arithmatex">\(L\)</span></strong> concatenated together</td>
+</tr>
+</tbody>
+</table>
+<p>All three proofs work by <strong>constructing an NFA</strong> from the given machines and then invoking the result that every NFA has an equivalent DFA.</p>
+<hr>
+<h3 id="union-closure-nfa-construction">Union closure — NFA construction<a class="headerlink" href="#union-closure-nfa-construction" title="Permanent link">¶</a></h3>
+<p><strong>Goal.</strong> Given NFAs <strong><span class="arithmatex">\(M_1 = (Q_1, \Sigma, \delta_1, q_{01}, F_1)\)</span></strong> and <strong><span class="arithmatex">\(M_2 = (Q_2, \Sigma, \delta_2, q_{02}, F_2)\)</span></strong>, build an NFA <strong><span class="arithmatex">\(N\)</span></strong> with <strong><span class="arithmatex">\(L(N) = L(M_1) \cup L(M_2)\)</span></strong>.</p>
+<p><strong>Construction.</strong></p>
+<ul>
+<li><strong><span class="arithmatex">\(Q = \{q_0\} \cup Q_1 \cup Q_2\)</span></strong> — a fresh start state <strong><span class="arithmatex">\(q_0\)</span></strong> plus all states from both machines.</li>
+<li><strong><span class="arithmatex">\(\Sigma\)</span></strong> unchanged (assume alphabets agree, or take the union).</li>
+<li><strong><span class="arithmatex">\(q_0\)</span></strong> = new start state.</li>
+<li><strong><span class="arithmatex">\(F = F_1 \cup F_2\)</span></strong> — accept if <strong>either</strong> machine would accept.</li>
+<li><strong><span class="arithmatex">\(\delta\)</span>:</strong></li>
+<li><strong><span class="arithmatex">\(\delta(q_0, \varepsilon) = \{q_{01}, q_{02}\}\)</span></strong> — ε-transitions from the new start into both original start states.</li>
+<li><strong><span class="arithmatex">\(\delta(q, a) = \delta_1(q, a)\)</span></strong> for <strong><span class="arithmatex">\(q \in Q_1\)</span></strong>, <strong><span class="arithmatex">\(a \in \Sigma_\varepsilon\)</span></strong>.</li>
+<li><strong><span class="arithmatex">\(\delta(q, a) = \delta_2(q, a)\)</span></strong> for <strong><span class="arithmatex">\(q \in Q_2\)</span></strong>, <strong><span class="arithmatex">\(a \in \Sigma_\varepsilon\)</span></strong>.</li>
+<li><strong><span class="arithmatex">\(\delta(q_0, a) = \varnothing\)</span></strong> for every <strong><span class="arithmatex">\(a \in \Sigma\)</span></strong> (the new start state only has ε-transitions out).</li>
+</ul>
+<p><strong>Why it works.</strong> On any input <strong><span class="arithmatex">\(w\)</span></strong>, the NFA non-deterministically follows <strong><span class="arithmatex">\(M_1\)</span></strong> or <strong><span class="arithmatex">\(M_2\)</span></strong>. If <strong><span class="arithmatex">\(w \in L(M_1)\)</span></strong> then the branch through <strong><span class="arithmatex">\(M_1\)</span></strong> reaches an accept state in <strong><span class="arithmatex">\(F_1 \subseteq F\)</span></strong>; symmetrically for <strong><span class="arithmatex">\(M_2\)</span></strong>. Conversely, if <strong><span class="arithmatex">\(N\)</span></strong> accepts <strong><span class="arithmatex">\(w\)</span></strong>, the accepting computation must have gone entirely through one of the two original machines, so <strong><span class="arithmatex">\(w\)</span></strong> belongs to at least one language.</p>
+<hr>
+<h3 id="concatenation-closure-nfa-construction">Concatenation closure — NFA construction<a class="headerlink" href="#concatenation-closure-nfa-construction" title="Permanent link">¶</a></h3>
+<p><strong>Goal.</strong> Build NFA <strong><span class="arithmatex">\(N\)</span></strong> with <strong><span class="arithmatex">\(L(N) = L(M_1) \circ L(M_2)\)</span></strong>: the set of all strings <strong><span class="arithmatex">\(s_1 s_2\)</span></strong> where <strong><span class="arithmatex">\(s_1 \in L(M_1)\)</span></strong> and <strong><span class="arithmatex">\(s_2 \in L(M_2)\)</span></strong>.</p>
+<p><strong>Construction.</strong></p>
+<ul>
+<li><strong><span class="arithmatex">\(Q = Q_1 \cup Q_2\)</span></strong>.</li>
+<li>Start state = <strong><span class="arithmatex">\(q_{01}\)</span></strong> (start of <strong><span class="arithmatex">\(M_1\)</span></strong>).</li>
+<li>Accept states = <strong><span class="arithmatex">\(F_2\)</span></strong> only (must finish in <strong><span class="arithmatex">\(M_2\)</span></strong>).</li>
+<li><strong><span class="arithmatex">\(\delta\)</span>:</strong></li>
+<li>Keep all original transitions of <strong><span class="arithmatex">\(M_1\)</span></strong> and <strong><span class="arithmatex">\(M_2\)</span></strong>.</li>
+<li>For every <strong>former</strong> accept state <strong><span class="arithmatex">\(q_f \in F_1\)</span></strong>, add <strong><span class="arithmatex">\(\delta(q_f, \varepsilon) \ni q_{02}\)</span></strong> — an ε-transition from each old accept state of <strong><span class="arithmatex">\(M_1\)</span></strong> into the start state of <strong><span class="arithmatex">\(M_2\)</span></strong>.</li>
+<li>The states in <strong><span class="arithmatex">\(F_1\)</span></strong> are <strong>no longer</strong> accept states.</li>
+</ul>
+<p><strong>Why it works.</strong> The NFA processes the first portion of the input through <strong><span class="arithmatex">\(M_1\)</span></strong>. At any point where <strong><span class="arithmatex">\(M_1\)</span></strong> would have accepted (i.e. the prefix is in <strong><span class="arithmatex">\(L_1\)</span></strong>), the NFA non-deterministically jumps via ε to <strong><span class="arithmatex">\(M_2\)</span></strong>, which then processes the remaining suffix. Acceptance requires the suffix to land in <strong><span class="arithmatex">\(F_2\)</span></strong>, i.e. the suffix is in <strong><span class="arithmatex">\(L_2\)</span></strong>.</p>
+<hr>
+<h3 id="kleene-star-closure-nfa-construction">Kleene star closure — NFA construction<a class="headerlink" href="#kleene-star-closure-nfa-construction" title="Permanent link">¶</a></h3>
+<p><strong>Goal.</strong> Given NFA <strong><span class="arithmatex">\(M = (Q, \Sigma, \delta, q_0, F)\)</span></strong>, build NFA <strong><span class="arithmatex">\(N\)</span></strong> with <strong><span class="arithmatex">\(L(N) = L(M)^*\)</span></strong>: zero or more concatenations of strings from <strong><span class="arithmatex">\(L(M)\)</span></strong>.</p>
+<p><strong>Construction.</strong></p>
+<ul>
+<li><strong><span class="arithmatex">\(Q' = \{q_s\} \cup Q\)</span></strong> — a <strong>fresh</strong> start state <strong><span class="arithmatex">\(q_s\)</span></strong>.</li>
+<li><strong><span class="arithmatex">\(q_s\)</span></strong> is <strong>accepting</strong> (so that <strong><span class="arithmatex">\(\varepsilon \in L(N)\)</span></strong>, accounting for zero repetitions).</li>
+<li><strong><span class="arithmatex">\(\delta(q_s, \varepsilon) = \{q_0\}\)</span></strong> — ε-transition from new start to old start.</li>
+<li>For every <strong><span class="arithmatex">\(q_f \in F\)</span></strong>, add <strong><span class="arithmatex">\(\delta(q_f, \varepsilon) \ni q_0\)</span></strong> — ε-transitions from old accept states back to the old start, allowing repetition.</li>
+<li>Accept states = <strong><span class="arithmatex">\(\{q_s\} \cup F\)</span></strong>.</li>
+</ul>
+<p><strong>Pitfall of the naive approach.</strong> A tempting shortcut: just make the <strong>original</strong> start state <strong><span class="arithmatex">\(q_0\)</span></strong> accepting and add ε-transitions from accept states back to <strong><span class="arithmatex">\(q_0\)</span></strong>. This <strong>fails</strong> because making <strong><span class="arithmatex">\(q_0\)</span></strong> accepting can introduce <strong>new paths</strong> that were not in the original language — incoming edges to <strong><span class="arithmatex">\(q_0\)</span></strong> (which may exist in the original NFA or from the back-loop) now reach an accept state that was previously non-accepting, potentially accepting strings outside <strong><span class="arithmatex">\(L(M)^*\)</span></strong>. The fix is the fresh start state <strong><span class="arithmatex">\(q_s\)</span></strong> with no incoming edges other than being the start.</p>
+<hr>
+<h3 id="regular-expressions-recursive-definition">Regular expressions — recursive definition<a class="headerlink" href="#regular-expressions-recursive-definition" title="Permanent link">¶</a></h3>
+<p>A <strong>regular expression</strong> (<strong>regex</strong>) over alphabet <strong><span class="arithmatex">\(\Sigma\)</span></strong> and the language it represents <strong><span class="arithmatex">\(L(R)\)</span></strong> are defined <strong>recursively</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Regex <strong><span class="arithmatex">\(R\)</span></strong></th>
+<th>Language <strong><span class="arithmatex">\(L(R)\)</span></strong></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><span class="arithmatex">\(a\)</span></strong> for <strong><span class="arithmatex">\(a \in \Sigma\)</span></strong></td>
+<td><strong><span class="arithmatex">\(\{a\}\)</span></strong></td>
+<td>Single character</td>
+</tr>
+<tr>
+<td><strong><span class="arithmatex">\(\varepsilon\)</span></strong></td>
+<td><strong><span class="arithmatex">\(\{\varepsilon\}\)</span></strong></td>
+<td>The empty string only</td>
+</tr>
+<tr>
+<td><strong><span class="arithmatex">\(\varnothing\)</span></strong></td>
+<td><strong><span class="arithmatex">\(\varnothing\)</span></strong></td>
+<td>No strings at all (empty language)</td>
+</tr>
+<tr>
+<td><strong><span class="arithmatex">\(R_1 \cup R_2\)</span></strong></td>
+<td><strong><span class="arithmatex">\(L(R_1) \cup L(R_2)\)</span></strong></td>
+<td>Union</td>
+</tr>
+<tr>
+<td><strong><span class="arithmatex">\(R_1 \circ R_2\)</span></strong></td>
+<td><strong><span class="arithmatex">\(L(R_1) \circ L(R_2)\)</span></strong></td>
+<td>Concatenation</td>
+</tr>
+<tr>
+<td><strong><span class="arithmatex">\(R_1^*\)</span></strong></td>
+<td><strong><span class="arithmatex">\(L(R_1)^*\)</span></strong></td>
+<td>Kleene star</td>
+</tr>
+</tbody>
+</table>
+<p>Nothing else is a regular expression. Every regex is built from the three <strong>atomic</strong> cases (<strong><span class="arithmatex">\(a\)</span></strong>, <strong><span class="arithmatex">\(\varepsilon\)</span></strong>, <strong><span class="arithmatex">\(\varnothing\)</span></strong>) and three <strong>compound</strong> operations (<strong><span class="arithmatex">\(\cup\)</span></strong>, <strong><span class="arithmatex">\(\circ\)</span></strong>, <strong><span class="arithmatex">\({}^*\)</span></strong>).</p>
+<hr>
+<h3 id="convenience-features-and-shorthand">Convenience features and shorthand<a class="headerlink" href="#convenience-features-and-shorthand" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Shorthand</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><span class="arithmatex">\(\Sigma\)</span></strong></td>
+<td><strong><span class="arithmatex">\(a_1 \cup a_2 \cup \cdots \cup a_k\)</span></strong> — any single character in the alphabet</td>
+</tr>
+<tr>
+<td><strong><span class="arithmatex">\(\Sigma^*\)</span></strong></td>
+<td>All strings over <strong><span class="arithmatex">\(\Sigma\)</span></strong> (apply Kleene star to the above)</td>
+</tr>
+<tr>
+<td><strong><span class="arithmatex">\(R_1 \mid R_2\)</span></strong></td>
+<td>Alternative notation for <strong><span class="arithmatex">\(R_1 \cup R_2\)</span></strong> (common in programming)</td>
+</tr>
+<tr>
+<td><strong><span class="arithmatex">\(R^+\)</span></strong></td>
+<td><strong><span class="arithmatex">\(R \circ R^*\)</span></strong> — one or more repetitions (excludes <strong><span class="arithmatex">\(\varepsilon\)</span></strong> unless <strong><span class="arithmatex">\(\varepsilon \in L(R)\)</span></strong>)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="order-of-operations-precedence">Order of operations (precedence)<a class="headerlink" href="#order-of-operations-precedence" title="Permanent link">¶</a></h3>
+<p>From <strong>highest</strong> to <strong>lowest</strong> binding:</p>
+<ol>
+<li><strong>Parentheses</strong> <strong><span class="arithmatex">\((\cdots)\)</span></strong> — override everything.</li>
+<li><strong>Kleene star</strong> <strong><span class="arithmatex">\({}^*\)</span></strong> — binds tightest of the operators.</li>
+<li><strong>Concatenation</strong> <strong><span class="arithmatex">\(\circ\)</span></strong> — often written by juxtaposition (no explicit symbol).</li>
+<li><strong>Union</strong> <strong><span class="arithmatex">\(\cup\)</span></strong> — binds loosest.</li>
+</ol>
+<p><strong>Example.</strong> <strong><span class="arithmatex">\(ab^* \cup c\)</span></strong> parses as <strong><span class="arithmatex">\((a(b^*)) \cup c\)</span></strong>: first star <strong><span class="arithmatex">\(b\)</span></strong>, then concatenate <strong><span class="arithmatex">\(a\)</span></strong> with <strong><span class="arithmatex">\(b^*\)</span></strong>, then union with <strong><span class="arithmatex">\(c\)</span></strong>.</p>
+<hr>
+<h3 id="regex-examples">Regex examples<a class="headerlink" href="#regex-examples" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Regex</th>
+<th>Language (over <strong><span class="arithmatex">\(\Sigma = \{0, 1\}\)</span></strong> unless stated)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><span class="arithmatex">\(0^* 1 0^*\)</span></strong></td>
+<td>Strings with <strong>exactly one</strong> <strong><span class="arithmatex">\(1\)</span></strong></td>
+</tr>
+<tr>
+<td><strong><span class="arithmatex">\(\Sigma^* 1 \Sigma^*\)</span></strong></td>
+<td>Strings containing <strong>at least one</strong> <strong><span class="arithmatex">\(1\)</span></strong></td>
+</tr>
+<tr>
+<td><strong><span class="arithmatex">\((\Sigma\Sigma)^*\)</span></strong></td>
+<td>All strings of <strong>even length</strong></td>
+</tr>
+<tr>
+<td><strong><span class="arithmatex">\(0 \cup 1\)</span></strong></td>
+<td><strong><span class="arithmatex">\(\{0, 1\}\)</span></strong> — either a single <strong><span class="arithmatex">\(0\)</span></strong> or a single <strong><span class="arithmatex">\(1\)</span></strong></td>
+</tr>
+<tr>
+<td><strong><span class="arithmatex">\(01 \cup 10\)</span></strong></td>
+<td><strong><span class="arithmatex">\(\{01, 10\}\)</span></strong></td>
+</tr>
+<tr>
+<td><strong><span class="arithmatex">\(0\Sigma^* \cup \varepsilon\)</span></strong></td>
+<td>Strings that <strong>start with 0</strong>, plus the empty string</td>
+</tr>
+<tr>
+<td><strong><span class="arithmatex">\((0 \cup 1)^* 00 (0 \cup 1)^*\)</span></strong></td>
+<td>Strings containing <strong><span class="arithmatex">\(00\)</span></strong> as a substring</td>
+</tr>
+<tr>
+<td><strong><span class="arithmatex">\(1^*(01^+)^*\)</span></strong></td>
+<td>Strings where every <strong><span class="arithmatex">\(0\)</span></strong> is followed by at least one <strong><span class="arithmatex">\(1\)</span></strong></td>
+</tr>
+<tr>
+<td><strong><span class="arithmatex">\(\varnothing^*\)</span></strong></td>
+<td><strong><span class="arithmatex">\(\{\varepsilon\}\)</span></strong> — Kleene star of the empty language contains only the empty string</td>
+</tr>
+<tr>
+<td><strong><span class="arithmatex">\(\varepsilon \circ R\)</span></strong></td>
+<td><strong><span class="arithmatex">\(L(R)\)</span></strong> — concatenating with <strong><span class="arithmatex">\(\varepsilon\)</span></strong> changes nothing</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="regex-dfanfa-equivalence">Regex ↔ DFA/NFA equivalence<a class="headerlink" href="#regex-dfanfa-equivalence" title="Permanent link">¶</a></h3>
+<p><strong>Theorem.</strong> A language is <strong>regular</strong> if and only if some <strong>regular expression</strong> describes it.</p>
+<p>The proof has <strong>two directions:</strong></p>
+<hr>
+<h4 id="direction-1-regex-nfa-structural-induction">Direction 1: Regex → NFA (structural induction)<a class="headerlink" href="#direction-1-regex-nfa-structural-induction" title="Permanent link">¶</a></h4>
+<p><strong>Claim.</strong> For every regex <strong><span class="arithmatex">\(R\)</span></strong>, there exists an NFA <strong><span class="arithmatex">\(N\)</span></strong> with <strong><span class="arithmatex">\(L(N) = L(R)\)</span></strong>.</p>
+<p><strong>Proof by structural induction on the definition of regex:</strong></p>
+<p><strong>Base cases</strong> (construct small NFAs directly):</p>
+<ol>
+<li><strong><span class="arithmatex">\(R = a\)</span></strong> (<strong><span class="arithmatex">\(a \in \Sigma\)</span></strong>): Two states; single transition <strong><span class="arithmatex">\(q_0 \xrightarrow{a} q_f\)</span></strong> where <strong><span class="arithmatex">\(q_f\)</span></strong> is the only accept state.</li>
+<li><strong><span class="arithmatex">\(R = \varepsilon\)</span></strong>: Single state that is both start and accept. No transitions.</li>
+<li><strong><span class="arithmatex">\(R = \varnothing\)</span></strong>: Single state that is start but <strong>not</strong> accept. No transitions. Accepts nothing.</li>
+</ol>
+<p><strong>Inductive cases</strong> (assume NFAs for <strong><span class="arithmatex">\(R_1\)</span></strong> and <strong><span class="arithmatex">\(R_2\)</span></strong> exist):</p>
+<ol>
+<li><strong><span class="arithmatex">\(R = R_1 \cup R_2\)</span></strong>: Apply the <strong>union closure construction</strong> (new start, ε-transitions to both).</li>
+<li><strong><span class="arithmatex">\(R = R_1 \circ R_2\)</span></strong>: Apply the <strong>concatenation closure construction</strong> (ε from <strong><span class="arithmatex">\(M_1\)</span></strong> accept states to <strong><span class="arithmatex">\(M_2\)</span></strong> start).</li>
+<li><strong><span class="arithmatex">\(R = R_1^*\)</span></strong>: Apply the <strong>Kleene star closure construction</strong> (new accepting start, ε loop-back).</li>
+</ol>
+<p>Since every NFA can be converted to a DFA (subset construction), every regex describes a <strong>regular</strong> language.</p>
+<hr>
+<h4 id="direction-2-dfa-regex-via-gnfas-and-state-elimination">Direction 2: DFA → Regex (via GNFAs and state elimination)<a class="headerlink" href="#direction-2-dfa-regex-via-gnfas-and-state-elimination" title="Permanent link">¶</a></h4>
+<p><strong>Goal.</strong> Given any DFA <strong><span class="arithmatex">\(M\)</span></strong>, produce a regex <strong><span class="arithmatex">\(R\)</span></strong> with <strong><span class="arithmatex">\(L(R) = L(M)\)</span></strong>.</p>
+<p><strong>Tool: Generalised NFA (GNFA).</strong> A GNFA is like an NFA except the <strong>labels on transitions are regular expressions</strong> (not single characters). A transition labelled <strong><span class="arithmatex">\(R\)</span></strong> between states <strong><span class="arithmatex">\(q_i\)</span></strong> and <strong><span class="arithmatex">\(q_j\)</span></strong> means: the machine can move from <strong><span class="arithmatex">\(q_i\)</span></strong> to <strong><span class="arithmatex">\(q_j\)</span></strong> by consuming any string in <strong><span class="arithmatex">\(L(R)\)</span></strong>.</p>
+<p><strong>GNFA requirements (canonical form):</strong></p>
+<ol>
+<li><strong>Start state</strong> has <strong>no incoming</strong> arrows (only outgoing).</li>
+<li>Exactly <strong>one accept state</strong>, which has <strong>no outgoing</strong> arrows.</li>
+<li>The start state ≠ accept state.</li>
+<li>Every pair of states (except for arrows into start / out of accept) has exactly <strong>one</strong> transition arrow between them (use <strong><span class="arithmatex">\(\varnothing\)</span></strong> for "no connection").</li>
+</ol>
+<p><strong>Converting a DFA to a GNFA:</strong></p>
+<ol>
+<li>Add a <strong>new start state</strong> <strong><span class="arithmatex">\(q_s\)</span></strong> with a single ε-transition to the DFA's original start state (ensures no incoming arrows to the start).</li>
+<li>Add a <strong>new single accept state</strong> <strong><span class="arithmatex">\(q_a\)</span></strong> with ε-transitions from every original accept state to <strong><span class="arithmatex">\(q_a\)</span></strong> (ensures one accept state with no outgoing arrows).</li>
+<li>Replace multiple transitions between the same pair with their <strong>union</strong>.</li>
+<li>Add <strong><span class="arithmatex">\(\varnothing\)</span></strong>-labelled transitions for any missing pair.</li>
+</ol>
+<p><strong>State elimination procedure (GNFA → 2-state GNFA → regex):</strong></p>
+<p>Repeat until only <strong><span class="arithmatex">\(q_s\)</span></strong> and <strong><span class="arithmatex">\(q_a\)</span></strong> remain:</p>
+<ol>
+<li><strong>Pick</strong> any state <strong><span class="arithmatex">\(q_r\)</span></strong> that is neither <strong><span class="arithmatex">\(q_s\)</span></strong> nor <strong><span class="arithmatex">\(q_a\)</span></strong>.</li>
+<li><strong>Remove</strong> <strong><span class="arithmatex">\(q_r\)</span></strong> from the machine.</li>
+<li><strong>For every pair</strong> of remaining states <strong><span class="arithmatex">\((q_i, q_j)\)</span></strong> (including <strong><span class="arithmatex">\(i = j\)</span></strong>, i.e. self-loops), update the transition label:</li>
+</ol>
+<div class="arithmatex">\[
+R'_{i \to j} = R_{i \to j} \cup R_{i \to r} \circ R_{r \to r}^* \circ R_{r \to j}
+\]</div>
+<p><strong>Intuition.</strong> "I can go from <strong><span class="arithmatex">\(q_i\)</span></strong> to <strong><span class="arithmatex">\(q_j\)</span></strong> either <strong>directly</strong> (the old <strong><span class="arithmatex">\(R_{i \to j}\)</span></strong>), or by going to <strong><span class="arithmatex">\(q_r\)</span></strong> (<strong><span class="arithmatex">\(R_{i \to r}\)</span></strong>), looping at <strong><span class="arithmatex">\(q_r\)</span></strong> zero or more times (<strong><span class="arithmatex">\(R_{r \to r}^*\)</span></strong>), then leaving to <strong><span class="arithmatex">\(q_j\)</span></strong> (<strong><span class="arithmatex">\(R_{r \to j}\)</span></strong>)."</p>
+<p>After eliminating all intermediate states, only <strong><span class="arithmatex">\(q_s\)</span></strong> and <strong><span class="arithmatex">\(q_a\)</span></strong> remain, connected by a <strong>single</strong> transition whose label is the desired regex <strong><span class="arithmatex">\(R\)</span></strong>.</p>
+<hr>
+<h3 id="worked-example-even-1s-dfa-regex">Worked example: even-1s DFA → regex<a class="headerlink" href="#worked-example-even-1s-dfa-regex" title="Permanent link">¶</a></h3>
+<p><strong>DFA.</strong> Two states: <strong><span class="arithmatex">\(q_E\)</span></strong> (even number of 1s, <strong>start</strong> and <strong>accept</strong>) and <strong><span class="arithmatex">\(q_O\)</span></strong> (odd). Alphabet <strong><span class="arithmatex">\(\Sigma = \{0, 1\}\)</span></strong>.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><span class="arithmatex">\(q_E\)</span></strong> (start, accept)</td>
+<td><strong><span class="arithmatex">\(q_E\)</span></strong></td>
+<td><strong><span class="arithmatex">\(q_O\)</span></strong></td>
+</tr>
+<tr>
+<td><strong><span class="arithmatex">\(q_O\)</span></strong></td>
+<td><strong><span class="arithmatex">\(q_O\)</span></strong></td>
+<td><strong><span class="arithmatex">\(q_E\)</span></strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step 1 — Convert to GNFA.</strong> Add fresh start <strong><span class="arithmatex">\(q_s\)</span></strong> with <strong><span class="arithmatex">\(q_s \xrightarrow{\varepsilon} q_E\)</span></strong>, and fresh accept <strong><span class="arithmatex">\(q_a\)</span></strong> with <strong><span class="arithmatex">\(q_E \xrightarrow{\varepsilon} q_a\)</span></strong>. Label self-loops and transitions as regex: <strong><span class="arithmatex">\(q_E \xrightarrow{0} q_E\)</span></strong> (self-loop), <strong><span class="arithmatex">\(q_E \xrightarrow{1} q_O\)</span></strong>, <strong><span class="arithmatex">\(q_O \xrightarrow{0} q_O\)</span></strong> (self-loop), <strong><span class="arithmatex">\(q_O \xrightarrow{1} q_E\)</span></strong>. Fill missing pairs with <strong><span class="arithmatex">\(\varnothing\)</span></strong>.</p>
+<p>The GNFA now has 4 states: <strong><span class="arithmatex">\(q_s, q_E, q_O, q_a\)</span></strong>.</p>
+<p><strong>Step 2 — Eliminate</strong> <strong><span class="arithmatex">\(q_O\)</span></strong> (it is neither start nor accept).</p>
+<p>For every remaining pair <strong><span class="arithmatex">\((q_i, q_j)\)</span></strong> where <strong><span class="arithmatex">\(q_i, q_j \in \{q_s, q_E, q_a\}\)</span></strong>, apply the update formula with <strong><span class="arithmatex">\(q_r = q_O\)</span></strong>:</p>
+<ul>
+<li><strong><span class="arithmatex">\(q_E \to q_E\)</span>:</strong> <strong><span class="arithmatex">\(R'_{E \to E} = 0 \cup 1 \circ 0^* \circ 1\)</span></strong> (go directly via self-loop <strong><span class="arithmatex">\(0\)</span></strong>, or go to <strong><span class="arithmatex">\(q_O\)</span></strong> via <strong><span class="arithmatex">\(1\)</span></strong>, loop on <strong><span class="arithmatex">\(0^*\)</span></strong>, return via <strong><span class="arithmatex">\(1\)</span></strong>).</li>
+<li><strong><span class="arithmatex">\(q_E \to q_a\)</span>:</strong> <strong><span class="arithmatex">\(R'_{E \to a} = \varepsilon \cup 1 \circ 0^* \circ \varnothing = \varepsilon\)</span></strong> (since <strong><span class="arithmatex">\(q_O\)</span></strong> has no edge to <strong><span class="arithmatex">\(q_a\)</span></strong>, the second term vanishes).</li>
+<li><strong><span class="arithmatex">\(q_s \to q_E\)</span>:</strong> <strong><span class="arithmatex">\(R'_{s \to E} = \varepsilon \cup \varnothing \circ 0^* \circ 1 = \varepsilon\)</span></strong> (since <strong><span class="arithmatex">\(q_s\)</span></strong> has no edge to <strong><span class="arithmatex">\(q_O\)</span></strong>, the second term vanishes).</li>
+<li><strong><span class="arithmatex">\(q_s \to q_a\)</span>:</strong> remains <strong><span class="arithmatex">\(\varnothing\)</span></strong> (both paths through <strong><span class="arithmatex">\(q_O\)</span></strong> are blocked).</li>
+</ul>
+<p>GNFA now has 3 states: <strong><span class="arithmatex">\(q_s, q_E, q_a\)</span></strong> with <strong><span class="arithmatex">\(q_s \xrightarrow{\varepsilon} q_E\)</span></strong>, <strong><span class="arithmatex">\(q_E\)</span></strong> self-loop <strong><span class="arithmatex">\(0 \cup 10^*1\)</span></strong>, <strong><span class="arithmatex">\(q_E \xrightarrow{\varepsilon} q_a\)</span></strong>.</p>
+<p><strong>Step 3 — Eliminate</strong> <strong><span class="arithmatex">\(q_E\)</span></strong>.</p>
+<ul>
+<li><strong><span class="arithmatex">\(q_s \to q_a\)</span>:</strong> <strong><span class="arithmatex">\(R'_{s \to a} = \varnothing \cup \varepsilon \circ (0 \cup 10^*1)^* \circ \varepsilon = (0 \cup 10^*1)^*\)</span></strong>.</li>
+</ul>
+<p><strong>Result.</strong> The regex is:</p>
+<div class="arithmatex">\[
+(0 \cup 10^*1)^*
+\]</div>
+<p>This describes all binary strings with an <strong>even number of 1s</strong> — matching the original DFA.</p>
+<hr>
+<h2 id="2-exam-style-questions-with-model-answers">2. EXAM-STYLE QUESTIONS (WITH MODEL ANSWERS)<a class="headerlink" href="#2-exam-style-questions-with-model-answers" title="Permanent link">¶</a></h2>
+<h3 id="q1-union-nfa-construction">Q1 — Union NFA construction<a class="headerlink" href="#q1-union-nfa-construction" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Given NFA <strong><span class="arithmatex">\(M_1\)</span></strong> recognising <strong><span class="arithmatex">\(L_1\)</span></strong> and NFA <strong><span class="arithmatex">\(M_2\)</span></strong> recognising <strong><span class="arithmatex">\(L_2\)</span></strong>, describe precisely how to construct an NFA <strong><span class="arithmatex">\(N\)</span></strong> with <strong><span class="arithmatex">\(L(N) = L_1 \cup L_2\)</span></strong>. State <strong><span class="arithmatex">\(Q\)</span></strong>, <strong><span class="arithmatex">\(q_0\)</span></strong>, <strong><span class="arithmatex">\(F\)</span></strong>, and the key transitions.</p>
+<p><strong>Model answer.</strong> Introduce a <strong>fresh</strong> start state <strong><span class="arithmatex">\(q_0\)</span></strong> with <strong><span class="arithmatex">\(\delta(q_0, \varepsilon) = \{q_{01}, q_{02}\}\)</span></strong> (ε-transitions to both original starts). Set <strong><span class="arithmatex">\(Q = \{q_0\} \cup Q_1 \cup Q_2\)</span></strong>, keep all original transitions, and set <strong><span class="arithmatex">\(F = F_1 \cup F_2\)</span></strong>. On input <strong><span class="arithmatex">\(w\)</span></strong>, the NFA non-deterministically follows <strong><span class="arithmatex">\(M_1\)</span></strong> or <strong><span class="arithmatex">\(M_2\)</span></strong>; it accepts iff at least one branch reaches an accept state, so <strong><span class="arithmatex">\(L(N) = L_1 \cup L_2\)</span></strong>. The new start has <strong>no incoming</strong> edges and transitions <strong>only</strong> on <strong><span class="arithmatex">\(\varepsilon\)</span></strong> — it never "re-enters" the choice point.</p>
+<hr>
+<h3 id="q2-kleene-star-pitfall">Q2 — Kleene star pitfall<a class="headerlink" href="#q2-kleene-star-pitfall" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Explain why the following "shortcut" for <strong><span class="arithmatex">\(L(M)^*\)</span></strong> is <strong>incorrect</strong>: "make the original start state <strong><span class="arithmatex">\(q_0\)</span></strong> accepting and add ε-transitions from every accept state back to <strong><span class="arithmatex">\(q_0\)</span></strong>." Give a concrete example where the shortcut accepts a string <strong>not</strong> in <strong><span class="arithmatex">\(L(M)^*\)</span></strong>.</p>
+<p><strong>Model answer.</strong> Making <strong><span class="arithmatex">\(q_0\)</span></strong> accepting can create <strong>new accepting paths</strong> that skip parts of the original machine. Consider <strong><span class="arithmatex">\(M\)</span></strong> with <strong><span class="arithmatex">\(L(M) = \{01\}\)</span></strong>: states <strong><span class="arithmatex">\(q_0 \xrightarrow{0} q_1 \xrightarrow{1} q_2\)</span></strong> where <strong><span class="arithmatex">\(q_2\)</span></strong> is the only accept state. With the shortcut, <strong><span class="arithmatex">\(q_0\)</span></strong> becomes accepting. Now add <strong><span class="arithmatex">\(q_2 \xrightarrow{\varepsilon} q_0\)</span></strong>. The string <strong><span class="arithmatex">\(0\)</span></strong> is now accepted: read <strong><span class="arithmatex">\(0\)</span></strong> to reach <strong><span class="arithmatex">\(q_1\)</span></strong>, but we can also trace: start at <strong><span class="arithmatex">\(q_0\)</span></strong> (now accepting) — actually the problem is subtler. If there were <strong>incoming</strong> edges to <strong><span class="arithmatex">\(q_0\)</span></strong> (e.g. from the ε-loop <strong><span class="arithmatex">\(q_2 \to q_0\)</span></strong>), strings that reach <strong><span class="arithmatex">\(q_0\)</span></strong> mid-computation now accept prematurely. Concretely, <strong><span class="arithmatex">\(010\)</span></strong> would be accepted: read <strong><span class="arithmatex">\(01\)</span></strong> to <strong><span class="arithmatex">\(q_2\)</span></strong>, ε to <strong><span class="arithmatex">\(q_0\)</span></strong>, read <strong><span class="arithmatex">\(0\)</span></strong> to <strong><span class="arithmatex">\(q_1\)</span></strong> — but <strong><span class="arithmatex">\(q_0\)</span></strong> was visited and is now accepting, so the substring <strong><span class="arithmatex">\(01\)</span></strong> accepted, then a stray <strong><span class="arithmatex">\(0\)</span></strong> remains. Actually the accepting run uses the ε-back then recognises at <strong><span class="arithmatex">\(q_0\)</span></strong> as accepting after the ε — meaning the NFA accepts <strong><span class="arithmatex">\(01\)</span></strong> (which is in <strong><span class="arithmatex">\(L^*\)</span></strong>) then <strong><span class="arithmatex">\(0\)</span></strong> remains unconsumed — wait, NFAs must consume the whole string. The correct problematic example: if the original NFA had <strong>any</strong> transitions into <strong><span class="arithmatex">\(q_0\)</span></strong>, those paths now lead to an accept state that was not previously accepting, potentially accepting new strings. A standard example: suppose <strong><span class="arithmatex">\(M\)</span></strong> recognises strings starting with <strong><span class="arithmatex">\(a\)</span></strong> and ending with <strong><span class="arithmatex">\(b\)</span></strong> (<strong><span class="arithmatex">\(q_0 \xrightarrow{a} q_1 \xrightarrow{b} q_2\)</span></strong> with <strong><span class="arithmatex">\(q_2\)</span></strong> accepting). The shortcut makes <strong><span class="arithmatex">\(q_0\)</span></strong> accepting (<strong><span class="arithmatex">\(\varepsilon\)</span></strong> is fine — zero repetitions). But with the ε-back, after reading <strong><span class="arithmatex">\(ab\)</span></strong> we ε-jump to <strong><span class="arithmatex">\(q_0\)</span></strong>, then reading <strong><span class="arithmatex">\(b\)</span></strong> takes us — only if there is a <strong><span class="arithmatex">\(b\)</span></strong>-transition from <strong><span class="arithmatex">\(q_0\)</span></strong> (there isn't). The cleanest example: if <strong><span class="arithmatex">\(q_0\)</span></strong> already has a self-loop or incoming transition on some symbol, making <strong><span class="arithmatex">\(q_0\)</span></strong> accepting creates a new accepting computation. The <strong>safe</strong> construction avoids this entirely by using a <strong>fresh</strong> start state <strong><span class="arithmatex">\(q_s\)</span></strong> with <strong>no incoming edges</strong>.</p>
+<hr>
+<h3 id="q3-converting-a-regex-to-an-nfa">Q3 — Converting a regex to an NFA<a class="headerlink" href="#q3-converting-a-regex-to-an-nfa" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Using the closure constructions, draw or describe the NFA for the regex <strong><span class="arithmatex">\((0 \cup 1) \circ 0^*\)</span></strong> over <strong><span class="arithmatex">\(\Sigma = \{0, 1\}\)</span></strong>. Explain which construction applies at each step.</p>
+<p><strong>Model answer.</strong> Build bottom-up:</p>
+<ol>
+<li><strong>Base NFAs:</strong> NFA for <strong><span class="arithmatex">\(0\)</span></strong>: <strong><span class="arithmatex">\(q_a \xrightarrow{0} q_b\)</span></strong> (accept at <strong><span class="arithmatex">\(q_b\)</span></strong>). NFA for <strong><span class="arithmatex">\(1\)</span></strong>: <strong><span class="arithmatex">\(q_c \xrightarrow{1} q_d\)</span></strong> (accept at <strong><span class="arithmatex">\(q_d\)</span></strong>).</li>
+<li><strong>Union</strong> <strong><span class="arithmatex">\(0 \cup 1\)</span></strong>: Fresh start <strong><span class="arithmatex">\(q_u\)</span></strong> with <strong><span class="arithmatex">\(\varepsilon\)</span></strong>-transitions to <strong><span class="arithmatex">\(q_a\)</span></strong> and <strong><span class="arithmatex">\(q_c\)</span></strong>. Accept states <strong><span class="arithmatex">\(\{q_b, q_d\}\)</span></strong>.</li>
+<li><strong>Base NFA for second <span class="arithmatex">\(0\)</span>:</strong> <strong><span class="arithmatex">\(q_e \xrightarrow{0} q_f\)</span></strong> (accept at <strong><span class="arithmatex">\(q_f\)</span></strong>).</li>
+<li><strong>Kleene star</strong> <strong><span class="arithmatex">\(0^*\)</span></strong>: Fresh accepting start <strong><span class="arithmatex">\(q_s\)</span></strong> with <strong><span class="arithmatex">\(\varepsilon\)</span></strong> to <strong><span class="arithmatex">\(q_e\)</span></strong>. Add <strong><span class="arithmatex">\(q_f \xrightarrow{\varepsilon} q_e\)</span></strong> for repetition. Accept states <strong><span class="arithmatex">\(\{q_s, q_f\}\)</span></strong>.</li>
+<li><strong>Concatenation</strong> <strong><span class="arithmatex">\((0 \cup 1) \circ 0^*\)</span></strong>: From accept states of the union NFA (<strong><span class="arithmatex">\(q_b, q_d\)</span></strong>), add <strong><span class="arithmatex">\(\varepsilon\)</span></strong>-transitions to the start of the star NFA (<strong><span class="arithmatex">\(q_s\)</span></strong>). Strip <strong><span class="arithmatex">\(q_b, q_d\)</span></strong> of accept status. Final accept states: <strong><span class="arithmatex">\(\{q_s, q_f\}\)</span></strong> (from the star sub-NFA).</li>
+</ol>
+<p>The resulting NFA accepts any string that starts with <strong><span class="arithmatex">\(0\)</span></strong> or <strong><span class="arithmatex">\(1\)</span></strong> followed by zero or more <strong><span class="arithmatex">\(0\)</span></strong>s.</p>
+<hr>
+<h3 id="q4-gnfa-state-elimination">Q4 — GNFA state elimination<a class="headerlink" href="#q4-gnfa-state-elimination" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> State the <strong>GNFA state-removal formula</strong>. Given a 3-state GNFA with states <strong><span class="arithmatex">\(\{q_s, q_1, q_a\}\)</span></strong> where <strong><span class="arithmatex">\(q_s \xrightarrow{a} q_1\)</span></strong>, <strong><span class="arithmatex">\(q_1\)</span></strong> self-loop <strong><span class="arithmatex">\(b\)</span></strong>, <strong><span class="arithmatex">\(q_1 \xrightarrow{a} q_a\)</span></strong>, and <strong><span class="arithmatex">\(q_s \xrightarrow{\varnothing} q_a\)</span></strong>, eliminate <strong><span class="arithmatex">\(q_1\)</span></strong> to find the resulting regex.</p>
+<p><strong>Model answer.</strong> The state-removal formula for eliminating <strong><span class="arithmatex">\(q_r\)</span></strong> is:</p>
+<div class="arithmatex">\[
+R'_{i \to j} = R_{i \to j} \cup R_{i \to r} \circ R_{r \to r}^* \circ R_{r \to j}
+\]</div>
+<p>Applying with <strong><span class="arithmatex">\(q_r = q_1\)</span></strong>, <strong><span class="arithmatex">\(q_i = q_s\)</span></strong>, <strong><span class="arithmatex">\(q_j = q_a\)</span></strong>:</p>
+<div class="arithmatex">\[
+R'_{s \to a} = \varnothing \cup a \circ b^* \circ a = ab^*a
+\]</div>
+<p>The resulting regex is <strong><span class="arithmatex">\(ab^*a\)</span></strong>: strings of the form <strong><span class="arithmatex">\(a\)</span></strong>, followed by zero or more <strong><span class="arithmatex">\(b\)</span></strong>s, followed by <strong><span class="arithmatex">\(a\)</span></strong>.</p>
+<hr>
+<h3 id="q5-regex-equivalence">Q5 — Regex equivalence<a class="headerlink" href="#q5-regex-equivalence" title="Permanent link">¶</a></h3>
+<p><strong>Question.</strong> Outline <strong>both directions</strong> of the proof that a language is regular if and only if it is described by a regular expression. For each direction, name the proof technique and the key idea.</p>
+<p><strong>Model answer.</strong></p>
+<p><strong>(Regex → Regular):</strong> By <strong>structural induction</strong> on the recursive definition of regular expressions. <strong>Base cases:</strong> NFAs for single-character <strong><span class="arithmatex">\(a\)</span></strong>, <strong><span class="arithmatex">\(\varepsilon\)</span></strong>, and <strong><span class="arithmatex">\(\varnothing\)</span></strong> are trivially constructible. <strong>Inductive cases:</strong> given NFAs for <strong><span class="arithmatex">\(R_1\)</span></strong> and <strong><span class="arithmatex">\(R_2\)</span></strong>, use the NFA closure constructions for <strong>union</strong>, <strong>concatenation</strong>, and <strong>Kleene star</strong> to build an NFA for each compound expression. Since every NFA has an equivalent DFA, the language is regular.</p>
+<p><strong>(Regular → Regex):</strong> Start with a DFA. Convert it to a <strong>GNFA</strong> in canonical form (fresh start with no incoming arrows, single accept state with no outgoing arrows, regex-labelled transitions). <strong>Eliminate states</strong> one at a time using the formula <strong><span class="arithmatex">\(R'_{i \to j} = R_{i \to j} \cup R_{i \to r} \circ R_{r \to r}^* \circ R_{r \to j}\)</span></strong> until only the start and accept remain. The single transition label from start to accept is the desired regex. Each elimination <strong>preserves</strong> the language because all paths through the removed state are folded into the updated labels.</p>
+<hr>
+<h2 id="3-must-know-key-points">3. MUST-KNOW KEY POINTS<a class="headerlink" href="#3-must-know-key-points" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Closure under union:</strong> new start state with ε-transitions to both original starts; accept states = <strong><span class="arithmatex">\(F_1 \cup F_2\)</span></strong>.</li>
+<li><strong>Closure under concatenation:</strong> ε-transitions from <strong><span class="arithmatex">\(M_1\)</span></strong>'s accept states to <strong><span class="arithmatex">\(M_2\)</span></strong>'s start; only <strong><span class="arithmatex">\(M_2\)</span></strong>'s accept states remain accepting.</li>
+<li><strong>Closure under Kleene star:</strong> <strong>fresh</strong> accepting start <strong><span class="arithmatex">\(q_s\)</span></strong> with ε to old start; ε from old accept states back to old start. <strong>Must</strong> use a new start state to avoid the naive-alteration pitfall.</li>
+<li><strong>Regular expression</strong> = recursive definition with six cases: <strong><span class="arithmatex">\(a\)</span></strong>, <strong><span class="arithmatex">\(\varepsilon\)</span></strong>, <strong><span class="arithmatex">\(\varnothing\)</span></strong>, <strong><span class="arithmatex">\(R_1 \cup R_2\)</span></strong>, <strong><span class="arithmatex">\(R_1 \circ R_2\)</span></strong>, <strong><span class="arithmatex">\(R_1^*\)</span></strong>.</li>
+<li><strong>Precedence:</strong> <strong><span class="arithmatex">\({}^*\)</span></strong> &gt; <strong><span class="arithmatex">\(\circ\)</span></strong> &gt; <strong><span class="arithmatex">\(\cup\)</span></strong> (parentheses override).</li>
+<li><strong>Regex → NFA:</strong> structural induction; base cases for atoms, inductive cases use closure constructions.</li>
+<li><strong>DFA → Regex:</strong> convert DFA to GNFA (canonical form), then <strong>eliminate states</strong> one by one with the formula <strong><span class="arithmatex">\(R'_{i \to j} = R_{i \to j} \cup R_{i \to r} \circ R_{r \to r}^* \circ R_{r \to j}\)</span></strong>, ending with a 2-state GNFA whose sole transition label is the regex.</li>
+<li><strong>GNFA canonical form:</strong> start state has no incoming arrows; single accept state has no outgoing arrows; every pair of states has exactly one (possibly <strong><span class="arithmatex">\(\varnothing\)</span></strong>-labelled) transition.</li>
+<li><strong>Equivalence theorem:</strong> regex ⇔ NFA ⇔ DFA — all describe exactly the class of <strong>regular languages</strong>.</li>
+</ul>
+<hr>
+<h2 id="4-high-priority-topics">4. HIGH-PRIORITY TOPICS<a class="headerlink" href="#4-high-priority-topics" title="Permanent link">¶</a></h2>
+<h3 id="must-know">🔴 Must Know<a class="headerlink" href="#must-know" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>NFA constructions</strong> for all three closures (union, concatenation, Kleene star): be able to state <strong><span class="arithmatex">\(Q\)</span></strong>, <strong><span class="arithmatex">\(q_0\)</span></strong>, <strong><span class="arithmatex">\(F\)</span></strong>, and the ε-transitions precisely.</li>
+<li><strong>Kleene star pitfall:</strong> why you <strong>must</strong> add a fresh start state rather than modifying the original.</li>
+<li><strong>Recursive definition of regex:</strong> all six cases, and the distinction between <strong><span class="arithmatex">\(\varepsilon\)</span></strong> (language <strong><span class="arithmatex">\(\{\varepsilon\}\)</span></strong>) and <strong><span class="arithmatex">\(\varnothing\)</span></strong> (empty language).</li>
+<li><strong>Order of operations:</strong> <strong><span class="arithmatex">\({}^*\)</span></strong> &gt; <strong><span class="arithmatex">\(\circ\)</span></strong> &gt; <strong><span class="arithmatex">\(\cup\)</span></strong>.</li>
+<li><strong>Regex → NFA proof sketch:</strong> structural induction using the three closure constructions.</li>
+<li><strong>GNFA state-elimination formula:</strong> <strong><span class="arithmatex">\(R'_{i \to j} = R_{i \to j} \cup R_{i \to r} \circ R_{r \to r}^* \circ R_{r \to j}\)</span></strong>.</li>
+<li><strong>GNFA canonical form</strong> requirements (no incoming to start, single accept with no outgoing).</li>
+<li><strong>Equivalence</strong> of regex, NFA, DFA, and regular languages.</li>
+</ul>
+<h3 id="important">🟡 Important<a class="headerlink" href="#important" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Complement closure</strong> proof for DFAs (flip accept/non-accept states) — easy but sometimes examined alongside the big three.</li>
+<li><strong>DFA → GNFA conversion steps</strong> (add fresh start/accept, consolidate transitions, fill <strong><span class="arithmatex">\(\varnothing\)</span></strong>).</li>
+<li><strong>Worked example</strong> of state elimination (e.g. even-1s DFA → regex <strong><span class="arithmatex">\((0 \cup 10^*1)^*\)</span></strong>).</li>
+<li>Applying <strong>regex</strong> to describe specific languages (practice parsing and constructing regex).</li>
+<li><strong>Convenience notation:</strong> <strong><span class="arithmatex">\(\Sigma\)</span></strong>, <strong><span class="arithmatex">\(\Sigma^*\)</span></strong>, <strong><span class="arithmatex">\(R^+\)</span></strong>, <strong><span class="arithmatex">\(R \mid R\)</span></strong>.</li>
+</ul>
+<h3 id="useful-but-lower-priority">🟢 Useful but Lower Priority<a class="headerlink" href="#useful-but-lower-priority" title="Permanent link">¶</a></h3>
+<ul>
+<li>Formal proof that each state-elimination step preserves the language.</li>
+<li><strong>Uniqueness</strong> — the same language can have many different regexes; there is no single canonical regex.</li>
+<li>DFA union construction via <strong>Cartesian product</strong> (from lecture 2) vs the NFA ε-transition construction — both work but the NFA version is simpler and generalises to all three closures.</li>
+<li>Extended regex features in real programming (backreferences, lookahead) go <strong>beyond</strong> regular languages.</li>
+</ul>
+<hr>
+<h2 id="5-topic-interconnections-bigger-picture">5. TOPIC INTERCONNECTIONS &amp; BIGGER PICTURE<a class="headerlink" href="#5-topic-interconnections-bigger-picture" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>NFAs and closure</strong> are the bridge between <strong>DFA</strong> theory (lectures 1–3) and <strong>regular expressions</strong> — the closure constructions are the mechanical core that makes the regex ↔ NFA equivalence work.</li>
+<li><strong>Structural induction</strong> on regex mirrors the <strong>recursive definition</strong> — the proof technique and the data structure align perfectly. This pattern recurs in formal logic and programming language theory.</li>
+<li><strong>GNFAs</strong> are a "convenience tool" much like NFAs themselves: they do not add power but make the DFA → regex direction tractable. The same theme — <strong>syntactic sugar</strong> without extra computational power — appears across automata theory.</li>
+<li>The <strong>equivalence</strong> regex ⇔ NFA ⇔ DFA establishes that <strong>regular languages</strong> have three completely interchangeable characterisations. Later topics (<strong>pumping lemma</strong>, <strong>context-free grammars</strong>) use this equivalence: any result about DFAs automatically applies to regex and vice versa.</li>
+<li><strong>Concatenation</strong> closure foreshadows <strong>pushdown automata</strong> and <strong>context-free grammars</strong>, where concatenation of language fragments drives derivation rules.</li>
+<li>In <strong>practice</strong>, regex engines in programming languages (Python, Java, grep) implement these NFA constructions at their core, though they add non-regular extensions (backreferences) that exceed the power of finite automata.</li>
+</ul>
+<hr>
+<h2 id="6-exam-strategy-tips">6. EXAM STRATEGY TIPS<a class="headerlink" href="#6-exam-strategy-tips" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Draw the NFA constructions:</strong> a quick sketch of the union/concatenation/star NFA with labelled ε-transitions is often worth more than a paragraph of text. Label the fresh start state clearly.</li>
+<li><strong>Kleene star:</strong> always mention the <strong>fresh start state</strong> and <strong>why</strong> the naive approach fails — this is a classic exam pitfall question.</li>
+<li><strong>Regex parsing:</strong> when given a regex, apply precedence rules explicitly. Write out the parse tree if unsure: <strong>star first</strong>, then <strong>concatenation</strong>, then <strong>union</strong>.</li>
+<li><strong>GNFA elimination:</strong> write the formula <strong><span class="arithmatex">\(R'_{i \to j} = R_{i \to j} \cup R_{i \to r} \circ R_{r \to r}^* \circ R_{r \to j}\)</span></strong> at the top of your working and fill in systematically for each pair. Don't skip pairs — missing one transition leads to an incorrect regex.</li>
+<li><strong>Don't confuse <span class="arithmatex">\(\varepsilon\)</span> and <span class="arithmatex">\(\varnothing\)</span>:</strong> <strong><span class="arithmatex">\(\varepsilon\)</span></strong> in a regex means "the empty string is in the language"; <strong><span class="arithmatex">\(\varnothing\)</span></strong> means "nothing is in the language." <strong><span class="arithmatex">\(\varnothing \circ R = \varnothing\)</span></strong> but <strong><span class="arithmatex">\(\varepsilon \circ R = R\)</span></strong>.</li>
+<li><strong>Check your regex</strong> by testing a few strings mentally: does the empty string match? Does a single character match? Does a "boundary" string match?</li>
+<li>When converting DFA → regex, <strong>choose wisely</strong> which state to eliminate first — states with fewer connections produce simpler intermediate expressions. But the final result is equivalent regardless of elimination order.</li>
+<li><strong>Two-direction proofs:</strong> if asked to show regex ⇔ regular, clearly separate the two directions and name the technique for each (structural induction vs GNFA state elimination).</li>
+</ul>
+<hr>
+<p><em>These notes cover Automata Lectures 4–5 of COMP0003. Follow your lecturer's conventions for GNFA notation, state-elimination order, and whether union is written as </em><em><span class="arithmatex">\(\cup\)</span></em><em> or </em><em><span class="arithmatex">\(\mid\)</span></em><em> in formal definitions.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
