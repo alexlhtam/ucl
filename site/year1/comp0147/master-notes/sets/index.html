@@ -4253,13 +4253,13 @@
 <ul>
 <li>natural number = set of all smaller natural numbers
 $$
-\begin{align}
-0 &amp;:= \varnothing \nonumber \
-1 &amp;:= {0} = {\varnothing} \nonumber \
-2 &amp;:= {0, 1} = {\varnothing, {\varnothing}} \nonumber \
-&amp;\vdots \nonumber \
-n &amp;:= {0, 1, 2, \dots, n-1} \nonumber
-\end{align}
+\begin{aligned}
+0 &amp;:= \varnothing \cr
+1 &amp;:= {0} = {\varnothing} \cr
+2 &amp;:= {0, 1} = {\varnothing, {\varnothing}} \cr
+&amp;\vdots \cr
+n &amp;:= {0, 1, 2, \dots, n-1}
+\end{aligned}
 $$</li>
 <li>the successor of <span class="arithmatex">\(n\)</span> is defined by $$ S(n):= n \cup {n}$$</li>
 <li>arith7metic and induction can be defined purely from set theory;</li>
@@ -4276,10 +4276,10 @@ $$</li>
 <li>
 <p>listing its elements inside curly braces:
 $$
-\begin{align}
-S_1 &amp;= {\text{Ana}, {\text{Bia}}, \text{Carlos} } \nonumber \
-S_2 &amp;= {\text{Jupiter}, \pi, {200} } \nonumber
-\end{align}
+\begin{aligned}
+S_1 &amp;= {\text{Ana}, {\text{Bia}}, \text{Carlos} } \cr
+S_2 &amp;= {\text{Jupiter}, \pi, {200} }
+\end{aligned}
 $$</p>
 </li>
 <li>
@@ -4290,7 +4290,7 @@ $$ S_3 = {x \in \R \vert -2 \leq x \leq 5} $$</p>
 <p>using a recursive definition
 $$
 \begin{cases}
-1 \in S_5 \
+1 \in S_5 \cr
 \text{if } x \in S_5 \text{ and } x + 5 &lt; 10, \text{ then } x + 2 \in S_5
 \end{cases}
 $$</p>
@@ -4299,7 +4299,7 @@ $$</p>
 <p>defining a characteristic function
 $$
 \mu_a(x) = \begin{cases}
-1, \text{ if } x \in \N \text{ and } x \text{ is prime} \
+1, \text{ if } x \in \N \text{ and } x \text{ is prime} \cr
 0, \text{ otherwise}
 \end{cases}
 $$</p>
@@ -4398,13 +4398,13 @@ $$ A_1 \times A_2 \times \dots \times A_n = {(a_1, a_2, \dots, a_n \vert a_i \in
   $$ A = B \text{ iff } \forall x: (x \in A \leftrightarrow x\in B)$$</li>
 <li>theorem: $ A = B $ iff <span class="arithmatex">\(A \subseteq B\)</span> and <span class="arithmatex">\(B \subseteq A\)</span>
   proof: writing <span class="arithmatex">\(A \subseteq B\)</span> and <span class="arithmatex">\(B \subseteq A\)</span> formally:
-  $$\begin{align}
-    &amp;A = B \
-    \equiv \quad &amp;\forall x : (x \in A \leftrightarrow x \in B) \
-    \equiv \quad &amp;\forall x : ((x \in A \rightarrow x \in B) \land (x \in B \rightarrow x \in A)) \
-    \equiv \quad &amp;(\forall x : (x \in A \rightarrow x \in B)) \land (\forall x : (x \in B \rightarrow x \in A)) \
+  $$\begin{aligned}
+    &amp;A = B \cr
+    \equiv \quad &amp;\forall x : (x \in A \leftrightarrow x \in B) \cr
+    \equiv \quad &amp;\forall x : ((x \in A \rightarrow x \in B) \land (x \in B \rightarrow x \in A)) \cr
+    \equiv \quad &amp;(\forall x : (x \in A \rightarrow x \in B)) \land (\forall x : (x \in B \rightarrow x \in A)) \cr
     \equiv \quad &amp;A \subseteq B \land B \subseteq A
-  \end{align}
+  \end{aligned}
   $$</li>
 <li>2: definition of equality</li>
 <li>3: definition of <span class="arithmatex">\(\leftrightarrow\)</span></li>

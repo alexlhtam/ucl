@@ -132,8 +132,8 @@ a complete bipartite graph $K_{m, n}$ is a bipartite graph where very vertex in 
 ## adjacency matrixes
 > for a graph $G = (V, E)$ with vertices $v_1, v_2, \dots, v_n$ the adjacency matrix $A$ is an $n \times n$ matrix where: 
 $$ a_{ij} = \begin{cases}
-1 \text{ if } \set{v_i, v_j} \text{ is an edge} \\
-0 \text { otherwise}
+1 \text{ if } \set{v_i, v_j} \text{ is an edge} \cr
+0 \text{ otherwise}
 \end{cases}$$
 - symmetric if undirected
 - storage: $O(|V|^2)$; good for dense graphs
@@ -141,7 +141,7 @@ $$ a_{ij} = \begin{cases}
 
 ## incidence matrix
 > let $G = (V, E)$ with vertices $v_1, v_2, \dots, v_n$ and edges $e_1, e_2, \dots, e_m$. 
-> the incidence matrix $M$ s an $n \times m$ matrix where: $$ m_{ij} \begin{cases} 1 \text{ if edge } e_j \text{ is incident with } v_i \\ 0 \text{ otherwise } \end{cases}$$
+> the incidence matrix $M$ s an $n \times m$ matrix where: $$ m_{ij} = \begin{cases} 1 \text{ if edge } e_j \text{ is incident with } v_i \cr 0 \text{ otherwise } \end{cases}$$
 - columns represent edges
 - each column sums to 2 (for simple graphs)
 
