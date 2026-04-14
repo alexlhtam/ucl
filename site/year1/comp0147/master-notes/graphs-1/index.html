@@ -4438,8 +4438,8 @@ a complete bipartite graph <span class="arithmatex">\(K_{m, n}\)</span> is a bip
 <blockquote>
 <p>for a graph <span class="arithmatex">\(G = (V, E)\)</span> with vertices <span class="arithmatex">\(v_1, v_2, \dots, v_n\)</span> the adjacency matrix <span class="arithmatex">\(A\)</span> is an <span class="arithmatex">\(n \times n\)</span> matrix where: 
 $$ a_{ij} = \begin{cases}
-1 \text{ if } \set{v_i, v_j} \text{ is an edge} \
-0 \text { otherwise}
+1 \text{ if } \set{v_i, v_j} \text{ is an edge} \cr
+0 \text{ otherwise}
 \end{cases}$$
 - symmetric if undirected
 - storage: <span class="arithmatex">\(O(|V|^2)\)</span>; good for dense graphs
@@ -4448,7 +4448,7 @@ $$ a_{ij} = \begin{cases}
 <h2 id="incidence-matrix">incidence matrix<a class="headerlink" href="#incidence-matrix" title="Permanent link">¶</a></h2>
 <blockquote>
 <p>let <span class="arithmatex">\(G = (V, E)\)</span> with vertices <span class="arithmatex">\(v_1, v_2, \dots, v_n\)</span> and edges <span class="arithmatex">\(e_1, e_2, \dots, e_m\)</span>. 
-the incidence matrix <span class="arithmatex">\(M\)</span> s an <span class="arithmatex">\(n \times m\)</span> matrix where: $$ m_{ij} \begin{cases} 1 \text{ if edge } e_j \text{ is incident with } v_i \ 0 \text{ otherwise } \end{cases}$$
+the incidence matrix <span class="arithmatex">\(M\)</span> s an <span class="arithmatex">\(n \times m\)</span> matrix where: $$ m_{ij} = \begin{cases} 1 \text{ if edge } e_j \text{ is incident with } v_i \cr 0 \text{ otherwise } \end{cases}$$
 - columns represent edges
 - each column sums to 2 (for simple graphs)</p>
 </blockquote>

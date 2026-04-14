@@ -14,11 +14,11 @@ let $x$ and $y$ be the two odd numbers respectively
 
 since $x$ and $y$ are both odd, there exist some numbers $k$ and $j$ such that $$x = 2k + 1 \newline y=2j+1$$
 
-therefore, $$\begin{align}
-x \cdot y &= (2k+1)(2j+1) \\
-&= 2kj + 2k + 2j + 1 \\
+therefore, $$\begin{aligned}
+x \cdot y &= (2k+1)(2j+1) \cr
+&= 2kj + 2k + 2j + 1 \cr
 &=2(kj + k + j) + 1
-\end{align}$$
+\end{aligned}$$
 
 since $k$ and $j$ are both integers, $kj + k + j$ must also be an integer. 
 we therefore have by direct proof that multiples of two odd numbers must also be odd

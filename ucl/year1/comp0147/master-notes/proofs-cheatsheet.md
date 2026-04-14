@@ -16,11 +16,11 @@ $$ (\neg Q \rightarrow \neg P \equiv P \rightarrow Q)$$
 3. conclude that the assumption that $P$ is false cannot hold
 4. therefore, $P$ is true
 
-$$\begin{align}
-    \neg (Q \rightarrow R) &\equiv \neg(\neg Q \lor R) \\
-    & \equiv \neg \neg Q \land \neg R \\
-    & Q \land \neg R
-\end{align}$$
+$$\begin{aligned}
+    \neg (Q \rightarrow R) &\equiv \neg(\neg Q \lor R) \cr
+    & \equiv \neg \neg Q \land \neg R \cr
+    & \equiv Q \land \neg R
+\end{aligned}$$
 
 ### proof by contradiction (of $P \rightarrow Q$)
 1. assume that $P \rightarrow Q$ is false (i.e. $P$ is true and $Q$ is false)

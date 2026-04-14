@@ -64,7 +64,7 @@ the function $f \circ g$ is called the `composition of f and g`
 - give a domain $A$, the identity function $i_A: A \longrightarrow A$ is deinfed as:
 $$ i_A(a) = a, \forall a \in A$$
 - theorem: if $f : X \longrightarrow Y$ is a bijective function with inverse $f^{-1}: Y \longrightarrow X$ then
-$$ f^{-1} \circ f = i_X \\ f\circ f^{-1}  = i_Y$$
+$$ f^{-1} \circ f = i_X \qquad f\circ f^{-1}  = i_Y$$
 - theorem: if $f: X \longrightarrow Y$ and $g: Y \longrightarrow Z$ are injective functions, then $g \circ f$ is injective
 
 ## important funcs: floor and ceiling
@@ -126,9 +126,9 @@ $$ \sum_{i=m}^n a_i = a_m + a_{m+1} + a_{m+2} + \dots + a_n$$
 
 ## products
 - the product of the terms  $a_m, a_m+1, a_m+2, \dots, a_n$ of $\set{a_k}$ is the product 
-$$ \prod_{i=m}^n a_i = a_m + a_{m+1} + a_{m+2} + \dots + a_n$$
-- given two sequence sequence sof real numbers
-$$ a_m, a_m+1, a_m+2, \dots \\ b_m, b_m+1, b_m+2, \dots$$
+$$ \prod_{i=m}^n a_i = a_m \cdot a_{m+1} \cdot a_{m+2} \cdots a_n$$
+- given two sequences of real numbers
+$$ a_m, a_{m+1}, a_{m+2}, \dots \qquad b_m, b_{m+1}, b_{m+2}, \dots$$
   and let $c$ be any real number
   then the folowing equations are valid for any $n \geq m$:
   1. $ \sum_{k=m}^n a_k + \sum_{k=m}^n b_k = \sum_{k=m}^n (a_k + b_k)$'

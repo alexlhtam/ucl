@@ -28,7 +28,7 @@ f(0) = 1, \quad f(1) = 1, \qquad f(n) = f(n-1) + f(n-2) \text{ for } n \geq 2
 ### McCarthy's 91 Function
 
 \[
-M(n) = \begin{cases} n - 10 & \text{if } n > 100 \\ M(M(n+11)) & \text{if } n \leq 100 \end{cases}
+M(n) = \begin{cases} n - 10 & \text{if } n > 100 \cr M(M(n+11)) & \text{if } n \leq 100 \end{cases}
 \]
 
 Result: \(M(n) = 91\) for all \(n \leq 100\).

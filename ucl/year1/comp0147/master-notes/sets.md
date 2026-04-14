@@ -1,13 +1,13 @@
 # set of natural numbers - von Neumann
 - natural number = set of all smaller natural numbers
 $$
-\begin{align}
-0 &:= \varnothing \nonumber \\
-1 &:= \{0\} = \{\varnothing\} \nonumber \\
-2 &:= \{0, 1\} = \{\varnothing, \{\varnothing\}\} \nonumber \\
-&\vdots \nonumber \\
-n &:= \{0, 1, 2, \dots, n-1\} \nonumber
-\end{align}
+\begin{aligned}
+0 &:= \varnothing \cr
+1 &:= \{0\} = \{\varnothing\} \cr
+2 &:= \{0, 1\} = \{\varnothing, \{\varnothing\}\} \cr
+&\vdots \cr
+n &:= \{0, 1, 2, \dots, n-1\}
+\end{aligned}
 $$
 - the successor of $n$ is defined by $$ S(n):= n \cup \{n\}$$
 - arith7metic and induction can be defined purely from set theory;
@@ -20,10 +20,10 @@ $$
 ## ways of defining sets
 - listing its elements inside curly braces:
 $$
-\begin{align}
-S_1 &= \{\text{Ana}, \{\text{Bia}\}, \text{Carlos} \} \nonumber \\
-S_2 &= \{\text{Jupiter}, \pi, \{200\} \} \nonumber
-\end{align}
+\begin{aligned}
+S_1 &= \{\text{Ana}, \{\text{Bia}\}, \text{Carlos} \} \cr
+S_2 &= \{\text{Jupiter}, \pi, \{200\} \}
+\end{aligned}
 $$
 
 - specifying a property that defines its elements, as in $S = \{x \vert P(x)\}$
@@ -32,7 +32,7 @@ $$ S_3 = \{x \in \R \vert -2 \leq x \leq 5\} $$
 - using a recursive definition
 $$
 \begin{cases}
-1 \in S_5 \\
+1 \in S_5 \cr
 \text{if } x \in S_5 \text{ and } x + 5 < 10, \text{ then } x + 2 \in S_5
 \end{cases}
 $$
@@ -40,7 +40,7 @@ $$
 - defining a characteristic function
 $$
 \mu_a(x) = \begin{cases}
-1, \text{ if } x \in \N \text{ and } x \text{ is prime} \\
+1, \text{ if } x \in \N \text{ and } x \text{ is prime} \cr
 0, \text{ otherwise}
 \end{cases}
 $$
@@ -119,13 +119,13 @@ $$ A_1 \times A_2 \times \dots \times A_n = \{(a_1, a_2, \dots, a_n \vert a_i \i
   $$ A = B \text{ iff } \forall x: (x \in A \leftrightarrow x\in B)$$
 - theorem: $ A = B $ iff $A \subseteq B$ and $B \subseteq A$
   proof: writing $A \subseteq B$ and $B \subseteq A$ formally:
-  $$\begin{align}
-    &A = B \\
-    \equiv \quad &\forall x : (x \in A \leftrightarrow x \in B) \\
-    \equiv \quad &\forall x : ((x \in A \rightarrow x \in B) \land (x \in B \rightarrow x \in A)) \\
-    \equiv \quad &(\forall x : (x \in A \rightarrow x \in B)) \land (\forall x : (x \in B \rightarrow x \in A)) \\
+  $$\begin{aligned}
+    &A = B \cr
+    \equiv \quad &\forall x : (x \in A \leftrightarrow x \in B) \cr
+    \equiv \quad &\forall x : ((x \in A \rightarrow x \in B) \land (x \in B \rightarrow x \in A)) \cr
+    \equiv \quad &(\forall x : (x \in A \rightarrow x \in B)) \land (\forall x : (x \in B \rightarrow x \in A)) \cr
     \equiv \quad &A \subseteq B \land B \subseteq A
-  \end{align}
+  \end{aligned}
   $$
   - 2: definition of equality
   - 3: definition of $\leftrightarrow$
