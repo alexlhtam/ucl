@@ -64,17 +64,17 @@ $$ \forall a, b, c \in A. (a, b) \in R \land (b, c) \in R \rightarrow (a, c) \in
 - let $R$ be a relation from $A$ to $B$. The `Boolean Matrix` representing $R$ is defined as:
 $$ M_R[a, b] = 
 \begin{cases}
-1, \text{ if } (a, b) \in R \\
+1, \text{ if } (a, b) \in R \cr
 0, \text{ if } (a, b) \notin R
 \end{cases}
 $$
 - we can compute union, intersection and difference of relations as 
 $$
-\begin{align*}
-M_{R_1 \cup R_2} &= M_{R_1} \lor M_{R_2} \\
-M_{R_1 \cap R_2} &= M_{R_1} \land M_{R_2} \\
+\begin{aligned}
+M_{R_1 \cup R_2} &= M_{R_1} \lor M_{R_2} \cr
+M_{R_1 \cap R_2} &= M_{R_1} \land M_{R_2} \cr
 M_{R_1 - R_2} &= M_{R_1} \land \neg M_{R_2}
-\end{align*}
+\end{aligned}
 $$
 
 ## composition of relations
@@ -85,18 +85,18 @@ $$
 - <b>EXAMPLE</b>: let the sets be $A = \set{x, y, z}$, $B = \set{1, 2}$ and $C = \set{\alpha, \beta}$. 
   let $R$ be the relation from $A$ to $B$ and $S$ be the relation from $B$ to $C$ below:
 $$
-\begin{align*}
-    R &= \set{(x, 1), (x, 2), (y, 1), (z, 2) } \\
-    x &= \set{(1, \alpha), (1, \beta), (2, \beta)}
-\end{align*}
+\begin{aligned}
+    R &= \set{(x, 1), (x, 2), (y, 1), (z, 2) } \cr
+    S &= \set{(1, \alpha), (1, \beta), (2, \beta)}
+\end{aligned}
 $$
 
   determine the composite relation $S \circ R$
 
   <b>SOLUTION</b>: the relation $S \circ R$ is constructed by taking all the ordered pairs in $R$ and all the ordered pairs in $S$ where the second element of the pair in $R$ is the same as the first element of the pair in $S$. Thus, 
-  $$ \begin{align*}
+  $$ \begin{aligned}
     S \circ R = \set{(x, \alpha), (x, \beta), (y, \alpha), (y, \beta), (z, \beta)}
-  \end{align*}
+  \end{aligned}
   $$
 - a relation on a set can be composed with itself
 - let $H$ be the set of all people and $F$ be the relation on $H$ such that $(a, b) \in F)$ if and only if $a$ is the son/daughter of $b$
@@ -107,17 +107,17 @@ $$
 - the composition of a relation with itself can be generalised as follows
 let $R$ be a relation on set $A$. the powers $R^n$, for $n = 1, 2, 3, \dots,$ are defined recursively as 
 $$\begin{cases}
-R^1 = R \\
+R^1 = R \cr
 R^{n+1} = R^n \circ R
 \end{cases}
 $$
 thus 
-$$\begin{align*}
-R^2 &= R^1 \circ R = R \circ R, \\
-R^3 &= R^2 \circ R = R \circ R \circ R, \\
-R^4 &= R^3 \circ R = R \circ R \circ R\ \circ R, \\
-\dots
-\end{align*}
+$$\begin{aligned}
+R^2 &= R^1 \circ R = R \circ R, \cr
+R^3 &= R^2 \circ R = R \circ R \circ R, \cr
+R^4 &= R^3 \circ R = R \circ R \circ R \circ R, \cr
+&\vdots
+\end{aligned}
 $$
 
 ## closure of a relation: introduction
@@ -135,10 +135,10 @@ $$
 find the `reflexive closure` of $R$
 solution: $R$ is not reflexive. To make it reflexive while adding the minimum number of elements, we add the pairs $(2, 2)$ and $(3, 3)$, since these are the only pairs of the form $(a, a)$ with $a \in A$ not already in $R$
 
-- the reflexive closure of a relation $R$ on a set $A$ is given by the relation $$S = R \cup \Delta$$ where $\Delta = \set{(a, a) \space \vert \space a \in A}$ is the `diagonal relation` on $A$
+- the reflexive closure of a relation $R$ on a set $A$ is given by the relation $$ S = R \cup \Delta $$ where $\Delta = \set{(a, a) \mid a \in A}$ is the `diagonal relation` on $A$
 
 ## symmetric closure 
-- the symmetric closure of a relation $R$ on set $A$ is given by the relation $$ S = R \cup R^{-1}$$ where $R^{-1}$ is the inverse relation of $R$ on $A$, defined as $$ R^{-1} = \set{(b, a) \space \vert \space (a, b) \in R}$$
+- the symmetric closure of a relation $R$ on set $A$ is given by the relation $$ S = R \cup R^{-1} $$ where $R^{-1}$ is the inverse relation of $R$ on $A$, defined as $$ R^{-1} = \set{(b, a) \mid (a, b) \in R} $$
 
 ## transitive closure
 - check the pairs
@@ -180,13 +180,13 @@ let $a$ and $b$ be any two elements of $A$. the equivalence classes of these ele
 <br>
 - a `partition on a set` $A$ is a collection of disjoint subsets of $A$ such that the union of these subsets is the set $A$ itself
 - formally, a `partition of a set` $A$ is a collection of subsets $\set{A_1, A_2, \dots, A_n}$ of $A$ such that:
-  1. for all $1 \leq 1 \leq i \leq j \leq n, A_i \cap A_j = \varnothing$; and 
+  1. for all integers $i, j$ with $1 \leq i < j \leq n$, $A_i \cap A_j = \varnothing$; and
   2. $A_1 \cup A_2 \cup \dots \cup A_n = A$
 - the central idea of an equivalence relation is precisely to group together elements that are related to one another
 equivalence classes and partitions are two sides of the same coin
 - let $R$ be an equivalence relation on a set $S$. then:
   1. the equivalence classes of $R$ form a partition of $S$
-  2. conversely, given a partition $\set{A_i \space \vert \space i \in I}$ of the set $S$, there exists an equivalence relation $R$ whose equivalence classes are exactly the sets $A_i$, for each $i \in I$
+  2. conversely, given a partition $\set{A_i \mid i \in I}$ of the set $S$, there exists an equivalence relation $R$ whose equivalence classes are exactly the sets $A_i$, for each $i \in I$
 
 # partial order relations
 
@@ -210,7 +210,7 @@ equivalence classes and partitions are two sides of the same coin
   1. $\mathbb{R}, \leq$: the set of real numbers with the relation $\leq$
   2. $\mathbb{Z}^+, \vert$: the set of positive integers with the relation "divides"
 <br>
-> two elements $a$ and $b$ of a poset $(S, \preceq)$ are `comparable` if either $ a \preceq b$ or $b \preceq a$
+> two elements $a$ and $b$ of a poset $(S, \preceq)$ are `comparable` if either $a \preceq b$ or $b \preceq a$
 - otherwise, they are incomparable
 
 > if any two elements $a$ and $b$ of a poset $(S, \preceq)$ are comparable, we say that $S$ is a `totally (or linearly) ordered set`
@@ -221,7 +221,7 @@ equivalence classes and partitions are two sides of the same coin
   let $S^*$ be the Cartesian product of $S$ with itself
   one can define a lexicographic order ore dictionary order on the set $S^*$ as follows:
   $$(a_1, a_2, \dots, a_n) \preceq (b_1, b_2, \dots, b_n) \quad \text{ if}$$ 
-  1. $m \leq n$ and $a_i = b_i$ for all $ 1 \leq i \leq m$
+  1. $m \leq n$ and $a_i = b_i$ for all $1 \leq i \leq m$
   2. there exists a $k$ satisfying $1 \leq k \leq \text{min}(m, n)$ such that $a_i = b_i$ for all $1 \leq i \leq k - 1$, and $a_k \preceq b_k$ but $a_k \neq b_k$
   3. if $(a_1, a_2, \times, a_m) = \lambda$ is the empty sequence
 
